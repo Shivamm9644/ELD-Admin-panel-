@@ -1,0 +1,668 @@
+<!-- Breadcrumb-->
+<div class="row pt-2 pb-2">
+	<div class="col-sm-9">
+		<h4 class="page-title">Data Widgets</h4>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="javaScript:;">Bulona</a>
+			</li>
+			<li class="breadcrumb-item"><a href="javaScript:;">Widgets</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Data Widgets</li>
+		</ol>
+	</div>
+	<div class="col-sm-3">
+		<div ngbDropdown class="btn-group float-sm-right">
+			<button type="button" class="btn btn-outline-danger"><i class="fa fa-cog mr-1"></i> Setting</button>
+			<button type="button" class="btn btn-danger" id="dropdownBasic5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic5"> 
+        		<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumb-->
+<div class="row">
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card gradient-danger border-0">
+			<div class="card-body">
+				<div class="row align-items-center">
+					<div class="col">
+						<h5 class="mb-0 text-white">Incomes</h5>
+					</div>
+					<div class="col">
+						<div class="icon-box float-right rounded-circle bg-light"> <i class="zmdi zmdi-money text-white"></i>
+						</div>
+					</div>
+				</div>
+				<h3 class="mt-4 mb-0 text-white">$45,263</h3>
+				<p class="mb-0 extra-small-font text-white">2.5% Increase</p>
+				<div class="chart-container-12 mt-4">
+					<canvas baseChart [datasets]="dwChart1Data" [labels]="dwChart1Labels" [options]="dwChart1Options" [colors]="dwChart1Colors" [legend]="dwChart1Legend" [chartType]="dwChart1Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card gradient-info" style="border: 4px solid #fff; border-radius: 25px;">
+			<div class="card-body">
+				<div class="row align-items-center">
+					<div class="col">
+						<h5 class="mb-0 text-white">Expenses</h5>
+					</div>
+					<div class="col">
+						<div class="icon-box float-right rounded-circle bg-light"> <i class="zmdi zmdi-balance-wallet text-white"></i>
+						</div>
+					</div>
+				</div>
+				<h3 class="mt-4 mb-0 text-white">$87,263</h3>
+				<p class="mb-0 extra-small-font text-white">6.3% Increase</p>
+			</div>
+			<div class="chart-container-12 mt-4">
+				<canvas baseChart [datasets]="dwChart2Data" [labels]="dwChart2Labels" [options]="dwChart2Options" [colors]="dwChart2Colors" [legend]="dwChart2Legend" [chartType]="dwChart2Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card gradient-primary border-0">
+			<div class="card-body">
+				<div class="row align-items-center">
+					<div class="col">
+						<h5 class="mb-0 text-white">Active Users</h5>
+					</div>
+					<div class="col">
+						<div class="icon-box float-right rounded-circle bg-light"> <i class="zmdi zmdi-accounts-alt text-white"></i>
+						</div>
+					</div>
+				</div>
+				<h3 class="mt-4 mb-0 text-white">97,283</h3>
+				<p class="mb-0 extra-small-font text-white">4.2% Increase</p>
+			</div>
+			<div class="chart-container-12 mt-4">
+				<canvas id="data-chart3"></canvas>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card bg-dark" style="border: 4px solid #fff; border-radius: 0px;">
+			<div class="card-body">
+				<div class="row align-items-center">
+					<div class="col">
+						<h5 class="mb-0 text-white">Orders</h5>
+					</div>
+					<div class="col">
+						<div class="icon-box float-right rounded-circle gradient-danger"> <i class="zmdi zmdi-shopping-basket text-white"></i>
+						</div>
+					</div>
+				</div>
+				<h3 class="mt-4 mb-0 text-white">28,153</h3>
+				<p class="mb-0 extra-small-font text-white">3.1% Increase</p>
+			</div>
+			<div class="chart-container-12 mt-4">
+				<canvas baseChart [datasets]="dwChart4Data" [labels]="dwChart4Labels" [options]="dwChart4Options" [colors]="dwChart4Colors" [legend]="dwChart4Legend" [chartType]="dwChart4Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+<div class="row">
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card bg-white border-0">
+			<div class="card-header text-center border-0 text-uppercase text-dark">Social Analytcs</div>
+			<div class="chart-container-13 mt-4">
+				<canvas id="data-chart5"></canvas>
+			</div>
+			<ul class="list-group list-group-flush shadow-none">
+				<li class="list-group-item bg-transparent border-bottom">
+					<div class="media align-items-center"> <i class="zmdi zmdi-facebook-box text-facebook fa-2x mr-2"></i>
+						<div class="media-body ml-3">
+							<h6 class="mb-0 text-dark">8456</h6>
+							<p class="mb-0 text-dark">Followers</p>
+						</div> <small class="px-2 py-1 rounded bg-facebook text-white">2.5% <i class="zmdi zmdi-long-arrow-up text-white"></i></small>
+					</div>
+				</li>
+				<li class="list-group-item bg-transparent border-bottom">
+					<div class="media align-items-center"> <i class="zmdi zmdi-twitter-box text-twitter fa-2x mr-2"></i>
+						<div class="media-body ml-3">
+							<h6 class="mb-0 text-dark">7368</h6>
+							<p class="mb-0 text-dark">Tweets</p>
+						</div> <small class="px-2 py-1 rounded bg-twitter text-white">1.3% <i class="zmdi zmdi-long-arrow-up text-white"></i></small>
+					</div>
+				</li>
+				<li class="list-group-item bg-transparent border-bottom">
+					<div class="media align-items-center"> <i class="zmdi zmdi-youtube text-youtube fa-2x mr-2"></i>
+						<div class="media-body ml-3">
+							<h6 class="mb-0 text-dark">6482</h6>
+							<p class="mb-0 text-dark">Followers</p>
+						</div> <small class="px-2 py-1 rounded bg-youtube text-white">4.7% <i class="zmdi zmdi-long-arrow-up text-white"></i></small>
+					</div>
+				</li>
+				<li class="list-group-item bg-transparent">
+					<div class="media align-items-center"> <i class="zmdi zmdi-linkedin-box text-linkedin fa-2x mr-2 text-white"></i>
+						<div class="media-body ml-3">
+							<h6 class="mb-0 text-dark">9426</h6>
+							<p class="mb-0 text-dark">Followers</p>
+						</div> <small class="px-2 py-1 rounded bg-linkedin text-white">3.2% <i class="zmdi zmdi-long-arrow-up text-white"></i></small>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card rounded-0 gradient-smile">
+			<div class="card-body">
+				<div class="media align-items-center">
+					<div class="media-body">
+						<p class="mb-0 font-weight-bold text-white text-uppercase">Transactions</p> <small class="extra-small-font text-white">Oct 23 - Nov 23</small>
+					</div>
+					<div class="card-action">
+						<div ngbDropdown class="dropdown">
+							<a href="javascript:;" class="dropdown-toggle dropdown-toggle-nocaret" id="dropdownBasic1" ngbDropdownToggle> <i class="zmdi zmdi-more-vert fa-2x text-white"></i>
+							</a>
+							<div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu animated fadeIn dropdown-menu-right"> <a class="dropdown-item" href="javascript:;">Action</a>
+								<a class="dropdown-item" href="javascript:;">Another action</a>
+								<a class="dropdown-item" href="javascript:;">Something else here</a>
+								<div class="dropdown-divider"></div> <a class="dropdown-item" href="javascript:;">Separated link</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="media align-items-center mt-5">
+					<div class="media-body">
+						<h5 class="mb-0 text-white">$89,532.12 <i class="zmdi zmdi-caret-up ml-2"></i></h5>
+					</div>
+					<div id="data-chart6"></div>
+				</div>
+			</div>
+		</div>
+		<div class="card rounded-0 gradient-rainbow">
+			<div class="card-body">
+				<div class="media align-items-center">
+					<div class="media-body">
+						<p class="mb-0 font-weight-bold text-white text-uppercase">Daily Sales</p>
+					</div> <i class="zmdi zmdi-more-vert fa-2x text-white"></i>
+				</div>
+				<div class="media align-items-center mt-5"> <i class="zmdi zmdi-long-arrow-up mr-2 fa-2x text-white"></i>
+					<div class="media-body">
+						<h5 class="mb-0 text-white">$349.82</h5>
+					</div> <small class="extra-small-font text-white">77%</small>
+				</div>
+				<div class="mt-2">
+					<ngb-progressbar type="white" [value]="77" height="4px"></ngb-progressbar>
+				</div>
+			</div>
+		</div>
+		<div class="card rounded-0 gradient-veer">
+			<div class="card-body">
+				<div class="media align-items-center">
+					<div class="media-body">
+						<p class="mb-0 font-weight-bold text-white text-uppercase">Monthely Sales</p>
+					</div> <i class="zmdi zmdi-more-vert fa-2x text-white"></i>
+				</div>
+				<div class="media align-items-center mt-5"> <i class="zmdi zmdi-long-arrow-up mr-2 fa-2x text-white"></i>
+					<div class="media-body">
+						<h5 class="mb-0 text-white">$349.82</h5>
+					</div>
+					<div class="w_chart easy-dash-chart" data-percent="60"> <span class="w_percent"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card" style="border: 3px solid #fff;">
+			<div class="card-header text-uppercase text-center">Top Categories</div>
+			<div class="card-body">
+				<div class="chart-container-13">
+					<div class="d-flex justify-content-center">
+						<div id="data-chart8"></div>
+					</div>
+				</div>
+				<div class="progress-wrapper">
+					<p class="my-3">Mobiles <span class="float-right">320</span>
+					</p>
+					<div class="progress" style="height: 4px;">
+						<div class="progress-bar bg-warning" role="progressbar" style="width: 90%"></div>
+					</div>
+				</div>
+				<div class="progress-wrapper">
+					<p class="my-3">Laptops <span class="float-right">250</span>
+					</p>
+					<div class="progress" style="height: 4px;">
+						<div class="progress-bar bg-danger" role="progressbar" style="width: 60%"></div>
+					</div>
+				</div>
+				<div class="progress-wrapper">
+					<p class="my-3">Headphones <span class="float-right">120</span>
+					</p>
+					<div class="progress" style="height: 4px;">
+						<div class="progress-bar bg-info" role="progressbar" style="width: 45%"></div>
+					</div>
+				</div>
+				<div class="progress-wrapper">
+					<p class="my-3">Shoes <span class="float-right">95</span>
+					</p>
+					<div class="progress" style="height: 4px;">
+						<div class="progress-bar bg-primary" role="progressbar" style="width: 35%"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+<div class="row">
+	<div class="col-12 col-lg-6 col-xl-3">
+		<div class="card texture-primary border-white border-sm rounded-0">
+			<div class="card-body">
+				<div class="media align-items-center">
+					<div class="media-body">
+						<p class="mb-0 text-white">Total Orders</p>
+						<h5 class="mb-0 text-white">452 <small class="extra-small-font bg-light py-1 px-2 rounded mb-0">-1.2%</small></h5>
+					</div>
+					<div class="w-icon"> <i class="zmdi zmdi-shopping-cart text-white"></i>
+					</div>
+				</div>
+			</div>
+			<div class="chart-container-14">
+				<canvas baseChart [datasets]="dwChart12Data" [labels]="dwChart12Labels" [options]="dwChart12Options" [colors]="dwChart12Colors" [legend]="dwChart12Legend" [chartType]="dwChart12Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-6 col-xl-3">
+		<div class="card texture-info border-white border-sm rounded-0">
+			<div class="card-body">
+				<div class="media align-items-center">
+					<div class="media-body">
+						<p class="mb-0 text-white">Total Revenue</p>
+						<h5 class="mb-0 text-white">$656 <small class="extra-small-font bg-light py-1 px-2 rounded mb-0">+2.3%</small></h5>
+					</div>
+					<div class="w-icon"> <i class="zmdi zmdi-balance-wallet text-white"></i>
+					</div>
+				</div>
+			</div>
+			<div class="chart-container-14">
+				<canvas baseChart [datasets]="dwChart13Data" [labels]="dwChart13Labels" [options]="dwChart13Options" [colors]="dwChart13Colors" [legend]="dwChart13Legend" [chartType]="dwChart13Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-6 col-xl-3">
+		<div class="card texture-danger border-white border-sm rounded-0">
+			<div class="card-body">
+				<div class="media align-items-center">
+					<div class="media-body">
+						<p class="mb-0 text-white">Support Requests</p>
+						<h5 class="mb-0 text-white">854 <small class="extra-small-font bg-light py-1 px-2 rounded">+1.5%</small></h5>
+					</div>
+					<div class="w-icon"> <i class="zmdi zmdi-pin-help text-white"></i>
+					</div>
+				</div>
+			</div>
+			<div class="chart-container-14">
+				<canvas baseChart [datasets]="dwChart14Data" [labels]="dwChart14Labels" [options]="dwChart14Options" [colors]="dwChart14Colors" [legend]="dwChart14Legend" [chartType]="dwChart14Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-6 col-xl-3">
+		<div class="card texture-warning border-white border-sm rounded-0">
+			<div class="card-body">
+				<div class="media align-items-center">
+					<div class="media-body">
+						<p class="mb-0 text-white">Messages</p>
+						<h5 class="mb-0 text-white">230 <small class="extra-small-font bg-light py-1 px-2 rounded">-1.2%</small></h5>
+					</div>
+					<div class="w-icon"> <i class="zmdi zmdi-email-open text-white"></i>
+					</div>
+				</div>
+			</div>
+			<div class="chart-container-14">
+				<canvas baseChart [datasets]="dwChart15Data" [labels]="dwChart15Labels" [options]="dwChart15Options" [colors]="dwChart15Colors" [legend]="dwChart15Legend" [chartType]="dwChart15Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+<div class="row">
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card rounded-0">
+			<div class="card-body">
+				<div class="text-center">
+					<p class="mb-0 text-uppercase">Total Visit</p>
+					<h2 class="">3,2247</h2>
+					<div id="data-chart9"></div>
+				</div>
+			</div>
+			<div class="card-footer border-0">
+				<div class="row align-items-center text-center">
+					<div class="col border-right border-light">
+						<h4 class="mb-0">4875.12</h4>
+						<small class="extra-small-font">Average Visits</small>
+					</div>
+					<div class="col">
+						<h4 class="mb-0">75.12</h4>
+						<small class="extra-small-font">Average Unique</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card rounded-0">
+			<div class="card-body">
+				<div class="text-center">
+					<p class="mb-0 text-uppercase">Upcoming Events</p>
+					<h2 class="">856</h2>
+					<div id="data-chart10"></div>
+				</div>
+			</div>
+			<div class="card-footer border-0">
+				<div class="row align-items-center text-center">
+					<div class="col">
+						<h4 class="mb-0">124</h4>
+						<small class="extra-small-font">Nothing Yet</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card rounded-0">
+			<div class="card-body">
+				<div class="text-center">
+					<p class="mb-0 text-uppercase">Total Revenue</p>
+					<h2 class="">$98,452</h2>
+					<div id="data-chart11"></div>
+				</div>
+			</div>
+			<div class="card-footer border-0">
+				<div class="row align-items-center text-center">
+					<div class="col border-right border-light">
+						<h4 class="mb-0">$5879.12</h4>
+						<small class="extra-small-font">Last Week</small>
+					</div>
+					<div class="col">
+						<h4 class="mb-0">$3642.21</h4>
+						<small class="extra-small-font">Last Month</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+<div class="row">
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card rounded-0">
+			<div class="card-body">
+				<div class="text-center">
+					<h6 class="mb-3 text-uppercase">Total Orders</h6>
+					<div id="data-chart-16"></div>
+				</div>
+			</div>
+			<div class="card-footer border-0">
+				<div class="row align-items-center text-center">
+					<div class="col border-right border-light">
+						<h5 class="mb-0">563</h5>
+						<small class="extra-small-font">Last Week</small>
+					</div>
+					<div class="col">
+						<h5 class="mb-0">985</h5>
+						<small class="extra-small-font">Last Month</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card rounded-0">
+			<div class="card-body">
+				<div class="text-center">
+					<h6 class="mb-3 text-uppercase">Total Income</h6>
+					<div id="data-chart-17"></div>
+				</div>
+			</div>
+			<div class="card-footer border-0">
+				<div class="row align-items-center text-center">
+					<div class="col border-right border-light">
+						<h5 class="mb-0">$1,2035</h5>
+						<small class="extra-small-font">Last Week</small>
+					</div>
+					<div class="col">
+						<h5 class="mb-0">$2,859</h5>
+						<small class="extra-small-font">Last Month</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card rounded-0">
+			<div class="card-body">
+				<div class="text-center">
+					<h6 class="mb-3 text-uppercase">New Customers</h6>
+					<div id="data-chart-18"></div>
+				</div>
+			</div>
+			<div class="card-footer border-0">
+				<div class="row align-items-center text-center">
+					<div class="col border-right border-light">
+						<h5 class="mb-0">674</h5>
+						<small class="extra-small-font">Last Week</small>
+					</div>
+					<div class="col">
+						<h5 class="mb-0">968</h5>
+						<small class="extra-small-font">Last Month</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card rounded-0">
+			<div class="card-body">
+				<div class="text-center">
+					<h6 class="mb-3 text-uppercase">Messages</h6>
+					<div id="data-chart-19"></div>
+				</div>
+			</div>
+			<div class="card-footer border-0">
+				<div class="row align-items-center text-center">
+					<div class="col border-right border-light">
+						<h5 class="mb-0">814</h5>
+						<small class="extra-small-font">Last Week</small>
+					</div>
+					<div class="col">
+						<h5 class="mb-0">975</h5>
+						<small class="extra-small-font">Last Week</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+<div class="row">
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card gradient-danger rounded-0">
+			<div class="card-body">
+				<div class="text-center">
+					<h6 class="mb-3 text-uppercase text-white">Total Orders</h6>
+					<div id="data-chart-20"></div>
+				</div>
+			</div>
+			<div class="card-footer border-0 bg-transparent">
+				<div class="row align-items-center text-center">
+					<div class="col border-right border-light-2">
+						<h5 class="mb-0 text-white">563</h5>
+						<small class="extra-small-font text-white">Last Week</small>
+					</div>
+					<div class="col">
+						<h5 class="mb-0 text-white">985</h5>
+						<small class="extra-small-font text-white">Last Month</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card gradient-info rounded-0">
+			<div class="card-body">
+				<div class="text-center">
+					<h6 class="mb-3 text-uppercase text-white">Total Income</h6>
+					<div id="data-chart-21"></div>
+				</div>
+			</div>
+			<div class="card-footer border-0 bg-transparent">
+				<div class="row align-items-center text-center">
+					<div class="col border-right border-light-2">
+						<h5 class="mb-0 text-white">$1,2035</h5>
+						<small class="extra-small-font text-white">Last Week</small>
+					</div>
+					<div class="col">
+						<h5 class="mb-0 text-white">$2,859</h5>
+						<small class="extra-small-font text-white">Last Month</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card gradient-success rounded-0">
+			<div class="card-body">
+				<div class="text-center">
+					<h6 class="mb-3 text-uppercase text-white">New Customers</h6>
+					<div id="data-chart-22"></div>
+				</div>
+			</div>
+			<div class="card-footer border-0 bg-transparent">
+				<div class="row align-items-center text-center">
+					<div class="col border-right border-light-2">
+						<h5 class="mb-0 text-white">674</h5>
+						<small class="extra-small-font text-white">Last Week</small>
+					</div>
+					<div class="col">
+						<h5 class="mb-0 text-white">968</h5>
+						<small class="extra-small-font text-white">Last Month</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card gradient-primary rounded-0">
+			<div class="card-body">
+				<div class="text-center">
+					<h6 class="mb-3 text-uppercase text-white">Messages</h6>
+					<div id="data-chart-23"></div>
+				</div>
+			</div>
+			<div class="card-footer border-0 bg-transparent">
+				<div class="row align-items-center text-center">
+					<div class="col border-right border-light-2">
+						<h5 class="mb-0 text-white">814</h5>
+						<small class="extra-small-font text-white">Last Week</small>
+					</div>
+					<div class="col">
+						<h5 class="mb-0 text-white">975</h5>
+						<small class="extra-small-font text-white">Last Week</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+<div class="row">
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card rounded-0">
+			<div class="card-body">
+				<div class="text-center">
+					<h6 class="mb-3 text-uppercase">Total Orders</h6>
+					<div id="data-chart-24"></div>
+				</div>
+			</div>
+			<div class="card-footer border-0">
+				<div class="row align-items-center text-center">
+					<div class="col border-right border-light">
+						<h5 class="mb-0">563</h5>
+						<small class="extra-small-font">Last Week</small>
+					</div>
+					<div class="col">
+						<h5 class="mb-0">985</h5>
+						<small class="extra-small-font">Last Month</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card rounded-0">
+			<div class="card-body">
+				<div class="text-center">
+					<h6 class="mb-3 text-uppercase">Total Income</h6>
+					<div id="data-chart-25"></div>
+				</div>
+			</div>
+			<div class="card-footer border-0">
+				<div class="row align-items-center text-center">
+					<div class="col border-right border-light">
+						<h5 class="mb-0">$1,2035</h5>
+						<small class="extra-small-font">Last Week</small>
+					</div>
+					<div class="col">
+						<h5 class="mb-0">$2,859</h5>
+						<small class="extra-small-font">Last Month</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card rounded-0">
+			<div class="card-body">
+				<div class="text-center">
+					<h6 class="mb-3 text-uppercase">New Customers</h6>
+					<div id="data-chart-26"></div>
+				</div>
+			</div>
+			<div class="card-footer border-0">
+				<div class="row align-items-center text-center">
+					<div class="col border-right border-light">
+						<h5 class="mb-0">674</h5>
+						<small class="extra-small-font">Last Week</small>
+					</div>
+					<div class="col">
+						<h5 class="mb-0">968</h5>
+						<small class="extra-small-font">Last Month</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card rounded-0">
+			<div class="card-body">
+				<div class="text-center">
+					<h6 class="mb-3 text-uppercase">Messages</h6>
+					<div id="data-chart-27"></div>
+				</div>
+			</div>
+			<div class="card-footer border-0">
+				<div class="row align-items-center text-center">
+					<div class="col border-right border-light">
+						<h5 class="mb-0">814</h5>
+						<small class="extra-small-font">Last Week</small>
+					</div>
+					<div class="col">
+						<h5 class="mb-0">975</h5>
+						<small class="extra-small-font">Last Week</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,13 @@
+@media print {
+  .hide-print {
+      display: none !important;
+    }
+    
+    .page-break  { display:block; page-break-before:always; }
+    
+  }
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 80vh;
+}

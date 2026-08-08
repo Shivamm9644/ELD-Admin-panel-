@@ -1,0 +1,95 @@
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<form action="#"> 
+				<div class="card-body">
+					<div class="btn-group float-sm-right mb-1">
+						<button type="button" data-toggle="modal" (click)="ClearForm()" data-target="#device_type_modal" class="btn btn-outline-success btn-sm">
+							<i class="zmdi zmdi-plus mr-1"></i>Add Device Modal
+						</button> 
+					</div>
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<tr>
+									<th>S.No</th>
+									<th>Device Modal</th>  
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <div id="loading" *ngIf="isLoading">
+									<img src="assets/images/pre_lodding.gif" width="250" height="250"  class="text-center">
+							   </div> -->
+							   <tr *ngFor="let deviceModal of rowData; let i = index">
+								<th style="text-align: center;" scope="row">{{i+1}}</th>
+								<td><a style="color: dodgerblue; cursor: pointer;" data-toggle="modal" data-target="#device_type_modal" (click)="EditDeviceModal(deviceModal.deviceModalId)">{{deviceModal.deviceModalName}}</a></td>
+								<!-- <td>{{deviceModal.deviceModalName}} </td> -->
+								</tr>
+							</tbody>
+						</table>
+						<div class="pre_lodding" *ngIf="isLoading">
+							<img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+						</div>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+<div id="device_type_modal" class="modal fade hide" role="dialog">
+    <form action="#" #masterDeviceModalForm="ngForm">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Device Modal</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label">Device Modal Name<i class="validation_required">*</i></label>
+									<input type="text" id="deviceModalName" name="deviceModalName"  required #deviceModalName="ngModel" class="form-control form-control-sm" [(ngModel)]="deviceModalForm.deviceModalName" placeholder="Device Modal Name">
+								</div>
+								<div *ngIf="!deviceModalName?.valid && (deviceModalName?.dirty || deviceModalName?.touched)" class="error">
+									<div *ngIf="deviceModalName.errors.required">
+										Device Modal Name is required
+									</div>
+								</div>
+							</div>
+							<!-- <div class="col-md-6">
+								<div class="form-group">
+									<label for="clientName" class="control-label">Client<i class="validation_required">*</i></label>
+									<ng-select 
+										[items]="clientDataArr"
+										bindLabel="clientName"
+										bindValue="id"
+										placeholder="Select Client"
+										appendTo="body"
+										name="clientName"
+										required #clientId="ngModel"
+										[(ngModel)]="deviceModalForm.clientId"> 
+                                    </ng-select>
+									<div *ngIf="!clientId?.valid && (clientId?.dirty || clientId?.touched)" class="error">
+										<div *ngIf="clientId.errors.required">
+											Client is required
+										</div>
+									</div>
+								</div>
+							</div> -->
+						</div>						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger"  data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!masterDeviceModalForm.valid" data-dismiss="modal" (click)="SaveDeviceModal()">Save</button>
+					<button type="submit" class="btn btn-primary" *ngIf="isEditMode && !isViewMode" [disabled]="!masterDeviceModalForm.valid" data-dismiss="modal" (click)="UpdateDeviceModal()">Update</button>
+					<button type="button" class="btn btn-danger" *ngIf="isEditMode && !isViewMode"  data-dismiss="modal" (click)="DeleteDeviceModal()">Delete</button>
+
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

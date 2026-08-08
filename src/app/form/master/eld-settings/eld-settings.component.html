@@ -1,0 +1,193 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<form action="#"> 
+				<div class="card-body">
+					<div class="btn-group float-sm-right mb-1">
+						<button type="button" data-toggle="modal" (click)="ClearForm()" data-target="#eldSettingModal" class="btn btn-outline-success btn-sm">
+							<i class="zmdi zmdi-plus mr-1"></i>Add Settings
+						</button>
+					</div>
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<tr>
+									<th>S.No</th>
+									<th>ELD Provider</th>
+                                    <th>ELD Identifier</th>
+                                    <th>ELD Registraion ID</th>
+                                    <th>ELD Software Version</th>
+									<th>Android Version</th>
+									<th>IOS Version</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <div id="loading" *ngIf="isLoading">
+									<img src="assets/images/pre_lodding.gif" width="250" height="250"  class="text-center">
+							   </div> -->
+							    <tr *ngFor="let settings of rowData; let i = index">
+                                    <th style="text-align: center;" scope="row">{{i+1}}</th>
+                                    <td><a style="color: dodgerblue; cursor: pointer;" data-toggle="modal" data-target="#eldSettingModal" (click)="EditEldSettings(settings)">{{settings.eldProvider}}</a></td>
+                                    <td>{{settings.eldIdentifier}}</td>
+                                    <td>{{settings.eldRegistrationId}}</td>
+                                    <td>{{settings.eldSoftwareVersion}}</td>
+									<td>{{settings.androidVersion}}</td>
+									<td>{{settings.iosVersion}}</td>
+                                </tr> 
+							</tbody>
+						</table>
+						<div class="pre_lodding" *ngIf="isLoading">
+							<img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+						</div>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+<div id="eldSettingModal" class="modal fade hide" role="dialog">
+	<form action="#" #eldSettingsForm="ngForm">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Settings</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">ELD Identifier<i class="validation_required">*</i></label>
+									<input type="text" id="eldIdentifier" name="eldIdentifier"  required #eldIdentifier="ngModel" class="form-control form-control-sm" [(ngModel)]="settingForm.eldIdentifier">
+								</div>
+								<div *ngIf="!eldIdentifier?.valid && (eldIdentifier?.dirty || eldIdentifier?.touched)" class="error">
+									<div *ngIf="eldIdentifier.errors.required">
+										Identifier is required
+									</div>
+								</div>
+							</div>
+                            <div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">ELD Provider<i class="validation_required">*</i></label>
+									<input type="text" id="eldProvider" name="eldProvider"  required #eldProvider="ngModel" class="form-control form-control-sm" [(ngModel)]="settingForm.eldProvider">
+								</div>
+								<div *ngIf="!eldProvider?.valid && (eldProvider?.dirty || eldProvider?.touched)" class="error">
+									<div *ngIf="eldProvider.errors.required">
+										Provider is required
+									</div>
+								</div>
+							</div>
+                            <div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">ELD Registration ID<i class="validation_required">*</i></label>
+									<input type="text" id="eldRegistrationId" name="eldRegistrationId"  required #eldRegistrationId="ngModel" class="form-control form-control-sm" [(ngModel)]="settingForm.eldRegistrationId">
+								</div>
+								<div *ngIf="!eldRegistrationId?.valid && (eldRegistrationId?.dirty || eldRegistrationId?.touched)" class="error">
+									<div *ngIf="eldRegistrationId.errors.required">
+										Registraion ID is required
+									</div>
+								</div>
+							</div>
+                            <div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">ELD Software Version<i class="validation_required">*</i></label>
+									<input type="text" id="eldSoftwareVersion" name="eldSoftwareVersion"  required #eldSoftwareVersion="ngModel" class="form-control form-control-sm" [(ngModel)]="settingForm.eldSoftwareVersion">
+								</div>
+								<div *ngIf="!eldSoftwareVersion?.valid && (eldSoftwareVersion?.dirty || eldSoftwareVersion?.touched)" class="error">
+									<div *ngIf="eldSoftwareVersion.errors.required">
+										Software version is required
+									</div>
+								</div>
+							</div>
+                            <div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Google API<i class="validation_required">*</i></label>
+									<input type="text" id="googleApiUrl" name="googleApiUrl"  required #googleApiUrl="ngModel" class="form-control form-control-sm" [(ngModel)]="settingForm.googleApiUrl">
+								</div>
+								<div *ngIf="!googleApiUrl?.valid && (googleApiUrl?.dirty || googleApiUrl?.touched)" class="error">
+									<div *ngIf="googleApiUrl.errors.required">
+										Google api is required
+									</div>
+								</div>
+							</div>
+                            <div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">SMS API<i class="validation_required">*</i></label>
+									<input type="text" id="smsApiUrl" name="smsApiUrl"  required #smsApiUrl="ngModel" class="form-control form-control-sm" [(ngModel)]="settingForm.smsApiUrl">
+								</div>
+								<div *ngIf="!smsApiUrl?.valid && (smsApiUrl?.dirty || smsApiUrl?.touched)" class="error">
+									<div *ngIf="smsApiUrl.errors.required">
+										SMS api is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Android Version<i class="validation_required">*</i></label>
+									<input type="text" id="androidVersion" name="androidVersion"  required #androidVersion="ngModel" class="form-control form-control-sm" [(ngModel)]="settingForm.androidVersion">
+								</div>
+								<div *ngIf="!androidVersion?.valid && (androidVersion?.dirty || androidVersion?.touched)" class="error">
+									<div *ngIf="androidVersion.errors.required">
+										Android version is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Android Code<i class="validation_required">*</i></label>
+									<input type="text" id="androidCode" name="androidCode"  required #androidCode="ngModel" class="form-control form-control-sm" [(ngModel)]="settingForm.androidCode">
+								</div>
+								<div *ngIf="!androidCode?.valid && (androidCode?.dirty || androidCode?.touched)" class="error">
+									<div *ngIf="androidCode.errors.required">
+										Android code is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">IOS Version<i class="validation_required">*</i></label>
+									<input type="text" id="iosVersion" name="iosVersion"  required #iosVersion="ngModel" class="form-control form-control-sm" [(ngModel)]="settingForm.iosVersion">
+								</div>
+								<div *ngIf="!iosVersion?.valid && (iosVersion?.dirty || iosVersion?.touched)" class="error">
+									<div *ngIf="iosVersion.errors.required">
+										IOS version is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">IOS Code<i class="validation_required">*</i></label>
+									<input type="text" id="iosCode" name="iosCode"  required #iosCode="ngModel" class="form-control form-control-sm" [(ngModel)]="settingForm.iosCode">
+								</div>
+								<div *ngIf="!iosCode?.valid && (iosCode?.dirty || iosCode?.touched)" class="error">
+									<div *ngIf="iosCode.errors.required">
+										IOS code is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Terms & Conditions<i class="validation_required">*</i></label>
+									<input type="text" id="termsAndCondition" name="termsAndCondition" required #termsAndCondition="ngModel" class="form-control form-control-sm" [(ngModel)]="settingForm.termsAndCondition">
+								</div>
+								<div *ngIf="!termsAndCondition?.valid && (termsAndCondition?.dirty || termsAndCondition?.touched)" class="error">
+									<div *ngIf="termsAndCondition.errors.required">
+										Terms & Condition is required
+									</div>
+								</div>
+							</div>
+							
+						</div>						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!eldSettingsForm.valid" data-dismiss="modal" (click)="SaveEldSettings()">Save</button>
+					<button type="submit" class="btn btn-primary" *ngIf="isEditMode && !isViewMode" [disabled]="!eldSettingsForm.valid" data-dismiss="modal" (click)="UpdateEldSettings()">Update</button>
+					<button type="button" class="btn btn-danger" *ngIf="isEditMode && !isViewMode"  data-dismiss="modal" (click)="DeleteEldSettings()">Delete</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

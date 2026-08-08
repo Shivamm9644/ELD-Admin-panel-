@@ -1,0 +1,1012 @@
+<!-- Breadcrumb-->
+<div class="row pt-2 pb-2">
+	<div class="col-sm-9">
+		<h4 class="page-title">Cards</h4>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="javaScript:;">Bulona</a>
+			</li>
+			<li class="breadcrumb-item"><a href="javaScript:;">UI Elements</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Cards</li>
+		</ol>
+	</div>
+	<div class="col-sm-3">
+		<div ngbDropdown class="btn-group float-sm-right">
+			<button type="button" class="btn btn-outline-danger"><i class="fa fa-cog mr-1"></i> Setting</button>
+			<button type="button" class="btn btn-danger" id="dropdownBasic5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic5"> 
+        		<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumb-->
+<h6 class="text-uppercase">Cards With images</h6>
+<hr>
+<div class="row">
+	<div class="col-12 col-lg-4">
+		<div class="card">
+			<img src="assets/images/gallery/1.jpg" class="card-img-top" alt="Card image cap">
+			<div class="card-body">
+				<h4 class="card-title">Card title</h4>
+				<h6>Praesent commodo cursus magna.</h6>
+				<p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				<hr> <a href="javascript:;" class="btn btn-primary btn-sm text-white"><i class="fa fa-star mr-1"></i> Go Somewhere</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4">
+		<div class="card">
+			<img src="assets/images/gallery/2.jpg" class="card-img-top" alt="Card image cap">
+			<div class="card-body">
+				<h4 class="card-title">Card title</h4>
+				<h6>Praesent commodo cursus magna.</h6>
+				<p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				<hr> <a href="javascript:;" class="btn btn-primary btn-sm text-white"><i class="fa fa-star mr-1"></i> Go Somewhere</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4">
+		<div class="card">
+			<img src="assets/images/gallery/3.jpg" class="card-img-top" alt="Card image cap">
+			<div class="card-body">
+				<h4 class="card-title">Card title</h4>
+				<h6>Praesent commodo cursus magna.</h6>
+				<p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				<hr> <a href="javascript:;" class="btn btn-primary btn-sm text-white"><i class="fa fa-star mr-1"></i> Go Somewhere</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<h6 class="text-uppercase">Cards With Images and List Groups</h6>
+<hr>
+<div class="row">
+	<div class="col-lg-4">
+		<div class="card">
+			<img src="assets/images/gallery/6.jpg" class="card-img-top" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title">Card Sample title</h5>
+				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			</div>
+			<ul class="list-group list-group-flush list shadow-none">
+				<li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Cras justo odio <span class="badge badge-info badge-pill">14</span>
+				</li>
+				<li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Dapibus ac facilisis in <span class="badge badge-success badge-pill">2</span>
+				</li>
+				<li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Vestibulum at eros <span class="badge badge-danger badge-pill">1</span>
+				</li>
+			</ul>
+			<div class="card-body"> <a href="javascript:;" class="card-link">Card link</a>
+				<a href="javascript:;" class="card-link">Another link</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-4">
+		<div class="card">
+			<img src="assets/images/gallery/7.jpg" class="card-img-top" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title">Card Sample title</h5>
+				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			</div>
+			<ul class="list-group list-group-flush list shadow-none">
+				<li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Cras justo odio <span class="badge badge-info badge-pill">14</span>
+				</li>
+				<li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Dapibus ac facilisis in <span class="badge badge-success badge-pill">2</span>
+				</li>
+				<li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Vestibulum at eros <span class="badge badge-danger badge-pill">1</span>
+				</li>
+			</ul>
+			<div class="card-body"> <a href="javascript:;" class="card-link">Card link</a>
+				<a href="javascript:;" class="card-link">Another link</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-4">
+		<div class="card">
+			<div>
+				<ngb-carousel *ngIf="images">
+					<ng-template ngbSlide>
+						<div>
+							<img src="assets/images/gallery/8.jpg" class="card-img-top" alt="Random first slide">
+						</div>
+					</ng-template>
+					<ng-template ngbSlide>
+						<div>
+							<img src="assets/images/gallery/9.jpg" class="card-img-top" alt="Random second slide">
+						</div>
+					</ng-template>
+					<ng-template ngbSlide>
+						<div>
+							<img src="assets/images/gallery/10.jpg" class="card-img-top" alt="Random third slide">
+						</div>
+					</ng-template>
+				</ngb-carousel>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">Card Sample title</h5>
+				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			</div>
+			<ul class="list-group list-group-flush list shadow-none">
+				<li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Cras justo odio <span class="badge badge-info">14</span>
+				</li>
+				<li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Dapibus ac facilisis in <span class="badge badge-success">2</span>
+				</li>
+				<li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Vestibulum at eros <span class="badge badge-danger">1</span>
+				</li>
+			</ul>
+			<div class="card-body"> <a href="javascript:;" class="card-link">Card link</a>
+				<a href="javascript:;" class="card-link">Another link</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<h6 class="text-uppercase">Card with Color background</h6>
+<hr>
+<div class="row">
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card gradient-info">
+			<div class="card-header border-light-2">
+				<div class="row align-items-center">
+					<div class="col text-left">
+						<p class="mb-0 text-uppercase text-white">New Users</p>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more fa-2x text-white"></i>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="media align-items-center">
+					<img src="assets/images/avatars/avatar-1.png" class="rounded customer-img" alt="user avatar">
+					<div class="media-body ml-3">
+						<h6 class="mb-0 text-white">Nik Jhonson</h6>
+						<p class="mb-0 text-white">jhon@xyz.com</p>
+					</div>
+					<button class="btn btn-sm btn-round btn-light-2">Add</button>
+				</div>
+				<hr class="border-light-2">
+				<div class="media align-items-center">
+					<img src="assets/images/avatars/avatar-2.png" class="rounded customer-img" alt="user avatar">
+					<div class="media-body ml-3">
+						<h6 class="mb-0 text-white">David Sinora</h6>
+						<p class="mb-0 text-white">david@xyz.com</p>
+					</div>
+					<button class="btn btn-sm btn-round btn-light-2">Add</button>
+				</div>
+				<hr class="border-light-2">
+				<div class="media align-items-center">
+					<img src="assets/images/avatars/avatar-3.png" class="rounded customer-img" alt="user avatar">
+					<div class="media-body ml-3">
+						<h6 class="mb-0 text-white">Rabata lun</h6>
+						<p class="mb-0 text-white">lun@xyz.com</p>
+					</div>
+					<button class="btn btn-sm btn-round btn-light-2">Add</button>
+				</div>
+				<hr class="border-light-2">
+				<div class="media align-items-center">
+					<img src="assets/images/avatars/avatar-4.png" class="rounded customer-img" alt="user avatar">
+					<div class="media-body ml-3">
+						<h6 class="mb-0 text-white">Selina Ketty</h6>
+						<p class="mb-0 text-white">selina@xyz.com</p>
+					</div>
+					<button class="btn btn-sm btn-round btn-light-2">Add</button>
+				</div>
+				<hr class="border-light-2">
+				<div class="media align-items-center">
+					<img src="assets/images/avatars/avatar-5.png" class="rounded customer-img" alt="user avatar">
+					<div class="media-body ml-3">
+						<h6 class="mb-0 text-white">Bumtila</h6>
+						<p class="mb-0 text-white">bumtila@xyz.com</p>
+					</div>
+					<button class="btn btn-sm btn-round btn-light-2">Add</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card gradient-danger">
+			<div class="card-header border-light-2">
+				<div class="row align-items-center">
+					<div class="col text-left">
+						<p class="mb-0 text-uppercase text-white">New Users</p>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more fa-2x text-white"></i>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="media align-items-center">
+					<img src="assets/images/avatars/avatar-6.png" class="rounded customer-img" alt="user avatar">
+					<div class="media-body ml-3">
+						<h6 class="mb-0 text-white">Nik Jhonson</h6>
+						<p class="mb-0 text-white">jhon@xyz.com</p>
+					</div>
+					<button class="btn btn-sm btn-round btn-light-2">Add</button>
+				</div>
+				<hr class="border-light-2">
+				<div class="media align-items-center">
+					<img src="assets/images/avatars/avatar-7.png" class="rounded customer-img" alt="user avatar">
+					<div class="media-body ml-3">
+						<h6 class="mb-0 text-white">David Sinora</h6>
+						<p class="mb-0 text-white">david@xyz.com</p>
+					</div>
+					<button class="btn btn-sm btn-round btn-light-2">Add</button>
+				</div>
+				<hr class="border-light-2">
+				<div class="media align-items-center">
+					<img src="assets/images/avatars/avatar-8.png" class="rounded customer-img" alt="user avatar">
+					<div class="media-body ml-3">
+						<h6 class="mb-0 text-white">Rabata lun</h6>
+						<p class="mb-0 text-white">lun@xyz.com</p>
+					</div>
+					<button class="btn btn-sm btn-round btn-light-2">Add</button>
+				</div>
+				<hr class="border-light-2">
+				<div class="media align-items-center">
+					<img src="assets/images/avatars/avatar-9.png" class="rounded customer-img" alt="user avatar">
+					<div class="media-body ml-3">
+						<h6 class="mb-0 text-white">Selina Ketty</h6>
+						<p class="mb-0 text-white">selina@xyz.com</p>
+					</div>
+					<button class="btn btn-sm btn-round btn-light-2">Add</button>
+				</div>
+				<hr class="border-light-2">
+				<div class="media align-items-center">
+					<img src="assets/images/avatars/avatar-10.png" class="rounded customer-img" alt="user avatar">
+					<div class="media-body ml-3">
+						<h6 class="mb-0 text-white">Bumtila</h6>
+						<p class="mb-0 text-white">bumtila@xyz.com</p>
+					</div>
+					<button class="btn btn-sm btn-round btn-light-2">Add</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card gradient-linga border-0">
+			<div class="card-header border-light-2">
+				<div class="row align-items-center">
+					<div class="col text-left">
+						<p class="mb-0 text-uppercase text-white">New Users</p>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more fa-2x text-white"></i>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="media align-items-center">
+					<img src="assets/images/avatars/avatar-11.png" class="rounded customer-img" alt="user avatar">
+					<div class="media-body ml-3">
+						<h6 class="mb-0 text-white">Nik Jhonson</h6>
+						<p class="mb-0 text-white">jhon@xyz.com</p>
+					</div>
+					<button class="btn btn-sm btn-round btn-light-2">Add</button>
+				</div>
+				<hr class="border-light-2">
+				<div class="media align-items-center">
+					<img src="assets/images/avatars/avatar-12.png" class="rounded customer-img" alt="user avatar">
+					<div class="media-body ml-3">
+						<h6 class="mb-0 text-white">David Sinora</h6>
+						<p class="mb-0 text-white">david@xyz.com</p>
+					</div>
+					<button class="btn btn-sm btn-round btn-light-2">Add</button>
+				</div>
+				<hr class="border-light-2">
+				<div class="media align-items-center">
+					<img src="assets/images/avatars/avatar-13.png" class="rounded customer-img" alt="user avatar">
+					<div class="media-body ml-3">
+						<h6 class="mb-0 text-white">Rabata lun</h6>
+						<p class="mb-0 text-white">lun@xyz.com</p>
+					</div>
+					<button class="btn btn-sm btn-round btn-light-2">Add</button>
+				</div>
+				<hr class="border-light-2">
+				<div class="media align-items-center">
+					<img src="assets/images/avatars/avatar-14.png" class="rounded customer-img" alt="user avatar">
+					<div class="media-body ml-3">
+						<h6 class="mb-0 text-white">Selina Ketty</h6>
+						<p class="mb-0 text-white">selina@xyz.com</p>
+					</div>
+					<button class="btn btn-sm btn-round btn-light-2">Add</button>
+				</div>
+				<hr class="border-light-2">
+				<div class="media align-items-center">
+					<img src="assets/images/avatars/avatar-15.png" class="rounded customer-img" alt="user avatar">
+					<div class="media-body ml-3">
+						<h6 class="mb-0 text-white">Bumtila</h6>
+						<p class="mb-0 text-white">bumtila@xyz.com</p>
+					</div>
+					<button class="btn btn-sm btn-round btn-light-2">Add</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+<h6 class="text-uppercase">User Cards</h6>
+<hr>
+<div class="row">
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card gradient-rainbow border-0">
+			<div class="card-body">
+				<div class="row align-items-center">
+					<div class="col text-left"> <i class="zmdi zmdi-share fa-2x text-white"></i>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more-vert fa-2x text-white"></i>
+					</div>
+				</div>
+				<div class="text-center">
+					<div class="profile-card py-5">
+						<img src="assets/images/avatars/avatar-4.png" class="rounded-circle" alt="user avatar">
+					</div>
+					<h5 class="text-uppercase text-white">Devid Jhonsan</h5>
+					<p class="text-white">UI/ UX Designer</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card gradient-veer border-0">
+			<div class="card-body">
+				<div class="row align-items-center">
+					<div class="col text-left"> <i class="zmdi zmdi-share fa-2x text-white"></i>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more-vert fa-2x text-white"></i>
+					</div>
+				</div>
+				<div class="text-center">
+					<div class="profile-card py-5">
+						<img src="assets/images/avatars/avatar-5.png" class="rounded-circle" alt="user avatar">
+					</div>
+					<h5 class="text-uppercase text-white">Michel Oliver</h5>
+					<p class="text-white">Project Manager</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card gradient-worldcup border-0">
+			<div class="card-body">
+				<div class="row align-items-center">
+					<div class="col text-left"> <i class="zmdi zmdi-share fa-2x text-white"></i>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more-vert fa-2x text-white"></i>
+					</div>
+				</div>
+				<div class="text-center">
+					<div class="profile-card py-5">
+						<img src="assets/images/avatars/avatar-13.png" class="rounded-circle" alt="user avatar">
+					</div>
+					<h5 class="text-uppercase text-white">Maxwell Oliva</h5>
+					<p class="text-white">Human Resource</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card gradient-pinki border-0">
+			<div class="card-body">
+				<div class="row align-items-center">
+					<div class="col text-left"> <i class="zmdi zmdi-share fa-2x text-white"></i>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more-vert fa-2x text-white"></i>
+					</div>
+				</div>
+				<div class="text-center">
+					<div class="profile-card py-5">
+						<img src="assets/images/avatars/avatar-16.png" class="rounded-circle" alt="user avatar">
+					</div>
+					<h5 class="text-uppercase text-white">William Otava</h5>
+					<p class="text-white">Web Programmer</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+<div class="row">
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card gradient-info">
+			<div class="profile-cover profile-cover-img1">
+				<div class="profile-card text-center py-5">
+					<img src="assets/images/avatars/avatar-11.png" alt="user avatar">
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="text-center mt-5">
+					<h5 class="text-uppercase text-white">Devid Jhonson</h5>
+					<p class="text-white">Graphic Designer</p>
+					<div class="list-inline mt-4"> <a href="javascript:void()" class="btn-social btn-social-circle bg-white text-facebook m-1"><i class="fa fa-facebook"></i></a>
+						<a href="javascript:void()" class="btn-social btn-social-circle bg-white text-twitter m-1"><i class="fa fa-twitter"></i></a>
+						<a href="javascript:void()" class="btn-social btn-social-circle bg-white text-google m-1"><i class="fa fa-google-plus"></i></a>
+					</div>
+					<hr class="border-light-2">
+					<button type="button" class="btn btn-dark btn-round">Some Action</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card gradient-warning">
+			<div class="profile-cover profile-cover-img2">
+				<div class="profile-card text-center py-5">
+					<img src="assets/images/avatars/avatar-15.png" alt="user avatar">
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="text-center mt-5">
+					<h5 class="text-uppercase text-white">Michel Oliver</h5>
+					<p class="text-white">Web Designer</p>
+					<div class="list-inline mt-4"> <a href="javascript:void()" class="btn-social btn-social-circle bg-white text-facebook m-1"><i class="fa fa-facebook"></i></a>
+						<a href="javascript:void()" class="btn-social btn-social-circle bg-white text-twitter m-1"><i class="fa fa-twitter"></i></a>
+						<a href="javascript:void()" class="btn-social btn-social-circle bg-white text-google m-1"><i class="fa fa-google-plus"></i></a>
+					</div>
+					<hr class="border-light-2">
+					<button type="button" class="btn btn-dark btn-round">Some Action</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card gradient-danger">
+			<div class="profile-cover profile-cover-img3">
+				<div class="profile-card text-center py-5">
+					<img src="assets/images/avatars/avatar-16.png" alt="user avatar">
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="text-center mt-5">
+					<h5 class="text-uppercase text-white">Tonasa Seno</h5>
+					<p class="text-white">.Net Developer</p>
+					<div class="list-inline mt-4"> <a href="javascript:void()" class="btn-social btn-social-circle bg-white text-facebook m-1"><i class="fa fa-facebook"></i></a>
+						<a href="javascript:void()" class="btn-social btn-social-circle bg-white text-twitter m-1"><i class="fa fa-twitter"></i></a>
+						<a href="javascript:void()" class="btn-social btn-social-circle bg-white text-google m-1"><i class="fa fa-google-plus"></i></a>
+					</div>
+					<hr class="border-light-2">
+					<button type="button" class="btn btn-dark btn-round">Some Action</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 col-xl-3">
+		<div class="card gradient-success">
+			<div class="profile-cover profile-cover-img4">
+				<div class="profile-card text-center py-5">
+					<img src="assets/images/avatars/avatar-17.png" alt="user avatar">
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="text-center mt-5">
+					<h5 class="text-uppercase text-white">Tonasa Seno</h5>
+					<p class="text-white">.Net Developer</p>
+					<div class="list-inline mt-4"> <a href="javascript:void()" class="btn-social btn-social-circle bg-white text-facebook m-1"><i class="fa fa-facebook"></i></a>
+						<a href="javascript:void()" class="btn-social btn-social-circle bg-white text-twitter m-1"><i class="fa fa-twitter"></i></a>
+						<a href="javascript:void()" class="btn-social btn-social-circle bg-white text-google m-1"><i class="fa fa-google-plus"></i></a>
+					</div>
+					<hr class="border-light-2">
+					<button type="button" class="btn btn-dark btn-round">Some Action</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+<h6 class="text-uppercase">Rounded Background Cards</h6>
+<hr>
+<div class="row">
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card border-0 card-img-1 border-angle">
+			<div class="card-body">
+				<div class="row align-items-center">
+					<div class="col text-right"> <i class="zmdi zmdi-more-vert text-white fa-2x"></i>
+					</div>
+				</div>
+				<p class="extra-small-font text-white">Playlist</p>
+				<h5 class="mb-0 text-white">Productive Morning</h5>
+				<small class="text-white">66 Songs, 5h 8mins</small>
+				<hr class="border-light-2">
+				<button class="btn btn-round btn-primary btn-sm m-1">Play</button>
+				<button class="btn btn-round btn-light-2 btn-sm m-1"><i class="zmdi zmdi-thumb-up"></i>13,290</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card border-0 card-img-2 border-angle">
+			<div class="card-body">
+				<div class="row align-items-center">
+					<div class="col text-right"> <i class="zmdi zmdi-more-vert text-white fa-2x"></i>
+					</div>
+				</div>
+				<p class="extra-small-font text-white">Playlist</p>
+				<h5 class="mb-0 text-white">Productive Morning</h5>
+				<small class="text-white">66 Songs, 5h 8mins</small>
+				<hr class="border-light-2">
+				<button class="btn btn-round btn-primary btn-sm m-1">Play</button>
+				<button class="btn btn-round btn-light-2 btn-sm m-1"><i class="zmdi zmdi-thumb-up"></i>13,290</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card border-0 card-img-3 border-angle">
+			<div class="card-body">
+				<div class="row align-items-center">
+					<div class="col text-right"> <i class="zmdi zmdi-more-vert text-white fa-2x"></i>
+					</div>
+				</div>
+				<p class="extra-small-font text-white">Playlist</p>
+				<h5 class="mb-0 text-white">Productive Morning</h5>
+				<small class="text-white">66 Songs, 5h 8mins</small>
+				<hr class="border-light-2">
+				<button class="btn btn-round btn-primary btn-sm m-1">Play</button>
+				<button class="btn btn-round btn-light-2 btn-sm m-1"><i class="zmdi zmdi-thumb-up"></i>13,290</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+<h6 class="text-uppercase">Card with progressbar and image</h6>
+<hr>
+<div class="row">
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card bg-dark border-0">
+			<img src="assets/images/gallery/39.jpg" class="card-img-top" alt="Card image cap">
+			<div class="card-body">
+				<div class="badge-top"> <span class="py-1 px-2 gradient-success text-white rounded"><i class="zmdi zmdi-trending-up"></i> Trend</span>
+				</div>
+				<h6 class="my-3 text-white"><i class="zmdi zmdi-dot-circle"></i> Free Coffee <span class="float-right">65%</span></h6>
+				<div class="progress bg-white" style="height: 5px;">
+					<div class="progress-bar gradient-success" role="progressbar" style="width: 70%"></div>
+				</div>
+				<p class="mt-3 mb-0 text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card bg-dark border-0">
+			<img src="assets/images/gallery/42.jpg" class="card-img-top" alt="Card image cap">
+			<div class="card-body">
+				<div class="badge-top"> <span class="py-1 px-2 gradient-danger text-white rounded"><i class="zmdi zmdi-trending-up"></i> Trend</span>
+				</div>
+				<h6 class="my-3 text-white"><i class="zmdi zmdi-dot-circle"></i> Free Coffee <span class="float-right">65%</span></h6>
+				<div class="progress bg-white" style="height: 5px;">
+					<div class="progress-bar gradient-danger" role="progressbar" style="width: 70%"></div>
+				</div>
+				<p class="mt-3 mb-0 text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card bg-dark border-0">
+			<img src="assets/images/gallery/43.jpg" class="card-img-top" alt="Card image cap">
+			<div class="card-body">
+				<div class="badge-top"> <span class="py-1 px-2 gradient-info text-white rounded"><i class="zmdi zmdi-trending-up"></i> Trend</span>
+				</div>
+				<h6 class="my-3 text-white"><i class="zmdi zmdi-dot-circle"></i> Free Coffee <span class="float-right">65%</span></h6>
+				<div class="progress bg-white" style="height: 5px;">
+					<div class="progress-bar gradient-info" role="progressbar" style="width: 70%"></div>
+				</div>
+				<p class="mt-3 mb-0 text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+<h6 class="text-uppercase">Social Post Card</h6>
+<hr>
+<div class="row">
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card gradient-rainbow border-0">
+			<div class="card-body">
+				<img src="assets/images/gallery/44.jpg" class="rounded img-fluid" alt="Card image cap">
+				<div class="media mt-4">
+					<div class="media-body">
+						<h6 class="mb-0 text-white">Freelancer Finance</h6>
+						<p class="mb-0 extra-small-font text-white">By Michle Sinota</p>
+					</div> <i class="zmdi zmdi-bookmark fa-2x text-white"></i>
+				</div>
+				<div class="row mt-4">
+					<div class="col">
+						<p class="extra-small-font text-white">Enroled</p>
+						<ul class="list-inline">
+							<li class="list-inline-item">
+								<img src="assets/images/avatars/avatar-1.png" class="rounded-circle users" alt="user avatar">
+							</li>
+							<li class="list-inline-item">
+								<img src="assets/images/avatars/avatar-2.png" class="rounded-circle users" alt="user avatar">
+							</li>
+							<li class="list-inline-item">
+								<img src="assets/images/avatars/avatar-3.png" class="rounded-circle users" alt="user avatar">
+							</li>
+						</ul>
+					</div>
+					<div class="col text-center"> <span class="zmdi zmdi-star text-white"></span>
+						<span class="zmdi zmdi-star text-white"></span>
+						<span class="zmdi zmdi-star text-white"></span>
+						<span class="zmdi zmdi-star text-white"></span>
+						<span class="zmdi zmdi-star text-white"></span>  <span class="text-white">5.0</span>
+						<p class="extra-small-font mt-3 text-white">Development</p>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer align-items-center bg-transparent border-light-2">
+				<div class="row">
+					<div class="col">
+						<p class="mb-0 text-white">Enroll Now</p>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-plus fa-2x text-white"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card gradient-worldcup border-0">
+			<div class="card-body">
+				<img src="assets/images/gallery/45.jpg" class="rounded img-fluid" alt="Card image cap">
+				<div class="media mt-4">
+					<div class="media-body">
+						<h6 class="mb-0 text-white">Freelancer Finance</h6>
+						<p class="mb-0 extra-small-font text-white">By Michle Sinota</p>
+					</div> <i class="zmdi zmdi-bookmark fa-2x text-white"></i>
+				</div>
+				<div class="row mt-4">
+					<div class="col">
+						<p class="extra-small-font text-white">Enroled</p>
+						<ul class="list-inline">
+							<li class="list-inline-item">
+								<img src="assets/images/avatars/avatar-1.png" class="rounded-circle users" alt="user avatar">
+							</li>
+							<li class="list-inline-item">
+								<img src="assets/images/avatars/avatar-2.png" class="rounded-circle users" alt="user avatar">
+							</li>
+							<li class="list-inline-item">
+								<img src="assets/images/avatars/avatar-3.png" class="rounded-circle users" alt="user avatar">
+							</li>
+						</ul>
+					</div>
+					<div class="col text-center"> <span class="zmdi zmdi-star text-white"></span>
+						<span class="zmdi zmdi-star text-white"></span>
+						<span class="zmdi zmdi-star text-white"></span>
+						<span class="zmdi zmdi-star text-white"></span>
+						<span class="zmdi zmdi-star text-white"></span>  <span class="text-white">5.0</span>
+						<p class="extra-small-font mt-3 text-white">Development</p>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer align-items-center bg-transparent border-light-2">
+				<div class="row">
+					<div class="col">
+						<p class="mb-0 text-white">Enroll Now</p>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-plus fa-2x text-white"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card gradient-pinki border-0">
+			<div class="card-body">
+				<img src="assets/images/gallery/46.jpg" class="rounded img-fluid" alt="Card image cap">
+				<div class="media mt-4">
+					<div class="media-body">
+						<h6 class="mb-0 text-white">Freelancer Finance</h6>
+						<p class="mb-0 extra-small-font text-white">By Michle Sinota</p>
+					</div> <i class="zmdi zmdi-bookmark fa-2x text-white"></i>
+				</div>
+				<div class="row mt-4">
+					<div class="col">
+						<p class="extra-small-font text-white">Enroled</p>
+						<ul class="list-inline">
+							<li class="list-inline-item">
+								<img src="assets/images/avatars/avatar-1.png" class="rounded-circle users" alt="user avatar">
+							</li>
+							<li class="list-inline-item">
+								<img src="assets/images/avatars/avatar-2.png" class="rounded-circle users" alt="user avatar">
+							</li>
+							<li class="list-inline-item">
+								<img src="assets/images/avatars/avatar-3.png" class="rounded-circle users" alt="user avatar">
+							</li>
+						</ul>
+					</div>
+					<div class="col text-center"> <span class="zmdi zmdi-star text-white"></span>
+						<span class="zmdi zmdi-star text-white"></span>
+						<span class="zmdi zmdi-star text-white"></span>
+						<span class="zmdi zmdi-star text-white"></span>
+						<span class="zmdi zmdi-star text-white"></span>  <span class="text-white">5.0</span>
+						<p class="extra-small-font mt-3 text-white">Development</p>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer align-items-center bg-transparent border-light-2">
+				<div class="row">
+					<div class="col">
+						<p class="mb-0 text-white">Enroll Now</p>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-plus fa-2x text-white"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+<h6 class="text-uppercase">Card with overlay images</h6>
+<hr>
+<div class="row">
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card">
+			<div class="overlay-div1"></div>
+			<div class="card-img-overlay">
+				<div class="row align-items-center">
+					<div class="col text-left"> <i class="zmdi zmdi-share fa-2x text-white"></i>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more-vert fa-2x text-white"></i>
+					</div>
+				</div>
+				<div class="content text-center mt-5"> <a href="javascript:void();" class="btn btn-light-2 btn-round mt-3">NEWS</a>
+					<h4 class="mt-2 text-white">Lorem Ipome Dollar</h4>
+					<p class="mt-3 text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p> <a href="javascript:void();" class="btn btn-dark btn-round">Read More</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card">
+			<div class="overlay-div2"></div>
+			<div class="card-img-overlay">
+				<div class="row align-items-center">
+					<div class="col text-left"> <i class="zmdi zmdi-share fa-2x text-white"></i>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more-vert fa-2x text-white"></i>
+					</div>
+				</div>
+				<div class="content text-center mt-5"> <a href="javascript:void();" class="btn btn-light-2 btn-round mt-3">NEWS</a>
+					<h4 class="mt-2 text-white">Lorem Ipome Dollar</h4>
+					<p class="mt-3 text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p> <a href="javascript:void();" class="btn btn-dark btn-round">Read More</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card">
+			<div class="overlay-div3"></div>
+			<div class="card-img-overlay">
+				<div class="row align-items-center">
+					<div class="col text-left"> <i class="zmdi zmdi-share fa-2x text-white"></i>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more-vert fa-2x text-white"></i>
+					</div>
+				</div>
+				<div class="content text-center mt-5"> <a href="javascript:void();" class="btn btn-light-2 btn-round mt-3">NEWS</a>
+					<h4 class="mt-2 text-white">Lorem Ipome Dollar</h4>
+					<p class="mt-3 text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p> <a href="javascript:void();" class="btn btn-dark btn-round">Read More</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+<h6 class="text-uppercase">Simple text cards</h6>
+<hr>
+<div class="row">
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card border-0 gradient-esinto">
+			<div class="card-header border-light-2">
+				<div class="row align-items-center">
+					<div class="col text-left">
+						<p class="mb-0 text-uppercase text-white">Card Title</p>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more fa-2x text-white"></i>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<p class="text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p> <a href="javascript:void();" class="btn btn-sm btn-light mt-3">Read More</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card border-0 gradient-dunada">
+			<div class="card-header border-light-2">
+				<div class="row align-items-center">
+					<div class="col text-left">
+						<p class="mb-0 text-uppercase text-white">Card Title</p>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more fa-2x text-white"></i>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<p class="text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p> <a href="javascript:void();" class="btn btn-sm btn-light mt-3">Read More</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card border-0 gradient-linga">
+			<div class="card-header border-light-2">
+				<div class="row align-items-center">
+					<div class="col text-left">
+						<p class="mb-0 text-uppercase text-white">Card Title</p>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more fa-2x text-white"></i>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<p class="text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p> <a href="javascript:void();" class="btn btn-sm btn-light mt-3">Read More</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+<h6 class="text-uppercase">News cards with images</h6>
+<hr>
+<div class="row">
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card gradient-purpink border-0">
+			<div class="card-header border-light-2">
+				<div class="row align-items-center">
+					<div class="col text-left">
+						<p class="mb-0 text-uppercase text-white">Latest News</p>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more fa-2x text-white"></i>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<h6 class="mb-0 text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry</h6>
+				<p class="extra-small-font mt-3 text-white">Yesterday, 7:04 PM</p>
+			</div>
+			<img src="assets/images/gallery/47.jpg" class="img-fluid" alt="Card image cap">
+			<div class="card-body">
+				<h6 class="mb-0 text-white">Contrary to popular belief, Lorem Ipsum is not simply random text</h6>
+				<p class="extra-small-font mt-3 mb-0 text-white">Yesterday, 7:04 PM</p>
+			</div>
+			<hr class="border-light-2">
+			<div class="card-body">
+				<h6 class="mb-0 text-white">There are many variations of passages of Lorem Ipsum available</h6>
+				<p class="extra-small-font mt-3 mb-0 text-white">Yesterday, 7:04 PM</p>
+			</div>
+			<div class="card-footer text-center py-3 bg-transparent border-light-2"> <a class="card-link text-white">Show More</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card gradient-quepal border-0">
+			<div class="card-header border-light-2">
+				<div class="row align-items-center">
+					<div class="col text-left">
+						<p class="mb-0 text-uppercase text-white">Latest News</p>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more fa-2x text-white"></i>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<h6 class="mb-0 text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry</h6>
+				<p class="extra-small-font mt-3 text-white">Yesterday, 7:04 PM</p>
+			</div>
+			<img src="assets/images/gallery/48.jpg" class="img-fluid" alt="Card image cap">
+			<div class="card-body">
+				<h6 class="mb-0 text-white">Contrary to popular belief, Lorem Ipsum is not simply random text</h6>
+				<p class="extra-small-font mt-3 mb-0 text-white">Yesterday, 7:04 PM</p>
+			</div>
+			<hr class="border-light-2">
+			<div class="card-body">
+				<h6 class="mb-0 text-white">There are many variations of passages of Lorem Ipsum available</h6>
+				<p class="extra-small-font mt-3 mb-0 text-white">Yesterday, 7:04 PM</p>
+			</div>
+			<div class="card-footer text-center py-3 bg-transparent border-light-2"> <a class="card-link text-white">Show More</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-4 col-xl-4">
+		<div class="card gradient-ibiza border-0">
+			<div class="card-header border-light-2">
+				<div class="row align-items-center">
+					<div class="col text-left">
+						<p class="mb-0 text-uppercase text-white">Latest News</p>
+					</div>
+					<div class="col text-right"> <i class="zmdi zmdi-more fa-2x text-white"></i>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<h6 class="mb-0 text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry</h6>
+				<p class="extra-small-font mt-3 text-white">Yesterday, 7:04 PM</p>
+			</div>
+			<img src="assets/images/gallery/49.jpg" class="img-fluid" alt="Card image cap">
+			<div class="card-body">
+				<h6 class="mb-0 text-white">Contrary to popular belief, Lorem Ipsum is not simply random text</h6>
+				<p class="extra-small-font mt-3 mb-0 text-white">Yesterday, 7:04 PM</p>
+			</div>
+			<hr class="border-light-2">
+			<div class="card-body">
+				<h6 class="mb-0 text-white">There are many variations of passages of Lorem Ipsum available</h6>
+				<p class="extra-small-font mt-3 mb-0 text-white">Yesterday, 7:04 PM</p>
+			</div>
+			<div class="card-footer text-center py-3 bg-transparent border-light-2"> <a class="card-link text-white">Show More</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+<h6 class="text-uppercase">Card groups</h6>
+<hr>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card-group">
+			<div class="card border-right border-light-3">
+				<img class="card-img-top" src="assets/images/gallery/16.jpg" alt="Card image cap">
+				<div class="card-body">
+					<h5 class="card-title">Card Sample Title</h5>
+					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				</div>
+				<div class="card-footer"> <small>Last updated 3 mins ago</small>
+				</div>
+			</div>
+			<div class="card border-right border-light-3">
+				<img class="card-img-top" src="assets/images/gallery/17.jpg" alt="Card image cap">
+				<div class="card-body">
+					<h5 class="card-title">Card Sample Title</h5>
+					<p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+				</div>
+				<div class="card-footer"> <small>Last updated 3 mins ago</small>
+				</div>
+			</div>
+			<div class="card">
+				<img class="card-img-top" src="assets/images/gallery/18.jpg" alt="Card image cap">
+				<div class="card-body">
+					<h5 class="card-title">Card Sample Title</h5>
+					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+				</div>
+				<div class="card-footer"> <small>Last updated 3 mins ago</small>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<h6 class="text-uppercase">Card deck</h6>
+<hr>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card-deck">
+			<div class="card">
+				<img class="card-img-top" src="assets/images/gallery/19.jpg" alt="Card image cap">
+				<div class="card-body">
+					<h5 class="card-title">Card Sample Title</h5>
+					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				</div>
+				<div class="card-footer"> <small>Last updated 3 mins ago</small>
+				</div>
+			</div>
+			<div class="card">
+				<img class="card-img-top" src="assets/images/gallery/20.jpg" alt="Card image cap">
+				<div class="card-body">
+					<h5 class="card-title">Card Sample Title</h5>
+					<p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+				</div>
+				<div class="card-footer"> <small>Last updated 3 mins ago</small>
+				</div>
+			</div>
+			<div class="card">
+				<img class="card-img-top" src="assets/images/gallery/21.jpg" alt="Card image cap">
+				<div class="card-body">
+					<h5 class="card-title">Card Sample Title</h5>
+					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+				</div>
+				<div class="card-footer"> <small>Last updated 3 mins ago</small>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->

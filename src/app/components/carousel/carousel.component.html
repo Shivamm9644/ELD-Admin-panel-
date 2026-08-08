@@ -1,0 +1,120 @@
+<!-- Breadcrumb-->
+<div class="row pt-2 pb-2">
+	<div class="col-sm-9">
+		<h4 class="page-title">Carousel</h4>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="javaScript:;">Bulona</a>
+			</li>
+			<li class="breadcrumb-item"><a href="javaScript:;">Componenets</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Carousel</li>
+		</ol>
+	</div>
+	<div class="col-sm-3">
+		<div ngbDropdown class="btn-group float-sm-right">
+			<button type="button" class="btn btn-outline-danger"><i class="fa fa-cog mr-1"></i> Setting</button>
+			<button type="button" class="btn btn-danger" id="dropdownBasic5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic5"> 
+                <a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+                <div class="dropdown-divider"></div> 
+                <a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumb-->
+<!--Carousel-->
+<div class="card">
+	<div class="card-header text-uppercase">Carousel</div>
+	<div class="card-body">
+		<ngb-carousel *ngIf="images">
+			<ng-template ngbSlide>
+				<div class="picsum-img-wrapper">
+					<img [src]="images[0]" class="img-fluid" alt="Random first slide">
+				</div>
+				<div class="carousel-caption">
+					<h3>First slide label</h3>
+					<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+				</div>
+			</ng-template>
+			<ng-template ngbSlide>
+				<div class="picsum-img-wrapper">
+					<img [src]="images[1]" class="img-fluid" alt="Random second slide">
+				</div>
+				<div class="carousel-caption">
+					<h3>Second slide label</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				</div>
+			</ng-template>
+			<ng-template ngbSlide>
+				<div class="picsum-img-wrapper">
+					<img [src]="images[2]" class="img-fluid" alt="Random third slide">
+				</div>
+				<div class="carousel-caption">
+					<h3>Third slide label</h3>
+					<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+				</div>
+			</ng-template>
+		</ngb-carousel>
+	</div>
+</div>
+<!-- / Carousel-->
+<!--Navigation arrows and indicators-->
+<div class="card">
+	<div class="card-header text-uppercase">Navigation arrows and indicators</div>
+	<div class="card-body">
+		<ngb-carousel *ngIf="images" [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">
+			<ng-template ngbSlide *ngFor="let image of images">
+				<div class="picsum-img-wrapper">
+					<img [src]="image" class="img-fluid" alt="Random slide">
+				</div>
+				<div class="carousel-caption">
+					<h3>No mouse navigation</h3>
+					<p>This carousel hides navigation arrows and indicators.</p>
+				</div>
+			</ng-template>
+		</ngb-carousel>
+		<hr>
+		<div class="btn-group" role="group" aria-label="Carousel toggle controls">
+			<button type="button" (click)="showNavigationArrows = !showNavigationArrows" class="btn btn-outline-dark btn-sm">Toggle navigation arrows</button>
+			<button type="button" (click)="showNavigationIndicators = !showNavigationIndicators" class="btn btn-outline-dark btn-sm">Toggle navigation indicators</button>
+		</div>
+	</div>
+</div>
+<!-- / Navigation arrows and indicators-->
+<!--Pause/cycle-->
+<div class="card">
+	<div class="card-header text-uppercase">Pause/cycle</div>
+	<div class="card-body">
+		<ngb-carousel #carousel interval="1000" [pauseOnHover]="pauseOnHover" (slide)="onSlide($event)">
+			<ng-template ngbSlide *ngFor="let img of images2; index as i">
+				<div class="carousel-caption">
+					<h3>My slide {{i + 1}} title</h3>
+				</div>
+				<a href="https://www.google.fr/?q=Number+{{i+1}}" target="_blank" rel="nofollow noopener noreferrer">
+					<div class="picsum-img-wrapper">
+						<img [src]="img" class="img-fluid" alt="My image {{i + 1}} description">
+					</div>
+				</a>
+			</ng-template>
+		</ngb-carousel>
+		<hr>
+		<div class="form-check">
+			<input type="checkbox" class="form-check-input" id="pauseOnHover" [(ngModel)]="pauseOnHover">
+			<label class="form-check-label" for="pauseOnHover">Pause on hover</label>
+		</div>
+		<div class="form-check">
+			<input type="checkbox" class="form-check-input" id="unpauseOnArrow" [(ngModel)]="unpauseOnArrow">
+			<label class="form-check-label" for="unpauseOnArrow">Unpause when clicking on arrows</label>
+		</div>
+		<div class="form-check">
+			<input type="checkbox" class="form-check-input" id="pauseOnIndicator" [(ngModel)]="pauseOnIndicator">
+			<label class="form-check-label" for="pauseOnIndicator">Pause when clicking on navigation indicator</label>
+		</div>
+		<button type="button" (click)="togglePaused()" class="btn btn-outline-dark btn-sm">{{paused ? 'Cycle' : 'Pause' }}</button>
+	</div>
+</div>
+<!-- / Pause/cycle-->

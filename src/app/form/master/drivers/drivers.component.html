@@ -1,0 +1,925 @@
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<form action="#"> 
+				<div class="card-body">
+					<div class="float-sm-left mb-3 mt-3"><h4>Manage Drivers</h4></div>
+					<div class="btn-group float-sm-right mb-3 mt-3">
+						<span style="margin-right: 10px;">
+							<input type="radio" id="All" (click)="ShowEmployeeData('all')" name="employeeType" value="all" checked>
+							All
+							<input type="radio" id="Active" (click)="ShowEmployeeData('active')" name="employeeType" value="active">
+							Active
+						   <input type="radio" id="Inactive" (click)="ShowEmployeeData('inactive')" name="employeeType" value="inactive">
+							Inactive
+						</span>
+
+						<button type="button" data-toggle="modal" (click)="ClearForm()" data-target="#driver_modal" class="btn btn-outline-success btn-sm">
+							<i class="zmdi zmdi-plus mr-1"></i>Add Driver
+						</button>
+						<button class="btn btn-outline-dark btn-sm mx-3" (click)="RefreshPage()">Refresh <i class="zmdi zmdi-refresh" ></i></button>
+					</div>
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-hover">
+							<thead>
+								<!-- <tr>
+									<th>S.No</th>
+									<th>Driver Name</th>
+									<th>Email</th>     
+									<th>Mobile Number</th>
+									<th>CLD Number</th>
+									<th>Start Time</th>
+									<th>Client</th>
+									<th>Main Terminal</th>
+									<th>Reviews</th>
+								</tr> -->
+								<tr>
+									<th>S.No</th>
+									<th>Name</th>
+									<th>Status</th>
+									<th>UserName/Email</th>     
+									<th>Cycle</th>
+									<th>Groups</th>
+									<th>Assigned vehicles</th>
+									<!-- <th>Sim Card</th> -->
+									<th>App ver.</th>
+									<th>Os</th>
+									<th>Action</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <tr *ngFor="let driver of rowData; let i = index">
+									<th style="text-align: center;" scope="row">{{i+1}}</th>
+									<td><a style="color: dodgerblue; cursor: pointer;" data-toggle="modal" data-target="#driver_modal" (click)="EditDriver(driver.employeeId)">{{driver.firstName}} {{driver.lastName}}</a></td>
+									<td>{{driver.email}}</td>     
+									<td>{{driver.mobileNo}}</td>
+									<td>{{driver.cdlNo}}</td>
+									<td>{{driver.startTime}}</td>
+									<td>{{driver.clientId}}</td>
+									<td>{{driver.mainTerminalId}}</td>
+									<td>{{driver.remarks}}</td>
+								</tr> -->
+								<tr *ngFor="let driver of rowData; let i = index" style="cursor: pointer;" data-toggle="modal" data-target="#driver_modal" (click)="EditDriver(driver.employeeId)">
+									<th style="text-align: center;" scope="row">{{i+1}}</th>
+									<td>{{driver.firstName}} {{driver.lastName}}</td>
+									<td>{{driver.status}}</td>
+									<td>{{driver.email}}</td>     
+									<td>{{driver.cycleUsaName[0]}}</td>
+									<td>NA</td>
+									<td>{{driver.vehicleNo[0]}}</td>
+									<!-- <td>{{driver.simCardNo}}</td> -->
+									<td>{{driver.appVersion}}</td>
+									<td>{{driver.osVersion}}</td>
+									<td>
+										<button style="margin-left: 10px;"
+											[ngClass]="driver.status === 'active' ? 'badge badge-primary btn-sm' : 'badge badge-secondary btn-sm'" 
+											class='py-2 px-2 td_driver_btn'
+											title="Active or inactive account."
+											(click)="ActiveInactiveDriverAccount(driver);$event.stopPropagation()">
+											{{ driver.status === 'active' ? 'Active' : 'Inactive' }}
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="pre_lodding" *ngIf="isLoading">
+							<img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+						</div>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+
+<div id="driver_modal" class="modal fade hide" role="dialog">
+    <form action="#" #driverMasterForm="ngForm" >
+		<style>
+			input[type=checkbox] {
+				width: 15px;
+				height: 15px;
+			}
+		</style>
+		<div class="modal-dialog">
+			<div class="modal-content" style="width: 1100px;">
+				<div class="modal-header">
+					<h6 class="modal-title h5">Add Driver</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="card p-3 mb-2">
+							<h6 class="card-title h5">General Settings</h6>
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-2" style="margin-top: 10px;">
+									<small for="control-label">Username<i class="validation_required">*</i></small>
+								</div>
+								<div class="col-md-10">
+									<input type="text" id="username" name="username" minlength="4" maxlength="60" (input)="inputValidator($event)"  required #username="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="driverForm.username" placeholder="User Name">
+									<div *ngIf="!username?.valid && (username?.dirty || username?.touched)" class="error">
+										<div *ngIf="username.errors.required">
+											<small class="validation_required" style="font-size: xx-small;">Value should be at least 4 and up to 60 lowercase letters / numbers </small>
+										</div>
+									</div>
+									<small class="text-secondary" style="font-size: x-small;">Please note: according to the FMCSA regulation users of the portal and drivers must have <b>different login credentials</b> even if this is the same person. Portal users can't login to mobile app and Drivers can't log in to the portal with the same login credentials. Please use different usernames for portal users and drivers.</small>
+								</div>
+							</div>
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-2" style="margin-top: 10px;">
+									<small for="control-label">Email<i class="validation_required">*</i></small>
+								</div>
+								<div class="col-md-10">
+									<input type="email" id="email" name="email"  minlength="4" maxlength="60" (input)="inputValidator($event)"  #email="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="driverForm.email" placeholder="Email" email>
+									<!-- <div *ngIf="!email?.valid && (email?.dirty || email?.touched)" class="error">
+										<div *ngIf="email.errors.required">
+											<small class="validation_required" style="font-size: xx-small;">Value should be at least 4 and up to 60 lowercase letters / numbers</small>
+										</div>
+									</div> -->
+									<small class="text-secondary" style="font-size: x-small;">Please note: email is used to change the password</small>
+								</div>
+							</div>
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-2" style="margin-top: 10px;">
+									<small for="control-label">Password<i class="validation_required">*</i></small>
+								</div>
+								<div class="col-md-10">
+									<!-- <input type="password" id="password" name="password" minlength="6" required #password="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="driverForm.password" placeholder=""> -->
+									<input 
+										[type]="passwordVisible ? 'text' : 'password'" 
+										id="password" 
+										name="password" 
+										minlength="6" required 
+										#password="ngModel"
+										class="form-control form-control-sm mainInput"
+										[(ngModel)]="driverForm.password"
+										placeholder="Password" 
+										ngModel required
+									/>
+									<button type="button" (click)="togglePassword()" class="eye-button">
+										<i class="{{ passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash' }}"></i>
+									</button>
+									<div *ngIf="!password?.valid && (password?.dirty || password?.touched)" class="error">
+										<div *ngIf="password.errors.required">
+											<small class="validation_required" style="font-size: xx-small;">Value should be at least 6 characters</small>
+										</div>
+									</div>
+									<small id="isConfirmPasswordValid" style="font-size: xx-small;"></small>
+
+								</div>
+							</div>
+
+
+							<!-- <div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-2" style="margin-top: 10px;">
+									<small for="control-label">Password Confirm<i class="validation_required">*</i></small>
+								</div>
+								<div class="col-md-10">
+									
+									<input type="password" id="passwordCnfrm" name="passwordCnfrm" minlength="6" required #passwordCnfrm="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="driverForm.passwordCnfrm" placeholder="">
+									<div *ngIf="!passwordCnfrm?.valid && (passwordCnfrm?.dirty || passwordCnfrm?.touched)" class="error">
+										<div *ngIf="passwordCnfrm.errors.required">
+											<small class="validation_required" style="font-size: xx-small;">Value should be at least 6 characters</small>
+										</div>
+									</div>
+								</div>
+							</div> -->
+
+							<div class="row col-lg-12" style="margin-top: 10px;">
+								<div class="col-md-2" style="margin-top: 10px;">
+									<small for="control-label">Password Confirm<i class="validation_required">*</i></small>
+								</div>
+								<div class="col-md-10 position-relative">
+									<input
+									[type]="confirmPasswordVisible ? 'text' : 'password'"
+									id="passwordCnfrm"
+									name="passwordCnfrm"
+									minlength="6"
+									required
+									#passwordCnfrm="ngModel"
+									class="form-control form-control-sm mainInput"
+									[(ngModel)]="driverForm.passwordCnfrm"
+									placeholder="Confirm Password"
+									/>
+									<button
+									type="button"
+									(click)="toggleConfirmPassword()"
+									class="eye-button"
+									>
+									<i class="{{ confirmPasswordVisible ? 'fa fa-eye' : 'fa fa-eye-slash' }}"></i>
+									</button>
+									<div *ngIf="!passwordCnfrm?.valid && (passwordCnfrm?.dirty || passwordCnfrm?.touched)" class="error">
+									<div *ngIf="passwordCnfrm.errors.required">
+										<small class="validation_required" style="font-size: xx-small;">Value should be at least 6 characters</small>
+									</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-2" style="margin-top: 10px;">
+									<small for="control-label"> Name<i class="validation_required">*</i></small>
+								</div>
+								<div class="col-md-5">
+									<input type="text" id="firstName" name="firstName" minlength="2" maxlength="30" required #firstName="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="driverForm.firstName" placeholder="First Name">
+									<div *ngIf="!firstName?.valid && (firstName?.dirty || firstName?.touched)" class="error">
+										<div *ngIf="firstName.errors.required">
+											<small class="validation_required" style="font-size: xx-small;">Value should be at least 2 and up to 30 characters </small>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-5">
+									<input type="text" id="lastName" name="lastName" minlength="2" maxlength="30" required #lastName="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="driverForm.lastName" placeholder="Last Name">
+									<div *ngIf="!lastName?.valid && (lastName?.dirty || lastName?.touched)" class="error">
+										<div *ngIf="lastName.errors.required">
+											<small class="validation_required" style="font-size: xx-small;">Value should be at least 2 and up to 30 characters </small>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-2" style="margin-top: 10px;">
+									<small for="control-label">Company Driver ID</small>
+								</div>
+								<div class="col-md-10">
+									<input type="text" id="driverId" name="driverId" #driverId="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="driverForm.driverId" placeholder="company Driver Id">
+									
+									<small class="text-secondary" style="font-size: x-small;">Please note: Can be used as internal company driver identifier.</small>
+								</div>
+							</div>
+
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-2" style="margin-top: 10px;">
+									<small for="control-label">Phone</small>
+								</div>
+								<div class="col-md-10">
+									<input type="text" id="mobileNo" name="mobileNo"  (keypress)="keyPress($event)" minlength="10" maxlength="10" class="form-control form-control-sm mainInput" [(ngModel)]="driverForm.mobileNo" placeholder="9999999999" >
+								</div>
+							</div>
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-2" style="margin-top: 10px;">
+									<small for="plate" class="control-label ">Driver License<i class="validation_required">*</i></small>
+								</div>
+								<div class="col-md-3">
+									<ng-select [items]="cdlcountryDataArr"
+                                        bindLabel="cdlCountryName"
+                                        bindValue="id"
+                                        placeholder="Select"
+                                        appendTo="body"
+										class="mainInput"
+										(change)="getCdlState($event.id)"
+                                        name="cdlCountryName"
+										required #cdlCountryId="ngModel"
+                                        [(ngModel)]="driverForm.cdlCountryId"> 
+                                    </ng-select>
+									<div *ngIf="!cdlCountryId?.valid && (cdlCountryId?.dirty || cdlCountryId?.touched)" class="error">
+										<div *ngIf="cdlCountryId.errors.required">
+										</div>
+									</div>						
+								</div>
+								<div class="col-md-3">
+									<ng-select [items]="cdlstateDataArr"
+                                        bindLabel="cdlStateName"
+                                        bindValue="id"
+                                        placeholder="Select State/Province"
+                                        appendTo="body"
+										class="mainInput"
+                                        name="cdlStateName"
+										required #cdlStateId="ngModel"
+                                        [(ngModel)]="driverForm.cdlStateId"> 
+                                    </ng-select>
+									<div *ngIf="!cdlStateId?.valid && (cdlStateId?.dirty || cdlStateId?.touched)" class="error">
+										<div *ngIf="cdlStateId.errors.required">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<input type="text" name="cdlNo" id="cdlNo"  minlength="1" maxlength="20" (input)="inputValidatorForLicenseNumber($event)" required #cdlNo="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="driverForm.cdlNo" placeholder="License Number">
+									<div *ngIf="!cdlNo?.valid && (cdlNo?.dirty || cdlNo?.touched)" class="error">
+										<div *ngIf="cdlNo.errors.required">
+											<small class="validation_required" style="font-size: xx-small;">Value should be from 1 to 20 characters of letters or numbers </small>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+
+						<div class="card p-3 mb-2">
+							<h6 class="card-title h5">Carrier Settings</h6>
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-3" style="margin-top: 10px;">
+									<small for="mainTerminalName" class="control-label">Home Terminal <i class="validation_required">*</i></small>
+								</div>
+								<div class="col-md-9">
+									<ng-select [items]="mainterminalDataArr"
+                                        bindLabel="mainTerminalName"
+                                        bindValue="id"
+                                        placeholder="Choose"
+                                        appendTo="body"
+                                        name="mainTerminalName"
+										required #mainTerminalId="ngModel"
+                                        [(ngModel)]="driverForm.mainTerminalId"> 
+                                    </ng-select>
+									<div *ngIf="!mainTerminalId?.valid && (mainTerminalId?.dirty || mainTerminalId?.touched)" class="error">
+										<div *ngIf="mainTerminalId.errors.required">
+											<!-- Main Terminal is required -->
+										</div>
+									</div>							
+								</div>
+							</div>
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-3" style="margin-top: 10px;">
+									<small for="vehicleNo" class="control-label">Assigned Vehicles <i class="validation_required"></i></small>
+								</div>
+								<div class="col-md-9">
+									<ng-select [items]="vehicleDataArr"
+                                        bindLabel="vehicleNo"
+                                        bindValue="id"
+                                        placeholder="Choose"
+                                        appendTo="body"
+                                        name="vehicleNo"
+                                        [(ngModel)]="driverForm.truckNo"> 
+                                    </ng-select>
+									<!-- <div *ngIf="!truckNo?.valid && (truckNo?.dirty || truckNo?.touched)" class="error">
+										<div *ngIf="truckNo.errors.required">
+											
+										</div>
+									</div> -->
+									<small class="text-secondary" style="font-size: xx-small;">Optional. Select which vehicles you want the driver to be restricted to. Leave blank for unristriced vehicle selection. </small>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="card p-3 mb-2">
+							<h6 class="card-title h5">Log Settings</h6>
+
+							<div class="row col-lg-12" style="margin-top: 10px;">
+								<div class="col-md-3" >
+									<small for="control-label">Exempt Driver</small>
+								</div>
+								<div class="col-md-9">
+									<input type="checkbox"  id="exempt" name="exempt" [(ngModel)]="driverForm.exempt" >
+								</div>
+							</div>
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-3 " style="margin-top: 10px;">
+									<small for="cycleUsaName" class="control-label">HOS Rules<i class="validation_required">*</i></small>
+								</div>
+								<div class="col-md-9">
+									<ng-select [items]="cycleusaDataArr"
+                                        bindLabel="cycleUsaName"
+                                        bindValue="id"
+                                        placeholder="Select"
+                                        appendTo="body"
+                                        name="cycleUsaName"
+										(change)="CheckShortHaulException($event.id,$event.cycleUsaName)"
+										required #cycleUsaId="ngModel"
+                                        [(ngModel)]="driverForm.cycleUsaId"> 
+                                    </ng-select>
+									<div *ngIf="!cycleUsaId?.valid && (cycleUsaId?.dirty || cycleUsaId?.touched)" class="error">
+										<div *ngIf="cycleUsaId.errors.required">
+											<!-- Cycle Usa is required -->
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-3" style="margin-top: 10px;">
+									<small for="cargoTypeName" class="control-label">Cargo Type <i class="validation_required">*</i></small>
+								</div>
+								<div class="col-md-9">
+									<ng-select [items]="cargoDataArr"
+                                        bindLabel="cargoTypeName"
+                                        bindValue="id"
+                                        placeholder="Select Cargo Type"
+                                        appendTo="body"
+                                        name="cargoTypeName"
+										required #cargoTypeId="ngModel"
+                                        [(ngModel)]="driverForm.cargoTypeId"> 
+                                    </ng-select>
+									<div *ngIf="!cargoTypeId?.valid && (cargoTypeId?.dirty || cargoTypeId?.touched)" class="error">
+										<div *ngIf="cargoTypeId.errors.required">
+											<!-- Cargo Type is required -->
+										</div>
+									</div>
+								</div>
+							</div>
+
+							
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-3 " style="margin-top: 10px;">
+									<small for="restartName">Restart <i class="validation_required">*</i></small>
+								</div>
+								<div class="col-md-9">
+									<ng-select [items]="restartDataArr"
+                                        bindLabel="restartName"
+                                        bindValue="id"
+                                        placeholder="Select restartName"
+                                        appendTo="body"
+                                        name="restartName"
+										required #restartId="ngModel"
+                                        [(ngModel)]="driverForm.restartId"> 
+                                    </ng-select>
+									<div *ngIf="!restartId?.valid && (restartId?.dirty || restartId?.touched)" class="error">
+										<div *ngIf="restartId.errors.required">
+											<!-- <small class="validation_required" style="font-size: xx-small;">hos Rules is required. </small> -->
+										</div>
+									</div>	
+								</div>
+							</div>
+
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-3 " style="margin-top: 10px;">
+									<small for="restBreakName">Rest Break<i class="validation_required">*</i></small>
+								</div>
+								<div class="col-md-9">
+									<ng-select [items]="restBreakDataArr"
+                                        bindLabel="restBreakName"
+                                        bindValue="id"
+                                        placeholder="Select restBreakName"
+                                        appendTo="body"
+                                        name="restBreakName"
+										required #restBreakId="ngModel"
+                                        [(ngModel)]="driverForm.restBreakId"> 
+                                    </ng-select>
+									<div *ngIf="!restBreakId?.valid && (restBreakId?.dirty || restBreakId?.touched)" class="error">
+										<div *ngIf="restBreakId.errors.required">
+											<!-- <small class="validation_required" style="font-size: xx-small;">hos Rules is required. </small> -->
+										</div>
+									</div>	
+								</div>
+							</div>
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-3" >
+									<small for="control-label">Status</small>
+								</div>
+								<div class="col-md-9">
+									<input type="checkbox" (change)="CheckStatus()" id="status" name="status" [(ngModel)]="driverForm.status"  >
+									<span id="statusSection" style="margin-left: 10px;"></span>
+								</div>
+							</div>
+
+							<div class="row col-lg-12 " style="margin-top: 10px;" *ngIf="isShortHaulException">
+								<div class="col-md-3" >
+									<small for="control-label">Short-Haul Exception</small>
+								</div>
+								<div class="col-md-9">
+									<input type="checkbox" disabled id="shortHaulException" name="shortHaulException" [(ngModel)]="driverForm.shortHaulException"  >
+								</div>
+							</div>
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-3" >
+									<small for="control-label">Allow Personal Use</small>
+								</div>
+								<div class="col-md-9">
+									<input type="checkbox" id="personalUse" name="personalUse" [(ngModel)]="driverForm.personalUse" checked>
+								</div>
+							</div>
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-3" >
+									<small for="control-label">Allow Yard Moves</small>
+								</div>
+								<div class="col-md-9">
+									<input type="checkbox" id="yardMoves" name="yardMoves" [(ngModel)]="driverForm.yardMoves" checked>
+								</div>
+							</div>
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-3" >
+									<small for="control-label">Unlimited Trailers</small>
+								</div>
+								<div class="col-md-9">
+									<input type="checkbox" id="unlimitedTrailers" name="unlimitedTrailers" [(ngModel)]="driverForm.unlimitedTrailers" >
+									<br><small class="text-secondary" style="font-size: xx-small;">Please note: This setting allows a driver to add unlimited trailer numbers to a specific log for a visual inspection only. The trailer numbers data length is limited to 32 characters when an output file is transferred to the FMCSA system. </small>
+								</div>
+							</div>
+
+
+							<div class="row col-lg-12 " style="margin-top: 10px;">
+								<div class="col-md-3" >
+									<small for="control-label">Unlimited Shipping Documents</small>
+								</div>
+								<div class="col-md-9">
+									<input type="checkbox" id="unlimitedShippingDocs" name="unlimitedShippingDocs" [(ngModel)]="driverForm.unlimitedShippingDocs" >
+									<br><small class="text-secondary" style="font-size: xx-small;">Please note: This setting allows a driver to add an unlimited number of shipping documents to a specific log for a visual inspection only. The shipping documents data length is limited to 40 characters when an output file is transferred to the FMCSA system. </small>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="reset" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!driverMasterForm.valid"  (click)="SaveDrivers()">Save</button>
+					<button type="submit" class="btn btn-primary" *ngIf="isEditMode && !isViewMode" [disabled]="!driverMasterForm.valid"  (click)="UpdateDrivers()">Update</button>
+					<button type="button" class="btn btn-danger" *ngIf="isEditMode && !isViewMode && userTypeId==1"  data-dismiss="modal" (click)="DeleteDrivers()">Delete</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div> 
+
+
+<!-- <div id="driver_modal" class="modal fade hide" role="dialog">
+    <form action="#" #driverMasterForm="ngForm" >
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Driver Details</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label">Title<i class="validation_required"></i></small>
+									<select id="title" name="title" [(ngModel)]="driverForm.title" class="form-control form-control-sm">
+										<option value="undefined" selected>Select Title</option >
+										<option value="Mr">Mr</option>
+                                        <option value="Mrs">Mrs</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label">First Name<i class="validation_required">*</i></small>
+									<input type="text" id="firstName" name="firstName"  required #firstName="ngModel" class="form-control form-control-sm" [(ngModel)]="driverForm.firstName" placeholder="Driver First Name">
+								</div>
+								<div *ngIf="!firstName?.valid && (firstName?.dirty || firstName?.touched)" class="error">
+									<div *ngIf="firstName.errors.required">
+										First Name is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label">Last Name<i class="validation_required">*</i></small>
+									<input type="text"  id="lastName" name="lastName"  required #lastName="ngModel" class="form-control form-control-sm" [(ngModel)]="driverForm.lastName" placeholder="Driver Last Name">
+								</div>
+								<div *ngIf="!lastName?.valid && (lastName?.dirty || lastName?.touched)" class="error">
+									<div *ngIf="lastName.errors.required">
+										Last Name is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label">Email<i class="validation_required">*</i></small>
+									<input type="email" id="email" name="email"  required #email="ngModel" class="form-control form-control-sm" [(ngModel)]="driverForm.email" placeholder="Email" email>
+								</div>
+								<div *ngIf="!email?.valid && (email?.dirty || email?.touched)" class="error">
+									<div *ngIf="email.errors.required">
+										Email is required
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label">User Name<i class="validation_required">*</i></small>
+									<input type="text" id="username" name="username"  required #username="ngModel" class="form-control form-control-sm" [(ngModel)]="driverForm.username" placeholder="User Name">
+								</div>
+								<div *ngIf="!username?.valid && (username?.dirty || username?.touched)" class="error">
+									<div *ngIf="username.errors.required">
+										User Name is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label">Start Time<i class="validation_required"></i></small>
+									<input type="time" id="startTime" name="startTime"  [(ngModel)]="driverForm.startTime" class="form-control form-control-sm" placeholder="Start Time">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small for="cycleUsaName" class="control-label">Cycle Usa<i class="validation_required">*</i></small>
+									<ng-select [items]="cycleusaDataArr"
+                                        bindLabel="cycleUsaName"
+                                        bindValue="id"
+                                        placeholder="Select Cycle Usa"
+                                        appendTo="body"
+                                        name="cycleUsaName"
+										required #cycleUsaId="ngModel"
+                                        [(ngModel)]="driverForm.cycleUsaId"> 
+                                    </ng-select>
+									<div *ngIf="!cycleUsaId?.valid && (cycleUsaId?.dirty || cycleUsaId?.touched)" class="error">
+										<div *ngIf="cycleUsaId.errors.required">
+											Cycle Usa is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small for="cycleCanadaName" class="control-label">Cycle Canada<i class="validation_required">*</i></small>
+									<ng-select [items]="cyclecanadaDataArr"
+                                        bindLabel="cycleCanadaName"
+                                        bindValue="id"
+                                        placeholder="Select Cycle Canada"
+                                        appendTo="body"
+                                        name="cycleCanadaName"
+										required #cycleCanadaId="ngModel"
+                                        [(ngModel)]="driverForm.cycleCanadaId"> 
+                                    </ng-select>
+									<div *ngIf="!cycleCanadaId?.valid && (cycleCanadaId?.dirty || cycleCanadaId?.touched)" class="error">
+										<div *ngIf="cycleCanadaId.errors.required">
+											Cycle Canada is required
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<small for="mainTerminalName" class="control-label">Main Terminal <i class="validation_required">*</i></small>
+									<ng-select [items]="mainterminalDataArr"
+                                        bindLabel="mainTerminalName"
+                                        bindValue="id"
+                                        placeholder="Select Main Terminal"
+                                        appendTo="body"
+                                        name="mainTerminalName"
+										required #mainTerminalId="ngModel"
+                                        [(ngModel)]="driverForm.mainTerminalId"> 
+                                    </ng-select>
+									<div *ngIf="!mainTerminalId?.valid && (mainTerminalId?.dirty || mainTerminalId?.touched)" class="error">
+										<div *ngIf="mainTerminalId.errors.required">
+											Main Terminal is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label">Mobile Number<i class="validation_required">*</i></small>
+									<input type="number" name="mobileNo" id="mobileNo" required  #mobileNo="ngModel" class="form-control form-control-sm" [(ngModel)]="driverForm.mobileNo" placeholder="Mobile Number">
+								</div>
+								<div *ngIf="!mobileNo?.valid && (mobileNo?.dirty || mobileNo?.touched)" class="error">
+									<div *ngIf="mobileNo.errors.required">
+										Mobile Number is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label">CDL Number<i class="validation_required">*</i></small>
+									<input type="text" name="cdlNo" id="cdlNo"  required #cdlNo="ngModel" class="form-control form-control-sm" [(ngModel)]="driverForm.cdlNo" placeholder="CDL Number">
+								</div>
+								<div *ngIf="!cdlNo?.valid && (cdlNo?.dirty || cdlNo?.touched)" class="error">
+									<div *ngIf="cdlNo.errors.required">
+										CDL Number is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small for="cdlCountryName" class="control-label">CDL Country <i class="validation_required">*</i></small>
+									<ng-select [items]="cdlcountryDataArr"
+                                        bindLabel="cdlCountryName"
+                                        bindValue="id"
+                                        placeholder="Select CDL Country"
+                                        appendTo="body"
+                                        name="cdlCountryName"
+										required #cdlCountryId="ngModel"
+                                        [(ngModel)]="driverForm.cdlCountryId"> 
+                                    </ng-select>
+									<div *ngIf="!cdlCountryId?.valid && (cdlCountryId?.dirty || cdlCountryId?.touched)" class="error">
+										<div *ngIf="cdlCountryId.errors.required">
+											CDL Country is required
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<small for="cdlStateName" class="control-label">CDL State <i class="validation_required">*</i></small>
+									<ng-select [items]="cdlstateDataArr"
+                                        bindLabel="cdlStateName"
+                                        bindValue="id"
+                                        placeholder="Select CDL State"
+                                        appendTo="body"
+                                        name="cdlStateName"
+										required #cdlStateId="ngModel"
+                                        [(ngModel)]="driverForm.cdlStateId"> 
+                                    </ng-select>
+									<div *ngIf="!cdlStateId?.valid && (cdlStateId?.dirty || cdlStateId?.touched)" class="error">
+										<div *ngIf="cdlStateId.errors.required">
+											CDL State is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label ">CDL Expiry Date<i class="validation_required">*</i></small>
+									<input type="date" name="cdlExpiryDate" id="cdlExpiryDate" [(ngModel)]="driverForm.cdlExpiryDate" required #cdlExpiryDate="ngModel" class="form-control form-control-sm" placeholder="">
+								</div>
+								<div *ngIf="!cdlExpiryDate?.valid && (cdlExpiryDate?.dirty || cdlExpiryDate?.touched)" class="error">
+									<div *ngIf="cdlExpiryDate.errors.required">
+										cdl Expiry Date is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label">PDF Email<i class="validation_required"></i></small>
+									<input type="text" name="pdfEmail" id="pdfEmail" [(ngModel)]="driverForm.pdfEmail"  class="form-control form-control-sm" placeholder="PDF Email">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label">Driver pay<i class="validation_required"></i></small>
+									<input type="number" name="flatRate" id="flatRate" [(ngModel)]="driverForm.flatRate" class="form-control form-control-sm" placeholder="0:00">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label">Exempt<i class="validation_required"></i></small>
+									<div>
+										<small class="switch btn btn-info btn-sm">
+											<input type="checkbox"  id="exempt" name="exempt" [(ngModel)]="driverForm.exempt">
+											<span class="slider"></span>
+										</small>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label ">Personal Use<i class="validation_required"></i></small>
+									<div>
+										<small class="switch btn btn-info btn-sm">
+											<input type="checkbox" id="personalUse" name="personalUse" [(ngModel)]="driverForm.personalUse">
+											<span class="slider"></span>
+										</small>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label">Yard Moves<i class="validation_required"></i></small>
+									<div>
+										<small class="switch btn btn-info btn-sm">
+											<input type="checkbox" id="yardMoves" name="yardMoves" [(ngModel)]="driverForm.yardMoves">
+											<span class="slider"></span>
+										</small>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label">DIVR<i class="validation_required"></i></small>
+									<div>
+										<small class="switch btn btn-info btn-sm">
+											<input type="checkbox" id="divR" name="divR" [(ngModel)]="driverForm.divR">
+											<span class="slider"></span>
+										</small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<small for="cargoTypeName" class="control-label">Cargo Type <i class="validation_required">*</i></small>
+									<ng-select [items]="cargoDataArr"
+                                        bindLabel="cargoTypeName"
+                                        bindValue="id"
+                                        placeholder="Select Cargo Type"
+                                        appendTo="body"
+                                        name="cargoTypeName"
+										required #cargoTypeId="ngModel"
+                                        [(ngModel)]="driverForm.cargoTypeId"> 
+                                    </ng-select>
+									<div *ngIf="!cargoTypeId?.valid && (cargoTypeId?.dirty || cargoTypeId?.touched)" class="error">
+										<div *ngIf="cargoTypeId.errors.required">
+											Cargo Type is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small for="vehicleNo" class="control-label">Truck No <i class="validation_required">*</i></small>
+									<ng-select [items]="vehicleDataArr"
+                                        bindLabel="vehicleNo"
+                                        bindValue="id"
+                                        placeholder="Select Truck No"
+                                        appendTo="body"
+                                        name="vehicleNo"
+										required #truckNo="ngModel"
+                                        [(ngModel)]="driverForm.truckNo"> 
+                                    </ng-select>
+									<div *ngIf="!truckNo?.valid && (truckNo?.dirty || truckNo?.touched)" class="error">
+										<div *ngIf="truckNo.errors.required">
+											Truck No is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label">Manage Equipement<i class="validation_required"></i></small>
+									<div>
+										<small class="switch btn btn-info btn-sm">
+											<input type="checkbox" id="manageEquipement" name="manageEquipement" [(ngModel)]="driverForm.manageEquipement">
+											<span class="slider"></span>
+										</small>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small class="control-label">Transfer Log<i class="validation_required"></i></small>
+									<div>
+										<small class="switch btn btn-info btn-sm">
+											<input type="checkbox" id="transferLog" name="transferLog" [(ngModel)]="driverForm.transferLog" >
+											<span class="slider"></span>
+										</small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<small for="clientName" class="control-label">Client<i class="validation_required">*</i></small>
+									<ng-select 
+										[items]="clientDataArr"
+										bindLabel="clientName"
+										bindValue="id"
+										placeholder="Select Client"
+										appendTo="body"
+										name="clientName"
+										required #clientId="ngModel"
+										[(ngModel)]="driverForm.clientId"> 
+                                    </ng-select>
+									<div *ngIf="!clientId?.valid && (clientId?.dirty || clientId?.touched)" class="error">
+										<div *ngIf="clientId.errors.required">
+											Client is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<small for="languageName" class="control-label">language<i class="validation_required"></i></small>
+									<ng-select [items]="languageDataArr"
+                                        bindLabel="languageName"
+                                        bindValue="id"
+                                        placeholder="Select language"
+                                        appendTo="body"
+                                        name="languageName"
+                                        [(ngModel)]="driverForm.languageId"> 
+                                    </ng-select>
+								</div>
+							</div>
+							
+							
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<small class="control-label">Notes<i class="validation_required"></i></small>
+									<textarea type="text" name="remarks" id="remarks" [(ngModel)]="driverForm.remarks" rows="4" class="form-control form-control-sm" placeholder="Notes"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="reset" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!driverMasterForm.valid" data-dismiss="modal" (click)="SaveDrivers()">Save</button>
+					<button type="submit" class="btn btn-primary" *ngIf="isEditMode && !isViewMode" [disabled]="!driverMasterForm.valid" data-dismiss="modal" (click)="UpdateDrivers()">Update</button>
+					<button type="button" class="btn btn-danger" *ngIf="isEditMode && !isViewMode"  data-dismiss="modal" (click)="DeleteDrivers()">Delete</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div> -->

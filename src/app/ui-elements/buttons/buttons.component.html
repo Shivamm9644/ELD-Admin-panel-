@@ -1,0 +1,1302 @@
+<!-- Breadcrumb-->
+<div class="row pt-2 pb-2">
+	<div class="col-sm-9">
+		<h4 class="page-title">Buttons</h4>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="javaScript:;">Bulona</a>
+			</li>
+			<li class="breadcrumb-item"><a href="javaScript:;">UI Elements</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Buttons</li>
+		</ol>
+	</div>
+	<div class="col-sm-3">
+		<div ngbDropdown class="btn-group float-sm-right">
+			<button type="button" class="btn btn-outline-danger"><i class="fa fa-cog mr-1"></i> Setting</button>
+			<button type="button" class="btn btn-danger" id="dropdownBasic5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic5"> 
+        		<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumb-->
+<!-- Default Buttons-->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Default Buttons</div>
+			<div class="card-body">
+				<button type="button" class="btn btn-primary m-1">PRIMARY</button>
+				<button type="button" class="btn btn-danger m-1">DANGER</button>
+				<button type="button" class="btn btn-success m-1">SUCCESS</button>
+				<button type="button" class="btn btn-info m-1">INFO</button>
+				<button type="button" class="btn btn-warning m-1">WARNING</button>
+				<button type="button" class="btn btn-secondary m-1">SECONDARY</button>
+				<button type="button" class="btn btn-light m-1">LIGHT</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<!-- / Default Buttons-->
+<!-- NG-Bootstrap-->
+<div class="row">
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">ng-bootstrap</div>
+			<div class="card-body">
+				<h6>Checkbox buttons</h6>
+				<div class="btn-group btn-group-toggle">
+					<label class="btn-primary" ngbButtonLabel>
+						<input type="checkbox" ngbButton [(ngModel)]="model.left">Left (pre-checked)</label>
+					<label class="btn-success" ngbButtonLabel>
+						<input type="checkbox" ngbButton [(ngModel)]="model.middle">Middle</label>
+					<label class="btn-danger" ngbButtonLabel>
+						<input type="checkbox" ngbButton [(ngModel)]="model.right">Right</label>
+				</div>
+				<hr> <pre>{{model | json}}</pre>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">ng-bootstrap</div>
+			<div class="card-body">
+				<h6>Checkbox buttons (Reactive Forms)</h6>
+				<form [formGroup]="checkboxGroupForm">
+					<div class="btn-group btn-group-toggle">
+						<label class="btn-danger" ngbButtonLabel>
+							<input type="checkbox" formControlName="left" ngbButton>Left (pre-checked)</label>
+						<label class="btn-primary" ngbButtonLabel>
+							<input type="checkbox" formControlName="middle" ngbButton>Middle</label>
+						<label class="btn-success" ngbButtonLabel>
+							<input type="checkbox" formControlName="right" ngbButton>Right</label>
+					</div>
+				</form>
+				<hr> <pre>{{checkboxGroupForm.value | json}}</pre>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<div class="row">
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">ng-bootstrap</div>
+			<div class="card-body">
+				<h6>Radio buttons</h6>
+				<div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="radiomodel">
+					<label ngbButtonLabel class="btn-info">
+						<input ngbButton type="radio" [value]="1">Left (pre-checked)</label>
+					<label ngbButtonLabel class="btn-warning">
+						<input ngbButton type="radio" value="middle">Middle</label>
+					<label ngbButtonLabel class="btn-success">
+						<input ngbButton type="radio" [value]="false">Right</label>
+				</div>
+				<hr> <pre>{{radiomodel}}</pre>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">ng-bootstrap</div>
+			<div class="card-body">
+				<h6>Radio buttons (Reactive Forms)</h6>
+				<form [formGroup]="radioGroupForm">
+					<div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" formControlName="model">
+						<label ngbButtonLabel class="btn-danger">
+							<input ngbButton type="radio" [value]="1">Left (pre-checked)</label>
+						<label ngbButtonLabel class="btn-warning">
+							<input ngbButton type="radio" value="middle">Middle</label>
+						<label ngbButtonLabel class="btn-success">
+							<input ngbButton type="radio" [value]="false">Right</label>
+					</div>
+				</form>
+				<hr> <pre>{{radioGroupForm.value['model']}}</pre>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<!-- / NG-Bootstrap-->
+<!-- Round Buttons-->
+<div class="card">
+	<div class="card-header text-uppercase">Inverse Buttons</div>
+	<div class="card-body">
+		<button type="button" class="btn btn-inverse-primary m-1">PRIMARY</button>
+		<button type="button" class="btn btn-inverse-danger m-1">DANGER</button>
+		<button type="button" class="btn btn-inverse-success m-1">SUCCESS</button>
+		<button type="button" class="btn btn-inverse-info m-1">INFO</button>
+		<button type="button" class="btn btn-inverse-warning m-1">WARNING</button>
+		<button type="button" class="btn btn-inverse-secondary m-1">SECONDARY</button>
+		<button type="button" class="btn btn-inverse-dark m-1">DARK</button>
+		<hr>
+		<div class="btn-group m-1">
+			<button type="button" class="btn btn-inverse-primary"> <i class="fa fa-home"></i>  <span>Home</span> 
+			</button>
+			<button type="button" class="btn btn-inverse-primary"> <i class="fa fa fa-trash-o"></i>  <span>Delete</span> 
+			</button>
+			<button type="button" class="btn btn-inverse-primary"> <i class="fa fa-music"></i>  <span>Music</span> 
+			</button>
+			<button type="button" class="btn btn-inverse-primary"> <i class="fa fa-star"></i>  <span>Star</span> 
+			</button>
+			<button type="button" class="btn btn-inverse-primary"> <i class="fa fa-thumbs-o-up"></i>  <span>Like</span>
+			</button>
+			<button type="button" class="btn btn-inverse-primary"> <i class="fa fa-envelope-o"></i>  <span>Message</span> 
+			</button>
+			<button type="button" class="btn btn-inverse-primary"> <i class="fa fa-search"></i>  <span>Search</span> 
+			</button>
+		</div>
+		<hr>
+		<div class="btn-group group-round m-1">
+			<button type="button" class="btn btn-inverse-warning"> <i class="fa fa-home"></i>  <span>Home</span> 
+			</button>
+			<button type="button" class="btn btn-inverse-warning"> <i class="fa fa fa-trash-o"></i>  <span>Delete</span> 
+			</button>
+			<button type="button" class="btn btn-inverse-warning"> <i class="fa fa-music"></i>  <span>Music</span> 
+			</button>
+			<button type="button" class="btn btn-inverse-warning"> <i class="fa fa-star"></i>  <span>Star</span> 
+			</button>
+			<button type="button" class="btn btn-inverse-warning"> <i class="fa fa-thumbs-o-up"></i>  <span>Like</span>
+			</button>
+			<button type="button" class="btn btn-inverse-warning"> <i class="fa fa-envelope-o"></i>  <span>Message</span> 
+			</button>
+			<button type="button" class="btn btn-inverse-warning"> <i class="fa fa-search"></i>  <span>Search</span> 
+			</button>
+		</div>
+		<hr>
+		<div class="btn-group m-1">
+			<button type="button" class="btn btn-inverse-success"> <i class="fa fa-home"></i> 
+			</button>
+			<button type="button" class="btn btn-inverse-success"> <i class="fa fa fa-trash-o"></i> 
+			</button>
+			<button type="button" class="btn btn-inverse-success"> <i class="fa fa-music"></i> 
+			</button>
+			<button type="button" class="btn btn-inverse-success"> <i class="fa fa-star"></i> 
+			</button>
+			<button type="button" class="btn btn-inverse-success"> <i class="fa fa-thumbs-o-up"></i> 
+			</button>
+			<button type="button" class="btn btn-inverse-success"> <i class="fa fa-envelope-o"></i> 
+			</button>
+			<button type="button" class="btn btn-inverse-success"> <i class="fa fa-search"></i> 
+			</button>
+		</div>
+		<hr>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-inverse-primary">Dropdown</button>
+			<button type="button" class="btn btn-inverse-primary" id="inversebtndropdown1" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="inversebtndropdown1"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-inverse-success">Dropdown</button>
+			<button type="button" class="btn btn-inverse-success" id="inversebtndropdown2" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="inversebtndropdown2"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-inverse-danger">Dropdown</button>
+			<button type="button" class="btn btn-inverse-danger" id="inversebtndropdown3" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="inversebtndropdown3"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-inverse-info">Dropdown</button>
+			<button type="button" class="btn btn-inverse-info" id="inversebtndropdown4" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="inversebtndropdown3"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-inverse-warning">Dropdown</button>
+			<button type="button" class="btn btn-inverse-warning" id="inversebtndropdown5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="inversebtndropdown5"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-inverse-dark">Dropdown</button>
+			<button type="button" class="btn btn-inverse-dark" id="inversebtndropdown6" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="inversebtndropdown6"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="card">
+	<div class="card-header text-uppercase">Gradient Buttons</div>
+	<div class="card-body">
+		<button type="button" class="btn btn-gradient-primary m-1">PRIMARY</button>
+		<button type="button" class="btn btn-gradient-danger m-1">DANGER</button>
+		<button type="button" class="btn btn-gradient-success m-1">SUCCESS</button>
+		<button type="button" class="btn btn-gradient-info m-1">INFO</button>
+		<button type="button" class="btn btn-gradient-warning m-1">WARNING</button>
+		<button type="button" class="btn btn-gradient-secondary m-1">SECONDARY</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Sizes Buttons</div>
+			<div class="card-body">
+				<button type="button" class="btn btn-primary btn-lg m-1">PRIMARY</button>
+				<button type="button" class="btn btn-danger  m-1">DANGER</button>
+				<button type="button" class="btn btn-success btn-sm m-1">SUCCESS</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Round Sizes Buttons</div>
+			<div class="card-body">
+				<button type="button" class="btn btn-info btn-lg btn-round m-1">INFO</button>
+				<button type="button" class="btn btn-warning btn-round m-1">WARNING</button>
+				<button type="button" class="btn btn-dark btn-sm btn-round m-1">DARK</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<!-- Round Buttons-->
+<div class="row">
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Round Buttons</div>
+			<div class="card-body">
+				<button type="button" class="btn btn-primary btn-round m-1">PRIMARY</button>
+				<button type="button" class="btn btn-danger btn-round m-1">DANGER</button>
+				<button type="button" class="btn btn-success btn-round m-1">SUCCESS</button>
+				<button type="button" class="btn btn-info btn-round m-1">INFO</button>
+				<button type="button" class="btn btn-warning btn-round m-1">WARNING</button>
+				<button type="button" class="btn btn-secondary btn-round m-1">SECONDARY</button>
+				<button type="button" class="btn btn-light btn-round m-1">LIGHT</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Square Buttons</div>
+			<div class="card-body">
+				<button type="button" class="btn btn-primary btn-square m-1">PRIMARY</button>
+				<button type="button" class="btn btn-danger btn-square m-1">DANGER</button>
+				<button type="button" class="btn btn-success btn-square m-1">SUCCESS</button>
+				<button type="button" class="btn btn-info btn-square m-1">INFO</button>
+				<button type="button" class="btn btn-warning btn-square m-1">WARNING</button>
+				<button type="button" class="btn btn-secondary btn-square m-1">SECONDARY</button>
+				<button type="button" class="btn btn-light btn-square m-1">LIGHT</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<!-- / Round Buttons-->
+<!-- Sizes Buttons-->
+<div class="row">
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Sizes Buttons</div>
+			<div class="card-body">
+				<button type="button" class="btn btn-primary btn-lg m-1">PRIMARY</button>
+				<button type="button" class="btn btn-danger  m-1">DANGER</button>
+				<button type="button" class="btn btn-success btn-sm m-1">SUCCESS</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Round Sizes Buttons</div>
+			<div class="card-body">
+				<button type="button" class="btn btn-info btn-lg btn-round m-1">INFO</button>
+				<button type="button" class="btn btn-warning btn-round m-1">WARNING</button>
+				<button type="button" class="btn btn-dark btn-sm btn-round m-1">Dark</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<!-- / Sizes Buttons-->
+<!--Block Level Buttons-->
+<div class="row">
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Block Level Buttons</div>
+			<div class="card-body">
+				<button type="button" class="btn btn-primary btn-lg btn-block m-1">PRIMARY</button>
+				<button type="button" class="btn btn-danger btn-block m-1">DANGER</button>
+				<button type="button" class="btn btn-success btn-sm btn-block m-1">SUCCESS</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Round Block Level Buttons</div>
+			<div class="card-body">
+				<button type="button" class="btn btn-info btn-lg btn-round btn-block m-1">INFO</button>
+				<button type="button" class="btn btn-warning btn-round btn-block m-1">WARNING</button>
+				<button type="button" class="btn btn-dark btn-sm btn-round btn-block m-1">Dark</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<!-- / Block Level Buttons-->
+<!--Group Buttons-->
+<div class="row">
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Group Buttons</div>
+			<div class="card-body">
+				<div class="btn-group m-1">
+					<button type="button" class="btn btn-danger">LEFT</button>
+					<button type="button" class="btn btn-danger">MIDDLE</button>
+					<button type="button" class="btn btn-danger">RIGHT</button>
+				</div>
+				<div class="btn-group m-1">
+					<button type="button" class="btn btn-primary">LEFT</button>
+					<button type="button" class="btn btn-primary">MIDDLE</button>
+					<button type="button" class="btn btn-primary">RIGHT</button>
+				</div>
+				<div class="btn-group m-1">
+					<button type="button" class="btn btn-warning">LEFT</button>
+					<button type="button" class="btn btn-warning">MIDDLE</button>
+					<button type="button" class="btn btn-warning">RIGHT</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Round Group Buttons</div>
+			<div class="card-body">
+				<div class="btn-group group-round m-1">
+					<button type="button" class="btn btn-success">LEFT</button>
+					<button type="button" class="btn btn-success">MIDDLE</button>
+					<button type="button" class="btn btn-success">RIGHT</button>
+				</div>
+				<div class="btn-group group-round m-1">
+					<button type="button" class="btn btn-secondary">LEFT</button>
+					<button type="button" class="btn btn-secondary">MIDDLE</button>
+					<button type="button" class="btn btn-secondary">RIGHT</button>
+				</div>
+				<div class="btn-group group-round m-1">
+					<button type="button" class="btn btn-dark">LEFT</button>
+					<button type="button" class="btn btn-dark">MIDDLE</button>
+					<button type="button" class="btn btn-dark">RIGHT</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<!-- / Group Buttons-->
+<!--Vertical Group Buttons-->
+<div class="row">
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Vertical Group Buttons</div>
+			<div class="card-body">
+				<div class="btn-group-vertical m-1">
+					<button type="button" class="btn btn-secondary">LEFT</button>
+					<button type="button" class="btn btn-secondary">MIDDLE</button>
+					<button type="button" class="btn btn-secondary">RIGHT</button>
+				</div>
+				<div class="btn-group-vertical m-1">
+					<button type="button" class="btn btn-dark">LEFT</button>
+					<button type="button" class="btn btn-dark">MIDDLE</button>
+					<button type="button" class="btn btn-dark">RIGHT</button>
+				</div>
+				<div class="btn-group-vertical m-1">
+					<button type="button" class="btn btn-warning">LEFT</button>
+					<button type="button" class="btn btn-warning">MIDDLE</button>
+					<button type="button" class="btn btn-warning">RIGHT</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Round Vertical Group Buttons</div>
+			<div class="card-body">
+				<div class="btn-group-vertical group-round-vertical m-1">
+					<button type="button" class="btn btn-danger">LEFT</button>
+					<button type="button" class="btn btn-danger">MIDDLE</button>
+					<button type="button" class="btn btn-danger">RIGHT</button>
+				</div>
+				<div class="btn-group-vertical group-round-vertical m-1">
+					<button type="button" class="btn btn-info">LEFT</button>
+					<button type="button" class="btn btn-info">MIDDLE</button>
+					<button type="button" class="btn btn-info">RIGHT</button>
+				</div>
+				<div class="btn-group-vertical group-round-vertical m-1">
+					<button type="button" class="btn btn-primary">LEFT</button>
+					<button type="button" class="btn btn-primary">MIDDLE</button>
+					<button type="button" class="btn btn-primary">RIGHT</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<!-- / Vertical Group Buttons-->
+<!--Dropdown Buttons-->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Dropdown Buttons</div>
+			<div class="card-body">
+				<div ngbDropdown class="btn-group m-1" role="group">
+					<button type="button" class="btn btn-primary" id="dropdownBasic6" ngbDropdownToggle>Dropdown</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownBasic6"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1" role="group">
+					<button type="button" class="btn btn-success" id="dropdownBasic7" ngbDropdownToggle>Dropdown</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownBasic3"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1" role="group">
+					<button type="button" class="btn btn-danger" id="dropdownBasic7" ngbDropdownToggle>Dropdown</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownBasic4"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1" role="group">
+					<button type="button" class="btn btn-info" id="dropdownBasic8" ngbDropdownToggle>Dropdown</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownBasic8"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1" role="group">
+					<button type="button" class="btn btn-warning " id="dropdownBasic9" ngbDropdownToggle>Dropdown</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownBasic9"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1" role="group">
+					<button type="button" class="btn btn-dark" id="dropdownBasic10" ngbDropdownToggle>Dropdown</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownBasic10"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1" role="group">
+					<button type="button" class="btn btn-light" id="dropdownBasic11" ngbDropdownToggle>Dropdown</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownBasic11"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Split Dropdown Buttons</div>
+			<div class="card-body">
+				<div ngbDropdown class="btn-group m-1">
+					<button type="button" class="btn btn-primary">Dropdown</button>
+					<button type="button" class="btn btn-primary split-btn-primary" id="dropdownSplit1" ngbDropdownToggle> <span class="caret"></span>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownSplit1"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1">
+					<button type="button" class="btn btn-success">Dropdown</button>
+					<button type="button" class="btn btn-success split-btn-success" id="dropdownSplit2" ngbDropdownToggle> <span class="caret"></span>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownSplit2"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1">
+					<button type="button" class="btn btn-danger">Dropdown</button>
+					<button type="button" class="btn btn-danger split-btn-danger" id="dropdownSplit3" ngbDropdownToggle> <span class="caret"></span>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownSplit3"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1">
+					<button type="button" class="btn btn-info">Dropdown</button>
+					<button type="button" class="btn btn-info split-btn-info" id="dropdownSplit4" ngbDropdownToggle> <span class="caret"></span>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownSplit4"> 
+            			<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1">
+					<button type="button" class="btn btn-warning">Dropdown</button>
+					<button type="button" class="btn btn-warning split-btn-warning" id="dropdownSplit5" ngbDropdownToggle> <span class="caret"></span>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownSplit5"> 
+            			<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1">
+					<button type="button" class="btn btn-dark">Dropdown</button>
+					<button type="button" class="btn btn-dark split-btn-dark" id="dropdownSplit6" ngbDropdownToggle> <span class="caret"></span>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownSplit6"> 
+            			<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<!-- / Dropdown Buttons-->
+<!--Button With Icons-->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Button With Icons</div>
+			<div class="card-body">
+				<button type="button" class="btn btn-primary m-1"> <i class="fa fa-home"></i> 
+				</button>
+				<button type="button" class="btn btn-success m-1"> <i class="fa fa-trash-o"></i> 
+				</button>
+				<button type="button" class="btn btn-danger m-1"> <i class="fa fa-music"></i> 
+				</button>
+				<button type="button" class="btn btn-info m-1"> <i class="fa fa fa-envelope-o"></i> 
+				</button>
+				<button type="button" class="btn btn-warning m-1"> <i class="fa fa-star"></i> 
+				</button>
+				<button type="button" class="btn btn-secondary m-1"> <i class="fa fa-search"></i> 
+				</button>
+				<button type="button" class="btn btn-dark m-1"> <i class="fa fa-thumbs-o-up"></i> 
+				</button>
+				<hr>
+				<button type="button" class="btn btn-primary m-1"> <i class="fa fa-home"></i>  <span> Home</span> 
+				</button>
+				<button type="button" class="btn btn-success m-1"> <i class="fa fa fa-trash-o"></i>  <span> Delete</span> 
+				</button>
+				<button type="button" class="btn btn-danger m-1"> <i class="fa fa-music"></i>  <span> Music</span> 
+				</button>
+				<button type="button" class="btn btn-info m-1"> <i class="fa fa-envelope-o"></i>  <span> Message</span> 
+				</button>
+				<button type="button" class="btn btn-warning m-1"> <i class="fa fa-star"></i>  <span> Star</span> 
+				</button>
+				<button type="button" class="btn btn-secondary m-1"> <i class="fa fa-search"></i>  <span> Search</span> 
+				</button>
+				<button type="button" class="btn btn-dark m-1"> <i class="fa fa-thumbs-o-up"></i>  <span> Like</span>
+				</button>
+				<hr>
+				<div ngbDropdown class="btn-group m-1">
+					<button type="button" class="btn btn-primary"> <i class="fa fa-home"></i>  <span> Home</span> 
+					</button>
+					<button type="button" class="btn btn-primary split-btn-primary" id="dropdownIcon1" ngbDropdownToggle> <span class="caret"></span>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownIcon1"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1">
+					<button type="button" class="btn btn-success"> <i class="fa fa fa-trash-o"></i>  <span> Delete</span> 
+					</button>
+					<button type="button" class="btn btn-success split-btn-success" id="dropdownIcon2" ngbDropdownToggle> <span class="caret"></span>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownIcon2"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1">
+					<button type="button" class="btn btn-danger"> <i class="fa fa-music"></i>  <span> Music</span> 
+					</button>
+					<button type="button" class="btn btn-danger split-btn-danger" id="dropdownIcon3" ngbDropdownToggle> <span class="caret"></span>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownIcon3"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1">
+					<button type="button" class="btn btn-info"> <i class="fa fa-envelope-o"></i>  <span> Message</span> 
+					</button>
+					<button type="button" class="btn btn-info split-btn-info" id="dropdownIcon4" ngbDropdownToggle> <span class="caret"></span>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownIcon4"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1">
+					<button type="button" class="btn btn-warning"> <i class="fa fa-star"></i>  <span> Star</span> 
+					</button>
+					<button type="button" class="btn btn-warning split-btn-warning" id="dropdownIcon5" ngbDropdownToggle> <span class="caret"></span>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownIcon5"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1">
+					<button type="button" class="btn btn-secondary"> <i class="fa fa-search"></i>  <span> Search</span> 
+					</button>
+					<button type="button" class="btn btn-secondary split-btn-secondary" id="dropdownIcon6" ngbDropdownToggle> <span class="caret"></span>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownIcon5"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<div ngbDropdown class="btn-group m-1">
+					<button type="button" class="btn btn-dark"> <i class="fa fa-thumbs-o-up"></i>  <span> Like</span>
+					</button>
+					<button type="button" class="btn btn-dark split-btn-dark" id="dropdownIcon7" ngbDropdownToggle> <span class="caret"></span>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownIcon6"> 
+						<a href="javaScript:;" ngbDropdownItem>Action</a>
+						<a href="javaScript:;" ngbDropdownItem>Another action</a>
+						<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+						<div class="dropdown-divider"></div> 
+						<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+					</div>
+				</div>
+				<hr>
+				<div class="table-responsive">
+					<div class="btn-group m-1">
+						<button type="button" class="btn btn-primary"> <i class="fa fa-home"></i>  <span> Home</span> 
+						</button>
+						<button type="button" class="btn btn-primary"> <i class="fa fa fa-trash-o"></i>  <span> Delete</span> 
+						</button>
+						<button type="button" class="btn btn-primary"> <i class="fa fa-music"></i>  <span> Music</span> 
+						</button>
+						<button type="button" class="btn btn-primary"> <i class="fa fa-star"></i>  <span> Star</span> 
+						</button>
+						<button type="button" class="btn btn-primary"> <i class="fa fa-thumbs-o-up"></i>  <span> Like</span>
+						</button>
+						<button type="button" class="btn btn-primary"> <i class="fa fa-envelope-o"></i>  <span> Message</span> 
+						</button>
+						<button type="button" class="btn btn-primary"> <i class="fa fa-search"></i>  <span> Search</span> 
+						</button>
+					</div>
+					<hr>
+					<div class="btn-group group-round m-1">
+						<button type="button" class="btn btn-warning"> <i class="fa fa-home"></i>  <span> Home</span> 
+						</button>
+						<button type="button" class="btn btn-warning"> <i class="fa fa fa-trash-o"></i>  <span> Delete</span> 
+						</button>
+						<button type="button" class="btn btn-warning"> <i class="fa fa-music"></i>  <span> Music</span> 
+						</button>
+						<button type="button" class="btn btn-warning"> <i class="fa fa-star"></i>  <span> Star</span> 
+						</button>
+						<button type="button" class="btn btn-warning"> <i class="fa fa-thumbs-o-up"></i>  <span> Like</span>
+						</button>
+						<button type="button" class="btn btn-warning"> <i class="fa fa-envelope-o"></i>  <span> Message</span> 
+						</button>
+						<button type="button" class="btn btn-warning"> <i class="fa fa-search"></i>  <span> Search</span> 
+						</button>
+					</div>
+					<hr>
+					<div class="btn-group m-1">
+						<button type="button" class="btn btn-success"> <i class="fa fa-home"></i> 
+						</button>
+						<button type="button" class="btn btn-success"> <i class="fa fa fa-trash-o"></i> 
+						</button>
+						<button type="button" class="btn btn-success"> <i class="fa fa-music"></i> 
+						</button>
+						<button type="button" class="btn btn-success"> <i class="fa fa-star"></i> 
+						</button>
+						<button type="button" class="btn btn-success"> <i class="fa fa-thumbs-o-up"></i> 
+						</button>
+						<button type="button" class="btn btn-success"> <i class="fa fa-envelope-o"></i> 
+						</button>
+						<button type="button" class="btn btn-success"> <i class="fa fa-search"></i> 
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<!-- / Button With Icons-->
+<!--Outline Buttons-->
+<h6 class="text-uppercase">Outline Buttons</h6>
+<hr>
+<div class="card">
+	<div class="card-body">
+		<button type="button" class="btn btn-outline-primary m-1">PRIMARY</button>
+		<button type="button" class="btn btn-outline-danger m-1">DANGER</button>
+		<button type="button" class="btn btn-outline-success m-1">SUCCESS</button>
+		<button type="button" class="btn btn-outline-info m-1">INFO</button>
+		<button type="button" class="btn btn-outline-warning m-1">WARNING</button>
+		<button type="button" class="btn btn-outline-dark m-1">DARK</button>
+		<button type="button" class="btn btn-outline-secondary m-1">SECONDARY</button>
+		<hr>
+		<button type="button" class="btn btn-outline-primary btn-round m-1">PRIMARY</button>
+		<button type="button" class="btn btn-outline-danger btn-round m-1">DANGER</button>
+		<button type="button" class="btn btn-outline-success btn-round m-1">SUCCESS</button>
+		<button type="button" class="btn btn-outline-info btn-round m-1">INFO</button>
+		<button type="button" class="btn btn-outline-warning btn-round m-1">WARNING</button>
+		<button type="button" class="btn btn-outline-dark btn-round m-1">DARK</button>
+		<button type="button" class="btn btn-outline-secondary btn-round m-1">SECONDARY</button>
+		<hr>
+		<button type="button" class="btn btn-outline-primary btn-square m-1">PRIMARY</button>
+		<button type="button" class="btn btn-outline-danger btn-square m-1">DANGER</button>
+		<button type="button" class="btn btn-outline-success btn-square m-1">SUCCESS</button>
+		<button type="button" class="btn btn-outline-info btn-square m-1">INFO</button>
+		<button type="button" class="btn btn-outline-warning btn-square m-1">WARNING</button>
+		<button type="button" class="btn btn-outline-dark btn-square m-1">DARK</button>
+		<button type="button" class="btn btn-outline-secondary btn-square m-1">SECONDARY</button>
+		<hr>
+		<button type="button" class="btn btn-outline-primary btn-lg m-1">PRIMARY</button>
+		<button type="button" class="btn btn-outline-danger  m-1">DANGER</button>
+		<button type="button" class="btn btn-outline-success btn-sm m-1">SUCCESS</button>
+		<hr>
+		<button type="button" class="btn btn-outline-info btn-lg btn-round m-1">INFO</button>
+		<button type="button" class="btn btn-outline-warning btn-round m-1">WARNING</button>
+		<button type="button" class="btn btn-outline-dark btn-sm btn-round m-1">DARK</button>
+		<hr>
+		<div class="btn-group m-1">
+			<button type="button" class="btn btn-outline-primary">LEFT</button>
+			<button type="button" class="btn btn-outline-primary">MIDDLE</button>
+			<button type="button" class="btn btn-outline-primary">RIGHT</button>
+		</div>
+		<div class="btn-group m-1">
+			<button type="button" class="btn btn-outline-danger">LEFT</button>
+			<button type="button" class="btn btn-outline-danger">MIDDLE</button>
+			<button type="button" class="btn btn-outline-danger">RIGHT</button>
+		</div>
+		<div class="btn-group m-1">
+			<button type="button" class="btn btn-outline-success">LEFT</button>
+			<button type="button" class="btn btn-outline-success">MIDDLE</button>
+			<button type="button" class="btn btn-outline-success">RIGHT</button>
+		</div>
+		<hr>
+		<div ngbDropdown class="btn-group m-1" role="group">
+			<button type="button" class="btn btn-outline-primary" id="dropdownOutBasic1" ngbDropdownToggle>Dropdown</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutBasic1"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1" role="group">
+			<button type="button" class="btn btn-outline-danger" id="dropdownOutBasic2" ngbDropdownToggle>Dropdown</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutBasic2"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1" role="group">
+			<button type="button" class="btn btn-outline-success" id="dropdownOutBasic3" ngbDropdownToggle>Dropdown</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutBasic3"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1" role="group">
+			<button type="button" class="btn btn-outline-info" id="dropdownOutBasic4" ngbDropdownToggle>Dropdown</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutBasic4"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1" role="group">
+			<button type="button" class="btn btn-outline-warning " id="dropdownOutBasic5" ngbDropdownToggle>Dropdown</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutBasic5"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1" role="group">
+			<button type="button" class="btn btn-outline-dark" id="dropdownOutBasic6" ngbDropdownToggle>Dropdown</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutBasic6"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<hr>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-outline-primary">Dropdown</button>
+			<button type="button" class="btn btn-primary" id="dropdownOutSplit1" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutSplit1"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-outline-danger">Dropdown</button>
+			<button type="button" class="btn btn-danger" id="dropdownOutSplit2" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutSplit2"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-outline-success">Dropdown</button>
+			<button type="button" class="btn btn-success" id="dropdownOutSplit3" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutSplit3"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-outline-info">Dropdown</button>
+			<button type="button" class="btn btn-info" id="dropdownOutSplit4" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutSplit4"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-outline-warning">Dropdown</button>
+			<button type="button" class="btn btn-warning" id="dropdownOutSplit5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutSplit5"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-outline-dark">Dropdown</button>
+			<button type="button" class="btn btn-dark" id="dropdownOutSplit6" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutSplit6"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<hr>
+		<button type="button" class="btn btn-outline-primary m-1"> <i class="fa fa-home"></i> 
+		</button>
+		<button type="button" class="btn btn-outline-danger m-1"> <i class="fa fa-trash-o"></i> 
+		</button>
+		<button type="button" class="btn btn-outline-success m-1"> <i class="fa fa-music"></i> 
+		</button>
+		<button type="button" class="btn btn-outline-info m-1"> <i class="fa fa fa-envelope-o"></i> 
+		</button>
+		<button type="button" class="btn btn-outline-warning m-1"> <i class="fa fa-star"></i> 
+		</button>
+		<button type="button" class="btn btn-outline-dark m-1"> <i class="fa fa-search"></i> 
+		</button>
+		<button type="button" class="btn btn-outline-secondary m-1"> <i class="fa fa-thumbs-o-up"></i> 
+		</button>
+		<hr>
+		<button type="button" class="btn btn-outline-primary m-1"> <i class="fa fa-home"></i>  <span>Home</span> 
+		</button>
+		<button type="button" class="btn btn-outline-danger m-1"> <i class="fa fa fa-trash-o"></i>  <span>Delete</span> 
+		</button>
+		<button type="button" class="btn btn-outline-success m-1"> <i class="fa fa-music"></i>  <span>Music</span> 
+		</button>
+		<button type="button" class="btn btn-outline-info m-1"> <i class="fa fa-envelope-o"></i>  <span>Message</span> 
+		</button>
+		<button type="button" class="btn btn-outline-warning m-1"> <i class="fa fa-star"></i>  <span>Star</span> 
+		</button>
+		<button type="button" class="btn btn-outline-dark m-1"> <i class="fa fa-search"></i>  <span>Search</span> 
+		</button>
+		<button type="button" class="btn btn-outline-secondary m-1"> <i class="fa fa-thumbs-o-up"></i>  <span>Like</span>
+		</button>
+		<hr>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-outline-primary"> <i class="fa fa-home"></i>  <span>Home</span> 
+			</button>
+			<button type="button" class="btn btn-outline-primary" id="dropdownOutIcon1" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutIcon1"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-outline-danger"> <i class="fa fa fa-trash-o"></i>  <span>Delete</span> 
+			</button>
+			<button type="button" class="btn btn-outline-danger" id="dropdownOutIcon2" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutIcon2"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-outline-success"> <i class="fa fa-music"></i>  <span>Music</span> 
+			</button>
+			<button type="button" class="btn btn-outline-success" id="dropdownOutIcon3" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutIcon3"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-outline-info"> <i class="fa fa-envelope-o"></i>  <span>Message</span> 
+			</button>
+			<button type="button" class="btn btn-outline-info" id="dropdownOutIcon4" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutIcon4"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-outline-warning"> <i class="fa fa-star"></i>  <span>Star</span> 
+			</button>
+			<button type="button" class="btn btn-outline-warning" id="dropdownOutIcon5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutIcon5"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-outline-dark"> <i class="fa fa-search"></i>  <span>Search</span> 
+			</button>
+			<button type="button" class="btn btn-outline-dark" id="dropdownOutIcon6" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutIcon6"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<div ngbDropdown class="btn-group m-1">
+			<button type="button" class="btn btn-outline-secondary"> <i class="fa fa-thumbs-o-up"></i>  <span>Like</span>
+			</button>
+			<button type="button" class="btn btn-outline-secondary" id="dropdownOutIcon7" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownOutIcon7"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+		<hr>
+		<div class="table-responsive">
+			<div class="btn-group m-1">
+				<button type="button" class="btn btn-outline-primary"> <i class="fa fa-home"></i>  <span>Home</span> 
+				</button>
+				<button type="button" class="btn btn-outline-danger"> <i class="fa fa fa-trash-o"></i>  <span>Delete</span> 
+				</button>
+				<button type="button" class="btn btn-outline-success"> <i class="fa fa-music"></i>  <span>Music</span> 
+				</button>
+				<button type="button" class="btn btn-outline-info"> <i class="fa fa-star"></i>  <span>Star</span> 
+				</button>
+				<button type="button" class="btn btn-outline-warning"> <i class="fa fa-thumbs-o-up"></i>  <span>Like</span>
+				</button>
+				<button type="button" class="btn btn-outline-dark"> <i class="fa fa-envelope-o"></i>  <span>Message</span> 
+				</button>
+				<button type="button" class="btn btn-outline-secondary"> <i class="fa fa-search"></i>  <span>Search</span> 
+				</button>
+			</div>
+			<hr>
+			<div class="btn-group group-round m-1">
+				<button type="button" class="btn btn-outline-primary"> <i class="fa fa-home"></i>  <span>Home</span> 
+				</button>
+				<button type="button" class="btn btn-outline-danger"> <i class="fa fa fa-trash-o"></i>  <span>Delete</span> 
+				</button>
+				<button type="button" class="btn btn-outline-success"> <i class="fa fa-music"></i>  <span>Music</span> 
+				</button>
+				<button type="button" class="btn btn-outline-info"> <i class="fa fa-star"></i>  <span>Star</span> 
+				</button>
+				<button type="button" class="btn btn-outline-warning"> <i class="fa fa-thumbs-o-up"></i>  <span>Like</span>
+				</button>
+				<button type="button" class="btn btn-outline-dark"> <i class="fa fa-envelope-o"></i>  <span>Message</span> 
+				</button>
+				<button type="button" class="btn btn-outline-secondary"> <i class="fa fa-search"></i>  <span>Search</span> 
+				</button>
+			</div>
+			<hr>
+			<div class="btn-group m-1">
+				<button type="button" class="btn btn-outline-primary"> <i class="fa fa-home"></i> 
+				</button>
+				<button type="button" class="btn btn-outline-danger"> <i class="fa fa fa-trash-o"></i> 
+				</button>
+				<button type="button" class="btn btn-outline-success"> <i class="fa fa-music"></i> 
+				</button>
+				<button type="button" class="btn btn-outline-info"> <i class="fa fa-star"></i> 
+				</button>
+				<button type="button" class="btn btn-outline-warning"> <i class="fa fa-thumbs-o-up"></i> 
+				</button>
+				<button type="button" class="btn btn-outline-dark"> <i class="fa fa-envelope-o"></i> 
+				</button>
+				<button type="button" class="btn btn-outline-secondary"> <i class="fa fa-search"></i> 
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- / Outline Buttons-->
+<!--Social Buttons-->
+<h6 class="text-uppercase">Social Buttons</h6>
+<hr>
+<div class="card">
+	<div class="card-body">
+		<h6>Square Rounded</h6>
+		<hr> <a href="javascript:" class="btn-social btn-facebook m-1"><i class="fa fa-facebook"></i></a>
+		<a href="javascript:" class="btn-social btn-twitter m-1"><i class="fa fa-twitter"></i></a>
+		<a href="javascript:" class="btn-social btn-google-plus m-1"><i class="fa fa-google-plus"></i></a>
+		<a href="javascript:" class="btn-social btn-linkedin m-1"><i class="fa fa-linkedin"></i></a>
+		<a href="javascript:" class="btn-social btn-pinterest m-1"><i class="fa fa-pinterest"></i></a>
+		<a href="javascript:" class="btn-social btn-youtube m-1"><i class="fa fa-youtube"></i></a>
+		<a href="javascript:" class="btn-social btn-tumblr m-1"><i class="fa fa-tumblr"></i></a>
+		<a href="javascript:" class="btn-social btn-github m-1"><i class="fa fa-github"></i></a>
+		<a href="javascript:" class="btn-social btn-behance m-1"><i class="fa fa-behance"></i></a>
+		<a href="javascript:" class="btn-social btn-dribbble m-1"><i class="fa fa-dribbble"></i></a>
+		<a href="javascript:" class="btn-social btn-skype m-1"><i class="fa fa-skype"></i></a>
+	</div>
+	<div class="card-body">
+		<h6>Circle Social Buttons</h6>
+		<hr> <a href="javascript:" class="btn-social btn-social-circle btn-facebook m-1"><i class="fa fa-facebook"></i></a>
+		<a href="javascript:" class="btn-social btn-social-circle btn-twitter m-1"><i class="fa fa-twitter"></i></a>
+		<a href="javascript:" class="btn-social btn-social-circle btn-google-plus m-1"><i class="fa fa-google-plus"></i></a>
+		<a href="javascript:" class="btn-social btn-social-circle btn-linkedin m-1"><i class="fa fa-linkedin"></i></a>
+		<a href="javascript:" class="btn-social btn-social-circle btn-pinterest m-1"><i class="fa fa-pinterest"></i></a>
+		<a href="javascript:" class="btn-social btn-social-circle btn-youtube m-1"><i class="fa fa-youtube"></i></a>
+		<a href="javascript:" class="btn-social btn-social-circle btn-tumblr m-1"><i class="fa fa-tumblr"></i></a>
+		<a href="javascript:" class="btn-social btn-social-circle btn-github m-1"><i class="fa fa-github"></i></a>
+		<a href="javascript:" class="btn-social btn-social-circle btn-behance m-1"><i class="fa fa-behance"></i></a>
+		<a href="javascript:" class="btn-social btn-social-circle btn-dribbble m-1"><i class="fa fa-dribbble"></i></a>
+		<a href="javascript:" class="btn-social btn-social-circle btn-skype m-1"><i class="fa fa-skype"></i></a>
+	</div>
+	<div class="card-body">
+		<h6>Social Buttons With Text</h6>
+		<hr>
+		<a href="javascript:" class="btn-social-text btn-facebook m-1"> <i class="fa fa-facebook-square"></i>
+			<span>Login with facebook</span>
+		</a> <a href="javascript:" class="btn-social-text btn-twitter m-1"><i class="fa fa-twitter"></i> <span>Login with twitter</span></a>
+		<a href="javascript:" class="btn-social-text btn-google-plus m-1"><i class="fa fa-google-plus"></i> <span>Login with google+</span></a>
+		<a href="javascript:" class="btn-social-text btn-linkedin m-1"><i class="fa fa-linkedin-square"></i> <span>Login with linkedin</span></a>
+		<a href="javascript:" class="btn-social-text btn-pinterest m-1"><i class="fa fa-pinterest"></i> <span>Pin it 4.21</span></a>
+		<hr> <a href="javascript:" class="btn-social-text btn-youtube m-1"><i class="fa fa-youtube"></i> <span>View on youtube</span></a>
+		<a href="javascript:" class="btn-social-text btn-tumblr m-1"><i class="fa fa-tumblr"></i> <span>Repost</span></a>
+		<a href="javascript:" class="btn-social-text btn-github m-1"><i class="fa fa-github"></i> <span>Connect with github</span></a>
+		<a href="javascript:" class="btn-social-text btn-behance m-1"><i class="fa fa-behance"></i> <span>Follow Us</span></a>
+		<a href="javascript:" class="btn-social-text btn-dribbble m-1"><i class="fa fa-dribbble"></i> <span>Find us on dribbble</span></a>
+		<hr> <a href="javascript:" class="btn-social-text btn-skype m-1"><i class="fa fa-skype"></i> <span>Connect with skype</span></a>
+		<h6 class="mt-4">Round Scoial Buttons with text</h6>
+		<hr> <a href="javascript:" class="btn-social-text btn-facebook btn-round m-1"><i class="fa fa-facebook-square"></i> <span>Login with facebook</span></a>
+		<a href="javascript:" class="btn-social-text btn-twitter btn-round m-1"><i class="fa fa-twitter"></i> <span>Login with twitter</span></a>
+		<a href="javascript:" class="btn-social-text btn-google-plus btn-round m-1"><i class="fa fa-google-plus"></i> <span>Login with google+</span></a>
+		<a href="javascript:" class="btn-social-text btn-linkedin btn-round m-1"><i class="fa fa-linkedin-square"></i> <span>Login with linkedin</span></a>
+		<a href="javascript:" class="btn-social-text btn-pinterest btn-round m-1"><i class="fa fa-pinterest"></i> <span>Pin it 4.21</span></a>
+		<hr> <a href="javascript:" class="btn-social-text btn-youtube btn-round m-1"><i class="fa fa-youtube"></i> <span>View on youtube</span></a>
+		<a href="javascript:" class="btn-social-text btn-tumblr btn-round m-1"><i class="fa fa-tumblr"></i> <span>Repost</span></a>
+		<a href="javascript:" class="btn-social-text btn-github btn-round m-1"><i class="fa fa-github"></i> <span>Connect with github</span></a>
+		<a href="javascript:" class="btn-social-text btn-behance btn-round m-1"><i class="fa fa-behance"></i> <span>Follow Us</span></a>
+		<a href="javascript:" class="btn-social-text btn-dribbble btn-round m-1"><i class="fa fa-dribbble"></i> <span>Find us on dribbble</span></a>
+		<hr> <a href="javascript:" class="btn-social-text btn-skype btn-round m-1"><i class="fa fa-skype"></i> <span>Connect with skype</span></a>
+	</div>
+	<div class="card-body">
+		<h6>Outline Social Buttons</h6>
+		<hr> <a href="javascript:" class="btn-social btn-outline-facebook btn-social-circle m-1"><i class="fa fa-facebook"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-twitter btn-social-circle m-1"><i class="fa fa-twitter"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-google-plus btn-social-circle m-1"><i class="fa fa-google-plus"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-linkedin btn-social-circle m-1"><i class="fa fa-linkedin"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-pinterest btn-social-circle m-1"><i class="fa fa-pinterest"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-youtube btn-social-circle m-1"><i class="fa fa-youtube"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-tumblr btn-social-circle m-1"><i class="fa fa-tumblr"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-github btn-social-circle m-1"><i class="fa fa-github"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-behance btn-social-circle m-1"><i class="fa fa-behance"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-dribbble btn-social-circle m-1"><i class="fa fa-dribbble"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-skype btn-social-circle m-1"><i class="fa fa-skype"></i></a>
+		<hr> <a href="javascript:" class="btn-social btn-outline-facebook m-1"><i class="fa fa-facebook"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-twitter m-1"><i class="fa fa-twitter"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-google-plus m-1"><i class="fa fa-google-plus"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-linkedin m-1"><i class="fa fa-linkedin"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-pinterest m-1"><i class="fa fa-pinterest"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-youtube m-1"><i class="fa fa-youtube"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-tumblr m-1"><i class="fa fa-tumblr"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-github m-1"><i class="fa fa-github"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-behance m-1"><i class="fa fa-behance"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-dribbble m-1"><i class="fa fa-dribbble"></i></a>
+		<a href="javascript:" class="btn-social btn-outline-skype m-1"><i class="fa fa-skype"></i></a>
+		<hr>
+		<a href="javascript:" class="btn-social-text btn-outline-facebook m-1"> <i class="fa fa-facebook-square"></i>
+			<span>Login with facebook</span>
+		</a> <a href="javascript:" class="btn-social-text btn-outline-twitter m-1"><i class="fa fa-twitter"></i> <span>Login with twitter</span></a>
+		<a href="javascript:" class="btn-social-text btn-outline-google-plus m-1"><i class="fa fa-google-plus"></i> <span>Login with google+</span></a>
+		<a href="javascript:" class="btn-social-text btn-outline-linkedin m-1"><i class="fa fa-linkedin-square"></i> <span>Login with linkedin</span></a>
+		<a href="javascript:" class="btn-social-text btn-outline-pinterest m-1"><i class="fa fa-pinterest"></i> <span>Pin it 4.21</span></a>
+		<hr> <a href="javascript:" class="btn-social-text btn-outline-youtube m-1"><i class="fa fa-youtube"></i> <span>View on youtube</span></a>
+		<a href="javascript:" class="btn-social-text btn-outline-tumblr m-1"><i class="fa fa-tumblr"></i> <span>Repost</span></a>
+		<a href="javascript:" class="btn-social-text btn-outline-github m-1"><i class="fa fa-github"></i> <span>Connect with github</span></a>
+		<a href="javascript:" class="btn-social-text btn-outline-behance m-1"><i class="fa fa-behance"></i> <span>Follow Us</span></a>
+		<a href="javascript:" class="btn-social-text btn-outline-dribbble m-1"><i class="fa fa-dribbble"></i> <span>Find us on dribbble</span></a>
+		<hr> <a href="javascript:" class="btn-social-text btn-outline-skype m-1"><i class="fa fa-skype"></i> <span>Connect with skype</span></a>
+		<hr> <a href="javascript:" class="btn-social-text btn-outline-facebook btn-round m-1"><i class="fa fa-facebook-square"></i> <span>Login with facebook</span></a>
+		<a href="javascript:" class="btn-social-text btn-outline-twitter btn-round m-1"><i class="fa fa-twitter"></i> <span>Login with twitter</span></a>
+		<a href="javascript:" class="btn-social-text btn-outline-google-plus btn-round m-1"><i class="fa fa-google-plus"></i> <span>Login with google+</span></a>
+		<a href="javascript:" class="btn-social-text btn-outline-linkedin m-1"><i class="fa fa-linkedin-square"></i> <span>Login with linkedin</span></a>
+		<a href="javascript:" class="btn-social-text btn-outline-pinterest btn-round m-1"><i class="fa fa-pinterest"></i> <span>Pin it 4.21</span></a>
+		<hr> <a href="javascript:" class="btn-social-text btn-outline-youtube btn-round m-1"><i class="fa fa-youtube"></i> <span>View on youtube</span></a>
+		<a href="javascript:" class="btn-social-text btn-outline-tumblr btn-round m-1"><i class="fa fa-tumblr"></i> <span>Repost</span></a>
+		<a href="javascript:" class="btn-social-text btn-outline-github btn-round m-1"><i class="fa fa-github"></i> <span>Connect with github</span></a>
+		<a href="javascript:" class="btn-social-text btn-outline-behance btn-round m-1"><i class="fa fa-behance"></i> <span>Follow Us</span></a>
+		<a href="javascript:" class="btn-social-text btn-outline-dribbble btn-round m-1"><i class="fa fa-dribbble"></i> <span>Find us on dribbble</span></a>
+		<hr> <a href="javascript:" class="btn-social-text btn-outline-skype btn-round m-1"><i class="fa fa-skype"></i> <span>Connect with skype</span></a>
+	</div>
+</div>
+<!--End Card-->
+<!-- / Social Buttons-->

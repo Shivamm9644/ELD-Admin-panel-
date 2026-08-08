@@ -1,0 +1,630 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card p-2">
+			<form action="#"> 
+				<div class="card-body">
+
+					<div class="d-flex justify-content-between mb-3">
+                        <span class="card-title h5 m-0">Manage Company</span>
+                        <div class="btn-group float-sm-left">
+							<button type="button" *ngIf="userTypeId==1" data-toggle="modal" (click)="ClearForm()" data-target="#company_modal" class="btn btn-outline-success btn-sm">
+								<i class="zmdi zmdi-plus mr-1"></i>Add Company
+							</button>
+						</div>
+                    </div>
+
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<tr>
+									<th>S.No</th>
+									<th>Company Name</th>
+									<th>Dot No.</th>
+									<th>Company ID/API</th>
+									<th>Street</th>     
+									<th>City</th>
+									<th>Expiry Date</th>
+									<th>Grace Date </th>
+									<!-- <th>Time Zone</th> -->
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody> 
+								<!-- <div id="loading" *ngIf="isLoading">
+									<img src="assets/images/pre_lodding.gif" width="250" height="250"  class="text-center">
+							   </div> -->
+							   <tr *ngFor="let company of rowData; let i = index">
+								<th style="text-align: center;" scope="row">{{i+1}}</th>
+								<td *ngIf="userTypeId!=1">{{company.clientName}} </td>
+								<td *ngIf="userTypeId==1">
+									<a style="cursor: pointer; color: dodgerblue; text-align: center;" data-toggle="modal" data-target="#company_modal" (click)="EditCompany(company)">
+										{{company.clientName}} 
+									</a>
+								</td>
+								<td>{{company.dotNo}} </td>
+								<td>{{company.companyId}} </td>
+								<td>{{company.street}} </td>
+								<td>{{company.city}} </td>
+								<td *ngIf="company.subscriptionEndTime==0"></td>
+								<td *ngIf="company.subscriptionEndTime!=0">{{company.subscriptionEndTime | date:'d MMM yyyy'}} </td>
+								<td *ngIf="company.graceTime==0"></td>
+								<td *ngIf="company.graceTime!=0">
+									<!-- {{company.graceTime | date:'d MMM yyyy'}}  -->
+									 <a *ngIf="userTypeId==1" style="cursor: pointer; color: dodgerblue; text-align: center;" data-toggle="modal" data-target="#grace_modal" (click)="CompanyGraceDate(company)">
+										{{company.graceTime | date:'d MMM yyyy'}}
+									</a>
+								</td>
+								<!-- <td>{{company.timeZone}} </td> -->
+								<td style="width: 180px;">
+									<a style="cursor: pointer; color: dodgerblue; text-align: center;" (click)="SelectClient(company)">
+										<span class='badge badge-primary py-2 px-2 td_company_btn' > Select Company</span>
+									</a>
+									<button *ngIf="userTypeId==1" style="margin-left: 10px;"
+										[ngClass]="company.status === 'true' ? 'badge badge-primary btn-sm' : 'badge badge-secondary btn-sm'" 
+										class='py-2 px-2 td_company_btn'
+										title="Active or inactive account."
+										(click)="ActiveInactiveCompanyAccount(company)">
+										{{ company.status === 'true' ? 'Active' : 'Inactive' }}
+									</button>
+								</td> 
+							</tr>
+							</tbody>
+						</table>
+						<div class="pre_lodding" *ngIf="isLoading">
+							<img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+						</div>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+<div id="company_modal" class="modal fade hide" role="dialog">
+	<form action="#" #masterCompanyForm="ngForm">
+		<div class="modal-dialog ">
+			<div class="modal-content" style="width: 1100px;">
+				<div class="modal-header">
+					<h6 class="modal-title">Add Company</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="card p-3 mb-2">
+							<h6 class="card-title h5">General Information</h6>
+							<div  class="card-body">
+								<div class="row mb-2">
+									<div class="col-md-3">
+										<small for="control-label">Company ID<i class="validation_required"></i></small>
+									</div>
+									<div class="col-md-9">
+										<input type="text" disabled id="companyId" name="companyId"  class="form-control form-control-sm mainInput" [(ngModel)]="companyForm.companyId"  placeholder="Company ID">
+										<!-- <div *ngIf="!vehicleNo?.valid && (vehicleNo?.dirty || vehicleNo?.touched)" class="error">
+											<div *ngIf="vehicleNo.errors.required">
+												<small class="validation_required" style="font-size: xx-small;">Value should be at least 1 and up to 10 letters/numbers </small>
+											</div>
+										</div> -->
+									</div>
+								</div>
+								<div class="row mb-2">
+									<div class="col-md-3">
+										<small for="control-label">Company Name<i class="validation_required"></i></small>
+									</div>
+									<div class="col-md-9">
+										<input type="text" id="companyName" name="companyName"  class="form-control form-control-sm mainInput" [(ngModel)]="companyForm.companyName"  placeholder="Company Name">
+										
+									</div>
+								</div>
+
+								<div class="row mb-2">
+									<div class="col-md-3">
+										<small for="control-label">DOT Number<i class="validation_required"></i></small>
+									</div>
+									<div class="col-md-9">
+										<input type="text" id="dotNumber" name="dotNumber"  class="form-control form-control-sm mainInput" [(ngModel)]="companyForm.dotNumber"  placeholder="DOT Number">
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<small for="" class="col-3 control-label">Company Time Zone</small>
+									<div class="col-9">
+										<!-- <ng-select [items]="companyTimeZonesDataArr"
+										bindLabel="companyTimeZoneName"
+										bindValue="id"
+										placeholder="Select Company time zone"
+										appendTo="body"
+										name="companyTimeZoneName"
+										[(ngModel)]="companyForm.timezoneId"> 
+										</ng-select>	 -->
+										<ng-select [items]="timeZonesDataArr"
+										bindLabel="timeZoneName"
+										bindValue="id"
+										placeholder="Select time zone"
+										appendTo="body"
+										name="timeZoneName"
+										[(ngModel)]="companyForm.timezoneId"> 
+										</ng-select>							
+									</div>
+								</div>
+
+								<div class="row mb-2">
+									<small for="" class="col-3 control-label">Address</small>
+									<div class="col-9 row pr-0">
+										<div class="col-6">
+											<input type="text" id="companyStreetName" name="companyStreetName"  class="form-control form-control-sm mainInput"  [(ngModel)]="companyForm.companyStreetName"   placeholder="Street">
+										</div>
+										<div class="col-6 p-0">
+											<input type="text" id="companyCity" name="companyCity"  class="form-control form-control-sm mainInput"  [(ngModel)]="companyForm.companyCity"   placeholder="City">
+										</div>
+
+										<div class="col-4 mt-3">
+											<ng-select [items]="companyCountryDataArr"
+												bindLabel="companyCountryName"
+												bindValue="id"
+												placeholder="Select Country"
+												appendTo="body"
+												(change)="getAllCompanyState($event.id)"
+												name="companyCountryName"
+												[(ngModel)]="companyForm.companyCountryId"> 
+											</ng-select>
+										</div>
+										<div class="col-4 mt-3 p-0">
+											<ng-select [items]="comapnyStateDataArr"
+												bindLabel="companyStateName"
+												bindValue="id"
+												placeholder="Select State"
+												appendTo="body"
+												name="companyStateName"
+												[(ngModel)]="companyForm.companyStateId"> 
+											</ng-select>
+										</div>
+
+										<div class="col-4 mt-3 pr-0">
+											<input type="text" id="companyZipCode" name="companyZipCode"  class="form-control form-control-sm mainInput"  [(ngModel)]="companyForm.companyZipCode"   placeholder="zipCode">
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					<div class="card p-3 mb-2">
+						<div class="mb-2 d-flex align-items-center">
+							<h6 class="card-title h5 mb-0 me-2">Terminal</h6>
+							<div class="form-check mb-0 ml-4">
+								<input type="checkbox" (click)="SameCompanyAddress()" class="form-check-input" id="terminalSameAsAbove" [(ngModel)]="companyForm.terminalSameAsAbove">
+								<label class="form-check-label" for="terminalSameAsAbove">Same As Above</label>
+							</div>
+						</div>
+						
+						<div class="row mb-3">
+							<small for="" class="col-3 control-label">Time Zone</small>
+							<div class="col-9">
+								<ng-select [items]="timeZonesDataArr"
+								bindLabel="timeZoneName"
+								bindValue="id"
+								placeholder="Select time zone"
+								(change)="GetTimeZoneName($event.id,$event.timeZoneName)"
+								appendTo="body"
+								name="timeZoneName"
+								[(ngModel)]="companyForm.terminalTimezoneId"> 
+								</ng-select>							
+							</div>
+						</div>
+						<div class="row mb-3">
+							<small for="" class="col-3 control-label">24H Period Staring Time</small>
+							<div class="col-9">
+								<input type="text" id="terminalStartTime" name="terminalStartTime"   class="form-control form-control-sm mainInput"  [(ngModel)]="companyForm.terminalStartTime"  placeholder="00:00">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<small for="" class="col-3 control-label">Terminal Address</small>
+							<div class="col-9 row pr-0">
+								<div class="col-6">
+									<input type="text" id="terminalStreet" name="terminalStreet"   class="form-control form-control-sm mainInput"  [(ngModel)]="companyForm.terminalStreet"  placeholder="Street">
+								</div>
+								<div class="col-6 p-0">
+									<input type="text" id="terminalCity" name="terminalCity"   class="form-control form-control-sm mainInput"  [(ngModel)]="companyForm.terminalCity"  placeholder="City">
+								</div>
+								<div class="col-4 mt-3">
+									<ng-select 
+									[items]="companyCountryDataArr"
+									bindLabel="companyCountryName"
+									bindValue="id"
+									placeholder="Select Country"
+									(change)="GetCountryName($event.id,$event.companyCountryName)"
+									appendTo="body"
+									name="companyCountryName"
+									[(ngModel)]="companyForm.terminalCountryId"> 
+									</ng-select> 
+								</div>
+								<div class="col-4 mt-3 p-0">
+									<ng-select 
+									[items]="comapnyStateDataArr"
+									bindLabel="companyStateName"
+									bindValue="id"
+									placeholder="Select State"
+									(change)="GetStateName($event.id,$event.companyStateName)"
+									appendTo="body"
+									name="companyStateName"
+									[(ngModel)]="companyForm.terminalStateId"> 
+									</ng-select>
+								</div>
+								<div class="col-4 mt-3 pr-0 ">
+									<input type="text" id="terminalZipcode" name="terminalZipcode"   class="form-control form-control-sm mainInput"  [(ngModel)]="companyForm.terminalZipcode"  placeholder="Zip / Portal Code">
+								</div>
+							</div>
+						</div>
+
+						<div class="">
+							<div  class="showTerminalField">
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-5 float-left">
+								<button class="btn btn-sm btn-outline-success" type="submit" id="addButton" value="+" (click)="addRow()">+ Add New Terminal</button>
+							</div>
+						</div>
+
+					</div>
+
+						<div class="card p-3 mb-2">
+							<h6 class="card-title h5">Carrier Settings</h6>
+							<div  class="card-body">
+								<div class="row mb-2">
+									<div class="col-md-3">
+										<small for="control-label">Compliance Mode<i class="validation_required"></i></small>
+									</div>
+									<div class="col-md-9">
+										<input type="text" id="complianceMode" disabled name="complianceMode"  class="form-control form-control-sm mainInput" [(ngModel)]="companyForm.complianceMode"  placeholder="Compliance Mode">
+										<!-- <div *ngIf="!vehicleNo?.valid && (vehicleNo?.dirty || vehicleNo?.touched)" class="error">
+											<div *ngIf="vehicleNo.errors.required">
+												<small class="validation_required" style="font-size: xx-small;">Value should be at least 1 and up to 10 letters/numbers </small>
+											</div>
+										</div> -->
+									</div>
+								</div>
+								<div class="row mb-2">
+									<div class="col-md-3">
+										<small for="control-label">Vehicle Motion Threshold<i class="validation_required"></i></small>
+									</div>
+									<div class="col-md-9">
+										<input type="text" disabled id="vehicleMotionThresold" name="vehicleMotionThresold"   class="form-control form-control-sm mainInput"  [(ngModel)]="companyForm.vehicleMotionThresold"  placeholder="Vehicle Motion Threshold">
+										
+									</div>
+								</div>
+
+								<div class="row mb-2">
+									<div class="col-md-3">
+										<small for="control-label">Cycle Rule<i class="validation_required">*</i></small>
+									</div>
+									<div class="col-md-9">
+										<ng-select [items]="cycleusaDataArr"
+                                        bindLabel="cycleUsaName"
+                                        bindValue="id"
+                                        placeholder="Select"
+                                        appendTo="body"
+                                        name="cycleUsaName"
+										(change)="CheckShortHaulException($event.id,$event.cycleUsaName)"
+                                        [(ngModel)]="companyForm.cycleUsaId"> 
+                                    	</ng-select>
+									</div>
+								</div>
+
+								<div class="row mb-2">
+									<div class="col-md-3">
+										<small for="control-label">Cargo Type<i class="validation_required">*</i></small>
+									</div>
+									<div class="col-md-9">
+										<ng-select [items]="cargoDataArr"
+                                        bindLabel="cargoTypeName"
+                                        bindValue="id"
+                                        placeholder="Select Cargo Type"
+                                        appendTo="body"
+                                        name="cargoTypeName"
+										required #cargoTypeId="ngModel"
+                                        [(ngModel)]="companyForm.cargoTypeId"> 
+                                    	</ng-select>
+									<div *ngIf="!cargoTypeId?.valid && (cargoTypeId?.dirty || cargoTypeId?.touched)" class="error">
+										<div *ngIf="cargoTypeId.errors.required">
+											<!-- Cargo Type is required -->
+										</div>
+									</div>
+									</div>
+								</div>
+
+								<div class="row mb-2">
+									<div class="col-md-3">
+										<small for="control-label">Restart<i class="validation_required">*</i></small>
+									</div>
+									<div class="col-md-9">
+										<ng-select [items]="restartDataArr"
+                                        bindLabel="restartName"
+                                        bindValue="id"
+                                        placeholder="Select restartName"
+                                        appendTo="body"
+                                        name="restartName"
+										required #restartId="ngModel"
+                                        [(ngModel)]="companyForm.restartId"> 
+                                    	</ng-select>
+									<div *ngIf="!restartId?.valid && (restartId?.dirty || restartId?.touched)" class="error">
+										<div *ngIf="restartId.errors.required">
+											<!-- <small class="validation_required" style="font-size: xx-small;">hos Rules is required. </small> -->
+										</div>
+									</div>	
+									</div>
+								</div>
+
+								<div class="row mb-2">
+									<div class="col-md-3">
+										<small for="control-label">Rest Break<i class="validation_required">*</i></small>
+									</div>
+									<div class="col-md-9">
+										<ng-select [items]="restBreakDataArr"
+                                        bindLabel="restBreakName"
+                                        bindValue="id"
+                                        placeholder="Select restBreakName"
+                                        appendTo="body"
+                                        name="restBreakName"
+										required #restBreakId="ngModel"
+                                        [(ngModel)]="companyForm.restBreakId"> 
+                                   		</ng-select>
+										   <div *ngIf="!restBreakId?.valid && (restBreakId?.dirty || restBreakId?.touched)" class="error">
+											<div *ngIf="restBreakId.errors.required">
+												<!-- <small class="validation_required" style="font-size: xx-small;">hos Rules is required. </small> -->
+											</div>
+										</div>									
+									</div>
+								</div>
+
+								<div class="row mb-2" *ngIf="isShortHaulException">
+									<small for="" class="col-3 control-label">Short-Haul Exception</small>
+									<div class="col-9">
+										<div class="form-check">
+											<input type="checkbox" disabled class="form-check-input" id="shortHaulException" name="shortHaulException" [(ngModel)]="companyForm.shortHaulException" checked >
+										</div>
+									</div>
+								</div>
+								<div class="row mb-2">
+									<small for="" class="col-3 control-label">Personal Conveyance</small>
+									<div class="col-9">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="personalUse" name="personalUse" [(ngModel)]="companyForm.personalUse" >
+										</div>
+									</div>
+								</div>
+								<div class="row mb-2">
+									<small for="" class="col-3 control-label">Yard Moves</small>
+									<div class="col-9">
+										<div class="form-check">
+											<input class="form-check-input" id="yardMoves" name="yardMoves" [(ngModel)]="companyForm.yardMoves" type="checkbox" >
+										</div>
+									</div>
+								</div>
+								<div class="row mb-2">
+									<small for="" class="col-3 control-label">Exempt Driver</small>
+									<div class="col-9">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox"  id="exempt" name="exempt" [(ngModel)]="companyForm.exempt" >
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="card p-3 mb-2">
+							<h6 class="card-title h5">Plan Features</h6>
+							<div  class="card-body">
+								<div class="row mb-2">
+									<small for="" class="col-3 control-label">Allow tracking</small>
+									<div class="col-9">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox"  id="allowTracking" name="allowTracking" [(ngModel)]="companyForm.allowTracking" >
+										</div>
+									</div>
+								</div>
+								<div class="row mb-2">
+									<small for="" class="col-3 control-label">Allow GPS Tracking</small>
+									<div class="col-9">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox"  id="allowGpsTracking" name="allowGpsTracking" [(ngModel)]="companyForm.allowGpsTracking" >
+										</div>
+									</div>
+								</div>
+								<div class="row mb-2">
+									<small for="" class="col-3 control-label">Allow IFTA</small>
+									<div class="col-9">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox"  id="allowIfta" name="allowIfta" [(ngModel)]="companyForm.allowIfta" >
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="card p-3 mb-2">
+							<h6 class="card-title h5">Integrations</h6>
+							<div  class="card-body">
+								<div class="row mb-2">
+									<small for="" class="col-3 control-label">Project 44</small>
+									<div class="col-9">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox"  id="project44" name="project44" [(ngModel)]="companyForm.project44" >
+										</div>
+									</div>
+								</div>
+								<div class="row mb-2">
+									<small for="" class="col-3 control-label">MacroPoint</small>
+									<div class="col-9">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox"  id="microPoint" name="microPoint" [(ngModel)]="companyForm.microPoint" >
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger"  data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!masterCompanyForm.valid" data-dismiss="modal" (click)="SaveClient()">Save</button>
+					<button type="submit" class="btn btn-info" *ngIf="isEditMode && !isViewMode" [disabled]="!masterCompanyForm.valid" data-dismiss="modal" (click)="UpdateClient()">Update</button>
+					<button type="button" class="btn btn-danger" *ngIf="isEditMode && !isViewMode"  data-dismiss="modal" (click)="DeleteCompany()">Delete</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+
+<div id="grace_modal" class="modal fade hide" role="dialog">
+	<form action="#" #graceForm="ngForm">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Grace Date Time</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label">Grace Date<i class="validation_required">*</i></label>
+									<input type="hidden" id="clientId" name="clientId" >
+									<input type="date" id="graceTime" name="graceTime" class="form-control form-control-sm" >
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="UpdateGraceTime()">Save</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<form action="#"> 
+				<div class="card-body">
+					<div class="btn-group float-sm-left mb-1">
+						<button type="button" data-toggle="modal" data-target="#company_modal" class="btn btn-outline-success btn-sm">
+							<i class="zmdi zmdi-plus mr-1"></i>Add Company
+						</button>
+					</div>
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<tr>
+									<th>S.No</th>
+									<th>Company Name</th>
+									<th>Office Address</th>     
+									<th>Home Terminal Address</th>
+									<th>Time Zone</th>
+									</tr>
+							</thead>
+							<tbody> 
+							   <tr *ngFor="let company of rowData; let i = index">
+								<th style="text-align: center;" scope="row">{{i+1}}</th>
+								<td>{{company.companyName}} </td>
+								<td>{{company.officeAddress}} </td>
+								<td>{{company.homeTerminalAddress}} </td>
+								<td>{{company.timeZone}} </td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+<div id="company_modal" class="modal fade hide" role="dialog">
+	<form action="#" #masterCompanyForm="ngForm">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Company Details</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Company Name<i class="validation_required"></i></label>
+									<input type="text" id="companyName" name="companyName" required #companyName="ngModel" class="form-control form-control-sm" [(ngModel)]="companyForm.companyName" placeholder="Company Name">
+								</div>
+								<div *ngIf="!companyName?.valid && (companyName?.dirty || companyName?.touched)" class="error">
+									<div *ngIf="companyName.errors.required">
+										Company Name is required
+									</div>
+								</div>
+							</div>
+                            <div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Office Address<i class="validation_required"></i></label>
+									<input type="text" id="officeAddress" name="officeAddress" required #officeAddress="ngModel" class="form-control form-control-sm" [(ngModel)]="companyForm.officeAddress" placeholder="Office Address">
+								</div>
+								<div *ngIf="!officeAddress?.valid && (officeAddress?.dirty || officeAddress?.touched)" class="error">
+									<div *ngIf="officeAddress.errors.required">
+										office Address is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Home Terminal Address<i class="validation_required"></i></label>
+									<input type="text" id="homeTerminalAddress" name="homeTerminalAddress"  required #homeTerminalAddress="ngModel" class="form-control form-control-sm" [(ngModel)]="companyForm.homeTerminalAddress" placeholder="Home Terminal Address">
+								</div>
+								<div *ngIf="!homeTerminalAddress?.valid && (homeTerminalAddress?.dirty || homeTerminalAddress?.touched)" class="error">
+									<div *ngIf="homeTerminalAddress.errors.required">
+										Home Terminal Address is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="timeZoneName" class="control-label">Time Zone<i class="validation_required"></i></label>
+									<ng-select [items]="timeZoneDataArr"
+                                        bindLabel="timeZoneName"
+                                        bindValue="id"
+                                        placeholder="Select time zone"
+                                        appendTo="body"
+                                        name="timeZoneName"
+                                        [(ngModel)]="companyForm.timeZone"> 
+                                    </ng-select>
+									 <div *ngIf="!timeZone?.valid && (timeZone?.dirty || timeZone?.touched)" class="error">
+										<div *ngIf="timeZone.errors.required">
+											Time Zone is required
+										</div>
+									</div> 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger"  data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!masterCompanyForm.valid" data-dismiss="modal" (click)="SaveCompany()">Save</button>
+					<button type="submit" class="btn btn-info" *ngIf="isEditMode && !isViewMode" [disabled]="!masterCompanyForm.valid" data-dismiss="modal" >Update</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div> -->

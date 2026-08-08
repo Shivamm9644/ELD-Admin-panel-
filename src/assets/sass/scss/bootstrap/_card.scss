@@ -1,0 +1,95 @@
+/*Cards */
+
+.card {
+  margin-bottom: 25px;
+  box-shadow: 0 5px 15px rgba(57, 98, 254, 0.02),
+    0 3px 6px rgba(117, 108, 254, 0.12);
+  border: none;
+  background-color: #ffffff;
+}
+
+.card-header {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  font-weight: 500;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.84);
+}
+
+.card-title {
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  font-size: 16px;
+  color: #353434;
+}
+
+.card-action {
+  float: right;
+
+  a i {
+    color: #353434;
+    border-radius: 50%;
+  }
+}
+
+.card-footer {
+  padding: 0.75rem 1.25rem;
+  background-color: rgb(255, 255, 255);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.card-deck {
+  margin-bottom: 25px;
+}
+
+@media (min-width: 576px) {
+  .card-deck {
+    margin-right: -12.5px;
+    margin-left: -12.5px;
+
+    .card {
+      margin-right: 12.5px;
+      margin-left: 12.5px;
+    }
+  }
+}
+
+.card-group {
+  box-shadow: 0 5px 15px rgba(57, 98, 254, 0.02),
+    0 3px 6px rgba(117, 108, 254, 0.12);
+  margin-bottom: 25px;
+
+  .card {
+    box-shadow: none;
+  }
+}
+
+.bubble {
+  position: relative;
+  overflow: hidden;
+
+  .card-block {
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.22);
+      right: -40px;
+      border-radius: 50%;
+    }
+
+    &:before {
+      width: 100px;
+      height: 100px;
+      bottom: -40px;
+    }
+
+    &:after {
+      width: 80px;
+      height: 80px;
+      bottom: 40px;
+    }
+  }
+}

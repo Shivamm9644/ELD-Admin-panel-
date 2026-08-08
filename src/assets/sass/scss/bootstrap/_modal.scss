@@ -1,0 +1,29 @@
+.dark-modal {
+  .modal-content {
+    background: #00bfc8;
+    background-image: -webkit-radial-gradient(
+      circle 248px at center,
+      rgb(0, 242, 96),
+      rgb(5, 117, 230)
+    );
+    background-image: radial-gradient(
+      circle 248px at center,
+      rgb(0, 242, 96),
+      rgb(5, 117, 230)
+    );
+    border: 0px solid rgba(255, 255, 255, 0.125);
+    color: $white;
+  }
+
+  .close {
+    color: $white;
+  }
+}
+
+.light-blue-backdrop {
+  background-color: #5cb3fd;
+}
+
+.modal-content {
+  background-color: $white;
+}

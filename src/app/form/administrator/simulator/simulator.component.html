@@ -1,0 +1,175 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+
+			<form action="#" #simulatorReportForm="ngForm"> 
+				<div class="card-body">
+                    <div class=" row col-md-12">
+                        <div class="col-md-2">
+                            <div class="btn-group float-sm-right mb-1">
+                                <button type="button" data-toggle="modal" data-target="#simulator_modal" class="btn btn-outline-success btn-sm">
+                                    <i class="zmdi zmdi-plus mr-1"></i>Add Simulator
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="row "> 
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="employeeName" class="control-label">Driver Name</label>
+										<ng-select [items]="driverDataArr"
+										bindLabel="employeeName"
+										bindValue="id"
+										placeholder="Select Driver"
+										appendTo="body"
+										name="employeeName"
+										(change)="ShowSimulatorReport($event.employeeName)"
+										[(ngModel)]="simulatorForm.employeeId"> 
+									</ng-select>
+									</div>
+								</div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                         <label class="control-label">From Date</label>
+                                        <!-- <input type="datetime-local" id="fromDate" name="fromDate" class="form-control"> -->
+										<input type="date" id="smFromDate" name="smFromDate" class="form-control">
+                                     </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                         <label class="control-label">To Date</label>
+                                        <!-- <input type="datetime-local" id="toDate" name="toDate" class="form-control"> -->
+										<input type="date" id="smToDate" name="smToDate" class="form-control">
+
+                                     </div>
+                                </div>
+                                <div style="margin-top: 30px;"  class="col-md-2">
+                                    <button type="button" class="btn btn-outline-info" (click)="ShowSimulatorReport('')">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+					<div class="table-responsive">
+						<table id="simulator-table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<tr>
+									<th>S.No</th>
+									<th>Driver Name</th>
+                                    <th>UTC Date</th>
+									<th>Local Date</th>
+                                    <th>Driver Status</th>
+                                    <th>Is Send</th>
+                                    <th>Send Date Time</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <div id="loading" *ngIf="isLoading">
+									<img src="assets/images/pre_lodding.gif" width="250" height="250"  class="text-center">
+							   </div> -->
+							   <tr *ngFor="let simulator of rowData; let i = index">
+								<th style="text-align: center;" scope="row">{{i+1}}</th>
+								<!-- <td><a style="color: dodgerblue; cursor: pointer;" data-toggle="modal" data-target="#trailer_modal" (click)="EditTrailer(trailer.tailerId)">{{trailer.trailerName}}</a></td> -->
+								<td> <a style="color: dodgerblue; cursor: pointer;" title="View Details" (click)="viewBySimulatorOnDL(simulator.driverId,simulator.firstName)">{{simulator.title[0]}} {{simulator.firstName[0]}} {{simulator.lastName[0]}}</a> </td>
+								<!-- <td>{{simulator.title[0]}} {{simulator.firstName[0]}} {{simulator.lastName[0]}}</td> -->
+                                <td>{{simulator.lDateTime | date:'dd-MM-yyyy HH:mm:ss' :'UTC'}}</td>
+								<td>{{simulator.lDateTime | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                <td>{{simulator.status}}</td>
+                                <td>{{simulator.isSend}}</td>
+                                <!-- <td>{{simulator.sendDateTime | date:'dd-MM-yyyy HH:mm:ss'}}</td> -->
+								<td *ngIf="simulator.sendDateTime==0">DATA NOT SEND</td>
+                                <td *ngIf="simulator.sendDateTime!=0">{{simulator.sendDateTime | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+								<td>
+									<a *ngIf="simulator.sendDateTime==0" (click)="DeleteSimulator(simulator._id)" style="color: red; margin-left: 7px;">
+										<i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+									</a>
+									<a  *ngIf="simulator.sendDateTime!=0" style="color: green; margin-left: 7px;">
+										<i class="fa fa-check fa-lg" aria-hidden="true"></i>
+									</a>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+<div id="simulator_modal" class="modal fade hide" role="dialog">
+	<form action="#" #masterSimulatorForm="ngForm">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Simulator Details</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+                            	<div class="col-md-6">
+								<div class="form-group">
+									<label for="employeeName" class="control-label">Driver Name<i class="validation_required">*</i></label>
+									<ng-select [items]="driverDataArr"
+									bindLabel="employeeName"
+									bindValue="id"
+									placeholder="Select Driver"
+									appendTo="body"
+									name="employeeName"
+									required #employeeId="ngModel"
+									[(ngModel)]="simulatorForm.employeeId"> 
+								</ng-select>
+								<div *ngIf="!employeeId?.valid && (employeeId?.dirty || employeeId?.touched)" class="error">
+									<div *ngIf="employeeId.errors.required">
+										Driver Name is required
+									</div>
+								</div>
+								</div>
+							</div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="control-label">Status<i class="validation_required">*</i></label>
+                                    <select name="simulatorStatus" id="simulatorStatus" required #simulatorStatus="ngModel"  [(ngModel)]="simulatorForm.simulatorStatus"  class="form-control form-control-sm" >
+                                        <option value="undefined" selected>Select Status</option>
+                                        <option value="OffDuty">Off Duty</option>
+                                        <option value="OnSleep">On Sleep</option>
+                                        <option value="OnBreak-Onduty">OnBreak-Onduty</option>
+										<option value="OnBreak-Offduty">OnBreak-Offduty</option>
+										<option value="OnBreak-Sleep">OnBreak-Sleep</option>
+                                        <option value="OnDrive">On Drive</option>
+                                        <option value="OnDuty">On Duty</option>
+										<option value="YardMove">Yard Move</option>
+                                        <option value="PersonalUse">Personal Use</option>
+                                    </select>
+                                </div>
+								<div *ngIf="!simulatorStatus?.valid && (simulatorStatus?.dirty || simulatorStatus?.touched)" class="error">
+									<div *ngIf="simulatorStatus.errors.required">
+										Simulator Status is required
+									</div>
+								</div>
+                            </div>
+
+                            <div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Date<i class="validation_required">*</i></label>
+									<input type="datetime-local" id="dateTime" name="dateTime" required #dateTime="ngModel"  [(ngModel)]="simulatorForm.dateTime"  class="form-control form-control-sm" placeholder="">
+								</div>
+								<div *ngIf="!dateTime?.valid && (dateTime?.dirty || dateTime?.touched)" class="error">
+									<div *ngIf="dateTime.errors.required">
+										Date Time is required
+									</div>
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!masterSimulatorForm.valid" data-dismiss="modal" (click)="SaveSimulator()" (click)="ClearFields()">Save</button>
+					<button type="submit" class="btn btn-primary" *ngIf="isEditMode && !isViewMode" [disabled]="!masterSimulatorForm.valid" data-dismiss="modal">Update</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

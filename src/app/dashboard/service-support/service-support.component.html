@@ -1,0 +1,199 @@
+<div class="row mt-3">
+	<div class="col-12 col-lg-6 col-xl-3">
+		<div class="card gradient-scooter">
+			<div class="card-body">
+				<div class="media align-items-center">
+					<div class="w-icon"> <i class="fa fa-comments-o text-white"></i>
+					</div>
+					<div class="media-body ml-3 border-left-xs border-white-2">
+						<h4 class="mb-0 ml-3 text-white">85.2%</h4>
+						<p class="mb-0 ml-3 text-white extra-small-font">Requests Answered</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-6 col-xl-3">
+		<div class="card gradient-bloody">
+			<div class="card-body">
+				<div class="media align-items-center">
+					<div class="w-icon"> <i class="fa fa-question-circle-o text-white"></i>
+					</div>
+					<div class="media-body ml-3 border-left-xs border-white-2">
+						<h4 class="mb-0 ml-3 text-white">87254</h4>
+						<p class="mb-0 ml-3 text-white extra-small-font">Total Requests</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-6 col-xl-3">
+		<div class="card gradient-quepal">
+			<div class="card-body">
+				<div class="media align-items-center">
+					<div class="w-icon"> <i class="fa fa-bar-chart text-white"></i>
+					</div>
+					<div class="media-body ml-3 border-left-xs border-white-2">
+						<h4 class="mb-0 ml-3 text-white">$9,856</h4>
+						<p class="mb-0 ml-3 text-white extra-small-font">Total Revenue</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-6 col-xl-3">
+		<div class="card gradient-blooker">
+			<div class="card-body">
+				<div class="media align-items-center">
+					<div class="w-icon"> <i class="fa fa-money text-white"></i>
+					</div>
+					<div class="media-body ml-3 border-left-xs border-white-2">
+						<h4 class="mb-0 ml-3 text-white">23.5%</h4>
+						<p class="mb-0 ml-3 text-white extra-small-font">Support Costs</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<div class="row">
+	<div class="col-12 col-lg-6 col-xl-6">
+		<div class="card">
+			<div class="card-header">Revenue And % of Support Costs To Revenue
+				<div class="card-action">
+					<div ngbDropdown> 
+						<a href="javascript:;" class="dropdown-toggle-nocaret" id="dropdownBasic5" ngbDropdownToggle><i class="icon-options"></i></a>
+						<div ngbDropdownMenu aria-labelledby="dropdownBasic5"> 
+							<a href="javascript:;" ngbDropdownItem>Action</a>  
+							<a href="javascript:;" ngbDropdownItem>Another action</a>  
+							<a href="javascript:;" ngbDropdownItem>Something else here</a>
+							<div class="dropdown-divider"></div>
+							<a href="javascript:;" ngbDropdownItem>Separated link</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="chart-container-8">
+					<canvas id="chart1"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-6 col-xl-6">
+		<div class="card">
+			<div class="card-header">Request Volume Vs. Service Level
+				<div class="card-action">
+					<div ngbDropdown> 
+						<a href="javascript:;" class="dropdown-toggle-nocaret" id="dropdownBasic6" ngbDropdownToggle><i class="icon-options"></i></a>
+						<div ngbDropdownMenu aria-labelledby="dropdownBasic6"> 
+							<a href="javascript:;" ngbDropdownItem>Action</a>  
+							<a href="javascript:;" ngbDropdownItem>Another action</a>  
+							<a href="javascript:;" ngbDropdownItem>Something else here</a>
+							<div class="dropdown-divider"></div>
+							<a href="javascript:;" ngbDropdownItem>Separated link</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="chart-container-8">
+					<canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<div class="row">
+	<div class="col-12 col-lg-12 col-xl-8">
+		<div class="card">
+			<div class="card-header">Customer Satisfaction 2018
+				<div class="card-action">
+					<div ngbDropdown> 
+						<a href="javascript:;" class="dropdown-toggle-nocaret" id="dropdownBasic7" ngbDropdownToggle><i class="icon-options"></i></a>
+						<div ngbDropdownMenu aria-labelledby="dropdownBasic7"> 
+							<a href="javascript:;" ngbDropdownItem>Action</a>  
+							<a href="javascript:;" ngbDropdownItem>Another action</a>  
+							<a href="javascript:;" ngbDropdownItem>Something else here</a>
+							<div class="dropdown-divider"></div>
+							<a href="javascript:;" ngbDropdownItem>Separated link</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="row row-group m-0">
+					<div class="col-12 col-xl-6">
+						<div class="text-center"> <span class="pie" data-peity='{ "fill": ["#d13adf", "rgba(209, 58, 223, 0.40)"]}'>3/5</span>
+						</div>
+						<hr>
+						<p class="mb-0">Satisfied : <span class="badge badge-pill float-right text-white" style="background:#d13adf;">65%</span>
+						</p>
+						<p class="mb-0">Unsatisfied : <span class="badge badge-pill float-right" style="background-color: rgba(209, 58, 223, 0.40);">35%</span>
+						</p>
+					</div>
+					<div class="col-12 col-xl-6">
+						<div class="text-center"> <span class="donut" data-peity='{ "fill": ["#fba540", "rgba(251, 165, 64, 0.40)"]}'>3/5</span>
+						</div>
+						<hr>
+						<p class="mb-0"><i class="fa fa-circle text-white"></i> Very Satisfied : <span class="badge badge-pill badge-warning float-right">65%</span>
+						</p>
+						<p class="mb-0"><i class="fa fa-circle text-light-3"></i> Very Unsatisfied : <span class="badge badge-pill badge-light float-right" style="background-color: rgba(251, 165, 64, 0.40);">35%</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-12 col-xl-4">
+		<div class="card">
+			<div class="card-header">Avg Time To Solve An Issue
+				<div class="card-action">
+					<div ngbDropdown> 
+						<a href="javascript:;" class="dropdown-toggle-nocaret" id="dropdownBasic8" ngbDropdownToggle><i class="icon-options"></i></a>
+						<div ngbDropdownMenu aria-labelledby="dropdownBasic8"> 
+							<a href="javascript:;" ngbDropdownItem>Action</a>  
+							<a href="javascript:;" ngbDropdownItem>Another action</a>  
+							<a href="javascript:;" ngbDropdownItem>Something else here</a>
+							<div class="dropdown-divider"></div>
+							<a href="javascript:;" ngbDropdownItem>Separated link</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="progress-wrapper mb-4">
+					<p>Less than 1 Hour<span class="float-right">80%</span>
+					</p>
+					<div class="progress" style="height:7px;">
+						<div class="progress-bar gradient-ibiza" style="width:70%"></div>
+					</div>
+				</div>
+				<div class="progress-wrapper mb-4">
+					<p>1-2 Hours<span class="float-right">60%</span>
+					</p>
+					<div class="progress" style="height:7px;">
+						<div class="progress-bar gradient-quepal" style="width:60%"></div>
+					</div>
+				</div>
+				<div class="progress-wrapper mb-4">
+					<p>More Then 2 Hours <span class="float-right">40%</span>
+					</p>
+					<div class="progress" style="height:7px;">
+						<div class="progress-bar gradient-blooker" style="width:40%"></div>
+					</div>
+				</div>
+				<div class="progress-wrapper">
+					<p>More Then 5 Hours <span class="float-right">20%</span>
+					</p>
+					<div class="progress" style="height:7px;">
+						<div class="progress-bar gradient-scooter" style="width:20%"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->

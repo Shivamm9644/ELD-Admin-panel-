@@ -1,0 +1,191 @@
+<!-- Breadcrumb-->
+<div class="row pt-2 pb-2">
+	<div class="col-sm-9">
+		<h4 class="page-title">Switch</h4>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="javaScript:;">Bulona</a>
+			</li>
+			<li class="breadcrumb-item"><a href="javaScript:;">Componenets</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Switch</li>
+		</ol>
+	</div>
+	<div class="col-sm-3">
+		<div ngbDropdown class="btn-group float-sm-right">
+			<button type="button" class="btn btn-outline-danger"><i class="fa fa-cog mr-1"></i> Setting</button>
+			<button type="button" class="btn btn-danger" id="dropdownBasic5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic5">	
+        		<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div>	
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumb-->
+<!-- Basic Usage-->
+<h6 class="text-uppercase">Basic Usage</h6>
+<hr>
+<div class="row">
+	<div class="col-12 col-md-6 col-lg-6 col-xl-3">
+		<div class="card">
+			<div class="card-header text-uppercase">Checked</div>
+			<div class="card-body">
+				<p>
+					<ui-switch checked></ui-switch>
+					<ui-switch [checked]="false"></ui-switch>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-md-6 col-lg-6 col-xl-3">
+		<div class="card">
+			<div class="card-header text-uppercase">Disabled</div>
+			<div class="card-body">
+				<p>
+					<ui-switch disabled></ui-switch>
+					<ui-switch checked [disabled]="true"></ui-switch>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-md-6 col-lg-6 col-xl-3">
+		<div class="card">
+			<div class="card-header text-uppercase">Size</div>
+			<div class="card-body">
+				<p>
+					<ui-switch size="small"></ui-switch>
+					<ui-switch></ui-switch>
+					<ui-switch size="large"></ui-switch>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-md-6 col-lg-6 col-xl-3">
+		<div class="card">
+			<div class="card-header text-uppercase">SwitchColor</div>
+			<div class="card-body">
+				<p>
+					<ui-switch switchColor="red"></ui-switch>
+					<ui-switch switchColor="blue"></ui-switch>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<div class="row">
+	<div class="col-lg-4">
+		<div class="card">
+			<div class="card-header text-uppercase">Change</div>
+			<div class="card-body">
+				<ui-switch (change)="onChange($event)"></ui-switch>
+				<p>change count {{count}}</p>
+				<p>value {{change}}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-4">
+		<div class="card">
+			<div class="card-header text-uppercase">Value Change</div>
+			<div class="card-body">
+				<ui-switch (valueChange)="onValueChange($event)"></ui-switch>
+				<p>value {{valueChange}}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-4">
+		<div class="card">
+			<div class="card-header text-uppercase">Change Event</div>
+			<div class="card-body">
+				<ui-switch (changeEvent)="onChangeEvent($event)"></ui-switch>
+				<p>event {{changeEvent}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<div class="row">
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Reverse</div>
+			<div class="card-body">
+				<p>
+					<ui-switch reverse></ui-switch>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Color</div>
+			<div class="card-body">
+				<ui-switch></ui-switch>
+				<ui-switch color="blue"></ui-switch>
+				<ui-switch color="red"></ui-switch>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<!-- / Basic Usage-->
+<!-- ngModel Usage -->
+<h6 class="text-uppercase">ng-Model Usage</h6>
+<hr>
+<div class="row">
+	<div class="col-12 col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Two way binding</div>
+			<div class="card-body">
+				<ui-switch [(ngModel)]="enable"></ui-switch>
+				<p>Current Value: {{enable}}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Custom labels</div>
+			<div class="card-body">
+				<p>
+					<ui-switch uncheckedLabel="off" checkedLabel="on" size="small"></ui-switch>
+					<ui-switch uncheckedLabel="off" checkedLabel="on"></ui-switch>
+					<ui-switch uncheckedLabel="off" checkedLabel="on" size="large"></ui-switch>
+				</p>
+				<p>
+					<ui-switch checkedLabel="SUPERDUPERLONGLABEL" uncheckedLabel="SUPERDUPERLONGLABEL" size="small"></ui-switch>
+					<ui-switch checkedLabel="SUPERDUPERLONGLABEL" uncheckedLabel="SUPERDUPERLONGLABEL"></ui-switch>
+					<ui-switch checkedLabel="SUPERDUPERLONGLABEL" uncheckedLabel="SUPERDUPERLONGLABEL" size="large"></ui-switch>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-12 col-lg-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Custom Switch Content</div>
+			<div class="card-body">
+				<p class="custom-icons">
+					<ui-switch uncheckedLabel="off" checkedLabel="on" size="small"> <i class="fa fa-check"></i>
+					</ui-switch>
+					<ui-switch uncheckedLabel="off" checkedLabel="on"> <i class="fa fa-check"></i>
+					</ui-switch>
+					<ui-switch uncheckedLabel="off" checkedLabel="on" size="large"> <i class="fa fa-check fa-2x"></i>
+					</ui-switch>
+				</p>
+				<h4>Before Change handling + Loading Icon Example</h4>
+				<p>
+					<ui-switch [loading]="isLoading" [beforeChange]="fakeAsync" [(ngModel)]="enable"> <i class="fa fa-check" *ngIf="enable && !isLoading"></i>
+						<i class="fa fa-times" *ngIf="!enable && !isLoading"></i>
+						<i class="fa fa-spinner fa-pulse" *ngIf="isLoading"></i>
+					</ui-switch>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<!-- / ngModel Usage -->

@@ -1,0 +1,67 @@
+select.custom-select {
+  margin: $spacer * 0.25 $spacer * 0.25 0 0;
+  width: auto;
+}
+
+.ngb-dp-header {
+  border-bottom: 0;
+  border-radius: 0.25rem 0.25rem 0 0;
+  padding-top: 0.25rem;
+  background-color: #f8f9fa1a !important;
+  //background-color: var(--light);
+}
+
+.ngb-dp-month-name {
+  font-size: larger;
+  height: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  background-color: #f8f9fa5b !important;
+}
+
+ngb-datepicker {
+  border: 1px solid #e7e7e7 !important;
+}
+
+.custom-day {
+  text-align: center;
+  padding: 0.185rem $spacer * 0.25;
+  display: inline-block;
+  height: 1.9rem;
+  width: 1.9rem;
+
+  &.focused {
+    background-color: #e6e6e6;
+  }
+
+  &.range,
+  &:hover {
+    background-color: #ffffff85;
+    color: $white;
+  }
+
+  &.faded {
+    background-color: #ffffff3f;
+  }
+
+  text-align: center;
+  padding: 0.185rem $spacer * 0.25;
+  border-radius: 1rem;
+  display: inline-block;
+  width: 1.9rem;
+
+  &:hover,
+  &.focused {
+    background-color: #ffffff65;
+  }
+}
+
+.weekend {
+  background-color: #ffc16a;
+  border-radius: 1rem;
+  color: $white;
+}
+
+.hidden {
+  display: none;
+}

@@ -1,0 +1,30 @@
+/* Accordions */
+
+#accordion1 .card-header button:before,
+#accordion2 .card-header button:before,
+#accordion3 .card-header button:before,
+#accordion4 .card-header button:before,
+#accordion5 .card-header button:before,
+#accordion6 .card-header button:before,
+#accordion7 .card-header button:before,
+#accordion8 .card-header button:before {
+  float: left !important;
+  font-family: FontAwesome;
+  content: "\f105";
+  padding-right: 15px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+#accordion1 .card-header button.collapsed:before,
+#accordion2 .card-header button.collapsed:before,
+#accordion3 .card-header button.collapsed:before,
+#accordion4 .card-header button.collapsed:before,
+#accordion5 .card-header button.collapsed:before,
+#accordion6 .card-header button.collapsed:before,
+#accordion7 .card-header button.collapsed:before,
+#accordion8 .card-header button.collapsed:before {
+  content: "\f107";
+}

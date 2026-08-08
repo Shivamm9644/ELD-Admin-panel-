@@ -1,0 +1,83 @@
+<!-- Start wrapper-->
+<div id="wrapper">
+	<div class="height-100v d-flex align-items-center justify-content-center">
+		<div class="card-authentication2 mx-auto my-3">
+			<div class="card-group">
+				<div class="card mb-0">
+					<div class="bg-signup2"></div>
+					<div class="card-img-overlay rounded-left my-5">
+						<h2 class="text-white">Lorem</h2>
+						<h1 class="text-white">Ipsum Dolor</h1>
+						<p class="card-text text-white pt-3">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+					</div>
+				</div>
+				<div class="card mb-0">
+					<div class="card-body">
+						<div class="card-content p-3">
+							<div class="text-center">
+								<img src="assets/images/logo-icon.png" alt="logo icon">
+							</div>
+							<div class="card-title text-uppercase text-center py-3">Sign Up</div>
+							<form (ngSubmit)="onSubmit()" #f="ngForm">
+								<div class="form-group">
+									<div class="position-relative has-icon-left">
+										<label for="exampleInputName" class="sr-only">Name</label>
+										<input type="text" id="exampleInputName" class="form-control" placeholder="Name" ngModel required>
+										<div class="form-control-position"> <i class="icon-user"></i>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="position-relative has-icon-left">
+										<label for="exampleInputEmailId" class="sr-only">Email ID</label>
+										<input type="text" id="exampleInputEmailId" class="form-control" placeholder="Email ID" ngModel required>
+										<div class="form-control-position"> <i class="icon-envelope-open"></i>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="position-relative has-icon-left">
+										<label for="exampleInputPassword" class="sr-only">Password</label>
+										<input type="text" id="exampleInputPassword" class="form-control" placeholder="Password" ngModel required>
+										<div class="form-control-position"> <i class="icon-lock"></i>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="position-relative has-icon-left">
+										<label for="exampleInputRetryPassword" class="sr-only">Retry Password</label>
+										<input type="password" id="exampleInputRetryPassword" class="form-control" placeholder="Retry Password" ngModel required>
+										<div class="form-control-position"> <i class="icon-lock"></i>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="icheck-material-primary">
+										<input type="checkbox" id="user-checkbox" checked="" />
+										<label for="user-checkbox">I Accept terms & conditions</label>
+									</div>
+								</div>
+								<button type="button" class="btn btn-primary btn-block waves-effect waves-light">Sign Up</button>
+								<div class="text-center pt-3">
+									<p>or Sign up with</p>
+									<div class="form-row mt-4">
+										<div class="form-group mb-0 col-6">
+											<button type="button" class="btn bg-facebook text-white btn-block"><i class="fa fa-facebook-square"></i> Facebook</button>
+										</div>
+										<div class="form-group mb-0 col-6 text-right">
+											<button type="button" class="btn bg-twitter text-white btn-block"><i class="fa fa-twitter-square"></i> Twitter</button>
+										</div>
+									</div>
+									<hr>
+									<p class="text-dark mb-0">Already have an account? <a href="JavaScript:;" (click)="onSignin2()"> Sign In here</a>
+									</p>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--wrapper-->

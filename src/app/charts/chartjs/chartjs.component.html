@@ -1,0 +1,92 @@
+<!-- Breadcrumb-->
+<div class="row pt-2 pb-2">
+	<div class="col-sm-9">
+		<h4 class="page-title">ChartJs</h4>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="javaScript:;">Bulona</a>
+			</li>
+			<li class="breadcrumb-item"><a href="javaScript:;">Charts</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">ChartJs</li>
+		</ol>
+	</div>
+	<div class="col-sm-3">
+		<div ngbDropdown class="btn-group float-sm-right">
+			<button type="button" class="btn btn-outline-danger"><i class="fa fa-cog mr-1"></i> Setting</button>
+			<button type="button" class="btn btn-danger" id="dropdownBasic5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic5"> 
+                <a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+                <div class="dropdown-divider"></div> 
+                <a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumb-->
+<div class="row">
+	<!-- Line chart-->
+	<div class="col-lg-6 col-xl-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Line chart</div>
+			<div class="card-body">
+				<div class="height-240">
+					<canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- / Line chart-->
+	<!-- Bar chart-->
+	<div class="col-lg-6 col-xl-6">
+		<div class="card">
+			<div class="card-header text-uppercase">Bar Chart</div>
+			<div class="card-body">
+				<div class="height-240">
+					<canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [colors]="barChartColors" [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- / Bar chart-->
+<div class="row">
+	<!-- Polar chart-->
+	<div class="col-lg-6 col-xl-4">
+		<div class="card">
+			<div class="card-header text-uppercase">Polar Chart</div>
+			<div class="card-body">
+				<div class="height-240">
+					<canvas baseChart [data]="polorChartData" [labels]="polorChartLabels" [options]="polorChartOptions" [chartType]="polorChartType" (chartHover)="chartHovered($event)" [colors]="polorChartColors" (chartClick)="chartClicked($event)"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- / Polar chart-->
+	<!-- Pie chart-->
+	<div class="col-lg-6 col-xl-4">
+		<div class="card">
+			<div class="card-header text-uppercase">Pie Chart</div>
+			<div class="card-body">
+				<div class="height-240">
+					<canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [options]="pieChartOptions" [chartType]="pieChartType" (chartHover)="chartHovered($event)" [colors]="pieChartColors" (chartClick)="chartClicked($event)"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- / Pie chart-->
+	<!-- Doughnut chart-->
+	<div class="col-lg-6 col-xl-4">
+		<div class="card">
+			<div class="card-header text-uppercase">Doughnut Chart</div>
+			<div class="card-body">
+				<div class="height-240">
+					<canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [options]="doughnutChartOptions" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)" [colors]="doughnutChartColors" (chartClick)="chartClicked($event)"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- / Doughnut chart-->
+</div>

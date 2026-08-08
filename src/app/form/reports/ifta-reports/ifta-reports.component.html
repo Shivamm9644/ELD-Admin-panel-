@@ -1,0 +1,248 @@
+
+<div class="card p-3 mb-2">
+    <div class="d-flex justify-content-between ">
+        <h6 class="card-title h5">IFTA Reports</h6>
+        <div class="d-flex">
+            <button (click)="RefreshPage()" class="btn btn-outline-dark btn-sm"><small>Refresh</small><i class="zmdi zmdi-refresh ml-2"></i></button>&nbsp;&nbsp;
+            <button class="btn btn-outline-dark btn-sm selectedDownloadBtn" (click)="SelectedDownloadIftaReport()"><small>Download Selected</small><i class="zmdi zmdi-download ml-2"></i></button>
+        </div>
+    </div>
+    <ul class="nav nav-pills mb-1">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link"
+                    [ngClass]="{ 'active': activeTab === 'newreports' }"
+                    (click)="setActiveTab('newreports')"> Generate New Reports
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link"
+                    [ngClass]="{ 'active': activeTab === 'reports' }"
+                    (click)="setActiveTab('reports')">
+            Reports
+            </button>
+        </li>
+    </ul>
+
+<div class="tab-content">
+  <div class="tab-pane fade"
+       [ngClass]="{ 'show active': activeTab === 'reports' }"
+       *ngIf="activeTab === 'reports'">
+   <div class="table-responsive">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <input 
+                        type="checkbox" 
+                        [id]="alliftaReportGenerated" 
+                        [name]="alliftaReportGenerated" 
+                        [value]="0" 
+                        (change)="SelectAllIftaReport($event)"
+                    >
+                </th>
+                <th>Submitted</th>
+                <th>From</th>
+                <th>To</th>     
+                <th>Vehicle</th>
+                <th>Status</th>
+                <th>Report</th>
+            </tr>
+        </thead>
+        <tbody> 
+            <tr *ngFor="let iftaData of iftaRowData; let i = index">
+                <td>
+                    <input 
+                        type="checkbox" 
+                        [id]="'bulkIftaReport' + i" 
+                        [name]="'bulkIftaReport' + i" 
+                        [value]="iftaData.currentTimestamp" 
+                        (change)="onCheckboxChange($event, iftaData)"
+                        [checked]="selectedValues.includes(iftaData)"
+                    >
+                </td>
+                <td>{{iftaData.currentTimestamp | date:'MMM dd, HH:mm a':'UTC'}}</td>
+                <td>{{iftaData.fromDate | date:'yyyy-MM-dd'}}</td>
+                <td>{{iftaData.toDate | date:'yyyy-MM-dd'}}</td>
+                <td>{{iftaData.vehicleNo}}</td>
+                <td>Ready</td>
+                <td>
+                    <a (click)="DownloadIftaGeneratedReport(iftaData)" style="color: dodgerblue; cursor: pointer;text-decoration: underline dotted; text-underline-offset: 3px;">Download</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+   </div>
+  </div>
+  <div class="tab-pane fade"
+       [ngClass]="{ 'show active': activeTab === 'newreports' }"
+       *ngIf="activeTab === 'newreports'">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div >
+                <form action="#" #iftaForm="ngForm">
+                    <!-- <div class="d-flex justify-content-between ">
+                        <h6 class="card-title h5">IFTA Reports</h6>
+                        <div class="d-flex">
+                            <button class="btn btn-outline-dark btn-sm"><small>Refresh</small><i class="zmdi zmdi-refresh ml-2"></i></button>
+                        </div>
+                    </div> -->
+                    <div class="card-body">
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-generate-report" role="tabpanel"
+                                aria-labelledby="pills-generate-report-tab">
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <label for="" class="col-form-label">Start Date</label>
+                                        <input type="date" class="form-control form-control-sm" id="fromDate"
+                                            placeholder="Start Date">
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="" class="col-form-label">End Date</label>
+                                        <input type="date" class="form-control form-control-sm" id="toDate"
+                                            placeholder="End Date">
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="" class="col-form-label">Vehicle(s)</label>
+                                        <div class="">
+                                            <ng-select [items]="vehicleDataArr" bindLabel="vehicleNo" bindValue="id"
+                                                placeholder="Select Vehicle" appendTo="body" name="vehicleNo" required
+                                                #vehicleId="ngModel" (change)="GetDeviceName($event.vehicleNo,$event.id)"
+                                                [(ngModel)]="iftaForm.vehicleId">
+                                            </ng-select>
+                                            <div *ngIf="!vehicleId?.valid && (vehicleId?.dirty || vehicleId?.touched)"
+                                                class="error">
+                                                <div *ngIf="vehicleId.errors.required">
+                                                    Please select vehicle.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="pt-3">
+                                            <!-- <button class="btn btn-success btn-sm px-4 mt-4" (click)="GenerateIftaReport()">Generate</button> -->
+                                            <button class="btn btn-success btn-sm px-4 mt-4" [disabled]="!iftaForm.valid"
+                                                (click)="ShowIftaReport()">Generate</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
+<div class="pre_lodding" *ngIf="isLoading">
+    <img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+</div>
+
+<div class="row" *ngIf="isShowReportGraph">
+    <div class="col-lg-12">
+        <div class="card p-4 mb-2">
+            <div class="card-body">
+                <div class="m-auto pt-2">
+                    <!-- graph Data -->
+                    <div class="d-flex justify-content-end pt-1">
+                        <button class="btn btn-info btn-sm px-4" (click)="DownloadChart(iftaRowDataGenerated)">Download</button>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="chart-container-12 mt-1">
+                            <canvas baseChart [datasets]="dwChart1Data" [labels]="dwChart1Labels"
+                                [options]="dwChart1Options" [colors]="dwChart1Colors" [legend]="dwChart1Legend"
+                                (chartHover)="chartHovered($event)" [chartType]="dwChart1Type"
+                                (chartClick)="chartClicked($event,'route')"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="isShowReport">
+    <div class="col-lg-12">
+        <div class="card p-4 mb-2">
+            <div class="card-body iftaReportSection" id="iftaReportSection">
+                <div style="width: 65%;" class="m-auto pt-5">
+                    <h6 class="h3"><b>IFTA Mileage By State</b></h6>
+                    <p class="m-0 h4 pb-3">Summary of total mileage by state for all equipment</p>
+                    <p class="m-0 h4 pb-3"><b>Carrier:</b>{{carrierName}}</p>
+                    <p class="m-0 h4 pb-3"><b>Period:</b> <span class="ml-2" id="periodTime">{{periodTime}} </span></p>
+                    <!-- <p class="m-0 h4 pb-3"><b>Period:</b> <span class="ml-2">  2025-01-15&nbsp;&nbsp;<b>To</b>&nbsp;&nbsp;2025-01-18 </span></p> -->
+                    <p class="m-0 h4 pb-3"><b>Report Generated:</b> <span class="ml-2" id="reportGenerateDate">
+                            {{reportGenerateDate}}</span></p>
+
+                    <div class="table-responsive">
+                        <p class="text-center bg1 h4 m-0">Vehicle : {{vehicleName}}</p>
+                        <table class="table table-bordered">
+                            <thead class="bg-light text-dark ">
+                                <tr>
+                                    <th class="th_section">Name</th>
+                                    <th colspan="2">{{vehicleName}}</th>
+                                </tr>
+                                <tr>
+                                    <th class="th_section">Make</th>
+                                    <th colspan="2">{{vehicleMake}}</th>
+                                </tr>
+                                <tr>
+                                    <th class="th_section">VIN</th>
+                                    <th colspan="2">{{vehicleVin}}</th>
+                                </tr>
+                                <tr>
+                                    <th class="th_section">Model</th>
+                                    <th colspan="2">{{vehicleModel}}</th>
+                                </tr>
+                                <tr>
+                                    <th class="th_section">Year</th>
+                                    <th colspan="2">{{manufacturingYear}}</th>
+                                </tr>
+                                <tr>
+                                    <th class="bg2">
+                                        <p class="bg1 h4  m-0 pl-2">State</p>
+                                    </th>
+                                    <th class="bg2">
+                                        <p class="bg1 h4  m-0 pl-2">Odometer (Miles)</p>
+                                    </th>
+                                    <th class="bg2">
+                                        <p class="bg1 h4  m-0 pl-2">GPS (Miles)</p>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let event of rowData; let i = index">
+                                    <td>{{event.stateName}} ({{event.stateCode}})</td>
+                                    <td>{{event.lastOdometer-event.firstOdometer}}</td>
+                                    <td>{{event.gpsKm}}</td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>Calfornia (CA)</td>
+                                    <td>242.33</td>
+                                </tr>
+                                <tr>
+                                    <td>New Maxico (NM)</td>
+                                    <td>156</td>
+                                </tr>
+                                <tr>
+                                    <td>Taxas (TX)</td>
+                                    <td>1075</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                        <!-- <div class="pre_lodding" *ngIf="isLoading">
+							<img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+						</div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

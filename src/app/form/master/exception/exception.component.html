@@ -1,0 +1,116 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<form action="#"> 
+				<div class="card-body">
+					<div class="btn-group float-sm-left mb-1">
+						<button type="button" data-toggle="modal" data-target="#exception_modal" class="btn btn-outline-success btn-sm">
+							<i class="zmdi zmdi-plus mr-1"></i>Add Exception
+						</button>
+					</div>
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<tr>
+									<th>S.No</th>
+									<th>Exception Name</th>
+                                    <th>Max Time</th>
+                                    <th>Allowed Count</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <div id="loading" *ngIf="isLoading">
+									<img src="assets/images/pre_lodding.gif" width="250" height="250"  class="text-center">
+							   </div> -->
+							<tr *ngFor="let exception of rowData; let i = index">
+								<th style="text-align: center;" scope="row">{{i+1}}</th>
+								<td><a style="color: dodgerblue; cursor: pointer;" data-toggle="modal" data-target="#exception_modal" (click)="EditException(exception.exceptionId)">{{exception.exceptionName}}</a></td>
+								<!-- <td>{{exception.exceptionName}}</td> -->
+								<td>{{exception.maxTime}}</td> 
+								<td>{{exception.allowedCount}}</td>  
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+<div id="exception_modal" class="modal fade hide" role="dialog">
+    <form action="#" #masterExceptionForm="ngForm" >
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Exception Details</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Exception Name<i class="validation_required">*</i></label>
+									<input type="text" id="exceptionName" name="exceptionName"  required #exceptionName="ngModel" class="form-control form-control-sm" [(ngModel)]="exceptionForm.exceptionName" placeholder="Exception Name">
+								</div>
+								<div *ngIf="!exceptionName?.valid && (exceptionName?.dirty || exceptionName?.touched)" class="error">
+									<div *ngIf="exceptionName.errors.required">
+										Exception Name is required
+									</div>
+								</div>
+							</div>
+                            <div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Max Time<i class="validation_required">*</i></label>
+									<input type="text" id="maxTime" name="maxTime"  required #maxTime="ngModel" class="form-control form-control-sm" [(ngModel)]="exceptionForm.maxTime" placeholder="Max Time">
+								</div>
+								<div *ngIf="!maxTime?.valid && (maxTime?.dirty || maxTime?.touched)" class="error">
+									<div *ngIf="maxTime.errors.required">
+										max Time is required
+									</div>
+								</div>
+							</div>
+                            <div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Allowed Count<i class="validation_required">*</i></label>
+									<input type="text" id="allowedCount" name="allowedCount"  required #allowedCount="ngModel" class="form-control form-control-sm" [(ngModel)]="exceptionForm.allowedCount" placeholder="Allowed Count">
+								</div>
+								<div *ngIf="!allowedCount?.valid && (allowedCount?.dirty || allowedCount?.touched)" class="error">
+									<div *ngIf="allowedCount.errors.required">
+										Allowed Count is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="clientName" class="control-label">Client<i class="validation_required">*</i></label>
+									<ng-select 
+										[items]="clientDataArr"
+										bindLabel="clientName"
+										bindValue="id"
+										placeholder="Select Client"
+										appendTo="body"
+										name="clientName"
+										required #clientId="ngModel"
+										[(ngModel)]="exceptionForm.clientId"> 
+                                    </ng-select>
+									<div *ngIf="!clientId?.valid && (clientId?.dirty || clientId?.touched)" class="error">
+										<div *ngIf="clientId.errors.required">
+											Client is required
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="reset" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!masterExceptionForm.valid" data-dismiss="modal" (click)="SaveException()">Save</button>
+					<button type="submit" class="btn btn-primary" *ngIf="isEditMode && !isViewMode" [disabled]="!masterExceptionForm.valid" data-dismiss="modal" (click)="UpdateException()">Update</button>
+					<button type="button" class="btn btn-danger" *ngIf="isEditMode && !isViewMode"  data-dismiss="modal" (click)="DeleteException()">Delete</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

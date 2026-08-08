@@ -1,0 +1,61 @@
+<!-- Breadcrumb-->
+<div class="row pt-2 pb-2">
+	<div class="col-sm-9">
+		<h4 class="page-title">Editing</h4>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="javaScript:;">Bulona</a>
+			</li>
+			<li class="breadcrumb-item"><a href="javaScript:;">Data Table</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Editing</li>
+		</ol>
+	</div>
+	<div class="col-sm-3">
+		<div ngbDropdown class="btn-group float-sm-right">
+			<button type="button" class="btn btn-outline-danger"><i class="fa fa-cog mr-1"></i> Setting</button>
+			<button type="button" class="btn btn-danger" id="dropdownBasic5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic5"> 
+				<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumb-->
+<!--DataTable With Editing Feature Starts-->
+<div class="row">
+	<div class="col-sm-12 mb-4">
+		<div class="card">
+			<div class="card-header text-uppercase">Editable Data Table</div>
+			<div class="card-body">
+				<ngx-datatable #mydatatable class="bootstrap" [headerHeight]="50" [limit]="5" [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [rows]="rows">
+					<ngx-datatable-column name="name">
+						<ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row"> <span title="Double click to edit" (dblclick)="editing[rowIndex + '-name'] = true" *ngIf="!editing[rowIndex + '-name']">
+                            {{value}}
+                        </span>
+							<input autofocus (blur)="updateValue($event, 'name', rowIndex)" *ngIf="editing[rowIndex+ '-name']" type="text" [value]="value" />
+						</ng-template>
+					</ngx-datatable-column>
+					<ngx-datatable-column name="Gender">
+						<ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value"> <span title="Double click to edit" (dblclick)="editing[rowIndex + '-gender'] = true" *ngIf="!editing[rowIndex + '-gender']">
+                            {{value}}
+                        </span>
+							<select *ngIf="editing[rowIndex + '-gender']" (change)="updateValue($event, 'gender', rowIndex)" [value]="value">
+								<option value="male">Male</option>
+								<option value="female">Female</option>
+							</select>
+						</ng-template>
+					</ngx-datatable-column>
+					<ngx-datatable-column name="Age">
+						<ng-template ngx-datatable-cell-template let-value="value">{{value}}</ng-template>
+					</ngx-datatable-column>
+				</ngx-datatable>
+			</div>
+		</div>
+	</div>
+</div>
+<!--DataTable With Editing Feature Ends-->

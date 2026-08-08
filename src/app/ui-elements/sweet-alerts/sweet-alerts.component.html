@@ -1,0 +1,143 @@
+<!-- Breadcrumb-->
+<div class="row pt-2 pb-2">
+	<div class="col-sm-9">
+		<h4 class="page-title">SweetAlerts</h4>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="javaScript:;">Bulona</a>
+			</li>
+			<li class="breadcrumb-item"><a href="javaScript:;">UI Elements</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">SweetAlerts</li>
+		</ol>
+	</div>
+	<div class="col-sm-3">
+		<div ngbDropdown class="btn-group float-sm-right">
+			<button type="button" class="btn btn-outline-danger"><i class="fa fa-cog mr-1"></i> Setting</button>
+			<button type="button" class="btn btn-danger" id="dropdownBasic5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic5"> 
+                <a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+                <div class="dropdown-divider"></div> 
+                <a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumb-->
+<!--SweetAlert-->
+<div class="card">
+	<div class="card-header">
+		<div class="card-title text-uppercase">SweetAlert</div>
+		<p>SweetAlert automatically centers itself on the page and looks great no matter if you're using a desktop computer, mobile or tablet. It's even highly customizable, as you can see below!</p>
+	</div>
+	<div class="card-body">
+		<div class="row mt-1">
+			<div class="col-md-4 col-sm-6 col-12">
+				<button type="button" class="btn btn-primary btn-block m-2" (click)="basicAlert()">Basic</button>
+			</div>
+			<div class="col-md-4 col-sm-6 col-12">
+				<button type="button" class="btn btn-primary btn-block m-2" (click)="withTitle()">With Title</button>
+			</div>
+			<div class="col-md-4 col-sm-12">
+				<button type="button" class="btn btn-primary btn-block m-2" (click)="htmlAlert()">HTML</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--SweetAlert-->
+<!-- Types section -->
+<div class="card">
+	<div class="card-header">
+		<div class="card-title text-uppercase">Types</div>
+		<p>The type of the modal. SweetAlert comes with 5 built-in types which will show a corresponding icon animation: "warning", "error", "success" "info" and "question". You can also set it as "input" to get a prompt modal. It can either be put in the object under the key "type" or passed as the third parameter of the function.</p>
+	</div>
+	<div class="card-body">
+		<div class="row mt-1">
+			<div class="col-md-4 col-sm-6 col-12">
+				<button type="button" class="btn btn-secondary btn-block mb-5" (click)="typeQuestion()">Question</button>
+			</div>
+			<div class="col-md-4 col-sm-6 col-12">
+				<button type="button" class="btn btn-success btn-block mb-5" (click)="typeSuccess()">Success</button>
+			</div>
+			<div class="col-md-4 col-sm-6 col-12">
+				<button type="button" class="btn btn-info btn-block mb-5" (click)="typeInfo()">Info</button>
+			</div>
+			<div class="col-sm-6 col-12">
+				<button type="button" class="btn btn-warning btn-block mb-5" (click)="typeWarning()">Warning</button>
+			</div>
+			<div class="col-sm-6 col-12">
+				<button type="button" class="btn btn-danger btn-block mb-5" (click)="typeError()">Error</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- / Types section -->
+<!-- Options section -->
+<div class="card">
+	<div class="card-header">
+		<div class="card-title text-uppercase">Options</div>
+	</div>
+	<div class="card-body">
+		<div class="row mt-1">
+			<div class="col-lg-4 col-sm-6 col-12">
+				<h5 class="mt-4">Custom Icon</h5>
+				<p><code>imageUrl</code> is used to add a customized icon for the modal. Should contain a string with the path to the image.</p>
+				<button type="button" class="btn btn-primary btn-block" (click)="customIcon()">Custom Icon</button>
+			</div>
+			<div class="col-lg-4 col-sm-6 col-12">
+				<h5 class="mt-4">Auto Close Timer</h5>
+				<p>A message with auto close timer. <code>timer</code> is default set to <code>null</code>. You can set timer in ms (milliseconds).</p>
+				<button type="button" class="btn btn-primary btn-block" (click)="autoClose()">Auto Close</button>
+			</div>
+			<div class="col-lg-4 col-sm-6 col-12">
+				<h5 class="mt-4">Allow Outside Click</h5>
+				<p>If <code>allowOutsideClick</code> is set to <code>true</code>, the user can dismiss the modal by clicking outside it.</p>
+				<button type="button" class="btn btn-primary btn-block" (click)="outsideClick()">Click Outside</button>
+			</div>
+			<div class="col-lg-4 col-sm-6 col-12">
+				<h5 class="mt-4">Ajax Request</h5>
+				<p>Set <code>showLoaderOnConfirm</code> to true to disable the buttons and show that something is loading. AJAX request for example.</p>
+				<button type="button" class="btn btn-primary btn-block" (click)="ajaxRequest()">Ajax</button>
+			</div>
+			<div class="col-lg-4 col-sm-6 col-12">
+				<h5 class="mt-4">Button Options</h5>
+				<p>Custom HTML description and buttons</p>
+				<button type="button" class="btn btn-primary btn-block" (click)="customButton()">Custom HTML and buttons</button>
+			</div>
+			<div class="col-lg-4 col-sm-6 col-12">
+				<h5 class="mt-4">Prompt Function</h5>
+				<p>A replacement for the "prompt" function. You can set <code>type</code> as "input" to get a prompt modal.</p>
+				<button type="button" class="btn btn-primary btn-block" (click)="promptFunction()">Prompt</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- / Options section -->
+<!-- Button Action option -->
+<div class="card">
+	<div class="card-header">
+		<div class="card-title text-uppercase">Button Actions</div>
+	</div>
+	<div class="card-body">
+		<div class="row mt-1">
+			<div class="col-lg-4 col-sm-6 col-12">
+				<h5 class="mt-4">Confirm Button Action</h5>
+				<p>A warning message, with a function attached to the "Confirm"-button.</p>
+				<button type="button" class="btn btn-primary btn-block" (click)="confirmText()">Confirm Text</button>
+			</div>
+			<div class="col-lg-4 col-sm-6 col-12">
+				<h5 class="mt-4">Confirm &amp; Cancel Button</h5>
+				<p>Confirm and cancel button excecution options.</p>
+				<button type="button" class="btn btn-primary btn-block" (click)="confirmCancelButton()">Buttons Actions</button>
+			</div>
+			<div class="col-lg-4 col-sm-6 col-12">
+				<h5 class="mt-4">Chaining modals</h5>
+				<p>Changing modal on next button.</p>
+				<button type="button" class="btn btn-primary btn-block" (click)="steps()">Steps</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- / Button Action option -->

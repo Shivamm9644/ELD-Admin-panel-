@@ -1,0 +1,298 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+// @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+// Font family
+
+.lato-thin {
+  font-family: "Lato", serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.lato-light {
+  font-family: "Lato", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.lato-regular {
+  font-family: "Lato", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.lato-bold {
+  font-family: "Lato", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.lato-black {
+  font-family: "Lato", serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+body{
+  font-family: "Lato", sans-serif !important;
+}
+
+.btn{
+  font-size: 12px !important;
+}
+
+.card-body{
+  padding: 5px !important;
+  font-size: 12px !important;
+}
+
+.table thead{
+  background:  #094152;
+  // background:  #0451a4;
+  color: #fff;
+}
+
+.table_head_on_print{
+  font-size: 12px !important;
+  padding: 5px 10px !important;
+  background-color: #094152;
+  // background-color: #0451a4; 
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.table thead tr th{
+  font-size: 11px !important;
+  padding: 5px 10px !important;
+}
+
+.table tbody tr th{
+  font-size: 11px !important;
+  padding: 5px 10px !important; 
+}
+
+.table tbody tr td{
+  font-size: 11px !important;
+  padding: 5px 10px !important;
+}
+
+.sidebar .navigation .menu-title {
+  font-size: 14px !important; 
+}
+
+.dataTables_wrapper .dataTables_length, 
+.dataTables_wrapper .dataTables_filter, 
+.dataTables_wrapper .dataTables_info, 
+.dataTables_wrapper .dataTables_processing, 
+.dataTables_wrapper .dataTables_paginate {
+  font-size: 14px !important;
+}
+
+.col-md-2{
+  padding: 0 10px !important;
+}
+
+.col-md-3{
+  padding: 0 10px !important;
+}
+
+.modal{
+  padding: 0 !important;
+}
+.modal-xl{
+  // min-width: 1340px !important;
+  min-width: 98% !important ;
+}
+.form-group{
+  margin: 0 !important;
+  padding: 0 0 4px 0 !important;
+}
+.modal-header{
+  padding: 10px !important;
+  border: 0 !important;
+  background-color:#094152;
+  // background-color: #0451a4; 
+    
+}
+.modal-header .modal-title{
+  color: #fff !important;
+}   
+.modal-body{
+  padding: 5px 15px !important;
+}
+.modal-footer{
+  border:  0 !important ;
+  padding: 5px 10px 10px 10px !important;
+}
+
+.form-check{
+  padding: 0 ;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 90%;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e4e4e4;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "In-Active";
+  color: #000;
+  left: 39%;
+  text-align: center;
+  bottom: 4px;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #007bff;
+}
+
+input:checked + .slider:before {
+  content: "Active";
+  color: #fff;
+}
+
+.dropdown-toggle::after{
+  color: #fff;
+}
+
+.validation_required{
+  color: red;
+  margin-left: 5px;
+  font-weight: bolder;
+}
+.RemoveInputNumberArrows input[type="number"] 
+{
+  appearance: textfield;
+}
+.RemoveInputNumberArrows  input[type="number"]::-webkit-inner-spin-button, 
+.RemoveInputNumberArrows  input[type="number"]::-webkit-outer-spin-button 
+{ 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+// div.dt-buttons > .dt-button:first-child{
+//   background-color: #007bff !important;
+// }
+
+// div.dt-buttons > .dt-button,
+// div.dt-buttons > div.dt-button-split .dt-button{
+//     color:  #fff !important;
+//     background-color: #007bff !important;
+//     // margin-left: 100px !important;
+//     // position: absolute !important;
+// }
+
+
+// .dt-button{
+//   background-color: #ff4800e8 !important;
+// }
+
+
+.dataTables_wrapper .dataTables_filter input{
+  width:240px !important;
+}
+
+.pre_lodding{
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  height: 100px !important;
+  z-index: 2 !important;
+  img {
+    width: 35px !important;
+    height: 35px !important;
+  }
+}
+
+.dt-buttons button img {
+  width: 24px;
+  height: 24px;
+  // margin-right: 5px;
+}
+
+/* CSV Button - Blue */
+.dt-buttons .buttons-csv {
+  // background-color: #007bff !important;
+  background-color: #fdfdfd !important;
+  color: white !important;
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+
+.dt-buttons .buttons-csv:hover {
+  // background-color: #0056b3 !important;
+  background-color: #fdfdfd !important;
+}
+
+/* Excel Button - Green */
+.dt-buttons .buttons-excel {
+  background-color: #28a745 !important;
+  color: white !important;
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+
+.dt-buttons .buttons-excel:hover {
+  background-color: #1e7e34 !important;
+}
+
+/* PDF Button - Red */
+.dt-buttons .buttons-pdf {
+  background-color: #dc3545 !important;
+  color: white !important;
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+
+.dt-buttons .buttons-pdf:hover {
+  background-color: #bd2130 !important;
+}
+
+/* Increase Icon Size */
+.dt-buttons button i {
+  font-size: 20px !important;
+  margin-right: 5px;
+}
+
+.ng-select .ng-select-container
+ {
+  min-height: 0px;
+  height: 31px;
+ }
+
+ .ng-select.ng-select-single .ng-select-container{
+  height: 31px;
+ }
+
+.live_panel_title
+{
+  background:  #094152 !important;
+}

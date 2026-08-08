@@ -1,0 +1,1880 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<form action="#"> 
+				<div class="card-body">
+					<div class="btn-group float-sm-left mb-1">
+						<button type="button" data-toggle="modal" data-target="#dispatch_modal" class="btn btn-outline-success btn-sm">
+							<i class="zmdi zmdi-plus mr-1"></i>Add Load
+						</button>
+					</div>
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<tr>
+									<th>S.No</th>
+									<th>Load No</th>
+									<th>Customer</th>     
+									<th>Refrence No</th>
+									<th>Shipper</th>
+									<th>Receiver</th>
+									<th>Ship Date</th>
+									<th>Delivery Date</th>
+									<th>Temp</th>
+									<th>Driver Status</th>
+									<th>Shipper Status</th>
+									<th>Receiver Status</th>
+									<!-- <th>Action</th> -->
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let dispatch of rowData; let i = index">
+									<th style="text-align: center;" scope="row">{{i+1}}</th>
+									<td>{{dispatch.load}}</td>
+									<td>{{dispatch.customerName}}</td>     
+									<td>{{dispatch.customerReferenceNo}}</td>
+									<td>{{dispatch.shipperName}}</td>
+									<td>{{dispatch.receiverName}}</td>
+									<td>{{dispatch.shippingDate}}</td>
+									<td>{{dispatch.receivingDate}}</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<!-- <td><a style="cursor: pointer; color: dodgerblue; text-align: center;" data-toggle="modal" data-target="#dispatch_modal" (click)="EditDispatch(dispatch)">
+									<i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+									</a>
+									</td>  -->
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+<div id="dispatch_modal" class="modal modal-open fade " role="dialog" >
+	<style>
+		.modal-open {overflow: scroll;}
+	</style>
+	<form action="#" #dispatchMasterForm="ngForm">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Dispatch Details</h6>
+					<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">X</button>
+					<!-- <span onclick="document.getElementById('dispatch_modal').style.display='none'" class="btn btn-outline-light btn-sm">&times;</span> -->
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Load<i class="validation_required">*</i></label>
+									<input type="text" id="dispatchLoad" name="dispatchLoad"  required #dispatchLoad="ngModel" class="form-control form-control-sm" [(ngModel)]="dispatchForm.dispatchLoad" placeholder="Load">
+								</div>
+								<div *ngIf="!dispatchLoad?.valid && (dispatchLoad?.dirty || dispatchLoad?.touched)" class="error">
+									<div *ngIf="dispatchLoad.errors.required">
+										Load is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="customerName" class="control-label">Customer<i class="validation_required">*</i></label>
+									<div class="btn-group float-sm-right">
+										<button type="button" data-toggle="modal" data-target="#customer_modal" class="btn btn-primary btn-sm">+</button>	
+									</div>
+									<ng-select [items]="customerDataArr"
+                                        bindLabel="customerName"
+                                        bindValue="id"
+                                        placeholder="Select customer"
+                                        appendTo="body"
+                                        name="customerName"
+										required #customerId="ngModel"
+                                        [(ngModel)]="dispatchForm.customerId"> 
+                                    </ng-select>
+									<div *ngIf="!customerId?.valid && (customerId?.dirty || customerId?.touched)" class="error">
+										<div *ngIf="customerId.errors.required">
+											Customer is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Customer Refrence No<i class="validation_required">*</i></label>
+									<input type="text" id="dispatchCustomerReferenceNo"  name="dispatchCustomerReferenceNo"  required #dispatchCustomerReferenceNo="ngModel" class="form-control form-control-sm" [(ngModel)]="dispatchForm.dispatchCustomerReferenceNo" placeholder="Customer Refrence No">
+								</div>
+								<div *ngIf="!dispatchCustomerReferenceNo?.valid && (dispatchCustomerReferenceNo?.dirty || dispatchCustomerReferenceNo?.touched)" class="error">
+									<div *ngIf="dispatchCustomerReferenceNo.errors.required">
+										Customer is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Dispatcher<i class="validation_required"></i></label>
+									<input type="text" id="dispatchDispatcher" name="dispatchDispatcher" [(ngModel)]="dispatchForm.dispatchDispatcher" class="form-control form-control-sm" placeholder="Dispatcher">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Load Enter By<i class="validation_required">*</i></label>
+									<input type="text" id="dispatchLoadEnterBy" name="dispatchLoadEnterBy"  required #dispatchLoadEnterBy="ngModel" class="form-control form-control-sm" [(ngModel)]="dispatchForm.dispatchLoadEnterBy" placeholder="Load Enter By">
+								</div>
+								<div *ngIf="!dispatchLoadEnterBy?.valid && (dispatchLoadEnterBy?.dirty || dispatchLoadEnterBy?.touched)" class="error">
+									<div *ngIf="dispatchLoadEnterBy.errors.required">
+										Load Enter By is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Currency<i class="validation_required"></i></label>
+									<input type="text" id="dispatchCurrency"  name="dispatchCurrency" [(ngModel)]="dispatchForm.dispatchCurrency" class="form-control form-control-sm" placeholder="Currency">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-2">
+								<div class="form-group RemoveInputNumberArrows">
+									<label class="control-label">Flat Rate<i class="validation_required">*</i></label>
+									<input type="number" id="dispatchFlatRate" name="dispatchFlatRate" (change)="TotalDispatchCollectionData($event.target.value,'dispatchFlatRate')"  required #dispatchFlatRate="ngModel" class="form-control form-control-sm" [(ngModel)]="dispatchForm.dispatchFlatRate">
+								</div>
+								<div *ngIf="!dispatchFlatRate?.valid && (dispatchFlatRate?.dirty || dispatchFlatRate?.touched)" class="error">
+									<div *ngIf="dispatchFlatRate.errors.required">
+										Flat Rate is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group RemoveInputNumberArrows">
+									<label class="control-label">Extra P/D<i class="validation_required"></i></label>
+									<input type="number"  id="dispatchExtraPD" name="dispatchExtraPD" (change)="TotalDispatchCollectionData($event.target.value,'dispatchExtraPD')" class="form-control form-control-sm" [(ngModel)]="dispatchForm.dispatchExtraPD">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group RemoveInputNumberArrows">
+									<label class="control-label">Fuel Sur Charge<i class="validation_required"></i></label>
+									<input type="number"  id="dispatchFuelFuelSurCharge" name="dispatchFuelFuelSurCharge" (change)="TotalDispatchCollectionData($event.target.value,'dispatchFuelFuelSurCharge')" class="form-control form-control-sm" [(ngModel)]="dispatchForm.dispatchFuelFuelSurCharge">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group RemoveInputNumberArrows">
+									<label class="control-label">Extra Charge<i class="validation_required"></i></label>
+									<input type="number"  id="dispatchExtraCharge" name="dispatchExtraCharge" (change)="TotalDispatchCollectionData($event.target.value,'dispatchExtraCharge')" class="form-control form-control-sm" [(ngModel)]="dispatchForm.dispatchExtraCharge">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Other Charge<i class="validation_required"></i></label>
+									<div class="btn-group float-sm-right">
+										<button type="button" data-toggle="modal" data-target="#dispatch_other_charge_modal" class="btn btn-primary btn-sm">+</button>
+									</div>
+									<input type="number" disabled id="dispatchOtherCharge" name="dispatchOtherCharge" [(ngModel)]="dispatchForm.dispatchOtherCharge"  class="form-control form-control-sm" >
+								</div>
+							</div>
+							<div class="col-md-2 ">
+								<div class="form-group RemoveInputNumberArrows">
+									<label class="control-label">Total<i class="validation_required"></i></label>
+									<input type="number" id="dispatchTotal" name="dispatchTotal" [(ngModel)]="dispatchForm.dispatchTotal"  class="form-control form-control-sm" placeholder="0.00">
+								</div>
+							</div>
+						</div>
+						<!-- <div class="row">
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="clientName" class="control-label">Client<i class="validation_required">*</i></label>
+									<ng-select 
+										[items]="clientDataArr"
+										bindLabel="clientName"
+										bindValue="id"
+										placeholder="Select Client"
+										appendTo="body"
+										name="clientName"
+										required #clientId="ngModel"
+										[(ngModel)]="dispatchForm.clientId"> 
+                                    </ng-select>
+									<div *ngIf="!clientId?.valid && (clientId?.dirty || clientId?.touched)" class="error">
+										<div *ngIf="clientId.errors.required">
+											Client is required
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> -->
+						<div class="row" >
+							<div class="col-md-6">
+								<span>
+									<!-- <input type="checkbox" id="driver" (click)="ChangeFields('driver')" value="driver" checked style="width: 16px; height: 16px;">
+									Driver -->
+									<input type="checkbox" id="driver" value="driver" checked style="width: 16px; height: 16px;">
+									Driver
+								   <!-- <input type="checkbox" id="carrier" (click)="ChangeFields('carrier')" value="carrier" style="width: 16px; height: 16px;">
+								   Carrier -->
+								</span>
+							</div>	
+						</div>
+						<div class="row mb-2"  *ngIf="isDriverSection">
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="employeeName" class="control-label">Driver Name<i class="validation_required">*</i></label>
+									<ng-select [items]="driverDataArr"
+									bindLabel="employeeName"
+									bindValue="id"
+									placeholder="Select Driver"
+									appendTo="body"
+									(change)="GetDrivers($event.flatRate)"
+									name="employeeName"
+									required #employeeId="ngModel"
+									[(ngModel)]="dispatchForm.employeeId"> 
+								</ng-select>
+								<div *ngIf="!employeeId?.valid && (employeeId?.dirty || employeeId?.touched)" class="error">
+									<div *ngIf="employeeId.errors.required">
+										Driver Name is required
+									</div>
+								</div>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="coDriverName" class="control-label">Co-Driver Name<i class="validation_required">*</i></label>
+									<ng-select [items]="codriverDataArr"
+									bindLabel="coDriverName"
+									bindValue="id"
+									placeholder="Select Co-Driver"
+									appendTo="body"
+									name="coDriverName"
+									required #coDriverId="ngModel"
+									[(ngModel)]="dispatchForm.coDriverId"> 
+								</ng-select>
+								<div *ngIf="!coDriverId?.valid && (coDriverId?.dirty || coDriverId?.touched)" class="error">
+									<div *ngIf="coDriverId.errors.required">
+										Co-Driver Name is required
+									</div>
+								</div>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="vehicleNo" class="control-label">Truck<i class="validation_required">*</i></label>
+									<ng-select [items]="vehicleDataArr"
+                                        bindLabel="vehicleNo"
+                                        bindValue="id"
+                                        placeholder="Select Truck"
+                                        appendTo="body"
+                                        name="vehicleNo"
+										(change)="getAllTruckNames($event.vehicleNo)"
+										required #vehicleId="ngModel"
+                                        [(ngModel)]="dispatchForm.vehicleId"> 
+                                    </ng-select>
+									<div *ngIf="!vehicleId?.valid && (vehicleId?.dirty || vehicleId?.touched)" class="error">
+										<div *ngIf="vehicleId.errors.required">
+											Truck is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="trailerName" class="control-label">Trailer<i class="validation_required"></i></label>
+									<ng-select [items]="trailerDataArr"
+                                        bindLabel="trailerName"
+                                        bindValue="id"
+                                        placeholder="Select Trailer"
+                                        appendTo="body"
+                                        name="trailerName"
+										(change)="getAllTrailerNames($event.trailerName)"
+                                        [(ngModel)]="dispatchForm.trailerId"> 
+                                    </ng-select>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Rate<i class="validation_required"></i></label>
+									<input type="number" id="driverRate" name="driverRate"  class="form-control form-control-sm" [(ngModel)]="dispatchForm.driverRate" >
+								</div>
+								<!-- <div *ngIf="!driverRate?.valid && (driverRate?.dirty || driverRate?.touched)" class="error">
+									<div *ngIf="driverRate.errors.required">
+										 Rate is required
+									</div>
+								</div> -->
+							</div>
+							<div class="col-md-2">
+								<div class="form-group RemoveInputNumberArrows">
+									<label class="control-label">Total Miles<i class="validation_required">*</i></label>
+									<input type="number" id="driverTotalMiles" name="driverTotalMiles"  required #driverTotalMiles="ngModel" class="form-control form-control-sm " [(ngModel)]="dispatchForm.driverTotalMiles" placeholder="Total Miles">
+								</div>
+								<div *ngIf="!driverTotalMiles?.valid && (driverTotalMiles?.dirty || driverTotalMiles?.touched)" class="error">
+									<div *ngIf="driverTotalMiles.errors.required">
+										Total Miles is required
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row mt-2" *ngIf="isCarrierSection">
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="carrierName" class="control-label">Carrier Name<i class="validation_required"></i></label>
+									<div class="btn-group float-sm-right">
+										<button type="button" data-toggle="modal" data-target="#carrier_modal" class="btn btn-primary btn-sm">+</button>	
+									</div>
+									<ng-select [items]="carrierDataArr"
+									bindLabel="carrierName"
+									bindValue="id"
+									placeholder="Select carrier"
+									appendTo="body"
+									name="carrierName"
+									[(ngModel)]="dispatchForm.carrierId"> 
+								</ng-select>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Truck<i class="validation_required"></i></label>
+									<input type="text" id="carrierTruck" name="carrierTruck" class="form-control form-control-sm" placeholder="Truck">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Trailer<i class="validation_required"></i></label>
+									<input type="text" id="carrierTrailer" name="carrierTrailer"  class="form-control form-control-sm" placeholder="Trailer">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Equipment Type<i class="validation_required"></i></label>
+									<input type="text" id="carrierEquipmentType" name="carrierEquipmentType"  class="form-control form-control-sm" placeholder="Equipment Type">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Rate<i class="validation_required"></i></label>
+									<input type="text" id="carrierRate" name="carrierRate"  class="form-control form-control-sm" placeholder="Rate">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Other Charges<i class="validation_required"></i></label>
+									<input type="text" id="carrierOtherCharges" name="carrierOtherCharges"  class="form-control form-control-sm" placeholder="Other Charges">
+								</div>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col-md-4">
+								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+									<li class="nav-item mr-2" role="presentation">
+									  	<a class=" btn btn-outline-primary btn-sm active" type="button" id="pills-shipper-tab" data-toggle="pill" href="#pills-shipper" role="tab" aria-controls="pills-shipper" aria-selected="true">Shipper</a>
+									</li>
+									<li class="nav-item" role="presentation">
+									  <a class="btn btn-outline-primary btn-sm"  type="button" id="pills-receiver-tab" data-toggle="pill" href="#pills-receiver" role="tab" aria-controls="pills-receiver" aria-selected="false">Receiver</a>
+									</li>
+								</ul>
+							</div>
+							<div class="col-md-3 ml-auto">
+								<button type="button" data-toggle="modal" data-target="#dispatch_other_charge_modal" class="btn btn-primary btn-sm float-right">$ Add Other Charges</button>
+							</div>
+							<div class="col-md-12">
+								<div class="tab-content" id="pills-tabContent">
+									<div class="tab-pane fade show active" id="pills-shipper" role="tabpanel" aria-labelledby="pills-shipper-tab">
+										<div class="row">
+											<div class="col-md-2">
+												<div class="form-group">
+													<label for="shipperName" class="control-label">Shipper Name <i class="validation_required">*</i></label>
+													<div class="btn-group float-sm-right">
+														<button type="button" data-toggle="modal"  data-target="#shipper_modal"  class="btn btn-primary btn-sm">+</button>
+													</div>
+													<ng-select [items]="shipperDataArr"
+														bindLabel="shipperName"
+														bindValue="id"
+														placeholder="Select shipperName"
+														appendTo="body"
+														name="shipperName"
+														(change)="GetShipperInfo($event.id,$event.shipperName)"
+														(keyup)="RemoveShipperRequiredClass()"
+														id="shipperbordercss"
+														required #shipperId="ngModel"
+														[(ngModel)]="dispatchForm.shipperId"> 
+													</ng-select>
+													 <div *ngIf="!shipperId?.valid && (shipperId?.dirty || shipperId?.touched)"  class="error">
+														<div *ngIf="shipperId.errors.required">
+															Shipper Name is required
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- (change)="GetShipperInfo($event.id,$event.shipperName,$event.physicalAddress,$event.contactNo,$event.countryId,$event.stateId)" -->
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Address<i class="validation_required">*</i></label>
+													<input type="text" id="shipperAddress" name="shipperAddress" (keyup)="RemoveShipperRequiredClass()"  [(ngModel)]="dispatchForm.shipperAddress" class="form-control form-control-sm" placeholder="Address">
+													<!-- <span style="color:red"  id="isShipperAddressValid"> </span> -->
+												</div>
+											</div>
+											<!-- <div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">country<i class="validation_required">*</i></label>
+													<input type="text" id="shipperCountry" disabled name="shipperCountry" (keyup)="RemoveShipperRequiredClass()"  [(ngModel)]="dispatchForm.shipperCountry" class="form-control form-control-sm" placeholder="Country">
+												</div>
+											</div> -->
+											<div class="col-md-2">
+												<div class="form-group">
+													<label for="countryName" class="control-label">Country<i class="validation_required">*</i></label>
+													<ng-select [items]="countryDataArr"
+														bindLabel="countryName"
+														bindValue="id"
+														placeholder="Select country"
+														appendTo="body"
+														name="countryName"
+														(change)="GetAllCountryInfo($event.id,$event.countryName)"
+														(change)="RemoveShipperRequiredClass()"
+														id="shippercountrybordercss"
+														[(ngModel)]="dispatchForm.shipperCountryId"> 
+													</ng-select>
+												</div>
+											</div>
+											<!-- <div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">State<i class="validation_required">*</i></label>
+													<input type="text" id="shipperState"  name="shipperState" (keyup)="RemoveShipperRequiredClass()" [(ngModel)]="dispatchForm.shipperState" class="form-control form-control-sm" placeholder="State">
+												</div>
+											</div> -->
+											<div class="col-md-2">
+												<div class="form-group">
+													<label for="stateName" class="control-label">State<i class="validation_required">*</i></label>
+													<ng-select [items]="stateDataArr"
+														bindLabel="stateName"
+														bindValue="id"
+														placeholder="Select state"
+														appendTo="body"
+														name="stateName"
+														(change)="GetAllStateInfo($event.id,$event.stateName)"
+														(change)="RemoveShipperRequiredClass()"
+														id="shipperstatebordercss"
+														[(ngModel)]="dispatchForm.shipperStateId"> 
+													</ng-select>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label for="cityName" class="control-label">city<i class="validation_required">*</i></label>
+													<ng-select [items]="cityDataArr"
+														bindLabel="cityName"
+														bindValue="id"
+														placeholder="Select city"
+														appendTo="body"
+														name="cityName"
+														(change)="GetAllCityInfo($event.id,$event.cityName)"
+														(change)="RemoveShipperRequiredClass()"
+														id="shippercitybordercss"
+														[(ngModel)]="dispatchForm.shipperCityId"> 
+													</ng-select>
+													<!-- <span style="color:red" id="isshipperCityIdValid"></span> -->
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Date<i class="validation_required"></i></label>
+													<input type="date"  id="shipperDate"  name="shipperDate" [(ngModel)]="dispatchForm.shipperDate" class="form-control form-control-sm" >
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Time<i class="validation_required"></i></label>
+													<input type="time"  id="shipperTime"  name="shipperTime" [(ngModel)]="dispatchForm.shipperTime" class="form-control form-control-sm mt-1" >
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Pick up No.(s)<i class="validation_required">*</i></label>
+													<input type="text" id="shipperPickUp" name="shipperPickUp" (keyup)="RemoveShipperRequiredClass()" class="borderalert" [(ngModel)]="dispatchForm.shipperPickUp"  class="form-control form-control-sm"  placeholder="Pick up Number">
+													<!-- <span style="color:red" id="isShipperPickUpValid"></span> -->
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Comodity<i class="validation_required"></i></label>
+													<input type="text" id="shipperComodity" name="shipperComodity" [(ngModel)]="dispatchForm.shipperComodity" class="form-control form-control-sm" placeholder="Comodity">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Reefer Temp<i class="validation_required"></i></label>
+													<input type="text"  id="shipperReferTemp" name="shipperReferTemp" [(ngModel)]="dispatchForm.shipperReferTemp" class="form-control form-control-sm" placeholder="Reefer Temp">
+												</div>
+											</div>
+											<div class="col-md-2 ">
+												<div class="form-group">
+													<label for="referModeName" class="control-label">Refer mode<i class="validation_required"></i></label>
+													<ng-select [items]="referModeDataArr"
+														bindLabel="referModeName"
+														bindValue="id"
+														placeholder="Select referMode"
+														appendTo="body"
+														name="referModeName"
+														[(ngModel)]="dispatchForm.shipperReferModeId"> 
+													</ng-select>
+												</div>
+											</div>
+											
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Case Count<i class="validation_required"></i></label>
+													<input type="text" id="shipperCaseCount" name="shipperCaseCount" [(ngModel)]="dispatchForm.shipperCaseCount"  class="form-control form-control-sm" placeholder="Case Count">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Pallets<i class="validation_required"></i></label>
+													<input type="text" id="shipperPallets" name="shipperPallets" [(ngModel)]="dispatchForm.shipperPallets" class="form-control form-control-sm" placeholder="Pallets">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Weight<i class="validation_required"></i></label>
+													<input type="text" id="shipperWeight" name="shipperWeight" [(ngModel)]="dispatchForm.shipperWeight" class="form-control form-control-sm" placeholder="Weight">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Shipping Notes<i class="validation_required"></i></label>
+													<input type="text" id="shipperShippingNotes" name="shipperShippingNotes" [(ngModel)]="dispatchForm.shipperShippingNotes" class="form-control form-control-sm" placeholder="Shipping Notes">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Contact Person<i class="validation_required"></i></label>
+													<input type="text" id="disptchShipperContactPerson" name="disptchShipperContactPerson" [(ngModel)]="dispatchForm.disptchShipperContactPerson" class="form-control form-control-sm" placeholder="Contact Person">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Contact No<i class="validation_required"></i></label>
+													<input type="number" id="dispatchShipperContactNo" name="dispatchShipperContactNo" [(ngModel)]="dispatchForm.dispatchShipperContactNo" class="form-control form-control-sm" placeholder="Contact No">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Order<i class="validation_required"></i></label>
+													<input type="number" id="shipperOrder" name="shipperOrder" [(ngModel)]="dispatchForm.shipperOrder" class="form-control form-control-sm" placeholder="Number of Order">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="mt-4">
+													<button type="submit" id="addButtonShipper"  class="btn btn-primary btn-sm active mr-1 mt-2"  (click)="GenerateShipperFields()">Add</button>
+													<!-- (click)="ShipperOrderIncrementOnAdd()" -->
+													<button type="submit" id="clearShipperButton" class="btn btn-primary btn-sm active  mt-2"  (click)="ClearShipperFieldsOnReset()">Reset</button>
+												</div>
+											</div>
+										</div>
+										
+										<div>
+											<div class="row mt-4">
+												<div class="col-lg-6">
+													<div class="row">
+														<div class="col-lg-2 sm_table_thead">
+															<label for="orderNameTable">Order</label>
+														</div>
+							
+														<div class="col-lg-2 sm_table_thead">
+															<label for="pickupNoNameTable">Pickup No</label>
+														</div>
+														
+														<div class="col-lg-2 sm_table_thead">
+															<label for="shipperNameTable">Shipper</label>
+														</div>
+						
+														<div class="col-lg-2 sm_table_thead">
+															<label for="addressTable">Address</label>
+														</div>
+						
+														<div class="col-lg-2 sm_table_thead">
+															<label for="stateTable">State</label>
+														</div>
+						
+														<div class="col-lg-2 sm_table_thead">
+															<label for="cityTable">city</label>
+														</div>
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="row">
+														<div class=" col-lg-2 sm_table_thead">
+															<label for="dateTable">Date</label>
+														</div>
+							
+														<div class="col-lg-1 sm_table_thead">
+															<label for="timeTable">Time</label>
+														</div>
+														<div class="col-lg-2 sm_table_thead">
+															<label for="caseCountTable">case Count</label>
+														</div>
+						
+														<div class="col-lg-2 sm_table_thead">
+															<label for="palletsTable">Pallets</label>
+														</div>
+							
+														<div class="col-lg-1 sm_table_thead">
+															<label for="weightTable">weight</label>
+														</div>
+			
+														<div class="col-lg-2 sm_table_thead">
+															<label for="shippingNotesTable">Shipping Notes</label>
+														</div>
+														<div class="col-lg-2 sm_table_thead">
+															<label for="shippingNotesTable">Action</label>
+														</div>
+													</div>
+												</div>
+												
+											</div>
+											<div class="showShipperField">
+													
+											</div>
+										</div>
+									</div>
+		
+									<div class="tab-pane fade" id="pills-receiver" role="tabpanel" aria-labelledby="pills-receiver-tab">
+										<div class="row">
+											<div class="col-md-2">
+												<div class="form-group">
+													<label for="receiverName" class="control-label">Receiver Name<i class="validation_required">*</i></label>
+													<div class="btn-group float-sm-right">
+														<button type="button" data-toggle="modal" data-target="#receiver_modal" class="btn btn-primary btn-sm">+</button>
+													</div>
+													<ng-select [items]="receiverDataArr"
+														bindLabel="receiverName"
+														bindValue="id"
+														placeholder="Select receiverName"
+														appendTo="body"
+														name="receiverName"
+														(change)="GetReceiverInfo($event.id,$event.receiverName)"
+														(keyup)="RemoveReceiverRequiredBorderClass()"
+														id="receiverbordercss"
+														required #receiverId="ngModel"
+														[(ngModel)]="dispatchForm.receiverId"> 
+													</ng-select>
+													<div *ngIf="!receiverId?.valid && (receiverId?.dirty || receiverId?.touched)" class="error">
+														<div *ngIf="receiverId.errors.required">
+															Receiver Name is required
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- (change)="GetReceiverInfo($event.id,$event.receiverName,$event.physicalAddress,$event.contactNo,$event.countryId)" -->
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Address<i class="validation_required">*</i></label>
+													<input type="text" id="receiverAddress" name="receiverAddress" (keyup)="RemoveReceiverRequiredBorderClass()" [(ngModel)]="dispatchForm.receiverAddress" class="form-control form-control-sm" placeholder="Address">
+												</div>
+											</div>
+											
+											<div class="col-md-2">
+												<div class="form-group">
+													<label for="receiverCountryName" class="control-label">Country<i class="validation_required">*</i></label>
+													<ng-select [items]="countryReceiverDataArr"
+														bindLabel="receiverCountryName"
+														bindValue="id"
+														placeholder="Select country"
+														appendTo="body"
+														name="receiverCountryName"
+														(change)="GetAllReceiverCountryInfo($event.id,$event.receiverCountryName)"
+														(change)="RemoveReceiverRequiredBorderClass()"
+														id="receivercountrybordercss"
+														[(ngModel)]="dispatchForm.receiverCountryId"> 
+													</ng-select>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label for="receiverStateName" class="control-label">State<i class="validation_required">*</i></label>
+													<ng-select [items]="stateReceiverDataArr"
+														bindLabel="receiverStateName"
+														bindValue="id"
+														placeholder="Select state"
+														appendTo="body"
+														name="receiverStateName"
+														(change)="GetAllReceiverStateInfo($event.id,$event.receiverStateName)"
+														(change)="RemoveReceiverRequiredBorderClass()"
+														id="receiverstatebordercss"
+														[(ngModel)]="dispatchForm.receiverStateId"> 
+													</ng-select>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label for="receiverCityName" class="control-label">city<i class="validation_required">*</i></label>
+													<ng-select [items]="cityReceiverDataArr"
+														bindLabel="receiverCityName"
+														bindValue="id"
+														placeholder="Select city"
+														appendTo="body"
+														name="receiverCityName"
+														(change)="GetAllReceiverCityInfo($event.id,$event.receiverCityName)"
+														(change)="RemoveReceiverRequiredBorderClass()"
+														id="receivercitybordercss"
+														[(ngModel)]="dispatchForm.receiverCityId"> 
+													</ng-select>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Date<i class="validation_required"></i></label>
+													<input type="date"  id="receiverDate" name="receiverDate"  [(ngModel)]="dispatchForm.receiverDate" class="form-control form-control-sm">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Time<i class="validation_required"></i></label>
+													<input type="time"  id="receiverTime" name="receiverTime" [(ngModel)]="dispatchForm.receiverTime"  class="form-control form-control-sm mt-1">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Receiving No.(s)<i class="validation_required">*</i></label>
+													<input type="text" id="receiverReceivingNo" name="receiverReceivingNo" [(ngModel)]="dispatchForm.receiverReceivingNo"  class="form-control form-control-sm" placeholder="Pick up Number">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Comodity<i class="validation_required"></i></label>
+													<input type="text" id="receiverComodity" name="receiverComodity" [(ngModel)]="dispatchForm.receiverComodity"  class="form-control form-control-sm" placeholder="Comodity">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Reefer Temp<i class="validation_required"></i></label>
+													<input type="text" id="receiverReeferTemp" name="receiverReeferTemp" [(ngModel)]="dispatchForm.receiverReeferTemp"  class="form-control form-control-sm" placeholder="Reefer Temp">
+												</div>
+											</div>
+											<div class="col-md-2 ">
+												<div class="form-group">
+													<label for="referModeName" class="control-label">Refer mode<i class="validation_required"></i></label>
+													<ng-select [items]="referModeDataArr"
+														bindLabel="referModeName"
+														bindValue="id"
+														placeholder="Select referMode"
+														appendTo="body"
+														name="referModeName"
+														[(ngModel)]="dispatchForm.receiverReferModeId"> 
+													</ng-select>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Case Count<i class="validation_required"></i></label>
+													<input type="text"  id="receiverCaseCount" name="receiverCaseCount"  [(ngModel)]="dispatchForm.receiverCaseCount" class="form-control form-control-sm" placeholder="Case Count">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Pallets<i class="validation_required"></i></label>
+													<input type="text" id="receiverPallets" name="receiverPallets" [(ngModel)]="dispatchForm.receiverPallets"  class="form-control form-control-sm" placeholder="Pallets">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Weight<i class="validation_required"></i></label>
+													<input type="text" id="receiverWeight" name="receiverWeight" [(ngModel)]="dispatchForm.receiverWeight"  class="form-control form-control-sm" placeholder="Weight">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Shipping Notes<i class="validation_required"></i></label>
+													<input type="text" id="receiverShippingNotes" name="receiverShippingNotes" [(ngModel)]="dispatchForm.receiverShippingNotes"  class="form-control form-control-sm" placeholder="Shipping Notes">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Contact Person<i class="validation_required"></i></label>
+													<input type="text" id="receiverContactPerson" name="receiverContactPerson" [(ngModel)]="dispatchForm.receiverContactPerson" class="form-control form-control-sm" placeholder="Contact Person">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Contact No<i class="validation_required"></i></label>
+													<input type="number" id="receiverContactNo" name="receiverContactNo" [(ngModel)]="dispatchForm.receiverContactNo" class="form-control form-control-sm" placeholder="Contact No">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label class="control-label">Order<i class="validation_required"></i></label>
+													<input type="number" id="receiverOrder" name="receiverOrder" [(ngModel)]="dispatchForm.receiverOrder"  class="form-control form-control-sm" placeholder="Number of Order">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="mt-4">
+													<button type="submit" id="addButtonReciever"  class="btn btn-primary btn-sm active mr-1 mt-2" (click)="GenerateReceiverFields()">Add</button>
+													<button type="submit" id="clearRecieverButton" class="btn btn-primary btn-sm active  mt-2" (click)="ClearReciverFieldsOnReset()">Reset</button>
+												</div>
+											</div>
+										</div>
+										
+										<div>
+											<div class="row mt-4">
+												<div class="col-lg-6">
+													<div class="row">
+														<div class="col-lg-2 sm_table_thead">
+															<label for="orderRecieverNameTable">Order</label>
+														</div>
+							
+														<div class="col-lg-2 sm_table_thead">
+															<label for="receivingNoNameTable">Receiving No.</label>
+														</div>
+														
+														<div class="col-lg-2 sm_table_thead">
+															<label for="receiverNameTable">Receiver</label>
+														</div>
+						
+														<div class="col-lg-2 sm_table_thead">
+															<label for="addressReceiverTable">Address</label>
+														</div>
+						
+														<div class="col-lg-2 sm_table_thead">
+															<label for="stateReceiverTable">State</label>
+														</div>
+						
+														<div class="col-lg-2 sm_table_thead">
+															<label for="cityReceiverTable">city</label>
+														</div>
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="row">
+														<div class=" col-lg-2 sm_table_thead">
+															<label for="dateReceiverTable">Date</label>
+														</div>
+							
+														<div class="col-lg-1 sm_table_thead">
+															<label for="timeReceiverTable">Time</label>
+														</div>
+														<div class="col-lg-2 sm_table_thead">
+															<label for="caseReceiverCountTable">case Count</label>
+														</div>
+						
+														<div class="col-lg-2 sm_table_thead">
+															<label for="palletsReceiverTable">Pallets</label>
+														</div>
+							
+														<div class="col-lg-1 sm_table_thead">
+															<label for="weightReceiverTable">weight</label>
+														</div>
+			
+														<div class="col-lg-2 sm_table_thead">
+															<label for="shippingNotesReceiverTable">Shipping Notes</label>
+														</div>
+														<div class="col-lg-2 sm_table_thead">
+															<label for="receiverAction">Action</label>
+														</div>
+													</div>
+												</div>
+												
+											</div>
+											<div class="showReceiverField">
+													
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!dispatchMasterForm.valid" data-dismiss="modal" (click)="SaveDispatchModalData()">Save</button>
+					<button type="submit" class="btn btn-info" *ngIf="isEditMode && !isViewMode" [disabled]="!dispatchMasterForm.valid" data-dismiss="modal">Update</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Save As Draft</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div id="customer_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+	<form action="#" #customerMasterForm="ngForm">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Customer Details</h6>
+					<button type="button" class="btn btn-outline-light btn-sm" data-dismiss="modal">x</button>
+					<!-- <span onclick="document.getElementById('customer_modal').style.display='none'" class="btn btn-outline-light btn-sm">&times;</span> -->
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Name<i class="validation_required">*</i></label>
+									<input type="text" id="customerName" name="customerName"  required #customerName="ngModel" class="form-control form-control-sm" [(ngModel)]="customerForm.customerName" placeholder="Name">
+								</div>
+								<div *ngIf="!customerName?.valid && (customerName?.dirty || customerName?.touched)" class="error">
+									<div *ngIf="customerName.errors.required">
+										Name is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="productName" class="control-label">product<i class="validation_required"></i></label>
+									<ng-select [items]="productDataArr"
+                                        bindLabel="productName"
+                                        bindValue="id"
+                                        placeholder="Select product"
+                                        appendTo="body"
+                                        name="productName"
+                                        [(ngModel)]="customerForm.productId"> 
+                                    </ng-select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Billing Address<i class="validation_required">*</i></label>
+									<input type="text" name="billingAddress" id="billingAddress" required #billingAddress="ngModel" [(ngModel)]="customerForm.billingAddress" class="form-control" placeholder="Billing Address">
+								</div>
+								<div *ngIf="!billingAddress?.valid && (billingAddress?.dirty || billingAddress?.touched)" class="error">
+									<div *ngIf="billingAddress.errors.required">
+										Billing Address is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="billingCountryName" class="control-label">Country<i class="validation_required">*</i></label>
+									<ng-select [items]="billingcountryDataArr"
+                                        bindLabel="billingCountryName"
+                                        bindValue="id"
+                                        placeholder="Select Country"
+                                        appendTo="body"
+                                        name="billingCountryName"
+										required #billingCountryId="ngModel"
+                                        [(ngModel)]="customerForm.billingCountryId"> 
+                                    </ng-select>
+									<div *ngIf="!billingCountryId?.valid && (billingCountryId?.dirty || billingCountryId?.touched)" class="error">
+										<div *ngIf="billingCountryId.errors.required">
+											Country is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="billingStateName" class="control-label">State<i class="validation_required">*</i></label>
+									<ng-select [items]="billingstateDataArr"
+                                        bindLabel="billingStateName"
+                                        bindValue="id"
+                                        placeholder="Select State"
+                                        appendTo="body"
+                                        name="billingStateName"
+										required #billingStateId="ngModel"
+                                        [(ngModel)]="customerForm.billingStateId"> 
+                                    </ng-select>
+									<div *ngIf="!billingStateId?.valid && (billingStateId?.dirty || billingStateId?.touched)" class="error">
+										<div *ngIf="billingStateId.errors.required">
+											State is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="billingCityName" class="control-label">City<i class="validation_required">*</i></label>
+									<ng-select [items]="billingcityDataArr"
+                                        bindLabel="billingCityName"
+                                        bindValue="id"
+                                        placeholder="Select City"
+                                        appendTo="body"
+                                        name="billingCityName"
+										required #billingCityId="ngModel"
+                                        [(ngModel)]="customerForm.billingCityId"> 
+                                    </ng-select>
+									<div *ngIf="!billingCityId?.valid && (billingCityId?.dirty || billingCityId?.touched)" class="error">
+										<div *ngIf="billingCityId.errors.required">
+											City is required
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Zip Code<i class="validation_required">*</i></label>
+									<input type="number" id="billingZipcode" name="billingZipcode"  required #billingZipcode="ngModel" class="form-control form-control-sm" [(ngModel)]="customerForm.billingZipcode" placeholder="Zip Code">
+								</div>
+								<div *ngIf="!billingZipcode?.valid && (billingZipcode?.dirty || billingZipcode?.touched)" class="error">
+									<div *ngIf="billingZipcode.errors.required">
+										Zip Code is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Contact Email<i class="validation_required"></i></label>
+									<input type="email" id="contactEmail" name="contactEmail"  class="form-control form-control-sm" placeholder="Contact Email" email>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Contact Phone<i class="validation_required">*</i></label>
+									<input type="number" id="contactphone" name="contactphone"  required #contactphone="ngModel" class="form-control form-control-sm" [(ngModel)]="customerForm.contactphone" placeholder="Contact Phone">
+								</div>
+								<div *ngIf="!contactphone?.valid && (contactphone?.dirty || contactphone?.touched)" class="error">
+									<div *ngIf="contactphone.errors.required">
+										Contact Phone is required
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Physical Address<i class="validation_required"></i></label>
+									<input type="text" name="physicalAddress" id="physicalAddress"  class="form-control form-control-sm" placeholder="Physical Address">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="physicalCountryName" class="control-label">Country<i class="validation_required"></i></label>
+									<ng-select [items]="physicalcountryDataArr"
+                                        bindLabel="physicalCountryName"
+                                        bindValue="id"
+                                        placeholder="Select Country"
+                                        appendTo="body"
+                                        name="physicalCountryName"
+                                        [(ngModel)]="customerForm.physicalCountryId"> 
+                                    </ng-select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="physicalStateName" class="control-label">State<i class="validation_required"></i></label>
+									<ng-select [items]="physicalstateDataArr"
+                                        bindLabel="physicalStateName"
+                                        bindValue="id"
+                                        placeholder="Select State"
+                                        appendTo="body"
+                                        name="physicalStateName"
+                                        [(ngModel)]="customerForm.physicalStateId"> 
+                                    </ng-select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="physicalcityName" class="control-label">City<i class="validation_required"></i></label>
+									<ng-select [items]="physicalcityDataArr"
+                                        bindLabel="physicalcityName"
+                                        bindValue="id"
+                                        placeholder="Select City"
+                                        appendTo="body"
+                                        name="physicalcityName"
+                                        [(ngModel)]="customerForm.physicalCityId"> 
+                                    </ng-select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Zip Code<i class="validation_required"></i></label>
+									<input type="number" name="physicalZipCode" id="physicalZipCode"  class="form-control form-control-sm" placeholder="Zip Code">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Dispatch Email<i class="validation_required"></i></label>
+									<input type="email"  id="dispatchEmail" name="dispatchEmail"  class="form-control form-control-sm" placeholder="Dispatch Email" email>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Dispatch Phone<i class="validation_required"></i></label>
+									<input type="number" id="dispatchPhone" name="dispatchPhone"  class="form-control form-control-sm" placeholder="Dispatch Phone">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">After Hours Phone<i class="validation_required"></i></label>
+									<input type="text" id="afterHoursphone" name="afterHoursphone"  class="form-control form-control-sm" placeholder="After Hours Phone">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Accounting Email<i class="validation_required"></i></label>
+									<input type="email" id="accountingEmail" name="accountingEmail"  class="form-control form-control-sm" placeholder="Accounting Email" email>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="clientName" class="control-label">Client<i class="validation_required">*</i></label>
+									<ng-select 
+										[items]="clientDataArr"
+										bindLabel="clientName"
+										bindValue="id"
+										placeholder="Select Client"
+										appendTo="body"
+										name="clientName"
+										required #clientId="ngModel"
+										[(ngModel)]="customerForm.clientId"> 
+                                    </ng-select>
+									<div *ngIf="!clientId?.valid && (clientId?.dirty || clientId?.touched)" class="error">
+										<div *ngIf="clientId.errors.required">
+											Client is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Accounting Phone<i class="validation_required"></i></label>
+									<input type="number" id="accountingPhone" name="accountingPhone"  class="form-control form-control-sm" placeholder="Accounting Phone">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Status<i class="validation_required"></i></label>
+									<div>
+										<label class="switch btn btn-info btn-sm">
+											<input type="checkbox" id="status" name="status">
+											<span class="slider"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Notes<i class="validation_required"></i></label>
+									<textarea type="text" name="remarks" id="remarks" rows="4" class="form-control form-control-sm" placeholder="Notes"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
+					<!-- <button type="submit" class="btn btn-primary btn-sm" data-dismiss="modal" (click)="SaveCustomerModalData()">Save</button> -->
+					<button type="submit" class="btn btn-primary btn-sm" *ngIf="!isEditMode && !isViewMode" [disabled]="!customerMasterForm.valid" data-dismiss="modal" (click)="SaveCustomerModalData()">Save</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div id="carrier_modal" class="modal fade hide" role="dialog">
+	<form action="#" #carrierMasterForm="ngForm">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Carrier Details</h6>
+					<button type="button" class="btn btn-outline-light btn-sm" data-dismiss="modal">x</button>
+					<!-- <span onclick="document.getElementById('carrier_modal').style.display='none'" class="btn btn-outline-light btn-sm">&times;</span> -->
+
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Name<i class="validation_required"></i></label>
+									<input type="text" name="carrierName" id="carrierName"  class="form-control form-control-sm" placeholder="Name">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="routeName" class="control-label">Routes<i class="validation_required"></i></label>
+									<ng-select [items]="routeDataArr"
+                                        bindLabel="routeName"
+                                        bindValue="id"
+                                        placeholder="Select Route"
+                                        appendTo="body"
+                                        name="routeName"
+                                        [(ngModel)]="carrierForm.routeId"> 
+                                    </ng-select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">DOT<i class="validation_required"></i></label>
+									<input type="text" id="dot"  name="dot"  class="form-control form-control-sm" placeholder="DOT">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">TAX ID/SS<i class="validation_required"></i></label>
+									<input type="text" id="taxId" name="taxId"  class="form-control form-control-sm" placeholder="TAX ID/SS">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Billing Address<i class="validation_required"></i></label>
+									<input type="text"  id="carrierBillingAddress" name="carrierBillingAddress" class="form-control" placeholder="Billing Address">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="billingCountryName" class="control-label">Country<i class="validation_required"></i></label>
+									<ng-select [items]="billingcountryDataArr"
+                                        bindLabel="billingCountryName"
+                                        bindValue="id"
+                                        placeholder="Select Country"
+                                        appendTo="body"
+                                        name="billingCountryName"
+                                        [(ngModel)]="carrierForm.billingCountryId"> 
+                                    </ng-select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="billingStateName" class="control-label">State<i class="validation_required"></i></label>
+									<ng-select [items]="billingstateDataArr"
+                                        bindLabel="billingStateName"
+                                        bindValue="id"
+                                        placeholder="Select State"
+                                        appendTo="body"
+                                        name="billingStateName"
+                                        [(ngModel)]="carrierForm.billingStateId"> 
+                                    </ng-select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="billingCityName" class="control-label">City<i class="validation_required"></i></label>
+									<ng-select [items]="billingcityDataArr"
+                                        bindLabel="billingCityName"
+                                        bindValue="id"
+                                        placeholder="Select City"
+                                        appendTo="body"
+                                        name="billingCityName"
+                                        [(ngModel)]="carrierForm.billingCityId"> 
+                                    </ng-select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Zip Code<i class="validation_required"></i></label>
+									<input type="number" id="carrierBillingZipcode" name="carrierBillingZipcode"  class="form-control form-control-sm" placeholder="Zip Code">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Contact Email<i class="validation_required"></i></label>
+									<input type="email" id="carrierContactEmail" name="carrierContactEmail"  class="form-control form-control-sm" placeholder="Contact Email" email>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Contact Phone<i class="validation_required"></i></label>
+									<input type="number"  id="carrierContactPhone" name="carrierContactPhone"  class="form-control form-control-sm" placeholder="Contact Phone">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Physical Address<i class="validation_required"></i></label>
+									<input type="text" name="carrierPhysicalAddress" id="carrierPhysicalAddress"  class="form-control form-control-sm" placeholder="Physical Address">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="physicalCountryName" class="control-label">Country<i class="validation_required"></i></label>
+									<ng-select [items]="physicalcountryDataArr"
+                                        bindLabel="physicalCountryName"
+                                        bindValue="id"
+                                        placeholder="Select Country"
+                                        appendTo="body"
+                                        name="physicalCountryName"
+                                        [(ngModel)]="carrierForm.physicalCountryId"> 
+                                    </ng-select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="physicalStateName" class="control-label">State<i class="validation_required"></i></label>
+									<ng-select [items]="physicalstateDataArr"
+                                        bindLabel="physicalStateName"
+                                        bindValue="id"
+                                        placeholder="Select State"
+                                        appendTo="body"
+                                        name="physicalStateName"
+                                        [(ngModel)]="carrierForm.physicalStateId"> 
+                                    </ng-select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="physicalcityName" class="control-label">City<i class="validation_required"></i></label>
+									<ng-select [items]="physicalcityDataArr"
+                                        bindLabel="physicalcityName"
+                                        bindValue="id"
+                                        placeholder="Select City"
+                                        appendTo="body"
+                                        name="physicalcityName"
+                                        [(ngModel)]="carrierForm.physicalCityId"> 
+                                    </ng-select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Zip Code<i class="validation_required"></i></label>
+									<input type="number" id="carrierPhysicalZipcode" name="carrierPhysicalZipcode"  class="form-control form-control-sm" placeholder="Zip Code">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Main Email<i class="validation_required"></i></label>
+									<input type="email" id="carrierMainEmail" name="carrierMainEmail"  class="form-control form-control-sm" placeholder="Dispatch Email" email>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Main Phone<i class="validation_required"></i></label>
+									<input type="number" name="carrierMainPhone" id="carrierMainPhone"  class="form-control form-control-sm" placeholder="Dispatch Phone">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">MC Number<i class="validation_required"></i></label>
+									<input type="text" name="carrierMcNumber" id="carrierMcNumber"  class="form-control form-control-sm" placeholder="MC Number">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">After Hours Phone<i class="validation_required"></i></label>
+									<input type="number" name="carrierAfterHoursPhone" id="carrierAfterHoursPhone"  class="form-control form-control-sm" placeholder="After Hours Phone">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Accounting Email<i class="validation_required"></i></label>
+									<input type="email" name="carrierAccountingEmail" id="carrierAccountingEmail" class="form-control form-control-sm" placeholder="Accounting Email" email>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Accounting Phone<i class="validation_required"></i></label>
+									<input type="number" name="carrierAccountingPhone"  id="carrierAccountingPhone"  class="form-control form-control-sm" placeholder="Accounting Phone">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Status<i class="validation_required"></i></label>
+									<div>
+										<label class="switch btn btn-info btn-sm">
+											<input type="checkbox" id="carrierStatus" name="carrierStatus" >
+											<span class="slider"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Notes<i class="validation_required"></i></label>
+									<textarea type="text" name="carrierRemarks" id="carrierRemarks" rows="4" class="form-control" placeholder="Notes"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary btn-sm" data-dismiss="modal" (click)="SaveCarrierModalData()">Save</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div id="dispatch_other_charge_modal" class="modal fade hide" role="dialog">
+	<form action="#">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Other Charge</h6>
+					<button type="button" class="btn btn-outline-light btn-sm" data-dismiss="modal">x</button>
+					<!-- <span onclick="document.getElementById('dispatch_other_charge_modal').style.display='none'" class="btn btn-outline-light btn-sm">&times;</span> -->
+
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-check ">
+									<input class="form-check-input" type="checkbox" id="dudection"   (click)="SelectFields('dudection')" [(ngModel)]="dispatchForm.dudection" value="dudection" checked style="width: 20px; height: 20px;">
+									<label class="form-check-label ml-1" for="defaultCheck1">Deduction</label>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox"  id="reimbursement"   (click)="SelectFields('reimbursement')" [(ngModel)]="dispatchForm.reimbursement" value="reimbursement" style="width: 20px; height: 20px;">
+									<label class="form-check-label ml-1" for="defaultCheck1">Reimbursement</label>
+								</div>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col-md-6">
+								<div class="form-group RemoveInputNumberArrows">
+									<label class="control-label">Amount<i class="validation_required"></i></label>
+									<input type="number" id="dispatchAmount1" name="dispatchAmount1"  (keyup)="RemoveOtherChargeRequiredClass()"  [(ngModel)]="dispatchForm.dispatchAmount1"  class="form-control form-control-sm"  >
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Reason<i class="validation_required"></i></label>
+									<input type="text" id="dispatchReason1" name="dispatchReason1"  (keyup)="RemoveOtherChargeRequiredClass()"  [(ngModel)]="dispatchForm.dispatchReason1" class="form-control form-control-sm" placeholder="">
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-md-2 ml-auto">
+								<button type="submit" id="addButtonOtherCharge" class="btn btn-info btn-sm" (click)="GenerateOtherChargeFields()">Add</button>
+							</div>
+						</div>
+						<div>
+							<div class="row col-lg-12">
+								
+								<div class="col-lg-3 sm_table_thead">
+									<label for="typeTable">Type</label>
+								</div>
+								
+								<div class="col-lg-3 sm_table_thead OtherChargeAmount">
+									<label for="amountNameTable">Amount</label>
+								</div>
+
+								<div class="col-lg-4 sm_table_thead">
+									<label for="reasonTable">Reason</label>
+								</div>
+
+								<div class="col-lg-2 sm_table_thead">
+                                    <label for="remove">Remove</label>
+                                </div>
+	
+							</div>
+							<div class="showOtherChargeField">
+									
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div id="shipper_modal" class="modal fade hide" role="dialog">
+	<form action="#" #shipperMasterForm="ngForm">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Shipper Details</h6>
+					<button type="button" class="btn btn-outline-light btn-sm" data-dismiss="modal">x</button>
+					<!-- <span onclick="document.getElementById('shipper_modal').style.display='none'" class="btn btn-outline-light btn-sm">&times;</span> -->
+
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Shipper Name<i class="validation_required">*</i></label>
+									<input type="text" name="shipperName" id="shipperName"  required #shipperName="ngModel" class="form-control form-control-sm" [(ngModel)]="shipperForm.shipperName" placeholder="Shipper Name">
+								</div>
+								<div *ngIf="!shipperName?.valid && (shipperName?.dirty || shipperName?.touched)" class="error">
+									<div *ngIf="shipperName.errors.required">
+										Shipper Name is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label"><i class="validation_required"></i>Shipper Start Time</label>
+									<input type="time"  id="shipperStartTime"  name="shipperStartTime" class="form-control form-control-sm mt-1" placeholder="Start Time">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label"><i class="validation_required"></i>Shipper End Time</label>
+									<input type="time"  id="shipperEndTime" name="shipperEndTime" class="form-control form-control-sm mt-1" placeholder="End Time">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<!-- <div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Appointment<i class="validation_required"></i></label>
+									<input type="text" name=""  class="form-control" placeholder="Billing Address">
+								</div>
+							</div> -->
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Appointment<i class="validation_required"></i></label>
+									<div>
+										<label class="switch btn btn-info btn-sm">
+											<input type="checkbox" id="shipperAppointment" name="shipperAppointment">
+											<span class="slider"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Physical Address<i class="validation_required">*</i></label>
+									<input type="text" id="shipperPhysicalAddress" name="shipperPhysicalAddress"  required #shipperPhysicalAddress="ngModel" class="form-control form-control-sm" [(ngModel)]="shipperForm.shipperPhysicalAddress" placeholder="Physical Address">
+								</div>
+								<div *ngIf="!shipperPhysicalAddress?.valid && (shipperPhysicalAddress?.dirty || shipperPhysicalAddress?.touched)" class="error">
+									<div *ngIf="shipperPhysicalAddress.errors.required">
+										Physical Address is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="countryName" class="control-label">Country<i class="validation_required">*</i></label>
+									<ng-select [items]="countryDataArr"
+                                        bindLabel="countryName"
+                                        bindValue="id"
+                                        placeholder="Select Country"
+                                        appendTo="body"
+                                        name="countryName"
+										required #countryId="ngModel"
+                                        [(ngModel)]="shipperForm.countryId"> 
+                                    </ng-select>
+									<div *ngIf="!countryId?.valid && (countryId?.dirty || countryId?.touched)" class="error">
+										<div *ngIf="countryId.errors.required">
+											Country is required
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="stateName" class="control-label">State<i class="validation_required">*</i></label>
+									<ng-select [items]="stateDataArr"
+                                        bindLabel="stateName"
+                                        bindValue="id"
+                                        placeholder="Select state"
+                                        appendTo="body"
+                                        name="stateName"
+										required #stateId="ngModel"
+                                        [(ngModel)]="shipperForm.stateId"> 
+                                    </ng-select>
+									<div *ngIf="!stateId?.valid && (stateId?.dirty || stateId?.touched)" class="error">
+										<div *ngIf="stateId.errors.required">
+											State is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="cityName" class="control-label">city<i class="validation_required">*</i></label>
+									<ng-select [items]="cityDataArr"
+                                        bindLabel="cityName"
+                                        bindValue="id"
+                                        placeholder="Select city"
+                                        appendTo="body"
+                                        name="cityName"
+										required #cityId="ngModel"
+                                        [(ngModel)]="shipperForm.cityId"> 
+                                    </ng-select>
+									<div *ngIf="!cityId?.valid && (cityId?.dirty || cityId?.touched)" class="error">
+										<div *ngIf="cityId.errors.required">
+											City is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Zip Code<i class="validation_required">*</i></label>
+									<input type="number" id="shipperZipcode" name="shipperZipcode" required #shipperZipcode="ngModel" class="form-control form-control-sm" [(ngModel)]="shipperForm.shipperZipcode" placeholder="Zip Code">
+								</div>
+								<div *ngIf="!shipperZipcode?.valid && (shipperZipcode?.dirty || shipperZipcode?.touched)" class="error">
+									<div *ngIf="shipperZipcode.errors.required">
+										Zip Code is required
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Contact Number<i class="validation_required"></i></label>
+									<input type="number" id="shippercontactNo" name="shippercontactNo"  class="form-control form-control-sm" placeholder="Contact Number">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Contact Person<i class="validation_required"></i></label>
+									<input type="text" id="shipperContactPerson" name="shipperContactPerson" class="form-control form-control-sm" placeholder="Contact Person">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="clientName" class="control-label">Client<i class="validation_required">*</i></label>
+									<ng-select 
+										[items]="clientDataArr"
+										bindLabel="clientName"
+										bindValue="id"
+										placeholder="Select Client"
+										appendTo="body"
+										name="clientName"
+										required #clientId="ngModel"
+										[(ngModel)]="shipperForm.clientId"> 
+                                    </ng-select>
+									<div *ngIf="!clientId?.valid && (clientId?.dirty || clientId?.touched)" class="error">
+										<div *ngIf="clientId.errors.required">
+											Client is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Status<i class="validation_required"></i></label>
+									<div>
+										<label class="switch btn btn-info btn-sm">
+											<input type="checkbox" id="shipperStatus" name="shipperStatus">
+											<span class="slider"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Notes<i class="validation_required"></i></label>
+									<textarea type="text" name="ShipperRemarks" id="ShipperRemarks" rows="4" class="form-control form-control-sm" placeholder="Notes"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
+					<!-- <button type="submit" class="btn btn-primary btn-sm" data-dismiss="modal" (click)="SaveShipperModalData()">Save</button> -->
+					<button type="submit" class="btn btn-primary btn-sm" *ngIf="!isEditMode && !isViewMode" [disabled]="!shipperMasterForm.valid" data-dismiss="modal" (click)="SaveShipperModalData()">Save</button>
+
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div id="receiver_modal" class="modal fade hide" role="dialog">
+	<form action="#"  #receiverMasterForm="ngForm">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Receiver Details</h6>
+					<!-- <button type="button" class="btn btn-outline-light close" data-dismiss="modal">&times;</button> -->
+					<button type="button" class="btn btn-outline-light btn-sm" data-dismiss="modal">x</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Receiver Name<i class="validation_required">*</i></label>
+									<input type="text" id="receiverName" name="receiverName" required #receiverName="ngModel" class="form-control form-control-sm" [(ngModel)]="receiverForm.receiverName" placeholder="Receiver Name">
+								</div>
+								<div *ngIf="!receiverName?.valid && (receiverName?.dirty || receiverName?.touched)" class="error">
+									<div *ngIf="receiverName.errors.required">
+										Receiver Name is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label"><i class="validation_required"></i>Receiver Start Time</label>
+									<input type="time"  id="receiverStartTime" name="receiverStartTime"  class="form-control form-control-sm mt-1" placeholder="Start Time">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label"><i class="validation_required"></i>Receiver End Time</label>
+									<input type="time"  id="receiverEndTime" name="receiverEndTime"  class="form-control form-control-sm mt-1" placeholder="End Time">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<!-- <div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Appointment<i class="validation_required"></i></label>
+									<input type="text" name=""  class="form-control" placeholder="Billing Address">
+								</div>
+							</div> -->
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Appointment<i class="validation_required"></i></label>
+									<div>
+										<label class="switch btn btn-info btn-sm">
+											<input type="checkbox" id="receiverAppointment" name="receiverAppointment">
+											<span class="slider"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Physical Address<i class="validation_required">*</i></label>
+									<input type="text" id="receiverPhysicalAddress" name="receiverPhysicalAddress"  required #receiverPhysicalAddress="ngModel" class="form-control form-control-sm" [(ngModel)]="receiverForm.receiverPhysicalAddress" placeholder="Physical Address">
+								</div>
+								<div *ngIf="!receiverPhysicalAddress?.valid && (receiverPhysicalAddress?.dirty || receiverPhysicalAddress?.touched)" class="error">
+									<div *ngIf="receiverPhysicalAddress.errors.required">
+										Physical Address is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="countryName" class="control-label">Country<i class="validation_required">*</i></label>
+									<ng-select [items]="countryDataArr"
+                                        bindLabel="countryName"
+                                        bindValue="id"
+                                        placeholder="Select Country"
+                                        appendTo="body"
+                                        name="countryName"
+										required #receiverCountryId="ngModel"
+                                        [(ngModel)]="receiverForm.receiverCountryId"> 
+                                    </ng-select>
+									<div *ngIf="!receiverCountryId?.valid && (receiverCountryId?.dirty || receiverCountryId?.touched)" class="error">
+										<div *ngIf="receiverCountryId.errors.required">
+											Country is required
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="stateName" class="control-label">State<i class="validation_required">*</i></label>
+									<ng-select [items]="stateDataArr"
+                                        bindLabel="stateName"
+                                        bindValue="id"
+                                        placeholder="Select state"
+                                        appendTo="body"
+                                        name="stateName"
+										required #receiverStateId="ngModel"
+                                        [(ngModel)]="receiverForm.receiverStateId"> 
+                                    </ng-select>
+									<div *ngIf="!receiverStateId?.valid && (receiverStateId?.dirty || receiverStateId?.touched)" class="error">
+										<div *ngIf="receiverStateId.errors.required">
+											State is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="cityName" class="control-label">city<i class="validation_required">*</i></label>
+									<ng-select [items]="cityDataArr"
+                                        bindLabel="cityName"
+                                        bindValue="id"
+                                        placeholder="Select city"
+                                        appendTo="body"
+                                        name="cityName"
+										required #receiverCityId="ngModel"
+                                        [(ngModel)]="receiverForm.receiverCityId"> 
+                                    </ng-select>
+									<div *ngIf="!receiverCityId?.valid && (receiverCityId?.dirty || receiverCityId?.touched)" class="error">
+										<div *ngIf="receiverCityId.errors.required">
+											City is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Zip Code<i class="validation_required">*</i></label>
+									<input type="number" id="receiverZipcode" name="receiverZipcode"  required #receiverZipcode="ngModel" class="form-control form-control-sm" [(ngModel)]="receiverForm.receiverZipcode" placeholder="Zip Code">
+								</div>
+								<div *ngIf="!receiverZipcode?.valid && (receiverZipcode?.dirty || receiverZipcode?.touched)" class="error">
+									<div *ngIf="receiverZipcode.errors.required">
+										Zip Code is required
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Contact Number<i class="validation_required"></i></label>
+									<input type="number" id="receiverContactNumber"  name="receiverContactNumber" class="form-control form-control-sm" placeholder="Contact Number">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Contact Person<i class="validation_required"></i></label>
+									<input type="text" id="receiverContactPer" name="receiverContactPer" class="form-control form-control-sm" placeholder="Contact Person">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="clientName" class="control-label">Client<i class="validation_required">*</i></label>
+									<ng-select 
+										[items]="clientDataArr"
+										bindLabel="clientName"
+										bindValue="id"
+										placeholder="Select Client"
+										appendTo="body"
+										name="clientName"
+										required #clientId="ngModel"
+										[(ngModel)]="receiverForm.clientId"> 
+                                    </ng-select>
+									<div *ngIf="!clientId?.valid && (clientId?.dirty || clientId?.touched)" class="error">
+										<div *ngIf="clientId.errors.required">
+											Client is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Status<i class="validation_required"></i></label>
+									<div>
+										<label class="switch btn btn-info btn-sm">
+											<input type="checkbox" id="receiverStatus" name="receiverStatus">
+											<span class="slider"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Notes<i class="validation_required"></i></label>
+									<textarea type="text" name="receiverRemarks" id="receiverRemarks" rows="4" class="form-control form-control-sm" placeholder="Notes"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
+					<!-- <button type="submit" class="btn btn-primary btn-sm" data-dismiss="modal"  (click)="SaveReceiverModalData()">Save</button> -->
+					<button type="submit" class="btn btn-primary btn-sm" *ngIf="!isEditMode && !isViewMode" [disabled]="!receiverMasterForm.valid" data-dismiss="modal" (click)="SaveReceiverModalData()">Save</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,33 @@
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e4e4e4;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "In-Active";
+    color: #000;
+    left: 39%;
+    text-align: center;
+    bottom: 4px;
+    transition: .4s;
+  }
+
+  input:checked + .slider {
+    background-color: #007bff;
+  }
+  
+  input:checked + .slider:before {
+    content: "Active";
+    color: #fff;
+  }
+  
+  .dropdown-toggle::after{
+    color: #fff;
+  }

@@ -1,0 +1,881 @@
+<div class="row" id="PrintWholePage">
+    <div class="col-lg-12 px-2">
+         <form action="#">
+             <div class="card p-3 mb-2">
+                 <div class="d-flex justify-content-between">
+                     <span class="card-title h5 printDate" style="display: none;"></span>
+                     <span class="getDataDate">
+                        <input type="date" id="logDateTime" [max]="maxDateSelected"  name="logDateTime" (change)="GetDriverLogData()" />
+                     </span>
+                     <div class="col-md-6 text-right refreshSection" style="margin-left: 200px;">
+                        <span style="font-weight: 600;margin-right: 20px;">Last Refresh at : {{refreshTime}}</span> 
+                        <span style="font-weight: 600;">Refresh :</span> 
+                        <label class="switch">
+                            <input  type="checkbox" id="refreshBtn" (click)="RefreshData()" style="padding-top: 30px;">
+                            <span class="slider round"></span>
+                        </label>
+                     </div>
+
+                     <span class="d-flex hide-print">
+                         <button class="btn btn-outline-dark btn-sm mr-3 restricted-access" (click)="PrintPage('PrintWholePage')" >Print <i class="zmdi zmdi-print"></i></button>
+                         
+                         <button class="btn btn-outline-dark btn-sm mr-1" (click)="PlusMinusDays('minus')"><i class="zmdi zmdi-caret-left-circle" ></i></button>
+                         <button class="btn btn-outline-dark btn-sm" id="nextDateButton" (click)="PlusMinusDays('plus')"><i class="zmdi zmdi-caret-right-circle"></i></button>
+
+                      </span>
+                 </div>
+                 
+                 <div class="d-flex my-3 p-2 border border-1 hide-print">
+                     <span class="mr-3"><i class="zmdi zmdi-account mr-2" ></i><span id="ViewDriverName" style="cursor: pointer; text-decoration:underline dotted;text-underline-position:under" (click)="ShowEmployeeDetailsBackOnWorkingDetail(employeeId)" ></span></span>
+                     <span class="mr-3"><i class="zmdi zmdi-time mr-2"></i><span id="ViewCycleHour"></span></span>
+                     <span class="mr-3"><span id="certifiedText"></span></span>
+                 </div>
+                 
+             </div>
+
+             <div class="card p-3 mb-2 " >
+                 <h6 class="card-title h5">Driver Logs</h6>
+                 <div class="table-responsive">
+                    <div class="table_head_on_print">
+                        <span >General</span>
+                        <!-- <span id="imageUrl"></span> -->
+                        <span *ngIf="isEditing==true && isReportGenerated==0" style="cursor: pointer;" (click)="ShowCertifiedLog()" data-toggle="modal" data-target="#certified_log_modal" class="float-right fa fa-pencil fa-lg mt-1 text-center no-print restricted-access"></span>
+                        <span *ngIf="isEditing==true && isReportGenerated==0" style="cursor: pointer;" (click)="DownloadImage()" class="float-right fa fa-download fa-lg mt-1 mr-4 text-center no-print restricted-access"></span>
+
+                    </div>
+                    <table class="table table-bordered " id="generalPrint">
+                        <!-- <thead>
+                            <tr>
+                                <th scope="col" colspan="4">General</th>
+                            </tr>
+                        </thead> -->
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="bg-light">Driver</th>
+                                <td><span id="ViewDriverNames"></span></td>
+                                <th class="bg-light">Exempt Driver Status</th>
+                                <td><span id="ViewDriverExemptStatus"></span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="bg-light">Driver ID</th>
+                                <td><span id="ViewDriverId"></span></td>
+                                <th class="bg-light">Co-Driver</th>
+                                <td><span id="ViewCoDriverName"></span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="bg-light">Driver License</th>
+                                <td><span id="ViewDriverLicense"></span></td>
+                                <th class="bg-light">Co-Driver ID</th>
+                                <td><span id="ViewCoDriverId"></span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="bg-light">Driver License State</th>
+                                <td><span id="ViewDriverLicenseState"></span></td>
+                                <th class="bg-light">Exceptions</th>
+                                <td><span id="ViewDriverExceptions"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="table_head_on_print"><span >Common</span></div>
+                    <table class="table table-bordered " id="commonPrint">
+                        <!-- <thead>
+                            <tr >
+                                <th scope="col" class="common " colspan="5"> Common </th>
+                            </tr>
+                        </thead> -->
+                        
+                        <tbody>
+                            <tr class="bg-light">
+                                <th>Vehicle</th>
+                                <th>Vin</th>
+                                <th>Odometer (MI)</th>
+                                <th>Distance (MI)</th>
+                                <th>Engine Hours</th>
+                            </tr>
+                            <tr >
+                                <td><span id="ViewDriverVehicleNo"></span></td>
+                                <td><span id="ViewDriverVin"></span></td>
+                                <td><span id="ViewDriverOdometer"></span></td>
+                                <td><span id="ViewDriverDistance"></span></td>
+                                <td><span id="ViewDriverEngineHours"></span></td>
+                            </tr>
+                            <tr class="bg-light">
+                                <th colspan="3">Trailer</th>
+                                <th colspan="2">Shipping Docs</th>
+                            </tr>
+                            <tr >
+                                <td colspan="3" ><span id="ViewDriverTrailer"></span></td>
+                                <td colspan="2"><span id="ViewDriverShippingDocs"></span></td>
+                            </tr>
+                            <tr class="bg-light">
+                                <th >Carrier</th>
+                                <th colspan="2">Main Address</th>
+                                <th>Home Terminal</th>
+                                <th>Dot Number</th>
+                            </tr>
+                            <tr>
+                                <td ><span id="ViewDriverCarrier"></span></td>
+                                <td colspan="2"><span id="ViewDriverMainOffice"></span></td>
+                                <td><span id="ViewDriverHomeTerminal"></span></td>
+                                <td><span id="ViewDriverDotNumber"></span></td>
+                            </tr>
+                            <!-- <tr class="bg-light">
+                                <th colspan="3">SN (MAC)</th>
+                                <th colspan="2">Provider</th>
+                            </tr>
+                            <tr>
+                                <td colspan="3" ><span id="ViewDriverSN"></span></td>
+                                <td colspan="2"><span id="ViewDriverProvider"></span></td>
+                            </tr> -->
+                            <tr class="bg-light">
+                                <th >SN (MAC)</th>
+                                <th colspan="2">ELD Registration ID</th>
+                                <th>ELD Identifier</th>
+                                <th>Provider</th>
+                            </tr>
+                            <tr>
+                                <td ><span id="ViewDriverSN"></span></td>
+                                <td colspan="2"><span id="viewEldRegistrationId"></span></td>
+                                <td><span id="viewEldIdentifier"></span></td>
+                                <td><span id="ViewDriverProvider"></span></td>
+                            </tr>
+                            <tr class="bg-light">
+                                <th colspan="3">Diagnostic Indicator</th>
+                                <th colspan="2">Malfunction Indicator</th>
+                            </tr>
+                            <tr>
+                                <td colspan="3" ><span id="ViewDriverDiagnosticIndicator"></span></td>
+                                <td colspan="2"><span id="ViewDriverMalfunctionIndicator"></span></td>
+                            </tr>   
+                        </tbody>
+                    </table>
+                 </div>
+              
+                </div>
+
+                <div id="logPrint" class="page-break">
+                <div class="card p-3 mb-2" >
+                    <h6 class="card-title h5">Log</h6>
+                    <div class="table_head_on_print" *ngIf="isEditing==true && isReportGenerated==0">
+                        <span >Log Events</span>
+                        <span style="cursor: pointer;" title="Show bulk assign controls" (click)="ShowBulkAssign()" class="restricted-access float-right fa fa-list fa-lg mt-1 text-center no-print "></span>&nbsp;&nbsp;
+                        <span style="cursor: pointer; margin-right: 20px;" data-toggle="modal" data-target="#add_driver_log_modal" title="Add Suggested Event" class="restricted-access float-right fa fa-plus fa-lg mt-1 text-center no-print"></span>
+                    </div>
+
+                    <!-- <div class="col-lg-12 graphSection" *ngIf="isGraphShow">
+                        <highcharts-chart
+                            [Highcharts]="Highcharts"
+                            #lineChart
+                            [constructorType]="chartConstructor"
+                            [options]="chartOptions"
+                            [callbackFunction]="chartCallback"
+                            [(update)]="updateFlag"
+                            [oneToOne]="oneToOneFlag"
+                            [runOutsideAngular]="runOutsideAngular"
+                            style="width: 100%; height: 400px; display: block;">
+                        </highcharts-chart>
+                    </div> -->
+
+                    <div class="col-lg-12 canvasGraphSection">
+                        <div id="chartContainer" style="height: 250px; max-width: 100%; margin: 0px auto;"></div>
+                    </div>
+
+                    <div id="chartPlaceholder" style="height: 250px; max-width: 100%; margin: 0px auto; display: none;"></div>
+                    <div class="white_box_hide"></div>
+                    <!-- *ngFor="let voilation of voilationRowData; let i = index" -->
+                    <div class="my-3">
+                        <strong>Violations:</strong>
+                        <p class="m-1 p-1 voilation_section " *ngFor="let voilation of voilationRowData; let i = index">
+                            <span>
+                                {{voilation.logType}} | {{voilation.dateTime | date:'MMM d HH:mm:ss':'UTC'}}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="table-responsive">
+                       <table class="table table-bordered">
+                           <thead>
+                               <tr class="bg-light text-dark">
+                                    <th class="hide-print">ID</th>
+                                   <th>Time (PT)</th>
+                                   <th>Event</th>
+                                   <th>Status</th>
+                                   <!-- <th>Location</th> -->
+                                   <th>Current Location</th>
+                                   <th>Origin</th>
+                                   <th>Odometer (mi)</th>
+                                   <th>Engine Hours</th>
+                                   <th>Notes</th>
+                                   <th class="restricted-access no-print">Manage</th>
+                                   <th class="no-print" *ngIf="isBulkAssignVisible">
+                                        <input 
+                                            type="checkbox" 
+                                            [id]="allLogAssign" 
+                                            [name]="allLogAssign" 
+                                            [value]="0" 
+                                            (change)="SelectAllLog($event)"
+                                        > All
+                                   </th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                            <tr *ngFor="let graphStatus of rowData; let i = index">
+                                <td class="hide-print" *ngIf="graphStatus.statusId!=0">{{graphStatus.statusId}}</td>
+                                <td *ngIf="graphStatus.statusId==0">-</td>
+                                <td>{{graphStatus.dateTime | date:'yyyy-MM-dd HH:mm:ss a':'UTC'}}</td>
+                                <!-- <td class="text-center">
+                                    <span class='badge badge-primary py-1 px-2' *ngIf="graphStatus.status=='OnDuty'">{{graphStatus.status}}</span>
+                                    <span class='badge badge-danger py-1 px-2' *ngIf="graphStatus.status=='Voilation'">{{graphStatus.status}}</span>
+                                    <span class='badge badge-warning py-1 px-2' *ngIf="graphStatus.status=='OffDuty'">{{graphStatus.status}}</span>
+                                    <span class='badge badge-success py-1 px-2' *ngIf="graphStatus.status=='OnDrive'">{{graphStatus.status}}</span>
+                                    <span class='badge badge-dark py-1 px-2' *ngIf="graphStatus.status=='OnSleep'">{{graphStatus.status}}</span>
+                                    <span class='badge badge-secondary py-1 px-2' *ngIf="graphStatus.status=='Break'">{{graphStatus.status}}</span>
+                                    <span class='badge badge-primary py-1 px-2' *ngIf="graphStatus.status=='YardMove'">{{graphStatus.status}}(OnDuty)</span>
+                                    <span class='badge badge-warning py-1 px-2' *ngIf="graphStatus.status=='PersonalUse'">{{graphStatus.status}}(OffDuty)</span>
+                                    <span *ngIf="graphStatus.status=='Engine On'">{{graphStatus.status}}</span>
+                                    <span *ngIf="graphStatus.status=='Engine Off'">{{graphStatus.status}}</span>
+                                    <span *ngIf="graphStatus.status=='Login'">{{graphStatus.status}}</span>
+                                    <span *ngIf="graphStatus.status=='Logout'">{{graphStatus.status}}</span>
+                                    <span *ngIf="graphStatus.status=='Certified'">{{graphStatus.status}}</span>
+                                </td> -->
+
+                                <td class="text-center">
+                                    <span class="py-1 px-2"
+                                            [ngClass]="getStatusClass(graphStatus.status)">
+                                        {{ getStatusLabel(graphStatus.status) }}
+                                    </span>
+                                </td>
+                                
+                                <td>{{graphStatus.employeeStatus}}</td>
+                                <!-- <td>{{graphStatus.lattitude}},{{graphStatus.longitude}}</td> -->
+                                <td style="white-space: normal;">{{graphStatus.customLocation}}</td>
+                                <td>{{graphStatus.origin}}</td>
+                                <!-- <td>
+                                    <span *ngIf="['Login', 'Logout', 'Certified'].includes(graphStatus.status)">
+                                        
+                                    </span>
+                                    <span *ngIf="!['Login', 'Logout', 'Certified'].includes(graphStatus.status)">
+                                        {{ graphStatus.odometer }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span *ngIf="['Login', 'Logout', 'Certified'].includes(graphStatus.status)">
+                                        
+                                    </span>
+                                    <span *ngIf="!['Login', 'Logout', 'Certified'].includes(graphStatus.status)">
+                                        {{ graphStatus.engineHour }}
+                                    </span>
+                                </td> -->
+                                <td>{{graphStatus.odometer}}</td>
+                                <td>{{graphStatus.engineHour}}</td>
+                                
+                                <td>{{graphStatus.note}}</td>
+                                <td class="restricted-access no-print" *ngIf="isReportGenerated==0 && isEditing==true && graphStatus.isPreviousLog==0">
+                                    <a style="color: dodgerblue; cursor: pointer;" (click)="LogDataShow(graphStatus)" data-toggle="modal" data-target="#driver_log_modal" ><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                                    <!-- <span *ngIf="graphStatus.isLogDelete==1">
+                                        <a style="color: red; cursor: pointer; margin-left: 10px;" (click)="DisableLog(graphStatus)" ><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+                                    </span> -->
+                                    <!-- <span *ngIf="graphStatus.isLogDelete == 1 
+                                            && graphStatus.status !== 'Login' 
+                                            && graphStatus.status !== 'Logout' 
+                                            && graphStatus.status !== 'Certified'">
+                                        <a style="color: red; cursor: pointer; margin-left: 10px;" 
+                                            (click)="EnableDisableLog(graphStatus)">
+                                            <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                        </a>
+                                    </span> -->
+                                    <span *ngIf="graphStatus.status !== 'Certified'">
+                                        <a style="color: red; cursor: pointer; margin-left: 10px;" 
+                                            (click)="EnableDisableLog(graphStatus)">
+                                            <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                        </a>
+                                    </span>
+                                </td>
+                                <td class="restricted-access no-print" *ngIf="isReportGenerated==0 && isEditing==true && graphStatus.isPreviousLog!=0">
+                                    <!-- <a style="color: dodgerblue; cursor: pointer;" (click)="LogDataShow(graphStatus)" data-toggle="modal" data-target="#driver_log_modal" ><i class="fa fa-pencil fa-lg" aria-hidden="true"></i>                                    </a> -->
+                                </td>
+                                <!-- <td class="no-print" *ngIf="isReportGenerated==0 && isEditing==true && graphStatus.origin!='Driver'">
+
+                                </td> -->
+                                <td class="restricted-access no-print" *ngIf="isReportGenerated==1 && isEditing==true">
+                                </td>
+                                <td  class="restricted-access no-print"*ngIf="isEditing==false">
+                                </td>
+                                
+                                <!-- <td></td> -->
+                                <td class="no-print" *ngIf="isBulkAssignVisible && graphStatus.isPreviousLog==0">
+                                    <input 
+                                        type="checkbox" 
+                                        [id]="'bulkLogAssign' + i" 
+                                        [name]="'bulkLogAssign' + i" 
+                                        [value]="graphStatus.driverStatusId" 
+                                        (change)="onCheckboxChange($event, graphStatus)"
+                                        [checked]="selectedValues.includes(graphStatus)"
+                                    >
+                                </td>
+                                <td class="no-print" *ngIf="isBulkAssignVisible && graphStatus.isPreviousLog!=0">
+                                    
+                                </td>
+                                
+                            </tr>
+                           </tbody>
+                       </table>
+                        <div class="text-right no-print">
+                            <button type="submit" *ngIf="isCheckedLogData" class="btn btn-danger mt-2" (click)="BulkDelete()">Bulk Delete</button>
+                            <button type="submit" *ngIf="isCheckedLogData" class="btn btn-info mt-2 ml-2" data-toggle="modal" data-target="#employee_log_assign_modal">Bulk Assign</button>
+                            <button type="submit" *ngIf="isCheckedLogData" class="btn btn-info mt-2 ml-2" data-toggle="modal" (click)="AssignBulkEdit()" data-target="#employee_log_shift_modal">Bulk Edit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="card p-3 mb-2">
+                    <h6 class="card-title h5 mb-2">Certified Log </h6>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr class="bg-light text-dark">
+                                    <th>Driver Name</th>
+                                    <th>Vehicle Name</th>
+                                    <th>Trailers</th>
+                                    <th>Shipping Docs</th>
+                                    <th>Co-Driver Name</th>
+                                    <th>Certified Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             <tr *ngFor="let certifiedLog of certifiedRowData; let i = index">
+                                <td>{{certifiedLog.driverName}}</td>
+                                <td>{{certifiedLog.vehicleName}}</td>
+                                <td>{{certifiedLog.trailers[0]}}</td>
+                                <td>{{certifiedLog.shippingDocs[0]}}</td>
+                                <td>{{certifiedLog.coDriverName}}</td>
+                                <td>{{certifiedLog.certifiedDate}}</td>
+                             </tr>
+                            </tbody>
+                        </table>
+                     </div>
+                </div> -->
+
+                <div class="card p-3 mb-2">
+                    <h6 class="card-title h5 mb-2">Signature </h6>
+                    <div class="d-flex justify-content-between">
+                        <p><small>I hereby certify that my data entries and my record of duty status for this 24-hour period are true and correct.</small></p>
+                       
+                        <!-- <span *ngIf="isSignatureCertified"> -->
+                            <img id="ViewDriverSign" src="assets/images/default_sign.jpg" class="ViewDriverSign" alt="photo" width="150" height="150">
+                        <!-- </span> -->
+                         <!-- <span *ngIf="!isSignatureCertified" class="text-danger">Not Signed</span>  -->
+
+                    </div>
+                </div>
+            </div>
+
+
+         </form>
+    </div>
+ </div>
+
+ <div id="employee_log_assign_modal" class="modal fade hide" role="dialog">
+    <form action="#" #employeeLogAssignForm="ngForm" >
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Bulk Assign Events</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="employeeName" class="control-label">Driver<i class="validation_required">*</i></label>
+									<ng-select [items]="driverDataArr"
+                                        bindLabel="employeeName"
+                                        bindValue="id"
+                                        placeholder="Select Driver"
+                                        appendTo="body"
+                                        name="employeeName"
+                                        required #employeeId="ngModel"
+                                        [(ngModel)]="logDriverForm.employeeId"> 
+                                    </ng-select>
+									<div *ngIf="!employeeId?.valid && (employeeId?.dirty || employeeId?.touched)" class="error">
+										<div *ngIf="employeeId.errors.required">
+											Driver is required
+										</div>
+									</div>
+								</div>
+							</div>
+
+                            <div class="col-md-3 mt-4">
+								<div class="form-group">
+									<label class="control-label">DVIR</label>
+                                    <input  type="checkbox" id="checkDvir" style="margin-left: 10px;">									
+								</div>
+							</div>
+                            <div class="col-md-3 mt-4">
+								<div class="form-group">
+									<label class="control-label">Certified</label>
+                                    <input  type="checkbox" id="checkCertified" style="margin-left: 10px;">									
+								</div>
+							</div>
+
+						</div>						
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-end align-items-center w-100">
+                    <small class="text-danger">
+                        * If you want to shift DVIR or Certified log, please check the checkbox.
+                    </small>
+					<button type="submit" class="btn btn-primary" [disabled]="!employeeLogAssignForm.valid" data-dismiss="modal" (click)="BulkAssignUpdate()">Save Change</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div id="employee_log_shift_modal" class="modal fade hide" role="dialog">
+    <form action="#" #employeeLogShiftForm="ngForm" >
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Bulk Edit Events</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+                    <div class="form-body">
+                        <div class="row">
+                            <!-- <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="logDate" class="control-label">Select Date <i class="validation_required">*</i></label>
+                                    <input type="date"
+                                        class="form-control"
+                                        id="logDate"
+                                        name="logDate"
+                                        [max]="maxDateSelected"
+                                        [(ngModel)]="logDriverForm.logDate" >
+                                    
+                                </div>
+                            </div> -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="logEditDateTime" class="control-label">Select Date <i class="validation_required">*</i></label>
+                                    <input type="datetime-local"
+                                        class="form-control"
+                                        id="logEditDateTime"
+                                        name="logEditDateTime"
+                                        [(ngModel)]="logDriverForm.logEditDateTime" >
+                                    
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mt-4">
+								<div class="form-group">
+									<label class="control-label">DVIR</label>
+                                    <input  type="checkbox" id="checkDvirEdit" style="margin-left: 10px;">									
+								</div>
+							</div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="ml-2">
+                    <small class="text-danger">
+                        * If you want to edit DVIR log, please check the checkbox.
+                    </small>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="BulkShiftLogUpdate()">Save Change</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+ <div id="driver_log_modal" class="modal fade hide" role="dialog">
+    <form action="#" #driverLogForm="ngForm" >
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Log Update Section</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<!-- <span class="d-flex justify-content-between">
+                        <input type="datetime-local" id="logUpdateDateTime" name="logUpdateDateTime" />
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal">Update</button>
+                     </span> -->
+                     <div class="row">
+                        <div class="logJsonSection mt-2 p-2 col-md-7" style="height: 500px;">
+                            <div class="row">
+                                <input type="hidden" id="logDriverStatusId" name="logDriverStatusId" />
+                                <input type="hidden" id="logShift" name="logShift" />
+                                <input type="hidden" id="logDays" name="logDays" />
+                                <span class="col-sm-4">
+                                    <label>ID</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" disabled id="logStatusId" name="logStatusId" class="form-control form-control-sm mt-1" />
+                                </span>
+                                <!-- <span class="col-sm-4">
+                                    <label>Driver Name</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" id="logDriverName" name="logDriverName" class="form-control form-control-sm mt-1" />
+                                </span> -->
+                                <span class="col-sm-4">
+                                    <label>Date Time</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="hidden" step="1" id="lastLogUpdateDateTimeTimestamp" name="lastLogUpdateDateTimeTimestamp" />
+                                    <input type="hidden" step="1" id="lastLogUpdateDateTime" name="lastLogUpdateDateTime" />
+                                    <input type="datetime-local" step="1" id="logUpdateDateTime" name="logUpdateDateTime" class="form-control form-control-sm mt-1" />
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Vehicle</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <ng-select [items]="vehicleDataArr" bindLabel="vehicleNo" bindValue="id"
+                                        placeholder="Select Vehicle" appendTo="body" name="vehicleNo"
+                                        [(ngModel)]="logDriverForm.logVehicleNo">
+                                    </ng-select>
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Status</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <!-- <input type="text" id="logStatus" name="logStatus" class="form-control form-control-sm mt-1" /> -->
+                                    <ng-select [items]="logStatusDataArr" bindLabel="logStatus" bindValue="id"
+                                        placeholder="Select Status" appendTo="body" name="logStatus"
+                                        [(ngModel)]="logDriverForm.logStatus">
+                                    </ng-select>
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Origin</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <!-- <input type="text" id="logOrigin" name="logOrigin" class="form-control form-control-sm mt-1" /> -->
+                                    <ng-select [items]="logOriginDataArr" bindLabel="logOrigin" bindValue="id"
+                                        placeholder="Select Origin" appendTo="body" name="logOrigin"
+                                        [(ngModel)]="logDriverForm.logOrigin">
+                                    </ng-select>
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Latitude</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" id="logLattitude" name="logLattitude" class="form-control form-control-sm mt-1" />
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Longitude</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" id="logLongitude" name="logLongitude" class="form-control form-control-sm mt-1" />
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Address</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" id="logPlaceAddress" name="logPlaceAddress" class="form-control form-control-sm mt-1" />
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Odometer</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" id="logOdometer" name="logOdometer" class="form-control form-control-sm" />
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Engine Hour</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" id="logEngineHour" name="logEngineHour" class="form-control form-control-sm mt-1" />
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Notes</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" id="logNotes" name="logNotes" class="form-control form-control-sm mt-1" />
+                                </span>
+                            </div>
+                            <span class="d-flex justify-content-end p-2 mt-2">
+                                <button type="submit" class="btn btn-primary" (click)="UpdateDriverLog()" >Update</button>
+                            </span>                        
+                        </div>
+                        <div class="logJsonSection col-md-5" style="height: 500px; overflow: scroll;">
+                            <!-- <pre class="text-white">{{ jsonData | json }}</pre> -->
+                            <!-- <pre><code class="language-json">{{ jsonData | json }}</code></pre> -->
+                             <div class="json-box">
+                                <pre [innerHTML]="styledJson"></pre>
+                            </div>
+                        </div>
+                     </div>
+                     
+				</div>
+				
+			</div>
+		</div>
+	</form>
+</div>
+
+<div id="add_driver_log_modal" class="modal fade hide" role="dialog">
+    <form action="#" #driverLogForm="ngForm" >
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Add Suggested Event</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<!-- <span class="d-flex justify-content-between">
+                        <input type="datetime-local" id="logUpdateDateTime" name="logUpdateDateTime" />
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal">Update</button>
+                     </span> -->
+                     <div class="row">
+                        <div class="logJsonSection mt-2 p-2 col-md-12">
+                            <div class="row">
+                                <span class="col-sm-4">
+                                    <label>ID</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <ng-select [items]="statusIdArr"
+                                        bindLabel="statusId"
+                                        bindValue="id"
+                                        placeholder="Select ID"
+                                        appendTo="body"
+                                        name="statusId"
+                                        [(ngModel)]="logDriverForm.newLogStatusId"> 
+                                    </ng-select>
+                                    <!-- <input type="text" id="newLogStatusId" name="newLogStatusId" class="form-control form-control-sm mt-1" /> -->
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Date Time</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="datetime-local" step="1" id="newLogUpdateDateTime" name="newLogUpdateDateTime" class="form-control form-control-sm mt-1" />
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Status</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <ng-select [items]="logStatusDataArr" bindLabel="logStatus" bindValue="id"
+                                        placeholder="Select Status" appendTo="body" name="logStatus"
+                                        [(ngModel)]="logDriverForm.newLogStatus">
+                                    </ng-select>
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Vehicle</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <ng-select [items]="vehicleDataArr" bindLabel="vehicleNo" bindValue="id"
+                                        placeholder="Select Vehicle" appendTo="body" name="vehicleNo"
+                                        [(ngModel)]="logDriverForm.newLogVehicleNo">
+                                    </ng-select>
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Latitude</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" id="newLogLattitude" name="newLogLattitude" class="form-control form-control-sm mt-1" />
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Longitude</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" id="newLogLongitude" name="newLogLongitude" class="form-control form-control-sm mt-1" />
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Address</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" id="newLogPlaceAddress" name="newLogPlaceAddress" class="form-control form-control-sm mt-1" />
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Odometer</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" id="newLogOdometer" name="newLogOdometer" class="form-control form-control-sm" />
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Engine Hour</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" id="newLogEngineHour" name="newLogEngineHour" class="form-control form-control-sm mt-1" />
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Notes</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" id="newLogNotes" name="newLogNotes" class="form-control form-control-sm mt-1" />
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Active</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="checkbox" checked id="newLogIsActive" name="newLogIsActive" class="mt-1" />
+                                </span>
+
+                                <!-- <ng-container *ngIf="logDriverForm.newLogStatus === 'Certified'">
+
+                                    <span class="col-sm-4">
+                                        <label>Trailer</label>
+                                    </span>
+                                    <span class="col-sm-1">:</span>
+                                    <span class="col-sm-7">
+                                        <input type="text" id="newLogTrailer" name="newLogTrailer"
+                                            [(ngModel)]="logDriverForm.newLogTrailer"
+                                            class="form-control form-control-sm mt-1" />
+                                    </span>
+
+                                    <span class="col-sm-4">
+                                        <label>Shipping Doc</label>
+                                    </span>
+                                    <span class="col-sm-1">:</span>
+                                    <span class="col-sm-7">
+                                        <input type="text" id="newLogShippingDoc" name="newLogShippingDoc"
+                                            [(ngModel)]="logDriverForm.newLogShippingDoc"
+                                            class="form-control form-control-sm mt-1" />
+                                    </span>
+
+                                    <span class="col-sm-4">
+                                        <label>Certified Signature</label>
+                                    </span>
+                                    <span class="col-sm-1">:</span>
+                                    <span class="col-sm-7">
+                                        <input type="file" accept="image/*,application/pdf"
+                                            class="form-control form-control-sm mt-1"
+                                            (change)="onCertifiedSignatureSelected($event)" />
+
+                                        <img *ngIf="certifiedSignaturePreview" [src]="certifiedSignaturePreview"
+                                            style="margin-top:8px;max-width:120px;max-height:120px;border:1px solid #ddd;padding:4px;border-radius:6px;" />
+                                    </span>
+
+                                </ng-container> -->
+
+                            </div>
+                            <span class="d-flex justify-content-end p-2 mt-2">
+                                <button type="submit" class="btn btn-primary" (click)="AddNewDriverLog()" data-dismiss="modal">Save</button>
+                            </span>                        
+                        </div>
+                     </div>
+                     
+				</div>
+				
+			</div>
+		</div>
+	</form>
+</div>
+
+<div id="certified_log_modal" class="modal fade hide" role="dialog">
+    <form action="#" #driverLogForm="ngForm" >
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Edit Documents</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+                     <div class="row">
+                        <div class="logJsonSection mt-2 p-2 col-md-12">
+                            <div class="row">
+                                <input type="hidden" id="certifiedLogId" name="certifiedLogId" />
+                                <span class="col-sm-12">
+                                    <label class="control-label">
+                                        <input type="checkbox" 
+                                            [(ngModel)]="logDriverForm.isCheckedValue" 
+                                            name="isCheckedValue"
+                                            checked
+                                            (change)="onValueChange($event)">
+                                        Is Update
+                                    </label>
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Co-Driver</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <ng-select [items]="driverDataArr" bindLabel="employeeName" bindValue="id"
+                                        placeholder="Select Driver" appendTo="body" name="employeeName"
+                                        [(ngModel)]="logDriverForm.certifiedDriverId">
+                                    </ng-select>
+                                </span>
+                                
+                                <span class="col-sm-4">
+                                    <label>Trailers</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" id="logtrailer" name="logtrailer" class="form-control form-control-sm mt-1" />
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Shipping Docs</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input type="text" id="logShippingDocs" name="logShippingDocs" class="form-control form-control-sm mt-1" />
+                                </span>
+                                <span class="col-sm-4">
+                                    <label>Signature File Name</label>
+                                </span>
+                                <span class="col-sm-1">:</span>
+                                <span class="col-sm-7">
+                                    <input *ngIf="logDriverForm.isCheckedValue"
+                                        type="text"
+                                        disabled
+                                        id="signatureFileName"
+                                        name="signatureFileName"
+                                        class="form-control form-control-sm mt-1"
+                                        [(ngModel)]="logDriverForm.signatureFileName"/>
+
+                                    <!-- When unchecked (0) -->
+                                    <input *ngIf="!logDriverForm.isCheckedValue"
+                                        type="file"
+                                        class="form-control form-control-sm mt-1"
+                                        (change)="onFileChange($event)"/>
+                                    <!-- <input type="text" disabled id="signatureFileName" name="signatureFileName" class="form-control form-control-sm mt-1" /> -->
+                                </span>
+                            </div>
+                            <span class="d-flex justify-content-end p-2 mt-2">
+                                <!-- <button type="submit" class="btn btn-primary" 
+                                (click)="UpdateDriverCertifiedLog()" 
+                                data-dismiss="modal">Save Changes</button> -->
+
+                                <button type="submit"
+                                        class="btn btn-primary"
+                                        (click)="logDriverForm.isCheckedValue ? UpdateDriverCertifiedLog() : SaveCertifiedLogLive()"
+                                        data-dismiss="modal">
+                                    Save Changes
+                                </button>
+
+                                <button type="submit" class="btn btn-danger ml-1" (click)="RemoveVoilations()" data-dismiss="modal">Remove All Violations</button>
+                            </span>                        
+                        </div>
+                     </div>
+                     
+				</div>
+				
+			</div>
+		</div>
+	</form>
+</div>
+ 

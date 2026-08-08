@@ -1,0 +1,527 @@
+/* Paginations */
+
+.pagination {
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem;
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #7934f3;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #dee2e6;
+  box-shadow: 0 0.125rem 0.25rem rgba(80, 73, 73, 0.06);
+
+  &:hover {
+    z-index: 2;
+    color: #7934f3;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255);
+    border-color: #dee2e6;
+  }
+
+  &:focus {
+    z-index: 2;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(121, 52, 243, 0.35);
+  }
+
+  &:not(:disabled):not(.disabled) {
+    cursor: pointer;
+  }
+}
+
+.page-item {
+  &.active .page-link {
+    z-index: 1;
+    color: #7934f3;
+    background-color: #fff;
+    border-color: #7934f3;
+  }
+
+  &.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #fff;
+    border-color: #dee2e6;
+  }
+}
+
+.pagination-lg .page-link {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.pagination-sm .page-link {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.pagination-round .page-item {
+  &:first-child .page-link {
+    margin-left: 0;
+    border-top-left-radius: 35px;
+    border-bottom-left-radius: 35px;
+  }
+
+  &:last-child .page-link {
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 35px;
+  }
+}
+
+.pagination-separate .page-item .page-link {
+  margin-left: 4px;
+}
+
+.pagination-outline-primary .page-item.disabled .page-link,
+.pagination-outline-success .page-item.disabled .page-link,
+.pagination-outline-info .page-item.disabled .page-link,
+.pagination-outline-danger .page-item.disabled .page-link,
+.pagination-outline-warning
+  .page-item.disabled
+  .page-link
+  .pagination-outline-dark
+  .page-item.disabled
+  .page-link,
+.pagination-outline-secondary .page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: auto;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+.pagination-outline-primary .page-item {
+  .page-link {
+    color: #7934f3;
+    border: 1px solid #7934f3;
+
+    &:hover {
+      z-index: 2;
+      color: #fff;
+      text-decoration: none;
+      background-color: #7934f3;
+      border-color: #7934f3;
+    }
+
+    &:focus {
+      z-index: 2;
+      outline: 0;
+      color: #fff;
+      background-color: #7934f3;
+      box-shadow: 0 0 0 0.2rem rgba(121, 52, 243, 0.35);
+    }
+  }
+
+  &.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #7934f3;
+    border-color: #7934f3;
+  }
+}
+
+.pagination-outline-success .page-item {
+  .page-link {
+    color: #04b962;
+    border: 1px solid #04b962;
+
+    &:hover {
+      z-index: 2;
+      color: #fff;
+      text-decoration: none;
+      background-color: #04b962;
+      border-color: #04b962;
+    }
+
+    &:focus {
+      z-index: 2;
+      outline: 0;
+      color: #fff;
+      background-color: #04b962;
+      box-shadow: 0 0 0 0.2rem rgba(4, 185, 98, 0.35);
+    }
+  }
+
+  &.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #04b962;
+    border-color: #04b962;
+  }
+}
+
+.pagination-outline-info .page-item {
+  .page-link {
+    color: #14b6ff;
+    border: 1px solid #14b6ff;
+
+    &:hover {
+      z-index: 2;
+      color: #fff;
+      text-decoration: none;
+      background-color: #14b6ff;
+      border-color: #14b6ff;
+    }
+
+    &:focus {
+      z-index: 2;
+      outline: 0;
+      color: #fff;
+      background-color: #14b6ff;
+      box-shadow: 0 0 0 0.2rem rgba(20, 182, 255, 0.35);
+    }
+  }
+
+  &.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #14b6ff;
+    border-color: #14b6ff;
+  }
+}
+
+.pagination-outline-danger .page-item {
+  .page-link {
+    color: #f43643;
+    border: 1px solid #f43643;
+
+    &:hover {
+      z-index: 2;
+      color: #fff;
+      text-decoration: none;
+      background-color: #f43643;
+      border-color: #f43643;
+    }
+
+    &:focus {
+      z-index: 2;
+      outline: 0;
+      color: #fff;
+      background-color: #f43643;
+      box-shadow: 0 0 0 0.2rem rgba(244, 54, 67, 0.35);
+    }
+  }
+
+  &.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #f43643;
+    border-color: #f43643;
+  }
+}
+
+.pagination-outline-warning .page-item {
+  .page-link {
+    color: #ff8800;
+    border: 1px solid #ff8800;
+
+    &:hover {
+      z-index: 2;
+      color: #fff;
+      text-decoration: none;
+      background-color: #ff8800;
+      border-color: #ff8800;
+    }
+
+    &:focus {
+      z-index: 2;
+      outline: 0;
+      color: #fff;
+      background-color: #ff8800;
+      box-shadow: 0 0 0 0.2rem rgba(255, 136, 0, 0.35);
+    }
+  }
+
+  &.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #ff8800;
+    border-color: #ff8800;
+  }
+}
+
+.pagination-outline-dark .page-item {
+  .page-link {
+    color: #000000;
+    border: 1px solid #000000;
+
+    &:hover {
+      z-index: 2;
+      color: #fff;
+      text-decoration: none;
+      background-color: #000000;
+      border-color: #000000;
+    }
+
+    &:focus {
+      z-index: 2;
+      outline: 0;
+      color: #fff;
+      background-color: #000000;
+      box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  &.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #000000;
+    border-color: #000000;
+  }
+}
+
+.pagination-outline-secondary .page-item {
+  .page-link {
+    color: #ff2fa0;
+    border: 1px solid #ff2fa0;
+
+    &:hover {
+      z-index: 2;
+      color: #fff;
+      text-decoration: none;
+      background-color: #ff2fa0;
+      border-color: #ff2fa0;
+    }
+
+    &:focus {
+      z-index: 2;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(255, 47, 160, 0.51);
+    }
+  }
+
+  &.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #ff2fa0;
+    border-color: #ff2fa0;
+  }
+}
+
+.pagination-primary .page-item.disabled .page-link,
+.pagination-success .page-item.disabled .page-link,
+.pagination-info .page-item.disabled .page-link,
+.pagination-danger .page-item.disabled .page-link,
+.pagination-warning .page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: auto;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+.pagination-primary .page-item {
+  .page-link {
+    color: #ffffff;
+    border: 1px solid #520eca;
+    background: #7934f3;
+
+    &:hover {
+      z-index: 2;
+      color: #7934f3;
+      text-decoration: none;
+      background-color: transparent;
+      border-color: #520eca;
+    }
+
+    &:focus {
+      z-index: 2;
+      outline: 0;
+      border: 1px solid rgba(121, 52, 243, 0.42);
+      box-shadow: 0 0 0 0.2rem rgba(121, 52, 243, 0.42);
+    }
+  }
+
+  &.active .page-link {
+    z-index: 1;
+    color: #7934f3;
+    background-color: transparent;
+    border-color: #520eca;
+  }
+}
+
+.pagination-success .page-item {
+  .page-link {
+    color: #ffffff;
+    border: 1px solid #07864f;
+    background-color: #04b962;
+
+    &:hover {
+      z-index: 2;
+      color: #04b962;
+      text-decoration: none;
+      background-color: transparent;
+      border-color: #07864f;
+    }
+
+    &:focus {
+      z-index: 2;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(4, 185, 98, 0.35);
+    }
+  }
+
+  &.active .page-link {
+    z-index: 1;
+    color: #04b962;
+    background-color: transparent;
+    border-color: #1bb171;
+  }
+}
+
+.pagination-info .page-item {
+  .page-link {
+    color: #ffffff;
+    border: 1px solid #019bb7;
+    background-color: #14b6ff;
+
+    &:hover {
+      z-index: 2;
+      color: #14b6ff;
+      text-decoration: none;
+      background-color: transparent;
+      border-color: #019bb7;
+    }
+
+    &:focus {
+      z-index: 2;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(20, 182, 255, 0.35);
+    }
+  }
+
+  &.active .page-link {
+    z-index: 1;
+    color: #14b6ff;
+    background-color: transparent;
+    border-color: #0ab5d4;
+  }
+}
+
+.pagination-danger .page-item {
+  .page-link {
+    color: #fff;
+    border: 1px solid #bb0d2f;
+    background-color: #f43643;
+
+    &:hover {
+      z-index: 2;
+      color: #f43643;
+      text-decoration: none;
+      background-color: transparent;
+      border-color: #bb0d2f;
+    }
+
+    &:focus {
+      z-index: 2;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(245, 54, 92, 0.52);
+    }
+  }
+
+  &.active .page-link {
+    z-index: 1;
+    color: #f43643;
+    background-color: transparent;
+    border-color: #bb0d2f;
+  }
+}
+
+.pagination-warning .page-item {
+  .page-link {
+    color: #ffffff;
+    border: 1px solid #c56900;
+    background-color: #ff8800;
+
+    &:hover {
+      z-index: 2;
+      color: #ff8800;
+      text-decoration: none;
+      background-color: transparent;
+      border-color: #c56900;
+    }
+
+    &:focus {
+      z-index: 2;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(255, 136, 0, 0.35);
+    }
+  }
+
+  &.active .page-link {
+    z-index: 1;
+    color: #ff8800;
+    background-color: transparent;
+    border-color: #c56900;
+  }
+}
+
+.pagination-dark .page-item {
+  .page-link {
+    color: #ffffff;
+    border: 1px solid #393a3c;
+    background: #000000;
+
+    &:hover {
+      z-index: 2;
+      color: #000000;
+      text-decoration: none;
+      background-color: transparent;
+      border-color: #393a3c;
+    }
+
+    &:focus {
+      z-index: 2;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  &.active .page-link {
+    z-index: 1;
+    color: #000000;
+    background-color: transparent;
+    border-color: #000000;
+  }
+}
+
+.pagination-secondary .page-item {
+  .page-link {
+    color: #ffffff;
+    border: 1px solid #df1482;
+    background-color: #ff2fa0;
+
+    &:hover {
+      z-index: 2;
+      color: #ff2fa0;
+      text-decoration: none;
+      background-color: transparent;
+      border-color: #df1482;
+    }
+
+    &:focus {
+      z-index: 2;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(255, 47, 160, 0.51);
+    }
+  }
+
+  &.active .page-link {
+    z-index: 1;
+    color: #ff2fa0;
+    background-color: transparent;
+    border-color: #df1482;
+  }
+}

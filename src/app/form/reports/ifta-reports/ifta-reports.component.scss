@@ -1,0 +1,37 @@
+.nav-item {
+    background:none !important;
+    color: #313132 !important;
+    border-radius: 0;
+}
+.nav-item .nav-link{
+    border-bottom : 2px solid #f7f7f700 !important ;
+}
+.nav-pills .nav-link.active{
+    background:none !important;
+    color: #0350c5 !important;
+    border-bottom : 2px solid #0350c5 !important ;
+    border-radius: 0;
+}
+input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+}
+// .table tr th{
+//     font-size: 18px !important;
+// }
+// .table tr td{
+//     font-size: 18px !important;
+//     font-weight: 600 !important;
+// }
+.bg1{
+    background: #04356D !important;
+    font-weight: 600;
+    color: #fff;
+}
+.bg2{
+    padding: 0 !important;
+    text-transform: capitalize;
+}
+.th_section{
+    width: 40% !important;
+}

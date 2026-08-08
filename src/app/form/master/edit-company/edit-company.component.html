@@ -1,0 +1,281 @@
+<div class="row">
+    <div class="col-md-12">
+        <form action="#" #driverMasterForm="ngForm" >
+            <style>
+                input[type=checkbox] {
+                    width: 15px;
+                    height: 15px;
+                }
+            </style>
+            <div class="card p-3 mb-2">
+                <div class="d-flex justify-content-between">
+                    <span class="card-title h5 m-0">Edit Company</span>
+                    <span class="d-flex">
+                        <div class="d-flex">
+                            <button class="btn btn-outline-success btn-sm mx-3" (click)="UpdateClient()"><small>Save</small></button>
+                            <button class="btn btn-outline-dark btn-sm" (click)="GoBackToCompanyDetails()"><small>Cancel</small></button>
+                        </div>
+                    </span>
+                </div> 
+            </div>
+            <div class="card p-3 mb-2">
+                <h6 class="card-title h5">General Settings</h6>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">Name</small>
+                    <div class="col-9">
+                        <input type="text" id="companyName" name="companyName"  [(ngModel)]="companyForm.companyName" class="form-control  form-control-sm" placeholder="Company Name">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">DOT Number</small>
+                    <div class="col-9">
+                        <input type="text" id="dotNumber" name="dotNumber" [(ngModel)]="companyForm.dotNumber" class="form-control  form-control-sm" placeholder="DOT Number" >
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">Time Zone</small>
+                    <div class="col-9">
+                        <ng-select [items]="timeZonesDataArr"
+                        bindLabel="timeZoneName"
+                        bindValue="id"
+                        placeholder="Select time zone"
+                        appendTo="body"
+                        name="timeZoneName"
+                        [(ngModel)]="companyForm.timezoneId"> 
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">Address</small>
+                    <div class="col-9 row pr-0">
+                        <div class="col-6">
+                            <input type="text" id="companyStreetName" name="companyStreetName"  [(ngModel)]="companyForm.companyStreetName"  class="form-control  form-control-sm" placeholder="Street" >
+                        </div>
+                        <div class="col-6 p-0">
+                            <input type="text" id="companyCity" name="companyCity"  [(ngModel)]="companyForm.companyCity" class="form-control  form-control-sm" placeholder="City" >
+                        </div>
+                        <div class="col-4 mt-3">
+                            <ng-select [items]="companyCountryDataArr"
+                            bindLabel="companyCountryName"
+                            bindValue="id"
+                            placeholder="Select Country"
+                            appendTo="body"
+                            (change)="getAllCompanyState($event.id)"
+                            name="companyCountryName"
+                            [(ngModel)]="companyForm.companyCountryId"> 
+                        </ng-select>                        
+                    </div>
+                        <div class="col-4 mt-3 p-0">
+                            <ng-select [items]="comapnyStateDataArr"
+                                bindLabel="companyStateName"
+                                bindValue="id"
+                                placeholder="Select State"
+                                appendTo="body"
+                                name="companyStateName"
+                                [(ngModel)]="companyForm.companyStateId"> 
+                            </ng-select>
+                        </div>
+                        <div class="col-4 mt-3 pr-0">
+                            <input type="text" id="companyZipCode" name="companyZipCode"  [(ngModel)]="companyForm.companyZipCode"  class="form-control  form-control-sm" placeholder="Zip / Portal Code" > 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card p-3 mb-2">
+                <h6 class="card-title h5">Terminal </h6>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">Time Zone</small>
+                    <div class="col-9">
+                        <ng-select [items]="timeZonesDataArr"
+                        bindLabel="timeZoneName"
+                        bindValue="id"
+                        placeholder="Select time zone"
+                        (change)="GetTimeZoneName($event.id,$event.timeZoneName)"
+                        appendTo="body"
+                        name="timeZoneName"
+                        [(ngModel)]="companyForm.terminalTimezoneId"> 
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">24H Period Staring Time</small>
+                    <div class="col-9">
+                        <input type="text" id="terminalStartTime" name="terminalStartTime" [(ngModel)]="companyForm.terminalStartTime" class="form-control  form-control-sm" placeholder="00:00" >
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">Terminal Address</small>
+                    <div class="col-9 row pr-0">
+                        <div class="col-6">
+                            <input type="text" id="terminalStreet" name="terminalStreet"  [(ngModel)]="companyForm.terminalStreet" class="form-control  form-control-sm" placeholder="Street" >
+                        </div>
+                        <div class="col-6 p-0">
+                            <input type="text" id="terminalCity" name="terminalCity" [(ngModel)]="companyForm.terminalCity" class="form-control  form-control-sm" placeholder="City" >
+                        </div>
+                        <div class="col-4 mt-3">
+                            <ng-select 
+                                [items]="companyCountryDataArr"
+                                bindLabel="companyCountryName"
+                                bindValue="id"
+                                placeholder="Select Country"
+                                (change)="GetCountryName($event.id,$event.companyCountryName)"
+                                appendTo="body"
+                                name="companyCountryName"
+                                [(ngModel)]="companyForm.terminalCountryId"> 
+                            </ng-select> 
+                        </div>
+                        <div class="col-4 mt-3 p-0">
+                            <ng-select 
+                                [items]="comapnyStateDataArr"
+                                bindLabel="companyStateName"
+                                bindValue="id"
+                                placeholder="Select State"
+                                (change)="GetStateName($event.id,$event.companyStateName)"
+                                appendTo="body"
+                                name="companyStateName"
+                                [(ngModel)]="companyForm.terminalStateId"> 
+							</ng-select>
+                        </div>
+                        <div class="col-4 mt-3 pr-0 ">
+                            <input type="text" id="terminalZipcode" name="terminalZipcode" [(ngModel)]="companyForm.terminalZipcode" class="form-control  form-control-sm" placeholder="Zip / Portal Code" > 
+                        </div>
+                    </div>
+                </div>
+                <div id="content" class="showTerminalField">
+                </div>
+                <div class="row">
+                    <div class="col-5 float-left">
+                        <button class="btn btn-sm btn-outline-success" type="button" value="+" (click)="addRow()">+ Add New Terminal</button>
+                    </div>
+                </div>
+                
+            </div>
+
+
+            <div class="card p-3 mb-2">
+                <h6 class="card-title h5">Compliance Settings</h6>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">Compliance Mode</small>
+                    <div class="col-9 ">
+                        <input type="text" id="complianceMode" disabled name="complianceMode" [(ngModel)]="companyForm.complianceMode" class="form-control  form-control-sm" placeholder="ELD" > 
+                    </div>
+                </div>
+            </div>
+
+            <div class="card p-3 mb-2">
+                <h6 class="card-title h5">Default Driver Log Settings</h6>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">Exempt Driver</small>
+                    <div class="col-9">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"  id="exempt" name="exempt" [(ngModel)]="companyForm.exempt" >
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">HOS Rules<i class="validation_required">*</i></small>
+                    <div class="col-9">
+                        <ng-select 
+                        [items]="cycleusaDataArr"
+                        bindLabel="cycleUsaName"
+                        bindValue="id"
+                        placeholder="Select"
+                        appendTo="body"
+                        name="cycleUsaName"
+                        (change)="CheckShortHaulException($event.id,$event.cycleUsaName)"
+                        [(ngModel)]="companyForm.cycleUsaId"> 
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">Cargo Type</small>
+                    <div class="col-9">
+                        <ng-select [items]="cargoDataArr"
+                        bindLabel="cargoTypeName"
+                        bindValue="id"
+                        placeholder="Select Cargo Type"
+                        appendTo="body"
+                        name="cargoTypeName"
+                        [(ngModel)]="companyForm.cargoTypeId"> 
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">Restart</small>
+                    <div class="col-9">
+                        <ng-select [items]="restartDataArr"
+                        bindLabel="restartName"
+                        bindValue="id"
+                        placeholder="Select restartName"
+                        appendTo="body"
+                        name="restartName"
+                        [(ngModel)]="companyForm.restartId"> 
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">Rest Break</small>
+                    <div class="col-9">
+                        <ng-select 
+                        [items]="restBreakDataArr"
+                        bindLabel="restBreakName"
+                        bindValue="id"
+                        placeholder="Select restBreakName"
+                        appendTo="body"
+                        name="restBreakName"
+                        [(ngModel)]="companyForm.restBreakId"> 
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="row mb-3" *ngIf="isShortHaulException">
+                    <small for="" class="col-3 control-label">Short-Haul Exception</small>
+                    <div class="col-9">
+                        <div class="form-check">
+                            <input type="checkbox" disabled class="form-check-input" id="shortHaulException" name="shortHaulException" [(ngModel)]="companyForm.shortHaulException" checked >
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">Allow Personal Use</small>
+                    <div class="col-9">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="personalUse" name="personalUse" [(ngModel)]="companyForm.personalUse" >
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">Allow Yard Moves</small>
+                    <div class="col-9">
+                        <div class="form-check">
+                            <input class="form-check-input" id="yardMoves" name="yardMoves" [(ngModel)]="companyForm.yardMoves" type="checkbox" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card p-3 mb-2">
+                <h6 class="card-title h5">Integrations</h6>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">Project44</small>
+                    <div class="col-9">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"  id="project44" name="project44" [(ngModel)]="companyForm.project44" >
+
+                        </div><br>
+                        <p class="text-secondary mt-1"><small>Powered by HOSConnect API - HOSConnect must be selected from the list of providers on Project44's end. <br> You need to activate tracking plan to get this feature. Please contact support to get more info.</small></p>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <small for="" class="col-3 control-label">MacroPoint™</small>
+                    <div class="col-9">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"  id="microPoint" name="microPoint" [(ngModel)]="companyForm.microPoint" >
+                        </div><br>
+                        <p class="text-secondary mt-1"><small>Powered by HOSConnect API - HOSConnect must be selected from the list of providers on Project44's end. <br> You need to activate tracking plan to get this feature. Please contact support to get more info.</small></p>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>

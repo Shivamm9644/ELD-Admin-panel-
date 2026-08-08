@@ -1,0 +1,169 @@
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<form action="#"> 
+				<div class="card-body">
+					<div class="btn-group float-sm-right mb-1">
+						<button type="button" data-toggle="modal" (click)="ClearForm()" data-target="#state_modal" class="btn btn-outline-success btn-sm">
+							<i class="zmdi zmdi-plus mr-1"></i>Add State
+						</button>
+					</div>
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<tr>
+									<th>S.No</th>
+									<th>Country</th>
+                                    <th>State</th>
+                                    <th>Time Zone</th>   
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <div id="loading" *ngIf="isLoading">
+									<img src="assets/images/pre_lodding.gif" width="250" height="250"  class="text-center">
+							   </div> -->
+							   <tr *ngFor="let state of rowData; let i = index">
+								<th style="text-align: center;" scope="row">{{i+1}}</th>
+								<td>{{state.countryId}} </td>
+								<td><a style="color: dodgerblue; cursor: pointer;" data-toggle="modal" data-target="#state_modal" (click)="EditState(state.stateId)">{{state.stateName}}</a></td>
+								<!-- <td>{{state.stateName}}</td>  -->
+								<td>{{state.timeZone}}</td>     
+							</tr>
+							</tbody>
+						</table>
+						<div class="pre_lodding" *ngIf="isLoading">
+							<img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+						</div>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+<div id="state_modal" class="modal fade hide" role="dialog">
+    <form action="#" #masterStateForm="ngForm">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">State Details</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="countryName" class="control-label">Country<i class="validation_required">*</i></label>
+									<ng-select [items]="countryDataArr"
+                                        bindLabel="countryName"
+                                        bindValue="id"
+                                        placeholder="Select Country"
+                                        appendTo="body"
+                                        name="countryName"
+										required #countryId="ngModel"
+                                        [(ngModel)]="stateForm.countryId"> 
+                                    </ng-select>
+									<div *ngIf="!countryId?.valid && (countryId?.dirty || countryId?.touched)" class="error">
+										<div *ngIf="countryId.errors.required">
+											Country name is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">State Code<i class="validation_required">*</i></label>
+									<input type="text" id="stateCode" name="stateCode" required #stateCode="ngModel" class="form-control form-control-sm" [(ngModel)]="stateForm.stateCode" placeholder="State Code">
+								</div>
+								<div *ngIf="!stateCode?.valid && (stateCode?.dirty || stateCode?.touched)" class="error">
+									<div *ngIf="stateCode.errors.required">
+										State code is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">State<i class="validation_required">*</i></label>
+									<input type="text" id="stateName" name="stateName" required #stateName="ngModel" class="form-control form-control-sm" [(ngModel)]="stateForm.stateName" placeholder="State">
+								</div>
+								<div *ngIf="!stateName?.valid && (stateName?.dirty || stateName?.touched)" class="error">
+									<div *ngIf="stateName.errors.required">
+										State Name is required
+									</div>
+								</div>
+							</div>
+                            <div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Time Zone<i class="validation_required">*</i></label>
+									<input type="text" id="timeZone" name="timeZone" required #timeZone="ngModel"  class="form-control form-control-sm" [(ngModel)]="stateForm.timeZone" placeholder="Time Zone">
+								</div>
+								<div *ngIf="!timeZone?.valid && (timeZone?.dirty || timeZone?.touched)" class="error">
+									<div *ngIf="timeZone.errors.required">
+										TimeZone is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Zone Off Set<i class="validation_required">*</i></label>
+									<input type="text" id="timezoneOffSet" name="timezoneOffSet" required #timezoneOffSet="ngModel"  class="form-control form-control-sm" [(ngModel)]="stateForm.timezoneOffSet" placeholder="Zone Off Set (+05:30)">
+								</div>
+								<div *ngIf="!timezoneOffSet?.valid && (timezoneOffSet?.dirty || timezoneOffSet?.touched)" class="error">
+									<div *ngIf="timezoneOffSet.errors.required">
+										Zone Off Set is required
+									</div>
+								</div>
+							</div>
+							<!-- <div class="col-md-6">
+								<div class="form-group">
+									<label for="clientName" class="control-label">Client<i class="validation_required">*</i></label>
+									<ng-select 
+										[items]="clientDataArr"
+										bindLabel="clientName"
+										bindValue="id"
+										placeholder="Select Client"
+										appendTo="body"
+										name="clientName"
+										required #clientId="ngModel"
+										[(ngModel)]="stateForm.clientId"> 
+                                    </ng-select>
+									<div *ngIf="!clientId?.valid && (clientId?.dirty || clientId?.touched)" class="error">
+										<div *ngIf="clientId.errors.required">
+											Client is required
+										</div>
+									</div>
+								</div>
+							</div> -->
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="geofanceName" class="control-label">State Boundry<i class="validation_required">*</i></label>
+									<ng-select [items]="geofanceDataArr"
+                                        bindLabel="geofanceName"
+                                        bindValue="id"
+                                        placeholder="Select Geofance"
+                                        appendTo="body"
+                                        name="geofanceName"
+										required #geofanceId="ngModel"
+                                        [(ngModel)]="stateForm.geofanceId"> 
+                                    </ng-select>
+									<div *ngIf="!geofanceId?.valid && (geofanceId?.dirty || geofanceId?.touched)" class="error">
+										<div *ngIf="geofanceId.errors.required">
+											Geofance is required
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!masterStateForm.valid" data-dismiss="modal" (click)="SaveState()">Save</button>
+					<button type="submit" class="btn btn-primary" *ngIf="isEditMode && !isViewMode" [disabled]="!masterStateForm.valid" data-dismiss="modal" (click)="UpdateState()">Update</button>
+					<button type="button" class="btn btn-danger" *ngIf="isEditMode && !isViewMode"  data-dismiss="modal" (click)="DeleteState()">Delete</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

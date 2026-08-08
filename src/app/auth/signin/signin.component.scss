@@ -1,0 +1,43 @@
+.error_msg{
+    color: red;
+    font-size: 16px;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .password-container input {
+    width: 100%;
+    padding-right: 40px; /* Space for the eye button */
+  }
+  
+  .eye-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .bg_login_img{
+    background-image: url('../../../assets/images/eld_login.jpg'); 
+    background-size: cover !important; 
+    // background-position: center; 
+    background-position: 70% 40%;
+    background-repeat: no-repeat; 
+    // filter: sepia(1) saturate(500%) hue-rotate(250deg) brightness(0.8);
+  }
+
+  .blur-background{
+    background-image: url('../../../assets/images/eld_login2.png'); /* Path to your image */
+    background-size: cover; /* Cover the entire screen */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* No repeating */
+  }
+  

@@ -1,0 +1,414 @@
+<div class="row" >
+    <div class="col-lg-12 px-2">
+         <form action="#">
+             <div class="card p-3 mb-2">
+                <div class="d-flex justify-content-between">
+                    <h6 class="card-title h5">Logs</h6>
+                    <div class="d-flex">
+                        <!-- <button class="btn btn-outline-dark btn-sm"><small>Send Output File</small><i class="zmdi zmdi-upload ml-2"></i></button>
+                        <button class="btn btn-outline-dark btn-sm mx-3"><small>Download</small><i class="zmdi zmdi-download ml-2"></i></button> -->
+						<button class="btn btn-outline-dark btn-sm mr-3" (click)="ShowWorkingDetails()"><small>Back</small><i class="fa fa-arrow-left ml-2"></i></button>
+
+						<button class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#sendlog_modal"><small>Send Output File</small><i class="zmdi zmdi-upload ml-2"></i></button>
+                        <button class="btn btn-outline-dark btn-sm mx-3" data-toggle="modal" data-target="#downloadlog_modal"><small>Download</small><i class="zmdi zmdi-download ml-2"></i></button>
+
+						
+                        <button class="btn btn-outline-dark btn-sm" (click)="RefreshPage()"><small>Refresh</small><i class="zmdi zmdi-refresh ml-2"></i></button>
+                    </div>
+                </div>
+
+				<!-- for date placeholder it show text instead of dd/mm/yyyy -->
+				<!-- <label class="wrapper">
+						<div class="form-group">
+							<input type="date" required="required" />
+							<span></span>
+						</div>
+					</label> -->					
+                <div class="d-flex my-2">
+
+					<ng-select [items]="driverDataArr"
+						bindLabel="employeeName"
+						bindValue="id"
+						placeholder="Select Driver"
+						appendTo="body"
+						class="col-2 p-0 mx-2"
+						name="employeeName"
+						(change)="ShowDLogReports($event.id)"
+						[(ngModel)]="dlogForm.employeeId"> 
+					</ng-select>
+					<span id="employeeNameError" style="color: red; font-weight: 500; font-family: 12px;"> </span>
+
+					<div class="form-group">
+							<input type="date" id="dFromDate" name="dFromDate" class="form-control form-control-sm" (change)="ShowDLogReports(0)" placeholder="From Date">
+							<!-- <input placeholder="From Date" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="dFromDate" /> -->
+					</div>
+
+                    <div class="form-group mx-2">
+						<!-- <input placeholder="To Date" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="dToDate" /> -->
+						<input type="date" id="dToDate" name="dToDate" class="form-control form-control-sm" (change)="ShowDLogReports(0)" placeholder="To Date">
+                    </div> 
+                    
+					<ng-select [items]="voilationDataArr"
+						bindLabel="voilationName"
+						bindValue="id"
+						placeholder="Select Voilations"
+						appendTo="body"
+						id="voilationDD"
+						class="col-2 p-0"
+						name="voilationName"
+						(change)="ShowDLogReports(0)"
+						[(ngModel)]="dlogForm.voilationId"> 
+					</ng-select>
+                    <!-- <ng-select placeholder="Violations" class="mx-2"></ng-select> -->
+                    <!-- <ng-select placeholder="Form & Manner"></ng-select>
+                    <ng-select placeholder="Date (desc.)" class="mx-2"></ng-select> -->
+                </div> 
+
+                 <div class="table-responsive">
+					<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-hover">
+                    <!-- <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-hover"> -->
+                        <thead>
+                            <tr >
+                                <th>Date</th>
+                                <!-- <th>Driver</th> -->
+                                <th>Hours Drive</th>
+                                <th>Violations</th>
+                                <th>Form & Manner</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            <tr *ngFor="let dlog of logRowData; let i = index" style="cursor: pointer;" (click)="ShowEmployeeDetails(dlog.driverId,dlog.dateTime);">
+                                <td>{{dlog.dateTime}}</td>
+								<!-- <td>{{dlog.dateTime | date:'MMM dd'}}</td> -->
+                                <!-- <td>{{dlog.driverName}}</td> -->
+                                <td>{{dlog.workingHour}}</td>
+                                <!-- <td>{{dlog.status}}</td> -->
+								<td *ngIf="dlog.voilation==false"> </td>
+                                <td *ngIf="dlog.voilation==true" style="color:red;">Voilation(s)</td>
+
+                                <!-- <td *ngIf="dlog.certifiedSignature==''">Not Certified</td>
+								<td *ngIf="dlog.certifiedSignature!=''" style="color: green;">Certified</td> -->
+
+								<!-- <td>{{dlog.certifiedSignature}}</td> -->
+								<td *ngIf="dlog.certified==true" style="color:green;">Certified</td>
+                                <td *ngIf="dlog.certified==false" style="color:red;">Uncertified</td>
+                            </tr>
+                        </tbody>
+                    </table>
+					<div class="pre_lodding" *ngIf="isLoading">
+						<img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+					</div>
+                </div>
+            </div>
+         </form>
+    </div>
+ </div>
+ 
+
+ <div id="sendlog_modal" class="modal fade hide" role="dialog">
+    <form action="#" #driverLogSendForm="ngForm" >
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Send Output File</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					
+					<div class="row col-lg-12">
+						<div class="col-md-4">
+							<label for="newEmployeeName" class="control-label">Driver Name<i class="validation_required">*</i></label>
+						</div>
+						<div class="col-md-8">
+							<ng-select [items]="driverDataArr"
+							bindLabel="employeeName"
+							bindValue="id"
+							placeholder="Select Driver"
+							appendTo="body"
+							name="newEmployeeName"
+							required #newEmployeeId="ngModel"
+							[(ngModel)]="driverLogForm.newEmployeeId"> 
+							</ng-select>
+							<div *ngIf="!newEmployeeId?.valid && (newEmployeeId?.dirty || newEmployeeId?.touched)" class="error">
+								<div *ngIf="newEmployeeId.errors.required">
+									Driver Name is required
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row col-lg-12" style="margin-top: 2px;">
+						<div class="col-md-4" style="margin-top: 2px;">
+							<label class="control-label"> Start Date </label>
+						</div>
+						<div class="col-md-8">
+							<input type="date" id="sendLogStartDate" name="sendLogStartDate" class="form-control" [(ngModel)]="driverLogForm.sendLogStartDate" required #sendLogStartDate="ngModel" >
+						</div>
+						<div *ngIf="!sendLogStartDate?.valid && (sendLogStartDate?.dirty || sendLogStartDate?.touched)" class="error">
+							<div *ngIf="sendLogStartDate.errors.required">
+								Start Date is required
+							</div>
+						</div>
+					</div>
+
+					<div class="row col-lg-12" style="margin-top: 2px;">
+						<div class="col-md-4" style="margin-top: 2px;">
+							<label class="control-label"> End Date </label>
+						</div>
+						<div class="col-md-8">
+							<input type="date" id="sendLogEndDate" name="sendLogEndDate" class="form-control" [(ngModel)]="driverLogForm.sendLogEndDate" required #sendLogEndDate="ngModel" >
+						</div>
+						<div *ngIf="!sendLogEndDate?.valid && (sendLogEndDate?.dirty || sendLogEndDate?.touched)" class="error">
+							<div *ngIf="sendLogEndDate.errors.required">
+								End Date is required
+							</div>
+						</div>
+					</div>
+
+					<div class="row col-lg-12 " style="margin-top: 2px;">
+						<div class="col-md-4 " style="margin-top: 2px;">
+							<label for="control-label"> Data Transfer Type</label>
+						</div>
+						<div class="col-md-8">
+							<select name="dataType" id="dataType" [(ngModel)]="driverLogForm.dataType"  class="form-control" >
+								<option value="email" selected>Email</option>
+								<option value="web service">Web Service</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row col-lg-12 " style="margin-top: 2px;">
+						<div class="col-md-4 " style="margin-top: 2px;">
+							<label for="control-label"> Comment</label>
+						</div>
+						<div class="col-md-8">
+							<textarea name="comment" id="comment" cols="33" [(ngModel)]="driverLogForm.comment"></textarea>
+						</div>
+					</div>
+
+					
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success" [disabled]="!driverLogSendForm.valid" data-dismiss="modal">Send</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div id="downloadlog_modal" class="modal fade hide" role="dialog">
+    <form action="#" #driverLogDownloadForm="ngForm" >
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Download Logs</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+
+					<div class="row col-lg-12" style="margin-top: 2px;">
+						<div class="col-md-4" style="margin-top: 2px;">
+							<label class="control-label"> Start Date </label>
+						</div>
+						<div class="col-md-8">
+							<input type="date" id="downloadLogStartDate" name="downloadLogStartDate" class="form-control" [(ngModel)]="driverLogForm.downloadLogStartDate" required #downloadLogStartDate="ngModel" >
+						</div>
+						<div *ngIf="!downloadLogStartDate?.valid && (downloadLogStartDate?.dirty || downloadLogStartDate?.touched)" class="error">
+							<div *ngIf="downloadLogStartDate.errors.required">
+								Start Date is required
+							</div>
+						</div>
+					</div>
+
+					<div class="row col-lg-12" style="margin-top: 2px;">
+						<div class="col-md-4" style="margin-top: 2px;">
+							<label class="control-label"> End Date </label>
+						</div>
+						<div class="col-md-8">
+							<input type="date" id="downloadLogEndDate" name="downloadLogEndDate" class="form-control" [(ngModel)]="driverLogForm.downloadLogEndDate" required #downloadLogEndDate="ngModel" >
+						</div>
+						<div *ngIf="!downloadLogEndDate?.valid && (downloadLogEndDate?.dirty || downloadLogEndDate?.touched)" class="error">
+							<div *ngIf="downloadLogEndDate.errors.required">
+								End Date is required
+							</div>
+						</div>
+					</div>
+					
+					<div class="row col-lg-12">
+						<div class="col-md-4">
+							<label for="newLogEmployeeName" class="control-label">Driver Name<i class="validation_required">*</i></label>
+						</div>
+						<div class="col-md-8">
+							<ng-select [items]="driverDataArr"
+							bindLabel="employeeName"
+							bindValue="id"
+							placeholder="Select Driver"
+							appendTo="body"
+							name="newLogEmployeeName"
+							required #newLogEmployeeId="ngModel"
+							[(ngModel)]="driverLogForm.newLogEmployeeId"> 
+							</ng-select>
+							<div *ngIf="!newLogEmployeeId?.valid && (newLogEmployeeId?.dirty || newLogEmployeeId?.touched)" class="error">
+								<div *ngIf="newLogEmployeeId.errors.required">
+									Driver Name is required
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success" (click)="DownloadDotReport()" [disabled]="!driverLogDownloadForm.valid" data-dismiss="modal">Download</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<iframe id="reportWebView" width="100%" height="600" style="display: none;"></iframe>
+
+
+
+<!-- <div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<form action="#"> 
+				<div class="card-body">
+				<div class="row ml-1"> 
+					<div class="col-md-2">
+						<div class="form-group">
+							<label for="employeeName" class="control-label">Driver Name</label>
+							<ng-select [items]="driverDataArr"
+							bindLabel="employeeName"
+							bindValue="id"
+							placeholder="Select Driver"
+							appendTo="body"
+							name="employeeName"
+							(change)="ShowDLogReport($event.employeeName)"
+							[(ngModel)]="dlogForm.employeeId"> 
+						</ng-select>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label class="control-label">From Date</label>
+							<input type="datetime-local" id="fromDate" name="fromDate" class="form-control">
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label class="control-label">To Date</label>
+							<input type="datetime-local" id="toDate" name="toDate" class="form-control">
+						</div>
+					</div>
+					<div style="margin-top: 30px;"  class="col-md-2">
+						<button type="button" class="btn btn-outline-info" (click)="ShowDLogReport('')">Submit</button>
+					</div>
+					<div style="margin-top: 30px;"  class="col-md-2">
+						<button type="button" data-toggle="modal" data-target="#driverlog_modal" class="btn btn-outline-success btn-sm">
+							Transfer Log
+						</button>
+					</div>
+				</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+	
+</div>
+<div>
+	<div class="row">
+		<div class="col-md-6">	
+			<button  (click)="DownloadPdf()" title="Export as PDF"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+		</div>
+		<div class="col-md-6" style="text-align: right;">
+			<button  (click)="viewByDLOnSimulator()">Back To Simulator</button>
+		</div>
+
+	</div>
+	<div id="driver_log_table" style="padding-top: 15px;">
+		<div style="display: block;">
+			<table class="table table-bordered table-striped">
+				<tr>
+					<th>ELD NEXT</th>
+					<th colspan="3">Driver Log Status</th>
+				</tr>
+				<tr style="background-color: #17a2b8;">
+					<th>Driver Name</th>
+					<th colspan="3">{{EMPLOYEE_NAME}}</th>
+				</tr>
+				<tr style="background-color: #17a2b8;">
+					<th>Status</th>
+					<th>Log Type</th>
+					<th>Date Time</th>
+					<th>Location</th>
+				</tr>
+			
+				<tr *ngFor="let dlog of rowData; let i = index">
+					<td>{{dlog.status}}</td>
+					<td>{{dlog.logType}}</td>     
+					<td>{{dlog.dateTime}}</td>
+					<td>{{dlog.lattitude}},{{dlog.longitude}}</td>
+				</tr>
+				
+			</table>
+		</div>
+	
+		<div class="col-lg-12 graphSection" *ngIf="isGraphShow">
+			<highcharts-chart
+				[Highcharts]="Highcharts"
+				#lineChart
+				[constructorType]="chartConstructor"
+				[options]="chartOptions"
+				[callbackFunction]="chartCallback"
+				[(update)]="updateFlag"
+				[oneToOne]="oneToOneFlag"
+				[runOutsideAngular]="runOutsideAngular"
+				style="width: 100%; height: 400px; display: block;">
+			</highcharts-chart>
+		</div>
+	</div>
+</div> -->
+
+<!-- <div id="driverlog_modal" class="modal fade hide" role="dialog">
+    <form action="#" #driverLogForm="ngForm" >
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Transfer Log</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="newEmployeeName" class="control-label">New Driver Name<i class="validation_required">*</i></label>
+									<ng-select [items]="driverDataArr"
+									bindLabel="employeeName"
+									bindValue="id"
+									placeholder="Select Driver"
+									appendTo="body"
+									(change)="ShowNewDriverName($event.id,$event.employeeName)"
+									name="newEmployeeName"
+									required #newEmployeeId="ngModel"
+									[(ngModel)]="driverLogForm.newEmployeeId"> 
+								</ng-select>
+								<div *ngIf="!newEmployeeId?.valid && (newEmployeeId?.dirty || newEmployeeId?.touched)" class="error">
+									<div *ngIf="newEmployeeId.errors.required">
+										New Driver Name is required
+									</div>
+								</div>
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" [disabled]="!driverLogForm.valid" data-dismiss="modal" (click)="UpdateDriverLog()" >Update</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div> -->

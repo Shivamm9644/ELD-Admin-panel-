@@ -1,0 +1,244 @@
+<!-- <div >
+    <img src="assets/images/pre_loading.gif" width="350" height="450"  class="text-center">
+</div> -->
+
+<div id="pop_up_device_info" class="device_info"></div>
+<div id="device_status_popup" class="device_info_status"></div>
+<div id="device_satellite_status_popup" class="device_info_status"></div>
+<div id="device_gsm_signal_status_popup" class="device_info_status"></div>
+
+<div style="display: none;">
+    <img id="marker" src="https://lh3.googleusercontent.com/-td-f-U_d-us/WoV065hIgtI/AAAAAAAAX10/Bbp5Pi9UvjEDVbbUEklFOTDhdcbqRhIOgCL0BGAYYCw/h50/2018-02-15.gif" title="Marker" />
+</div>
+
+<!-- <div id="loading" *ngIf="isLoading" class="d-flex justify-content-center ">
+    <div class="spinner-border" role="status">
+      <span class="sr-only"> </span>
+    </div>
+</div> -->
+
+<div class="row">
+   <div class="col-lg-12 px-2" >
+        <form action="#">
+            <div class="card p-3 mb-2">
+                <div class="d-flex justify-content-between">
+                    <span class="card-title h5 "><span id="viewDriverName">{{DRIVER_NAME}} </span></span>
+                    <span class="d-flex">
+                        <!-- <ng-select placeholder="Auto Refresh Off"> </ng-select>  -->
+                         <div class="d-flex justify-content-end align-items-end gap-2">
+                            <!-- <label class="mb-1 fw-semibold">Auto Refresh</label> -->
+                            <ng-select [items]="refreshIntervals"
+                                bindLabel="label"
+                                bindValue="value"
+                                placeholder="Select Auto Refresh"
+                                [(ngModel)]="selectedRefreshInterval"
+                                [ngModelOptions]="{standalone: true}"
+                                (change)="onRefreshIntervalChange($event)">
+                            </ng-select>
+                        </div>
+                        <button class="btn btn-outline-dark btn-sm mx-3" (click)="RefreshPage()">Refresh <i class="zmdi zmdi-refresh" ></i></button>
+                        <!-- <button class="btn btn-outline-dark btn-sm" (click)="RedirectToDriverInfo(employeeId)">Edit <i class="zmdi zmdi-edit"></i></button> -->
+                    </span>
+                </div>
+                
+                <div class="d-flex my-3 p-2 border border-1">
+                    <!-- <span class="mr-3"><i class="zmdi zmdi-phone-in-talk mr-2"></i>1234567890</span> -->
+                    <span class="mr-3"><i class="zmdi zmdi-phone-in-talk mr-2"></i> <small><span id="viewContactNo">{{MOBILE_NO}} </span></small> </span>
+                    <span class="mr-3"><i class="zmdi zmdi-email mr-2"></i> <small><span id="viewEmail"> {{EMAIL}}</span></small></span>
+                    <span class="mr-3"><i class="zmdi zmdi-time mr-2"></i> <small><span id="viewTimeZone"> {{TIME_ZONE}}</span></small></span>
+                    <span><i class="zmdi zmdi-smartphone mr-2" ></i> <small><span id="viewDeviceID">{{DEVICE_ID}} </span></small></span>
+
+                    <!-- <span class="mr-3"><i class="zmdi zmdi-time mr-2"></i>Time Zone</span>
+                    <span><i class="zmdi zmdi-smartphone mr-2" ></i>dbdhvbdfvshdh979 </span> -->
+                </div>
+                
+            </div>
+            <div class="card p-3 mb-2">
+                <h6 class="card-title h5">Hours of Service</h6>
+                <div class="table-responsive">
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Date</th>     
+                                <th>Vehicle</th>
+                                <th>Location</th>
+                                <th>Break</th>
+                                <th>Duty</th>
+                                <th>Drive</th>
+                                <th>Cycle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                                <!-- <td><span class='badge badge-success py-1 px-2'><span id="ViewWorkingStatus"> </span></span></td> -->
+                                <!-- <td><span ><span id="ViewWorkingStatus">{{STATUS}} </span></span></td> -->
+                                 <!-- <td class="text-center">
+                                    <span class='badge badge-primary py-1 px-2' *ngIf="STATUS=='OnDuty'">{{STATUS}}</span>
+                                    <span class='badge badge-danger py-1 px-2' *ngIf="STATUS=='Voilation'">{{STATUS}}</span>
+                                    <span class='badge badge-secondary py-1 px-2' *ngIf="STATUS=='OffDuty'">{{STATUS}}</span> 
+                                    <span class='badge badge-success py-1 px-2' *ngIf="STATUS=='OnDrive'">{{STATUS}}</span>
+                                    <span class='badge badge-dark py-1 px-2' *ngIf="STATUS=='OnSleep'">{{STATUS}}</span>
+                                    <span class='badge badge-warning py-1 px-2' *ngIf="STATUS=='Break'">{{STATUS}}</span>
+                                </td> -->
+                                <td class="text-center">
+                                    <span class='badge badge-primary py-1 px-2' *ngIf="STATUS=='OnDuty'">{{STATUS}}</span>
+                                    <span class='badge badge-danger py-1 px-2' *ngIf="STATUS=='Voilation'">{{STATUS}}</span>
+                                    <span class='badge badge-warning py-1 px-2' *ngIf="STATUS=='OffDuty'">{{STATUS}}</span>
+                                    <span class='badge badge-success py-1 px-2' *ngIf="STATUS=='OnDrive'">{{STATUS}}</span>
+                                    <span class='badge badge-dark py-1 px-2' *ngIf="STATUS=='OnSleep'">{{STATUS}}</span>
+                                    <span class='badge badge-secondary py-1 px-2' *ngIf="STATUS=='Break'">{{STATUS}}</span>
+                                    <span class='badge badge-primary py-1 px-2' *ngIf="STATUS=='YardMove'">{{STATUS}}(OnDuty)</span>
+                                    <span class='badge badge-warning py-1 px-2' *ngIf="STATUS=='PersonalUse'">{{STATUS}}(OffDuty)</span>
+                                    <span *ngIf="STATUS=='Engine On'">{{STATUS}}</span>
+                                    <span *ngIf="STATUS=='Engine Off'">{{STATUS}}</span>
+
+                                </td>
+                                <td><span id="ViewDateTime">{{LDATE_TIME}} </span> </td>
+                                <td><span id="ViewTruckNo">{{TRUCKNO}}</span>  </td>
+                                <td><span id="ViewLocation">{{CUSTOM_LOCATION}}</span> </td>
+                                <td><span id="viewBreakHour">{{BREAK_HOUR}}</span></td>
+                                <td><span id="ViewShiftHour">{{SHIFT_HOUR}}</span></td>
+                                <td><span id="viewDriveHour">{{DRIVE_HOUR}}</span></td>
+                                <td><span id="ViewCycleHour">{{CYCLE_HOUR}}</span></td>
+                           </tr>
+                        </tbody>
+                    </table>
+                    <div class="pre_lodding" *ngIf="isLoading">
+                        <img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+                    </div>
+                </div>
+                <div class="my-2">
+                    <!-- <button class="btn btn-outline" type="button" (click)="showMyContainer=!showMyContainer"> -->
+                    <button class="btn btn-outline" type="button" onclick="$('#recap').toggle()">
+                        Recap
+                    </button>
+                    <button class="btn btn-outline" type="button" onclick="$('#map_section').toggle()">
+                        Map
+                    </button>
+                </div>
+                <div id="recap" style="display: none;">
+                    <div class="table-responsive">
+                        <table class="table table-bordered ">
+                            <thead>
+                                <tr class="bg-light text-dark">
+                                    <th>Date</th>     
+                                    <th>Hours Worked</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dlog of recapDataArr; let i = index">
+                                    <td>{{dlog.dateTime| date:'EEEE, MMM d'}}</td>
+                                    <td>{{dlog.workingHour}}</td>
+                               </tr>
+                            </tbody>
+                            <tr>
+                                <th>Last 7 Days</th>     
+                                <th style="font-size: 20px;">{{totalWorkingHour}}</th>
+                            </tr>
+                            
+                        </table>
+                    </div>
+                </div>
+
+                <div id="map_section" style="display: block;">
+                    <div>
+                        <main class="col" style="padding: 0;">
+                            <div id="map" class="map" >
+                                <div class="satellite_div">
+                                    <div id="map_button">
+                                        <input type="checkbox" name="satellite_map" id="satellite_map" style="margin-left:5px;width: 15px;height: 15px;" (click)="NormalAndSatelliteMap();" />
+                                        <label style="font-size: 16px; margin-left: 3px; font-weight: 700; margin-bottom: 0;">Satellite</label>
+                                    </div>
+                                    <!-- <img src="assets/images/pre_loading.gif" /> -->
+                                </div>
+                            </div>
+                        </main>
+                        <div id="popup" class="ol-popup">
+                            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                            <div id="popup-content"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <button class = "btn btn-primary" (click) = "onToggleDisplay()">Map</button>
+                    <div *ngIf  ="showSecret"> 
+                        <div style="display: none;">
+                            <img id="marker" src="https://lh3.googleusercontent.com/-td-f-U_d-us/WoV065hIgtI/AAAAAAAAX10/Bbp5Pi9UvjEDVbbUEklFOTDhdcbqRhIOgCL0BGAYYCw/h50/2018-02-15.gif" title="Marker" />
+                        </div>
+                        
+                        <div>
+                            <main class="col" style="padding: 0;">
+                                <div id="map" class="map" >
+                                    <div class="satellite_div"  *ngIf="loading">
+                                        <img src="assets/images/pre_loading.gif" />
+                                    </div>
+                                </div>
+                            </main>
+                            <div id="popup" class="ol-popup">
+                                <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                                <div id="popup-content"></div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                <!-- <div>
+                    <button class="btn btn-outline" type="button" (click)="showMyContainerMap=!showMyContainerMap">
+                        Map
+                    </button>
+                </div> -->
+
+                <!-- <div *ngIf="showMyContainerMap" >
+                    <div style="display: none;">
+                        <img id="marker" src="https://lh3.googleusercontent.com/-td-f-U_d-us/WoV065hIgtI/AAAAAAAAX10/Bbp5Pi9UvjEDVbbUEklFOTDhdcbqRhIOgCL0BGAYYCw/h50/2018-02-15.gif" title="Marker" />
+                    </div>
+                    
+                    <div>
+                        <main class="col" style="padding: 0;">
+                            <div id="map" class="map" >
+                                <div class="satellite_div"  *ngIf="loading">
+                                    <img src="assets/images/pre_loading.gif" />
+                                </div>
+                            </div>
+                        </main>
+                        <div id="popup" class="ol-popup">
+                            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                            <div id="popup-content"></div>
+                        </div>
+                    </div>
+                </div> -->
+                
+            </div>
+            
+            <div class="card p-3 mb-2">
+                <h6 class="card-title h5">Log</h6>
+                <div class="table-responsive">
+                    <div class="table_head_on_print">
+                        <span >Last 14 Days</span>
+                        <span style="cursor: pointer;" (click)="ShowDriverLog()"  class="float-right text-center">More <i class="fa fa-calendar" aria-hidden="true"></i></span>
+                    </div>
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr class="bg-light text-dark">
+                                <th>Date</th>     
+                                <th>Hours Drive</th>
+                                <th>Violations</th>
+                                <th>Form & Manner</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let dlog of logDataArr; let i = index" style="cursor: pointer;" (click)="ShowEmployeeDetails(dlog.driverId,dlog.dateTime);">
+                                <td>{{dlog.dateTime | date:'MMM dd'}}</td>
+                                <td>{{dlog.workingHour}}</td>
+                                <td *ngIf="dlog.voilation==false"> </td>
+                                <td *ngIf="dlog.voilation==true" style="color:red;">Violation(s)</td>
+                                <td *ngIf="dlog.certified==true" style="color:green;">Certified</td>
+                                <td *ngIf="dlog.certified==false" style="color:red;">Uncertified</td>
+                           </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+   </div>
+</div>

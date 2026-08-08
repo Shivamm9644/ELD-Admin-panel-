@@ -1,0 +1,56 @@
+<div class="main">
+
+  <div class="topbar">
+    <h2>Dashboard</h2>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards">
+    <div class="card">
+      <h3>Total Vehicles</h3>
+      <h1>{{data.vehicles}}</h1>
+    </div>
+
+    <div class="card">
+      <h3>Total Users</h3>
+      <h1>{{data.users}}</h1>
+    </div>
+
+    <div class="card">
+      <h3>Total Drivers</h3>
+      <h1>{{data.drivers}}</h1>
+    </div>
+
+    <div class="card">
+      <h3>Total Companies</h3>
+      <h1>{{data.companies}}</h1>
+    </div>
+  </div>
+
+  <!-- Graph Section -->
+  <div class="analytics">
+    <h3>Connectivity Overview</h3>
+
+    <div class="chart-wrapper">
+      <canvas id="deviceChart"></canvas>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary">
+
+      <div class="summary-box">
+        <h4>Devices Connected</h4>
+        <h2 class="green">{{data.connected}}</h2>
+        <p>{{connectedPct}}%</p>
+      </div>
+
+      <div class="summary-box">
+        <h4>Devices Disconnected</h4>
+        <h2 class="red">{{data.disconnected}}</h2>
+        <p>{{disconnectedPct}}%</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,90 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<form action="#"> 
+				<div class="card-body">
+					<div class="btn-group float-sm-left mb-1">
+						<button type="button" data-toggle="modal" data-target="#route_modal" class="btn btn-outline-success btn-sm">
+							<i class="zmdi zmdi-plus mr-1"></i>Add Route
+						</button>
+					</div>
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<tr>
+									<th>S.No</th>
+									<th>Route</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <div id="loading" *ngIf="isLoading">
+									<img src="assets/images/pre_lodding.gif" width="250" height="250"  class="text-center">
+							   </div> -->
+							   <tr *ngFor="let route of rowData; let i = index">
+								<th style="text-align: center;" scope="row">{{i+1}}</th>
+								<td><a style="color: dodgerblue; cursor: pointer;" data-toggle="modal" data-target="#route_modal" (click)="EditRoute(route.routeId)">{{route.routeName}}</a></td>
+								<!-- <td>{{route.routeName}} </td> -->
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+<div id="route_modal" class="modal fade hide" role="dialog">
+    <form action="#" #masterRouteForm="ngForm">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Route Details</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Route<i class="validation_required">*</i></label>
+									<input type="text" id="routeName" name="routeName" required #routeName="ngModel" class="form-control form-control-sm" [(ngModel)]="routeForm.routeName" placeholder="Route">
+								</div>
+								<div *ngIf="!routeName?.valid && (routeName?.dirty || routeName?.touched)" class="error">
+									<div *ngIf="routeName.errors.required">
+										Route Name is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="clientName" class="control-label">Client<i class="validation_required">*</i></label>
+									<ng-select 
+										[items]="clientDataArr"
+										bindLabel="clientName"
+										bindValue="id"
+										placeholder="Select Client"
+										appendTo="body"
+										name="clientName"
+										required #clientId="ngModel"
+										[(ngModel)]="routeForm.clientId"> 
+                                    </ng-select>
+									<div *ngIf="!clientId?.valid && (clientId?.dirty || clientId?.touched)" class="error">
+										<div *ngIf="clientId.errors.required">
+											Client is required
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!masterRouteForm.valid" data-dismiss="modal" (click)="SaveRoute()">Save</button>
+					<button type="submit" class="btn btn-primary" *ngIf="isEditMode && !isViewMode" [disabled]="!masterRouteForm.valid" data-dismiss="modal" (click)="UpdateRoute()">Update</button>
+					<button type="button" class="btn btn-danger" *ngIf="isEditMode && !isViewMode"  data-dismiss="modal" (click)="DeleteRoute()">Delete</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

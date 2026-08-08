@@ -1,0 +1,322 @@
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<form action="#"> 
+				<div class="card-body">
+					<div class="btn-group float-sm-left mb-1">
+						<button type="button" data-toggle="modal" data-target="#customer_modal" class="btn btn-outline-success btn-sm">
+							<i class="zmdi zmdi-plus mr-1"></i>Add Customer
+						</button>
+					</div>
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<tr>
+									<th>S.No</th>
+									<th>Customer Name</th>
+									<th>Dispatch Phone</th>     
+									<th>Billing Address</th>
+									<th>Physical Address</th>
+									<th>Accountin Phone</th>
+									<th>Dispatch Email</th>
+									<th>Notes</th>
+									<!-- <th>Action</th> -->
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let customers of rowData; let i = index">
+									<th style="text-align: center;" scope="row">{{i+1}}</th>
+									<td><a style="color: dodgerblue; cursor: pointer;" data-toggle="modal" data-target="#customer_modal" (click)="EditCustomer(customers.customerId)">{{customers.customerName}}</a></td>
+									<!-- <td>{{customers.customerName}} </td> -->
+									<td>{{customers.dispatchPhone}}</td>     
+									<td>{{customers.billingAddress}}</td>
+									<td>{{customers.physicalAddress}}</td>
+									<td>{{customers.accountingPhone}}</td>
+									<td>{{customers.dispatchEmail}}</td>
+									<td>{{customers.remarks}}</td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+<div id="customer_modal" class="modal fade hide" role="dialog">
+	<form action="#" #customerMasterForm="ngForm">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Customer Details</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<!-- <span onclick="document.getElementById('customer_modal').style.display='none'" class="btn btn-outline-light btn-sm">&times;</span> -->
+
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Name<i class="validation_required">*</i></label>
+									<input type="text" id="customerName" name="customerName"  required #customerName="ngModel" class="form-control form-control-sm" [(ngModel)]="customerForm.customerName" placeholder="Name">
+								</div>
+								<div *ngIf="!customerName?.valid && (customerName?.dirty || customerName?.touched)" class="error">
+									<div *ngIf="customerName.errors.required">
+										Name is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="productName" class="control-label">product<i class="validation_required"></i></label>
+									<ng-select [items]="productDataArr"
+                                        bindLabel="productName"
+                                        bindValue="id"
+                                        placeholder="Select product"
+                                        appendTo="body"
+                                        name="productName"
+                                        [(ngModel)]="customerForm.productId"> 
+                                    </ng-select>
+								</div>
+							</div>
+						
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Billing Address<i class="validation_required">*</i></label>
+									<input type="text" name="billingAddress" id="billingAddress" required #billingAddress="ngModel" [(ngModel)]="customerForm.billingAddress" class="form-control" placeholder="Billing Address">
+								</div>
+								<div *ngIf="!billingAddress?.valid && (billingAddress?.dirty || billingAddress?.touched)" class="error">
+									<div *ngIf="billingAddress.errors.required">
+										Billing Address is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="billingCountryName" class="control-label">Country<i class="validation_required">*</i></label>
+									<ng-select [items]="billingcountryDataArr"
+                                        bindLabel="billingCountryName"
+                                        bindValue="id"
+                                        placeholder="Select Country"
+                                        appendTo="body"
+                                        name="billingCountryName"
+										required #billingCountryId="ngModel"
+                                        [(ngModel)]="customerForm.billingCountryId"> 
+                                    </ng-select>
+									<div *ngIf="!billingCountryId?.valid && (billingCountryId?.dirty || billingCountryId?.touched)" class="error">
+										<div *ngIf="billingCountryId.errors.required">
+											Country is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="billingStateName" class="control-label">State<i class="validation_required">*</i></label>
+									<ng-select [items]="billingstateDataArr"
+                                        bindLabel="billingStateName"
+                                        bindValue="id"
+                                        placeholder="Select State"
+                                        appendTo="body"
+                                        name="billingStateName"
+										required #billingStateId="ngModel"
+                                        [(ngModel)]="customerForm.billingStateId"> 
+                                    </ng-select>
+									<div *ngIf="!billingStateId?.valid && (billingStateId?.dirty || billingStateId?.touched)" class="error">
+										<div *ngIf="billingStateId.errors.required">
+											State is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="billingCityName" class="control-label">City<i class="validation_required">*</i></label>
+									<ng-select [items]="billingcityDataArr"
+                                        bindLabel="billingCityName"
+                                        bindValue="id"
+                                        placeholder="Select City"
+                                        appendTo="body"
+                                        name="billingCityName"
+										required #billingCityId="ngModel"
+                                        [(ngModel)]="customerForm.billingCityId"> 
+                                    </ng-select>
+									<div *ngIf="!billingCityId?.valid && (billingCityId?.dirty || billingCityId?.touched)" class="error">
+										<div *ngIf="billingCityId.errors.required">
+											City is required
+										</div>
+									</div>
+								</div>
+							</div>
+						
+						
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Zip Code<i class="validation_required">*</i></label>
+									<input type="number" id="billingZipcode" name="billingZipcode"  required #billingZipcode="ngModel" class="form-control form-control-sm" [(ngModel)]="customerForm.billingZipcode" placeholder="Zip Code">
+								</div>
+								<div *ngIf="!billingZipcode?.valid && (billingZipcode?.dirty || billingZipcode?.touched)" class="error">
+									<div *ngIf="billingZipcode.errors.required">
+										Zip Code is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Contact Email<i class="validation_required"></i></label>
+									<input type="email" id="contactEmail" name="contactEmail" [(ngModel)]="customerForm.contactEmail" class="form-control form-control-sm" placeholder="Contact Email" email>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Contact Phone<i class="validation_required">*</i></label>
+									<input type="number" id="contactPhone" name="contactPhone" required #contactPhone="ngModel" class="form-control form-control-sm" [(ngModel)]="customerForm.contactPhone" placeholder="Contact Phone">
+								</div>
+								<div *ngIf="!contactPhone?.valid && (contactPhone?.dirty || contactPhone?.touched)" class="error">
+									<div *ngIf="contactPhone.errors.required">
+										Contact Phone is required
+									</div>
+								</div>
+							</div>
+						
+						
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Physical Address<i class="validation_required"></i></label>
+									<input type="text" name="physicalAddress" id="physicalAddress" [(ngModel)]="customerForm.physicalAddress"  class="form-control form-control-sm" placeholder="Physical Address">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="physicalCountryName" class="control-label">Country<i class="validation_required"></i></label>
+									<ng-select [items]="physicalcountryDataArr"
+                                        bindLabel="physicalCountryName"
+                                        bindValue="id"
+                                        placeholder="Select Country"
+                                        appendTo="body"
+                                        name="physicalCountryName"
+                                        [(ngModel)]="customerForm.physicalCountryId"> 
+                                    </ng-select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="physicalStateName" class="control-label">State<i class="validation_required"></i></label>
+									<ng-select [items]="physicalstateDataArr"
+                                        bindLabel="physicalStateName"
+                                        bindValue="id"
+                                        placeholder="Select State"
+                                        appendTo="body"
+                                        name="physicalStateName"
+                                        [(ngModel)]="customerForm.physicalStateId"> 
+                                    </ng-select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="physicalcityName" class="control-label">City<i class="validation_required"></i></label>
+									<ng-select [items]="physicalcityDataArr"
+                                        bindLabel="physicalcityName"
+                                        bindValue="id"
+                                        placeholder="Select City"
+                                        appendTo="body"
+                                        name="physicalcityName"
+                                        [(ngModel)]="customerForm.physicalCityId"> 
+                                    </ng-select>
+								</div>
+							</div>
+						
+						
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Zip Code<i class="validation_required"></i></label>
+									<input type="number"  id="physicalZipcode"  name="physicalZipcode" [(ngModel)]="customerForm.physicalZipcode" class="form-control form-control-sm" placeholder="Zip Code">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Dispatch Email<i class="validation_required"></i></label>
+									<input type="email"  id="dispatchEmail" name="dispatchEmail" [(ngModel)]="customerForm.dispatchEmail"  class="form-control form-control-sm" placeholder="Dispatch Email" email>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Dispatch Phone<i class="validation_required"></i></label>
+									<input type="number" id="dispatchPhone" name="dispatchPhone"  [(ngModel)]="customerForm.dispatchPhone" class="form-control form-control-sm" placeholder="Dispatch Phone">
+								</div>
+							</div>
+						
+						
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">After Hours Phone<i class="validation_required"></i></label>
+									<input type="text" id="afterHoursPhone" name="afterHoursPhone" [(ngModel)]="customerForm.afterHoursPhone" class="form-control form-control-sm" placeholder="After Hours Phone">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Accounting Email<i class="validation_required"></i></label>
+									<input type="email" id="accountingEmail" name="accountingEmail" [(ngModel)]="customerForm.accountingEmail" class="form-control form-control-sm" placeholder="Accounting Email" email>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="clientName" class="control-label">Client<i class="validation_required">*</i></label>
+									<ng-select 
+										[items]="clientDataArr"
+										bindLabel="clientName"
+										bindValue="id"
+										placeholder="Select Client"
+										appendTo="body"
+										name="clientName"
+										required #clientId="ngModel"
+										[(ngModel)]="customerForm.clientId"> 
+                                    </ng-select>
+									<div *ngIf="!clientId?.valid && (clientId?.dirty || clientId?.touched)" class="error">
+										<div *ngIf="clientId.errors.required">
+											Client is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Accounting Phone<i class="validation_required"></i></label>
+									<input type="number" id="accountingPhone" name="accountingPhone"  [(ngModel)]="customerForm.accountingPhone" class="form-control form-control-sm" placeholder="Accounting Phone">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Status<i class="validation_required"></i></label>
+									<div>
+										<label class="switch btn btn-info btn-sm">
+											<input type="checkbox" id="status" name="status" [(ngModel)]="customerForm.status">
+											<span class="slider"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+						
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Notes<i class="validation_required"></i></label>
+									<textarea type="text" name="remarks" id="remarks" [(ngModel)]="customerForm.remarks" rows="4" class="form-control form-control-sm" placeholder="Notes"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="reset" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!customerMasterForm.valid" data-dismiss="modal" (click)="SaveCustomerModalData()">Save</button>
+					<button type="submit" class="btn btn-primary" *ngIf="isEditMode && !isViewMode" [disabled]="!customerMasterForm.valid" data-dismiss="modal" (click)="UpdateCustomerModalData()">Update</button>
+					<button type="button" class="btn btn-danger" *ngIf="isEditMode && !isViewMode"  data-dismiss="modal" (click)="DeleteCustomerModalData()">Delete</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+

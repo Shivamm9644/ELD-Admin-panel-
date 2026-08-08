@@ -1,0 +1,566 @@
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<form action="#"> 
+				<div class="card-body">
+					<div class="float-sm-left mb-3 mt-3"><h4>Manage Users</h4></div>
+					<div class="btn-group float-sm-right mb-3 mt-3">
+						<!-- <button type="button" *ngIf="!authService.isUserType3()" data-toggle="modal" (click)="ClearForm()" data-target="#user_modal" class="btn btn-outline-success btn-sm">
+							<i class="zmdi zmdi-plus mr-1"></i>Add User
+						</button> -->
+						<button type="button" *ngIf="sessionUserTypeId==1" data-toggle="modal" (click)="ClearForm()" data-target="#user_modal" class="btn btn-outline-success btn-sm">
+							<i class="zmdi zmdi-plus mr-1"></i>Add User
+						</button>
+						<button class="btn btn-outline-dark btn-sm mx-3" (click)="RefreshPage()">Refresh <i class="zmdi zmdi-refresh" ></i></button>
+					</div>
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<!-- <tr>
+									<th>S.No</th>
+									<th>User Name</th>
+									<th>First Name</th>     
+									<th>Last Name</th>
+									<th>Mobile</th>
+									<th>User Type</th>
+									<th>Client</th>
+								</tr> -->
+								<tr>
+									<th>S.No</th>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Role</th>
+									<th>Permissions</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <tr *ngFor="let user of rowData; let i = index">
+									<th style="text-align: center;" scope="row">{{i+1}}</th>
+									<!-- <td ><a style="color: dodgerblue; cursor: pointer;" data-toggle="modal" data-target="#user_modal" (click)="EditUser(user.userId)">{{user.username}}</a></td> -->
+									<!-- <td>{{user.username}} </td>
+									<td>{{user.firstName}}</td>     
+									<td>{{user.lastName}}</td>
+									<td>{{user.mobileNo}}</td>
+									<td>{{user.userTypeId}}</td>
+									<td>{{user.clientId}}</td>
+								</tr> --> 
+								<!-- <tr *ngFor="let user of rowData; let i = index" [disabled]="authService.isUserType3()" style="cursor: pointer;" data-toggle="modal" data-target="#user_modal" (click)="EditUser(user.userId)"> -->
+								<!-- <tr *ngFor="let user of rowData; let i = index" style="cursor: pointer;" data-toggle="modal" data-target="#user_modal" (click)="EditUser(user.userId)">	 -->
+								<tr *ngFor="let user of rowData; let i = index" style="cursor: pointer;" (click)="openUserModal(user)">
+									<th style="text-align: center;" scope="row">{{i+1}}</th>
+									<td>{{user.firstName}} {{user.lastName}}</td>     
+									<td>{{user.email}}</td>
+									<td>{{user.userTypeName}}</td>
+									<td></td>
+									<!-- <td>{{user.status}}</td> -->
+									 <td style="width: 80px;" *ngIf="sessionUserTypeId!=user.userTypeId">
+										<button
+											*ngIf="isSuperAdminValue==1 && sessionUserTypeId==1" 
+											[ngClass]="user.status === 'true' ? 'btn btn-primary btn-sm' : 'btn btn-secondary btn-sm'" 
+											title="Active or inactive account."
+											class="td_section_btn"
+											(click)="ActiveInactiveAccount(user);$event.stopPropagation()">
+											{{ user.status === 'true' ? 'Active' : 'Inactive' }}
+										</button>
+										<button 
+											title="Reset system token."
+											class="btn btn-primary btn-sm ml-2"
+											(click)="ResetToken(user);$event.stopPropagation()">
+											Reset
+										</button>
+									 </td>
+									 <td style="width: 80px;" *ngIf="sessionUserTypeId==user.userTypeId">
+										
+									 </td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="pre_lodding" *ngIf="isLoading">
+							<img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+						</div>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+<div id="user_modal" class="modal fade hide" role="dialog">
+    <form   action="#" #userAdministratorForm="ngForm">
+		<div class="modal-dialog">
+			<div class="modal-content" style="width: 1100px;">
+				<div class="modal-header">
+					<h6 class="modal-title">Add User</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<h5>Settings</h5>
+						<div class="row">
+
+							<div class="col-md-12">
+								<div class="tab-content" id="pills-tabContent">
+									<div class="tab-pane fade show active" id="pills-user_details" role="tabpanel" aria-labelledby="pills-user_details-tab">
+										
+										<div class="row col-lg-12 " style="margin-top: 10px;">
+											<div class="col-md-2" style="margin-top: 10px;">
+												<small for="control-label"> Name<i class="validation_required">*</i></small>
+											</div>
+											<div class="col-md-5">
+												<input type="text" id="firstName" name="firstName" minlength="2" maxlength="30" required #firstName="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="userForm.firstName" placeholder="First Name">
+												<div *ngIf="!firstName?.valid && (firstName?.dirty || firstName?.touched)" class="error">
+													<div *ngIf="firstName.errors.required">
+														<small class="validation_required" style="font-size: xx-small;">Value should be at least 2 and up to 30 characters </small>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-5">
+												<input type="text" id="lastName" name="lastName" minlength="2" maxlength="30" required #lastName="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="userForm.lastName" placeholder="Last Name">
+												<div *ngIf="!lastName?.valid && (lastName?.dirty || lastName?.touched)" class="error">
+													<div *ngIf="lastName.errors.required">
+														<small class="validation_required" style="font-size: xx-small;">Value should be at least 2 and up to 30 characters </small>
+													</div>
+												</div>
+											</div>
+										</div>	
+
+										<div class="row col-lg-12 " style="margin-top: 10px;">
+											<div class="col-md-2" style="margin-top: 10px;">
+												<small for="control-label">Email<i class="validation_required">*</i></small>
+											</div>
+											<div class="col-md-10">
+												<input type="email" id="email" name="email"  required #email="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="userForm.email" placeholder="Email" email>
+												<div *ngIf="!email?.valid && (email?.dirty || email?.touched)" class="error">
+													<div *ngIf="email.errors.required">
+														<small class="validation_required" style="font-size: xx-small;">please enter valid email address</small>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="row col-lg-12 " style="margin-top: 10px;">
+											<div class="col-md-2" style="margin-top: 10px;">
+												<small for="control-label">Phone</small>
+											</div>
+											<div class="col-md-10">
+												<input type="text" id="mobileNo" name="mobileNo"  (keypress)="keyPress($event)" minlength="10" maxlength="10" #mobileNo="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="userForm.mobileNo" placeholder="9999999999" >
+											</div>
+										</div>
+
+										<div class="row col-lg-12 " style="margin-top: 10px;">
+											<div class="col-md-2" style="margin-top: 10px;">
+												<small for="control-label">Password<i class="validation_required">*</i></small>
+											</div>
+											<!-- <div class="col-md-10">
+												<input type="password" id="password" name="password" minlength="6" required #password="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="userForm.password" placeholder="">
+												<div *ngIf="!password?.valid && (password?.dirty || password?.touched)" class="error">
+													<div *ngIf="password.errors.required">
+														<small class="validation_required" style="font-size: xx-small;">Value should be at least 6 characters</small>
+													</div>
+												</div>
+											</div> -->
+											<div class="col-md-10 position-relative">
+												<input 
+													[type]="showPassword ? 'text' : 'password'"
+													id="password"
+													name="password"
+													minlength="6"
+													required
+													#password="ngModel"
+													class="form-control form-control-sm mainInput"
+													[(ngModel)]="userForm.password"
+												>
+
+												<!-- Eye Icon -->
+												<i 
+													class="fa"
+													[ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+													(click)="togglePassword()"
+													style="position:absolute; right:10px; top:10px; cursor:pointer;">
+												</i>
+
+												<div *ngIf="!password?.valid && (password?.dirty || password?.touched)" class="error">
+													<small class="validation_required" style="font-size: xx-small;">
+													Value should be at least 6 characters
+													</small>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="row col-lg-12 " style="margin-top: 10px;">
+											<div class="col-md-2" style="margin-top: 10px;">
+												<small for="control-label">Password Confirm<i class="validation_required">*</i></small>
+											</div>
+											<!-- <div class="col-md-10">
+												
+												<input type="password" id="passwordCnfrm" name="passwordCnfrm" minlength="6" required (change)="checkConfirmPassword()" #passwordCnfrm="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="userForm.passwordCnfrm" placeholder="">
+												
+												<div *ngIf="!passwordCnfrm?.valid && (passwordCnfrm?.dirty || passwordCnfrm?.touched)" class="error">
+													<div *ngIf="passwordCnfrm.errors.required">
+														<small class="validation_required" style="font-size: xx-small;">Value should be at least 6 characters</small>
+													</div>
+												</div>
+												<small id="isConfirmPasswordValid" style="font-size: xx-small;"></small>
+
+											</div> -->
+											<div class="col-md-10 position-relative">
+												<input 
+													[type]="showConfirmPassword ? 'text' : 'password'"
+													id="passwordCnfrm"
+													name="passwordCnfrm"
+													minlength="6"
+													required
+													(change)="checkConfirmPassword()"
+													#passwordCnfrm="ngModel"
+													class="form-control form-control-sm mainInput"
+													[(ngModel)]="userForm.passwordCnfrm"
+												>
+
+												<!-- Eye Icon -->
+												<i 
+													class="fa"
+													[ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"
+													(click)="toggleConfirmPassword()"
+													style="position:absolute; right:10px; top:10px; cursor:pointer;">
+												</i>
+
+												<div *ngIf="!passwordCnfrm?.valid && (passwordCnfrm?.dirty || passwordCnfrm?.touched)" class="error">
+													<small class="validation_required" style="font-size: xx-small;">
+													Value should be at least 6 characters
+													</small>
+												</div>
+
+												<small id="isConfirmPasswordValid" style="font-size: xx-small;"></small>
+											</div>
+										</div>
+
+										<div class="row col-lg-12 " style="margin-top: 10px;">
+											<div class="col-md-2" style="margin-top: 10px;">
+												<small for="userTypeName" class="control-label">Role<i class="validation_required">*</i></small>
+											</div>
+											<div class="col-md-10">
+												<ng-select [items]="userTypeDataArr"
+													bindLabel="userTypeName"
+													bindValue="id"
+													placeholder="Select userTypeName"
+													appendTo="body"
+													name="userTypeName"
+													required #userTypeId="ngModel"
+													[(ngModel)]="userForm.userTypeId"> 
+												</ng-select>
+												<div *ngIf="!userTypeId?.valid && (userTypeId?.dirty || userTypeId?.touched)" class="error">
+													<div *ngIf="userTypeId.errors.required">
+														<!-- <small class="validation_required" style="font-size: xx-small;">Role is Required</small> -->
+													</div>
+												</div>						
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group row">
+													<h5 class="control-label mt-3">Access Features</h5>
+												</div>
+											</div>
+											<div class="col-md-2">
+                                                <div class="form-check mt-4 ml-2">
+                                                    <input class="form-check-input" type="checkbox"  id="status" name="status" [(ngModel)]="userForm.status" style="width: 20px; height: 20px;">
+                                                    <small class="form-check-label ml-2" for="status" >Status</small>
+                                                </div>
+											</div>
+                                            <div class="col-md-2">
+                                                <div class="form-check mt-4 ml-2">
+                                                    <input class="form-check-input" type="checkbox"  id="webAccess" name="webAccess" [(ngModel)]="userForm.webAccess" style="width: 20px; height: 20px;">
+                                                    <small class="form-check-label ml-2" for="webAccess" >Web Access</small>
+                                                </div>
+											</div>
+                                            <!-- <div class="col-md-2">
+                                                <div class="form-check mt-4 ml-2">
+                                                    <input class="form-check-input" type="checkbox"  id="mobileAccess" name="mobileAccess" [(ngModel)]="userForm.mobileAccess" style="width: 20px; height: 20px;">
+                                                    <small class="form-check-label ml-2" for="mobileAccess" >Mobile Access</small>
+                                                </div>
+											</div> -->
+											<!-- <div class="col-md-2">
+                                                <div class="form-check mt-4 ml-2">
+                                                    <input class="form-check-input" type="checkbox"  id="eldFeature" name="eldFeature" [(ngModel)]="userForm.eldFeature" style="width: 20px; height: 20px;">
+                                                    <small class="form-check-label ml-2" for="eldFeature" >ELD Features</small>
+                                                </div>
+											</div>
+											<div class="col-md-2">
+                                                <div class="form-check mt-4 ml-2">
+                                                    <input class="form-check-input" type="checkbox"  id="dispatchFeature" name="dispatchFeature" [(ngModel)]="userForm.dispatchFeature" style="width: 20px; height: 20px;">
+                                                    <small class="form-check-label ml-2" for="dispatchFeature" >Dispatch</small>
+                                                </div>
+											</div> -->
+										</div>
+
+										<!-- <div class="row col-lg-12 " style="margin-top: 10px;">
+											<div class="col-md-2" style="margin-top: 10px;">
+												<small for="control-label">Select Photo<i class="validation_required">*</i></small>
+											</div>
+											<div class="col-md-10">
+												<input type="file" id="selectFile" name="selectFile" (change)="selectFile($event)" class="form-control">
+											</div>
+										</div> -->
+
+										<!-- <div class="row">
+											<div class="col-md-4">
+												<div class="form-group">
+													<small class="control-label">Username<i class="validation_required">*</i></small>
+													<input type="text" id="username" name="username"  required #username="ngModel" class="form-control form-control-sm" [(ngModel)]="userForm.username" placeholder="Username">
+												</div>
+												<div *ngIf="!username?.valid && (username?.dirty || username?.touched)" class="error">
+													<div *ngIf="username.errors.required">
+														Username is required
+													</div>
+												</div>
+											</div>
+                                            <div class="col-md-4">
+												<div class="form-group">
+													<small class="control-label">Password<i class="validation_required">*</i></small>
+													<input type="password" id="password" name="password"  required #password="ngModel" class="form-control form-control-sm" [(ngModel)]="userForm.password" placeholder="">
+												</div>
+												<div *ngIf="!password?.valid && (password?.dirty || password?.touched)" class="error">
+													<div *ngIf="password.errors.required">
+														Password is required
+													</div>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<small for="userTypeName" class="control-label">User Type<i class="validation_required">*</i></small>
+													<ng-select [items]="userTypeDataArr"
+														bindLabel="userTypeName"
+														bindValue="id"
+														placeholder="Select userTypeName"
+														appendTo="body"
+														name="userTypeName"
+														required #userTypeId="ngModel"
+														[(ngModel)]="userForm.userTypeId"> 
+													</ng-select>
+													<div *ngIf="!userTypeId?.valid && (userTypeId?.dirty || userTypeId?.touched)" class="error">
+														<div *ngIf="userTypeId.errors.required">
+															User Type is required
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-4">
+                                            <div class="form-group">
+												<small for="clientName" class="control-label">Client<i class="validation_required">*</i></small>
+												<ng-select [items]="clientDataArr"
+													bindLabel="clientName"
+													bindValue="id"
+													placeholder="Select Client"
+													appendTo="body"
+													name="clientName"
+													required #clientId="ngModel"
+													[(ngModel)]="userForm.clientId"> 
+												</ng-select>
+												<div *ngIf="!clientId?.valid && (clientId?.dirty || clientId?.touched)" class="error">
+													<div *ngIf="clientId.errors.required">
+														Client is required
+													</div>
+												</div>
+											</div>
+										</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<small class="control-label">First Name<i class="validation_required">*</i></small>
+													<input type="text" id="firstName" name="firstName"  required #firstName="ngModel" class="form-control form-control-sm" [(ngModel)]="userForm.firstName" placeholder="First Name">
+												</div>
+												<div *ngIf="!firstName?.valid && (firstName?.dirty || firstName?.touched)" class="error">
+													<div *ngIf="firstName.errors.required">
+														First Name is required
+													</div>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<small class="control-label">Last Name<i class="validation_required">*</i></small>
+													<input type="text" id="lastName" name="lastName"  required #lastName="ngModel" class="form-control form-control-sm" [(ngModel)]="userForm.lastName" placeholder="Last Name">
+												</div>
+												<div *ngIf="!lastName?.valid && (lastName?.dirty || lastName?.touched)" class="error">
+													<div *ngIf="lastName.errors.required">
+														Last Name is required
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-4">
+												<div class="form-group">
+													<small class="control-label">Mobile<i class="validation_required">*</i></small>
+													<input type="number" id="mobileNo" name="mobileNo"  required  #mobileNo="ngModel" class="form-control form-control-sm" [(ngModel)]="userForm.mobileNo" placeholder="Mobile">
+												</div>
+												<div *ngIf="!mobileNo?.valid && (mobileNo?.dirty || mobileNo?.touched)" class="error">
+													<div *ngIf="mobileNo.errors.required">
+														Mobile is required
+													</div>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<small class="control-label">Email<i class="validation_required">*</i></small>
+													<input type="email" id="email" name="email"  required #email="ngModel" class="form-control form-control-sm" [(ngModel)]="userForm.email" placeholder="Email" email>
+												</div>
+												<div *ngIf="!email?.valid && (email?.dirty || email?.touched)" class="error">
+													<div *ngIf="email.errors.required">
+														Email is required
+													</div>
+												</div>
+											</div>
+                                            <div class="col-md-4">
+												<div class="form-group">
+													<small for="countryName" class="control-label">Country<i class="validation_required">*</i></small>
+													<ng-select [items]="countryDataArr"
+														bindLabel="countryName"
+														bindValue="id"
+														placeholder="Select Country"
+														appendTo="body"
+														name="countryName"
+														required #countryId="ngModel"
+														[(ngModel)]="userForm.countryId"> 
+													</ng-select>
+													<div *ngIf="!countryId?.valid && (countryId?.dirty || countryId?.touched)" class="error">
+														<div *ngIf="countryId.errors.required">
+															Country is required
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+												<div class="form-group">
+													<small for="stateName" class="control-label">State<i class="validation_required">*</i></small>
+													<ng-select [items]="stateDataArr"
+														bindLabel="stateName"
+														bindValue="id"
+														placeholder="Select state"
+														appendTo="body"
+														name="stateName"
+														required #stateId="ngModel"
+														[(ngModel)]="userForm.stateId"> 
+													</ng-select>
+													<div *ngIf="!stateId?.valid && (stateId?.dirty || stateId?.touched)" class="error">
+														<div *ngIf="stateId.errors.required">
+															State is required
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<small for="cityName" class="control-label">City<i class="validation_required">*</i></small>
+													<ng-select [items]="cityDataArr"
+														bindLabel="cityName"
+														bindValue="id"
+														placeholder="Select city"
+														appendTo="body"
+														name="cityName"
+														required #cityId="ngModel"
+														[(ngModel)]="userForm.cityId"> 
+													</ng-select>
+													<div *ngIf="!cityId?.valid && (cityId?.dirty || cityId?.touched)" class="error">
+														<div *ngIf="cityId.errors.required">
+															City is required
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<small class="control-label">Zip Code<i class="validation_required">*</i></small>
+													<input type="number" id="zipcode" name="zipcode"  required #zipcode="ngModel" class="form-control form-control-sm" [(ngModel)]="userForm.zipcode" placeholder="Zip Code">
+												</div>
+												<div *ngIf="!zipcode?.valid && (zipcode?.dirty || zipcode?.touched)" class="error">
+													<div *ngIf="zipcode.errors.required">
+														Zip Code is required
+													</div>
+												</div>
+											</div>
+										</div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+												<div class="form-group">
+													<small for="timeZoneName" class="control-label">Time Zone<i class="validation_required"></i></small>
+													<ng-select [items]="timeZoneDataArr"
+														bindLabel="timeZoneName"
+														bindValue="id"
+														placeholder="Select time zone"
+														appendTo="body"
+														name="timeZoneName"
+														[(ngModel)]="userForm.timezone"> 
+													</ng-select>
+												</div>
+											</div>
+                                            <div class="col-md-4">
+												<div class="form-group">
+													<small class="control-label">Status<i class="validation_required"></i></small>
+                                                    <div>
+                                                        <small class="switch btn btn-info btn-sm">
+                                                            <input type="checkbox" id="status" name="status" [(ngModel)]="userForm.status">
+                                                            <span class="slider"></span>
+                                                        </small>
+                                                    </div>
+												</div>
+											</div>
+                                            <div class="col-md-2">
+                                                <div class="form-check mt-4 ml-2">
+                                                    <input class="form-check-input" type="checkbox"  id="webAccess" name="webAccess" [(ngModel)]="userForm.webAccess" style="width: 20px; height: 20px;">
+                                                    <small class="form-check-label ml-2" for="webAccess" checked>Web Access</small>
+                                                </div>
+											</div>
+                                            <div class="col-md-2">
+                                                <div class="form-check mt-4 ml-2">
+                                                    <input class="form-check-input" type="checkbox"  id="mobileAccess" name="mobileAccess" [(ngModel)]="userForm.mobileAccess" style="width: 20px; height: 20px;">
+                                                    <small class="form-check-label ml-2" for="mobileAccess" >Mobile Access</small>
+                                                </div>
+											</div>
+										</div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+												<div class="form-group row">
+													<small class="control-label mt-2">Features<i class="validation_required"></i></small>
+												</div>
+											</div>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-2 ml-4">
+                                                        <div class="form-check  ml-2">
+                                                            <input class="form-check-input" type="checkbox"  id="eldFeature" name="eldFeature" [(ngModel)]="userForm.eldFeature" style="width: 20px; height: 20px;">
+                                                            <small class="form-check-label ml-2" for="eldFeature" >Eld</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-check  ml-2">
+                                                            <input class="form-check-input" type="checkbox"  id="dispatchFeature" name="dispatchFeature" [(ngModel)]="userForm.dispatchFeature" style="width: 20px; height: 20px;" >
+                                                            <small class="form-check-label ml-2" for="dispatchFeature" >Dispatch</small>
+                                                        </div>
+                                                    </div>
+													
+                                                </div>
+                                            </div>
+										</div> -->
+
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="reset" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" id="saveButton" *ngIf="!isEditMode && !isViewMode" [disabled]="!userAdministratorForm.valid" (click)="SaveUser()">Save</button>
+					<button type="submit" class="btn btn-primary" *ngIf="isEditMode && !isViewMode" [disabled]="!userAdministratorForm.valid" (click)="UpdateUser()">Update</button>
+					<button type="button" class="btn btn-danger" *ngIf="isEditMode && !isViewMode"  data-dismiss="modal" (click)="DeleteUser()">Delete</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

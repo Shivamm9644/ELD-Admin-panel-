@@ -1,0 +1,152 @@
+/*Widgets*/
+
+.w-circle-icon {
+  width: 52px;
+  height: 52px;
+  line-height: 52px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.media .w-icon i {
+  font-size: 35px;
+}
+
+.icon-box {
+  width: 52px;
+  height: 52px;
+  line-height: 55px;
+  font-size: 25px;
+  color: #383838;
+  margin: auto;
+  border: 0px solid #fff;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.bootstrap-tagsinput .badge {
+  line-height: 1.5;
+  position: relative;
+  margin: 0.125rem;
+  padding: 0.625rem 0.625rem 0.5rem;
+  transition: all 0.15s ease;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 0.25rem;
+  background-color: #7934f3;
+  box-shadow: 0 1px 2px rgba(68, 68, 68, 0.25);
+}
+
+.badge-dot i {
+  display: inline-block;
+  width: 0.385rem;
+  height: 0.385rem;
+  margin-right: 0.385rem;
+  vertical-align: middle;
+  border-radius: 50%;
+}
+
+.chart {
+  position: relative;
+  display: inline-block;
+  width: 110px !important;
+  height: 110px !important;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 110px !important;
+    height: 110px !important;
+  }
+
+  &.chart-widget-pie {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
+
+.percent {
+  display: inline-block;
+  line-height: 110px !important;
+  z-index: 2;
+
+  &:after {
+    content: "%";
+    margin-left: 0.1em;
+    font-size: 0.8em;
+  }
+}
+
+.w_chart {
+  position: relative;
+  display: inline-block;
+  width: 65px !important;
+  height: 65px !important;
+  text-align: center;
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 65px !important;
+    height: 65px !important;
+  }
+}
+
+.w_percent {
+  display: inline-block;
+  line-height: 65px !important;
+  z-index: 2;
+  color: #353434;
+
+  &:after {
+    content: "%";
+    margin-left: 0.1em;
+    font-size: 0.8em;
+  }
+}
+
+.fleet-status {
+  position: relative;
+  display: inline-block;
+  width: 90px !important;
+  height: 90px !important;
+  text-align: center;
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90px !important;
+    height: 90px !important;
+  }
+}
+
+.fleet-status-percent {
+  display: inline-block;
+  line-height: 90px !important;
+  z-index: 2;
+  color: #ffffff;
+
+  &:after {
+    content: "%";
+    margin-left: 0.1em;
+    font-size: 0.8em;
+    color: #ffffff;
+  }
+}
+
+.gmaps,
+.gmaps-panaroma {
+  height: 400px;
+  background: #eeeeee;
+  border-radius: 3px;
+}
+
+.error {
+  color: #ff5656;
+}

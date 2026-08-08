@@ -1,0 +1,90 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<form action="#"> 
+				<div class="card-body">
+					<div class="btn-group float-sm-left mb-1">
+						<button type="button" data-toggle="modal" data-target="#cargo_type_modal" class="btn btn-outline-success btn-sm">
+							<i class="zmdi zmdi-plus mr-1"></i>Add Cargo Type
+						</button>
+					</div>
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<tr>
+									<th>S.No</th>
+									<th>Cargo Type Name</th>  
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <div id="loading" *ngIf="isLoading">
+									<img src="assets/images/pre_lodding.gif" width="250" height="250"  class="text-center">
+							   </div> -->
+							   <tr *ngFor="let cargoType of rowData; let i = index">
+								<th style="text-align: center;" scope="row">{{i+1}}</th>
+								<td><a style="color: dodgerblue; cursor: pointer;" data-toggle="modal" data-target="#cargo_type_modal" (click)="EditCargoType(cargoType.cargoTypeId)">{{cargoType.cargoTypeName}}</a></td>
+								<!-- <td>{{cargoType.cargoTypeName}} </td> -->
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+<div id="cargo_type_modal" class="modal fade hide" role="dialog">
+    <form action="#" #masterCargoTypeForm="ngForm" >
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Cargo Type</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Cargo Type Name<i class="validation_required">*</i></label>
+									<input type="text" id="cargoTypeName" name="cargoTypeName"  required #cargoTypeName="ngModel" class="form-control form-control-sm" [(ngModel)]="cargoTypeForm.cargoTypeName" placeholder="Cargo Type Name">
+								</div>
+								<div *ngIf="!cargoTypeName?.valid && (cargoTypeName?.dirty || cargoTypeName?.touched)" class="error">
+									<div *ngIf="cargoTypeName.errors.required">
+										Cargo Type Name is required
+									</div>
+								</div>
+							</div>
+							<!-- <div class="col-md-6">
+								<div class="form-group">
+									<label for="clientName" class="control-label">Client<i class="validation_required">*</i></label>
+									<ng-select 
+										[items]="clientDataArr"
+										bindLabel="clientName"
+										bindValue="id"
+										placeholder="Select Client"
+										appendTo="body"
+										name="clientName"
+										required #clientId="ngModel"
+										[(ngModel)]="cargoTypeForm.clientId"> 
+                                    </ng-select>
+									<div *ngIf="!clientId?.valid && (clientId?.dirty || clientId?.touched)" class="error">
+										<div *ngIf="clientId.errors.required">
+											Client is required
+										</div>
+									</div>
+								</div>
+							</div> -->
+						</div>						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="reset" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!masterCargoTypeForm.valid" data-dismiss="modal" (click)="SaveCargoType()">Save</button>
+					<button type="submit" class="btn btn-primary" *ngIf="isEditMode && !isViewMode" [disabled]="!masterCargoTypeForm.valid" data-dismiss="modal" (click)="UpdateCargoType()">Update</button>
+					<button type="button" class="btn btn-danger" *ngIf="isEditMode && !isViewMode"  data-dismiss="modal" (click)="DeleteCargoType()">Delete</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

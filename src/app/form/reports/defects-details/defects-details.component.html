@@ -1,0 +1,205 @@
+<div class="row" id="PrintWholePage">
+    <div class="col-lg-12 px-2">
+         <form action="#">
+             <div class="card p-3 mb-2 hide-print">
+                    <div class="d-flex justify-content-end">
+                        <!-- <span class="card-title h5 ">{{LDATE_TIME | date:'EEE, MMM dd, yyyy hh:mm a'}}</span> -->
+                        <span class="d-flex hide-print">
+                            <button class="btn btn-danger btn-sm mr-3" (click)="DeleteDvir()">Delete</button>
+                            <button class="btn btn-outline-dark btn-sm" (click)="PrintPage('PrintWholePage')">Print <i class="zmdi zmdi-print"></i></button>
+
+                        </span>
+                    </div>
+                 
+                 <!-- <div class="d-flex my-3 p-2 border border-1 hide-print">
+                    <small> <span class="mr-3"><i class="zmdi zmdi-account mr-2" ></i><span id="ViewDriverName" style="cursor: pointer; text-decoration:underline dotted;text-underline-position:under" (click)="ShowEmployeeDetailsBackOnWorkingDetail(driverId)" ></span></span> </small>
+                    <small> <span class="mr-3"><i class="zmdi zmdi-bus mr-2"></i><span id="ViewVehicle"></span></span> </small>
+                     <small>  <span class="mr-3"><i class="zmdi zmdi-gps-dot mr-2"></i><span id="ViewLocation"></span></span></small>
+                 </div> -->
+                 
+             </div>
+             <div class="card p-3 mb-2">
+                 <h6 class="card-title h5 text-center">DVIR</h6>
+                 <div class="table-responsive">
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr class="bg-light text-dark">
+                                <th scope="col" colspan="2">Time</th>
+                                <th scope="col" colspan="1">Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="2">
+                                    <span id="dvirDateTime">{{LDATE_TIME | date:'EEE, MMM dd, yyyy HH:mm:ss'}} {{timezoneName}}</span>
+                                </td>
+                                <td colspan="1" style="white-space: normal !important; width: 50%;"><span id="ViewDvirLocation"></span></td>
+                            </tr>  
+                        </tbody>
+                        <thead>
+                            <tr class="bg-light text-dark">
+                                <th scope="col" colspan="2">Driver</th>
+                                <th scope="col" colspan="1">Company</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="2"><span id="viewDriverNameTbl"></span></td>
+                                <td colspan="1"><span id="companyName"></span></td>
+                            </tr>  
+                        </tbody>
+                         <thead>
+                            <tr class="bg-light text-dark">
+                                <th scope="col" colspan="1">Vehicle</th>
+                                <th scope="col" colspan="1">VIN</th>
+                                <th scope="col" colspan="1">Trailer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="1"><span id="ViewVehicleName"></span></td>
+                                <td colspan="1"><span id="ViewVehicleVin"></span></td>
+                                <td colspan="1"><span id="viewTrailerNo"></span></td>
+                            </tr>  
+                        </tbody>
+                        <!-- <thead>
+                            <tr class="bg-light text-dark">
+                                <th scope="col" colspan="2">Trailer Defects</th>
+                                <th scope="col" colspan="1">Vehicle Defects</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="2"><span id="ViewTrailerDefect"></span></td>
+                                <td colspan="1"><span id="ViewVehicleDefect"></span></td>
+                            </tr>  
+                        </tbody> -->
+
+                        <thead>
+                            <tr class="bg-light text-dark">
+                                <th scope="col" colspan="2">Vehicle Defects</th>
+                                <th scope="col" colspan="1">Trailer Defects</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <!-- Vehicle Defects -->
+                                <td colspan="2">
+                                    <div style="display: flex; flex-wrap: wrap;">
+                                        <div *ngFor="let defectName of dvirData?.truckDefect; let idx = index" 
+                                            style="margin: 5px; text-align: center;">
+
+                                            <!-- If image exists -->
+                                            <ng-container *ngIf="dvirData.truckDefectImage[idx]; else noTruckImage">
+                                                <img [src]="dvirData.truckDefectImage[idx]"
+                                                    alt="{{ defectName }}"
+                                                    width="80"
+                                                    height="60"
+                                                    style="display: block; margin-bottom: 4px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;"
+                                                    (click)="viewImage(dvirData.truckDefectImage[idx])">
+                                            </ng-container>
+
+                                            <!-- If image doesn't exist -->
+                                            <ng-template #noTruckImage>
+                                                <div style="width: 80px; height: 60px; border: 1px solid #ccc; border-radius: 4px; 
+                                                            display: flex; align-items: center; justify-content: center; background: #f8f8f8;">
+                                                    <small style="color: gray;">No image</small>
+                                                </div>
+                                            </ng-template>
+
+                                            <!-- Always show defect name -->
+                                            <small style="display: block; color: #555;">{{ defectName || 'No defect' }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <!-- Trailer Defects -->
+                                <td colspan="1">
+                                    <div style="display: flex; flex-wrap: wrap;">
+                                        <div *ngFor="let defectName of dvirData?.trailerDefect; let idx = index" 
+                                            style="margin: 5px; text-align: center;">
+                                            
+                                            <!-- If image exists -->
+                                            <ng-container *ngIf="dvirData.trailerDefectImage[idx]; else noTrailerImage">
+                                                <img [src]="dvirData.trailerDefectImage[idx]"
+                                                    alt="{{ defectName }}"
+                                                    width="80"
+                                                    height="60"
+                                                    style="display: block; margin-bottom: 4px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;"
+                                                    (click)="viewImage(dvirData.trailerDefectImage[idx])">
+                                            </ng-container>
+
+                                            <!-- If image doesn't exist -->
+                                            <ng-template #noTrailerImage>
+                                                <div style="width: 80px; height: 60px; border: 1px solid #ccc; border-radius: 4px; 
+                                                            display: flex; align-items: center; justify-content: center; background: #f8f8f8;">
+                                                    <small style="color: gray;">No image</small>
+                                                </div>
+                                            </ng-template>
+
+                                            <!-- Always show defect name -->
+                                            <small style="display: block; color: #555;">{{ defectName || 'No defect' }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+
+                        <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content" style="background: transparent; border: none; box-shadow: none;">
+                                    <img [src]="selectedImage" class="img-fluid rounded shadow" alt="Defect Image">
+                                </div>
+                            </div>
+                        </div>
+
+                        <thead>
+                            <tr class="bg-light text-dark">
+                                <th scope="col" colspan="2">Odometer</th>
+                                <th scope="col" colspan="1">Engine Hour</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="2"><span id="ViewOdometer"></span></td>
+                                <td colspan="1"><span id="ViewEngineHour"></span></td>
+                            </tr>  
+                        </tbody>
+                        
+                        <thead>
+                            <tr class="bg-light text-dark">
+                                <th scope="col" colspan="3">Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="3"><span id="ViewRemarks"></span></td>
+                            </tr>  
+                        </tbody>
+                    </table>
+                    
+                 </div>
+              
+                </div>
+                <div class="card p-3 mb-2">
+                    <div class="d-flex justify-content-center">
+                        <h6 class="card-title h6 mb-2">Signed	by	the	driver {{LDATE_TIME | date:'MM/dd/yyyy'}}</h6>
+                        <!-- <span class="">{{LDATE_TIME | date:'MM/dd/yyyy'}}</span> -->
+                    </div>
+                    
+                    <div class="d-flex justify-content-center">
+
+                        <!-- <p  ><i class="zmdi zmdi-check-circle mr-2"></i><span *ngIf="STATUS=='OnDuty'">{{vehicleCondition}}</span></p> -->
+
+                        <img id="ViewDriverSign"  class="ViewDriverSign" alt="photo" width="150" height="150">
+                        <p  class="text-danger" *ngIf="vehicleCondition=='Bad'"><i class="zmdi zmdi-check-circle mr-2"></i><span >{{vehicleCondition}}</span></p>
+                        <p  class="text-success" *ngIf="vehicleCondition=='Good'"><i class="zmdi zmdi-check-circle mr-2"></i><span>{{vehicleCondition}}</span></p>
+
+                    </div>
+                </div>
+
+
+         </form>
+    </div>
+ </div>
+ 

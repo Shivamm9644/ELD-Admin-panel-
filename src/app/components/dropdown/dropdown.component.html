@@ -1,0 +1,147 @@
+<!-- Breadcrumb-->
+<div class="row pt-2 pb-2">
+	<div class="col-sm-9">
+		<h4 class="page-title">Dropdown</h4>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="javaScript:;">Bulona</a>
+			</li>
+			<li class="breadcrumb-item"><a href="javaScript:;">Componenets</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Dropdown</li>
+		</ol>
+	</div>
+	<div class="col-sm-3">
+		<div ngbDropdown class="btn-group float-sm-right">
+			<button type="button" class="btn btn-outline-danger"><i class="fa fa-cog mr-1"></i> Setting</button>
+			<button type="button" class="btn btn-danger" id="dropdownBasic5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic5"> 
+                <a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+                <div class="dropdown-divider"></div> 
+                <a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumb-->
+<div class="card">
+	<div class="card-header text-uppercase">dropdown</div>
+	<div class="card-body">
+		<div class="row">
+			<!-- Dropdown-->
+			<div class="col">
+				<div ngbDropdown class="d-inline-block">
+					<button class="btn btn-primary" id="dropdownBasic6" ngbDropdownToggle>Toggle dropdown</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownBasic6">
+						<button ngbDropdownItem>Action - 1</button>
+						<button ngbDropdownItem>Another Action</button>
+						<button ngbDropdownItem>Something else is here</button>
+					</div>
+				</div>
+			</div>
+			<!-- / Dropdown-->
+			<!-- Dropup-->
+			<div class="col text-right">
+				<div ngbDropdown placement="top-right" class="d-inline-block">
+					<button class="btn btn-primary" id="dropdownBasic7" ngbDropdownToggle>Toggle dropup</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownBasic7">
+						<button ngbDropdownItem>Action - 1</button>
+						<button ngbDropdownItem>Another Action</button>
+						<button ngbDropdownItem>Something else is here</button>
+					</div>
+				</div>
+			</div>
+			<!-- / Dropup-->
+		</div>
+		<!-- Manual and custom triggers-->
+		<h6 class="text-uppercase mt-4">Manual and custom triggers</h6>
+		<p>You can easily control dropdowns programmatically using the exported dropdown instance.</p>
+		<div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+			<button class="btn btn-success mr-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">Toggle dropdown</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownManual">
+				<button ngbDropdownItem>Action - 1</button>
+				<button ngbDropdownItem>Another Action</button>
+				<button ngbDropdownItem>Something else is here</button>
+			</div>
+			<button class="btn btn-info mr-2" (click)="$event.stopPropagation(); myDrop.open();">Open from outside</button>
+			<button class="btn btn-danger mr-2" (click)="$event.stopPropagation(); myDrop.close();">Close from outside</button>
+		</div>
+		<!-- / Manual and custom triggers-->
+		<!-- Button groups and split buttons-->
+		<h6 class="text-uppercase mt-4">Button groups and split buttons</h6>
+		<p>Bootstrap split buttons and dropdowns on button groups are supported with the existing dropdown directives.</p>
+		<div class="btn-group mr-3">
+			<button type="button" class="btn btn-danger">Plain ol' button</button>
+			<div ngbDropdown class="btn-group" role="group" aria-label="Button group with nested">
+				<button class="btn btn-danger" ngbDropdownToggle>Drop me</button>
+				<div ngbDropdownMenu>
+					<button ngbDropdownItem>One</button>
+					<button ngbDropdownItem>Two</button>
+					<button ngbDropdownItem>Four!</button>
+				</div>
+			</div>
+		</div>
+		<div class="btn-group mr-3">
+			<button type="button" class="btn btn-outline-warning">Split me</button>
+			<div ngbDropdown class="btn-group" role="group" aria-label="Button group with nested">
+				<button class="btn btn-warning" ngbDropdownToggle></button>
+				<div ngbDropdownMenu>
+					<button ngbDropdownItem>One</button>
+					<button ngbDropdownItem>Two</button>
+					<button ngbDropdownItem>Four!</button>
+				</div>
+			</div>
+		</div>
+		<div class="btn-group mr-3">
+			<div ngbDropdown class="btn-group" role="group" aria-label="Button group with nested">
+				<button class="btn btn-outline-primary" ngbDropdownToggle>Select me</button>
+				<div ngbDropdownMenu>
+					<button ngbDropdownItem>One</button>
+					<button ngbDropdownItem>Two</button>
+					<button ngbDropdownItem>Four!</button>
+				</div>
+			</div>
+			<div ngbDropdown class="btn-group" role="group" aria-label="Button group with nested">
+				<button class="btn btn-primary" ngbDropdownToggle>Or me</button>
+				<div ngbDropdownMenu>
+					<button ngbDropdownItem>One</button>
+					<button ngbDropdownItem>Two</button>
+					<button ngbDropdownItem>Four!</button>
+				</div>
+			</div>
+		</div>
+		<!-- Button groups and split buttons-->
+		<!-- Mixed menu items and form-->
+		<h6 class="text-uppercase mt-4 mb-4">Mixed menu items and form</h6>
+		<div class="row">
+			<div class="col">
+				<div ngbDropdown class="d-inline-block">
+					<button class="btn btn-primary" id="dropdownForm1" ngbDropdownToggle>Toggle dropdown</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownForm1">
+						<form class="px-4 py-3">
+							<div class="form-group">
+								<label for="exampleDropdownFormEmail1">Email address</label>
+								<input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+							</div>
+							<div class="form-group">
+								<label for="exampleDropdownFormPassword1">Password</label>
+								<input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" id="dropdownCheck">
+								<label class="form-check-label" for="dropdownCheck">Remember me</label>
+							</div>
+							<button type="submit" class="btn btn-primary">Sign in</button>
+						</form>
+						<div class="dropdown-divider"></div>
+						<button ngbDropdownItem>New around here? Sign up</button>
+						<button ngbDropdownItem>Forgot password?</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Mixed menu items and form-->
+	</div>
+</div>

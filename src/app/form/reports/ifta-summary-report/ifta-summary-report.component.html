@@ -1,0 +1,69 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card p-2">
+			<form action="#"> 
+				<div class="card-body">
+					<div class="d-flex justify-content-between mb-3">
+                        <span class="card-title h5 m-0">IFTA Summary</span>
+                    </div>
+                    <div class="d-flex my-2">
+                        <div class="form-group">
+                            <input type="datetime-local" class="form-control form-control-sm" id="fromDate" aria-describedby="" placeholder="From Date">
+                        </div>
+                        <div class="form-group mx-3">
+                            <input type="datetime-local" class="form-control form-control-sm" id="toDate" aria-describedby="" placeholder="To Date">
+                        </div> 
+                        <ng-select [items]="vehicleDataArr"
+                            bindLabel="vehicleNo"
+                            bindValue="id"
+                            placeholder="All vehicles"
+                            appendTo="body"
+                            name="vehicleNo"
+                            [(ngModel)]="iftaSummaryForm.vehicleId"> 
+                        </ng-select>
+
+                        <button type="submit" class="btn btn-primary ml-2" (click)="EftaSummaryReport()">Submit</button>
+
+                    </div>
+					<div class="table-responsive">
+                        <!-- <div id="loading" *ngIf="isLoading">
+                            <img src="assets/images/pre_loading11.gif" width="250" height="250"  class="text-center">
+                        </div> -->
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<tr>
+									<th>Sr. No.</th>
+									<th>Date</th>
+									<th>State</th>
+									<th>Odometer Reading at Start/Border Entry</th>     
+									<th>Odometer Reading at Border Crossing</th>
+									<th>Mileage by Odometer</th>
+									<th>Mileage Calculated by GPS Coordinates</th>
+                                    <th>Crossed to State</th>
+                                    <th>Driver's Border Crossing Odometer Reading</th>
+                                </tr>
+							</thead>
+							<tbody> 
+								
+							   <tr *ngFor="let data of rowData; let i = index">
+								<th style="text-align: center;" scope="row">{{i+1}}</th>
+								<td>{{data.fromDate | date:'MMMM d, y':'UTC'}} </td>
+								<td>{{data.fromStateName}} </td>
+								<td>{{data.firstOdometer}} </td>
+								<td>{{data.lastOdometer}} </td>
+								<td>{{data.odometerMileage}}</td>
+                                <td>{{data.gpsMileage}} </td>
+                                <td>{{data.toStateName}} </td>
+                                <td>{{data.lastOdometer}} </td>
+							</tr>
+							</tbody>
+						</table>
+						<div class="pre_lodding" *ngIf="isLoading">
+							<img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+						</div>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>

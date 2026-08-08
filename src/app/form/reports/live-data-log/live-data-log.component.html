@@ -1,0 +1,119 @@
+<div id="pop_up_device_info" class="device_info"></div>
+<div id="device_status_popup" class="device_info_status"></div>
+<div id="device_satellite_status_popup" class="device_info_status"></div>
+<div id="device_gsm_signal_status_popup" class="device_info_status"></div>
+
+<div style="display: none;">
+    <img id="marker" src="https://lh3.googleusercontent.com/-td-f-U_d-us/WoV065hIgtI/AAAAAAAAX10/Bbp5Pi9UvjEDVbbUEklFOTDhdcbqRhIOgCL0BGAYYCw/h50/2018-02-15.gif" title="Marker" />
+</div>
+
+<div class="row">
+	<div class="col-12 px-1">
+		<div class="card">
+			<div class="card-body px-2">
+                <div>
+                    <div class="float-sm-left mb-3 mt-3"><h5 class="p-0">Vehicles</h5></div>
+                    <div class="btn-group float-sm-right mb-3 mt-3">
+                        <button class="btn btn-outline-dark btn-sm mx-1" (click)="LivePanelData()">Live Panel<i class="zmdi zmdi-input-antenna pl-2" ></i></button>
+                        <button *ngIf="sessionAllowGpsTracking=='true' && userTypeId!=1" class="btn btn-outline-dark btn-sm mx-1" (click)="TrackData()">Track<i class="zmdi zmdi-bus pl-2" ></i></button>
+                        <button *ngIf="userTypeId==1" class="btn btn-outline-dark btn-sm mx-1" (click)="TrackData()">Track<i class="zmdi zmdi-bus pl-2" ></i></button>
+                        <button class="btn btn-outline-dark btn-sm mx-1" (click)="RefreshPage()">Refresh <i class="zmdi zmdi-refresh pl-2" ></i></button>
+                    </div>
+                </div>
+				
+			</div>
+            <div>
+                <main style="padding: 0;">
+                    <div class="row">
+                        <div class="col-3 pr-0">
+                            <ul class="list-group" *ngIf="isMonitoring">
+                                <div class="p-1" style="background-color: #522f74;">
+                                    <p class="text-center m-0 h5 text-white">Live Panel</p>
+                                </div>
+                                <li class="list-group-item p-1" style="cursor: pointer;" *ngFor="let liveData of liveRowData; let i = index" (click)="HighLightDevice(liveData.VehicleId)">
+                                    <span class="vehicle_menu_list">{{liveData.VehicleName}} - {{liveData.DriverName}}</span><br>
+                                    <span style="color:gray; font-size: 12px;">{{liveData.DateTime | date: 'MMM d, HH:mm a':'UTC'}}</span>
+                                    <!-- <span class="float-right">Moving</span> -->
+                                </li>
+                            </ul>
+                            <ul class="list-group" *ngIf="isTrack">
+                               <div class="bg-primary p-1">
+                                 <p class="text-center m-0 h5 text-white">Track</p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            Vehicle : 
+                                        </div>
+                                        <div class="col-8">
+                                            <ng-select [items]="vehicleDataArr"
+                                                bindLabel="vehicleNo"
+                                                bindValue="id"
+                                                placeholder="Select Vehicle"
+                                                appendTo="body"
+                                                name="vehicleNo"
+                                                (change)="GetDeviceName($event.vehicleNo)"
+                                                [(ngModel)]="liveDataForm.vehicleId"> 
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="row my-2">
+                                        <div class="col-4">
+                                            From : 
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="datetime-local" id="fromDate" name="fromDate" class="form-control form-control-sm">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4">
+                                            To : 
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="datetime-local" id="toDate" name="toDate" class="form-control form-control-sm">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-6 offset-8">
+                                            <button class="btn btn-primary btn-sm" (click)="ShowVehicleTrack()">Track</button> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <h6 class="track_details">Track Details</h6>
+                                    <div class="row">
+                                        <div class="col-6"><b>Total KM/Miles</b></div>
+                                        <div class="col-6"><strong class="text-right" id="track_total_km"> </strong></div>
+                                    </div>
+                                </div>
+                            </ul>
+                            
+                        </div>
+                        <div id="map" class="map col-9 pl-0">
+                            <div class="pre_lodding" *ngIf="isLoading">
+                                <img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+                            </div>
+                            <div class="satellite_div">
+                                <div id="map_button">
+                                    <input type="checkbox" name="satellite_map" id="satellite_map" style="margin-left:5px;width: 15px;height: 15px;" (click)="NormalAndSatelliteMap();" />
+                                    <label style="font-size: 16px; margin-left: 3px; font-weight: 700; margin-bottom: 0;">Satellite</label>
+                                </div>
+                                <!-- <img src="assets/images/pre_loading.gif" /> -->
+                            </div>
+                            <button class="btn btn-light refresh_button" (click)="RefreshMap()"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </main>
+            
+                <div id="popup" class="ol-popup">
+                    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                    <div id="popup-content"></div>
+                </div>
+            
+            </div>
+		</div>
+	</div>
+</div>
+
+
+

@@ -1,0 +1,90 @@
+/* sidebar switcher */
+
+#sidebar-wrapper.bg-theme .brand-logo .logo-text {
+	color: #ffffff;
+  }
+  
+  #sidebar-wrapper.bg-theme .brand-logo {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  
+  #sidebar-wrapper.bg-theme .user-details {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  
+  #sidebar-wrapper.bg-theme .user-details .media .media-body .side-user-name {
+	color: #ffffff;
+  }
+  
+  #sidebar-wrapper.bg-theme .user-details div.user-pointer:after {
+	color: #ffffff;
+  }
+  
+  #sidebar-wrapper.bg-theme .user-setting-menu > li > a {
+	color: rgba(255, 255, 255, 0.22);
+  }
+  
+  #sidebar-wrapper.bg-theme .user-setting-menu > li > a:hover {
+	color: rgba(255, 255, 255, 255);
+  }
+  
+  #sidebar-wrapper.bg-theme .sidebar-header {
+	color: rgba(255, 255, 255, 0.5);
+  }
+  
+  #sidebar-wrapper.bg-theme .navigation > li > a {
+	color: rgba(255, 255, 255, 0.5);
+  }
+  
+  #sidebar-wrapper.bg-theme .navigation li ul > li > a {
+	color: rgba(255, 255, 255, 0.5);
+  }
+  
+  // Sidebar Active Color After Theme Changed
+  
+  // Active
+  #sidebar-wrapper.bg-theme .navigation li.open > a {
+	background: rgba(255, 255, 255, 0.3);
+	color: #fff;
+  }
+  
+  #sidebar-wrapper.bg-theme .navigation li:hover > a {
+	background: rgba(255, 255, 255, 0.3);
+	color: #fff;
+  }
+  #sidebar-wrapper.bg-theme .navigation li.active > a {
+	background: rgba(255, 255, 255, 0.3);
+	color: #fff;
+  }
+  
+  #sidebar-wrapper.bg-theme .navigation li ul li:hover > a,
+  #sidebar-wrapper.bg-theme .navigation li ul li.active > a {
+	background: rgba(255, 255, 255, 0.3);
+	color: #fff;
+  }
+  
+  /* topbar switcher */
+  
+  .color-header .toggle-menu i {
+	color: #ffffff;
+  }
+  
+  .color-header .right-nav-link a.nav-link {
+	color: #ffffff;
+  }
+  
+  .color-header .search-bar input {
+	background-color: #ffffff;
+	border: 1px solid #ffffff;
+  }
+  
+  .color-header .search-bar input:focus {
+	box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.255);
+  }
+  
+  /* scrollbar */
+  
+  #sidebar-wrapper.bg-theme .simplebar-scrollbar:before {
+	background: rgba(255, 255, 255, 0.4);
+  }
+  

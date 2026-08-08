@@ -1,0 +1,177 @@
+<div class="row">
+    <div class="col-md-6">
+        <h5 style="color:rgb(5, 0, 0)">Manage ELDs</h5>
+    </div>
+    <!-- <div class="col-md-6 text-right">
+        <span style="font-weight: 600;margin-right: 20px;">Last Refresh at : {{refreshTime}}</span> 
+        <span style="font-weight: 600;">Refresh :</span> 
+        <label class="switch">
+            <input  type="checkbox" id="refreshBtn"  (click)="RefreshData()" checked style="padding-top: 25px;">
+            <span class="slider round"></span>
+        </label>
+    </div> -->
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+            <!-- <h6 style="margin-left: 25px;">Eld Log</h6> -->
+			<form action="#"> 
+				<div class="card-body">
+					<div class="btn-group float-sm-left mb-1">
+						<!-- <button type="button" data-toggle="modal" data-target="#cargo_type_modal" class="btn btn-outline-success btn-sm">
+							<i class="zmdi zmdi-plus mr-1"></i>Add Cargo Type
+						</button> -->
+					</div>
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<!-- <tr>
+									<th>S.No</th>
+									<th>Model</th>  
+                                    <th>Serial No</th>  
+                                    <th>MAC</th>  
+                                    <th>Version</th>  
+                                    <th>VIN</th>  
+                                     <th>Up Time</th>  
+                                    <th>Event</th>  
+                                    <th>Date Time</th>  
+                                    <th>Lat Long</th>  
+                                    <th>Heading</th>  
+                                    <th>Sat Status</th>  
+                                    <th>Odometer</th>  
+                                    <th>Velocity</th>  
+                                    <th>Engine Hours</th>  
+                                    <th>RPM</th>  
+                                    <th>Gear</th>
+                                    <th>Bus</th>
+                                    <th>Seat Belt</th>  
+                                    <th>Break Belt</th>
+                                    <th>Speed</th>
+                                    <th>Retarder</th>
+                                    <th>DTC</th>
+                                    <th>Oil Pressure</th>
+                                    <th>Oil Level</th>
+                                    <th>Oil Temp</th>
+                                    <th>Coolant Temp</th>
+                                    <th>CoolantLevel</th>
+                                    <th>Fuel Level</th>
+                                    <th>Fuel Level Tank2 </th>
+                                    <th>DEF Level </th>
+                                    <th>Load </th>
+                                    <th>Amb Pressure </th>
+                                    <th>Intake Temp </th>
+                                    <th>Intake Pressure </th>
+                                    <th>Fuel Tank Temp </th>
+                                    <th>Inter cooler Temp </th>
+                                    <th>Turbo Oil Temp </th>
+                                    <th>Transm Oil Temp </th>
+                                    <th>Fuel Rate </th>
+                                    <th>Fuel Economy </th>
+                                    <th>Amb Temp</th>
+                                    <th>Idle Hours</th>
+                                    <th>PTO</th>
+                                    <th>Total Fuel Idle</th>
+                                    <th>Total Fuel Used</th> 
+                                    <th>Receive Time</th>
+                                    <th>Receive Date Time</th> 
+                                </tr> -->
+                                <tr>
+									<th>S.No</th>
+									<th>Eld</th>  
+                                    <th>Status</th>  
+                                    <th>Eld Type</th>  
+                                    <th>Vehicle</th>  
+                                    <th>Malfunctions</th>  
+                                    <th>F/W Version</th>  
+                                </tr>
+							</thead>
+							<tbody>
+								<!-- <div id="loading" *ngIf="isLoading">
+									<img src="assets/images/pre_loading.gif" width="80" height="80"  class="text-center">
+							   </div> -->
+							   <!-- <tr *ngFor="let eldLog of rowData; let i = index">
+								<th style="text-align: center;" scope="row">{{i+1}}</th>
+								<td>{{eldLog.Model}}</td>
+                                <td>{{eldLog.SerialNo}}</td>
+                                <td>{{eldLog.MAC}}</td>
+                                <td>{{eldLog.Version}}</td>
+                                <td>{{eldLog.VIN}}</td>
+                                <td>{{eldLog.UpTime}}</td>
+                                <td>{{eldLog.Event}}</td>
+                                <td>{{eldLog.DateTime}}</td>
+                                <td>{{eldLog.LatLong}}</td>
+                                <td>{{eldLog.Heading}}</td>
+                                <td>{{eldLog.SatStatus}}</td>
+                                <td>{{eldLog.Odometer}}</td>
+                                <td>{{eldLog.Velocity}}</td>
+                                <td>{{eldLog.EngineHours}}</td>
+                                <td>{{eldLog.RPM}}</td>
+                                <td>{{eldLog.Gear}}</td>
+                                <td>{{eldLog.Bus}}</td>
+                                <td>{{eldLog.SeatBelt}}</td>
+                                <td>{{eldLog.BreakBelt}}</td>
+                                <td>{{eldLog.Speed}}</td>
+                                <td>{{eldLog.Retarder}}</td>
+                                <td>{{eldLog.DTC}}</td>
+                                <td>{{eldLog.OilPressure}}</td>
+                                <td>{{eldLog.OilLevel}}</td>
+                                <td>{{eldLog.OilTemp}}</td>
+                                <td>{{eldLog.CoolantTemp}}</td>
+                                <td>{{eldLog.CoolantLevel}}</td>
+                                <td>{{eldLog.FuelLevel}}</td>
+                                <td>{{eldLog.FuelLevelTank2}}</td>
+                                <td>{{eldLog.DEFLevel}}</td>
+                                <td>{{eldLog.Load}}</td>
+                                <td>{{eldLog.AmbPressure}}</td>
+                                <td>{{eldLog.IntakeTemp}}</td>
+                                <td>{{eldLog.IntakePressure}}</td>
+                                <td>{{eldLog.FuelTankTemp}}</td>
+                                <td>{{eldLog.IntercoolerTemp}}</td>
+                                <td>{{eldLog.TurboOilTemp}}</td>
+                                <td>{{eldLog.TransmOilTemp}}</td>
+                                <td>{{eldLog.FuelRate}}</td>
+                                <td>{{eldLog.FuelEconomy}}</td>
+                                <td>{{eldLog.AmbTemp}}</td>
+                                <td>{{eldLog.IdleHours}}</td>
+                                <td>{{eldLog.PTO}}</td>
+                                <td>{{eldLog.TotalFuelIdle}}</td>
+                                <td>{{eldLog.TotalFuelUsed}}</td>
+                                <td>{{eldLog.receive_time | date:'HH:mm:ss'}}</td>
+                                <td>{{eldLog.receive_data_time}}</td>  
+							</tr> -->
+
+                            <!-- <tr *ngFor="let eldLog of rowData; let i = index">
+								<th style="text-align: center;" scope="row">{{i+1}}</th>
+								<td>{{eldLog.macId}}</td>
+                                <td>{{eldLog.status}}</td>
+                                <td>{{eldLog.deviceModelName}}</td>
+                                <td>{{eldLog.vehicleNo}}</td>
+                                <td>{{eldLog.malFunction}}</td>
+                                <td>{{eldLog.fwVersion}}</td>
+							</tr> -->
+
+                            <tr *ngFor="let eldLog of rowData; let i = index">
+								<th style="text-align: center;" scope="row">{{i+1}}</th>
+								<td style=" width:120px; white-space: normal;">
+                                    {{ eldLog.serialNo || '' }}{{ eldLog.macAddress ? ' (' + eldLog.macAddress + ')' : '' }}
+                                </td>
+                                <td>{{eldLog.deviceStatus}}</td>
+                                <td>{{eldLog.modelNo}}</td>
+                                <td>{{eldLog.vehicleNo}}</td>
+                                <td></td>
+                                <td>{{eldLog.version}}</td>
+							</tr>
+
+							</tbody>
+						</table>
+                        <div class="pre_lodding" *ngIf="isLoading">
+							<img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+						</div>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+

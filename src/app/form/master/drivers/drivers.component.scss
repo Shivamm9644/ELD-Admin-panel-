@@ -1,0 +1,95 @@
+// div.dt-buttons > .dt-button,
+// div.dt-buttons > div.dt-button-split .dt-button{
+//     color: blue !important;
+//     background-color: yellow !important;
+//     margin-left: 100px !important;
+// }
+
+// .buttons-excel{
+//     background-color: red;
+// }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .password-container input {
+    width: 100%;
+    padding-right: 40px; /* Space for the eye button */
+  }
+  
+  .eye-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+  }
+
+.mainInput {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #474747;
+  color: rgba(0, 0, 0, 0.4);
+  border-radius: 0%;
+  background: transparent;
+  font-size: 16px;
+ // padding-bottom: 1.25rem;
+  outline: none;
+}
+.mainInput::placeholder {
+  text-overflow: ellipsis !important;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+::ng-deep.ng-select-container {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #474747;
+  color: rgba(0, 0, 0, 0.4);
+  background: transparent;
+  font-size: 16px;
+ // padding-bottom: 1.25rem;
+  outline: none;
+}
+
+::ng-deep.ng-select-container::placeholder {
+  text-overflow: ellipsis !important;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+input:focus{
+  box-shadow: none  !important;
+  border-color: none  !important;
+}
+
+.modal-dialog { margin-left: 230px; }
+
+#isConfirmPasswordValid{
+  color: red;
+}
+
+.td_driver_btn{
+  width: 80px;
+  font-size: small;
+  font-weight: 600;
+  border: 1px solid transparent !important;
+}
+
+/* Firefox */
+// input[type=number] {
+//   -moz-appearance: textfield;
+// }
+

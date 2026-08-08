@@ -1,0 +1,91 @@
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<form action="#"> 
+				<div class="card-body">
+					<div class="btn-group float-sm-left mb-1">
+						<button type="button" data-toggle="modal" data-target="#product_modal" class="btn btn-outline-success btn-sm">
+							<i class="zmdi zmdi-plus mr-1"></i>Add Product
+						</button>
+					</div>
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<tr>
+									<th>S.No</th>
+									<th>Product Name</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <div id="loading" *ngIf="isLoading">
+									<img src="assets/images/pre_lodding.gif" width="250" height="250"  class="text-center">
+							   </div> -->
+							   <tr *ngFor="let product of rowData; let i = index">
+								<th style="text-align: center;" scope="row">{{i+1}}</th>
+								<td><a style="color: dodgerblue; cursor: pointer;" data-toggle="modal" data-target="#product_modal" (click)="EditProduct(product.productId)">{{product.productName}}</a></td>
+								<!-- <td>{{product.productName}} </td> -->
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+<div id="product_modal" class="modal fade hide" role="dialog">
+    <form action="#" #masterProductForm="ngForm">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Product Details</h6>
+					<button type="button" class="close"  onclick="this.form.reset();" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Product Name<i class="validation_required">*</i></label>
+									<input type="text" id="productName" name="productName" required #productName="ngModel" class="form-control form-control-sm" [(ngModel)]="productForm.productName" placeholder="Product Name">
+								</div>
+								<div *ngIf="!productName?.valid && (productName?.dirty || productName?.touched)" class="error">
+									<div *ngIf="productName.errors.required">
+										Product Name is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="clientName" class="control-label">Client<i class="validation_required">*</i></label>
+									<ng-select 
+										[items]="clientDataArr"
+										bindLabel="clientName"
+										bindValue="id"
+										placeholder="Select Client"
+										appendTo="body"
+										name="clientName"
+										required #clientId="ngModel"
+										[(ngModel)]="productForm.clientId"> 
+                                    </ng-select>
+									<div *ngIf="!clientId?.valid && (clientId?.dirty || clientId?.touched)" class="error">
+										<div *ngIf="clientId.errors.required">
+											Client is required
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" onclick="this.form.reset();" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!masterProductForm.valid" data-dismiss="modal" (click)="SaveProduct()">Save</button>
+					<button type="submit" class="btn btn-info" *ngIf="isEditMode && !isViewMode" [disabled]="!masterProductForm.valid" data-dismiss="modal"  (click)="UpdateProduct()">Update</button>
+					<button type="button" class="btn btn-danger" *ngIf="isEditMode && !isViewMode"  data-dismiss="modal" (click)="DeleteProduct()">Delete</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,341 @@
+@import "~node_modules/ngx-chips/core/styles/core/_core.scss";
+
+$foundation-primary: #7934f3;
+$foundation-primary-dark: darken($foundation-primary, 8%);
+
+// this is the container's theme
+$foundation-theme: (
+  container-border-bottom: 1px solid $foundation-primary,
+);
+
+// this is the tag's theme
+$foundation-tag-theme: (
+  background: $foundation-primary,
+  background-focused: $foundation-primary-dark,
+  background-active: $foundation-primary-dark,
+  background-hover: $foundation-primary-dark,
+  color: #fff,
+  color-hover: #fff,
+  line-height: 30px,
+  font-weight: 450,
+  border-radius: 30px,
+  box-shadow: none,
+);
+
+// this is the delete icon's theme
+$foundation-icon-theme: (
+  fill: #fff,
+  fill-focus: #fff,
+  transition: all 0.35s,
+);
+
+// apply theme to the container
+::ng-deep tag-input .ng2-tag-input.foundation-theme {
+  @include tag-input-theme($foundation-theme);
+}
+::ng-deep tag-input .ng2-tag-input.ng2-tag-input--focused.foundation-theme {
+  border-bottom: 2px solid #7934f3;
+}
+
+// apply theme to the tags
+::ng-deep tag-input .ng2-tag-input.foundation-theme tag {
+  @include tag-theme($foundation-tag-theme);
+}
+
+// apply theme to the delete icon
+::ng-deep tag-input .ng2-tag-input.foundation-theme tag delete-icon {
+  @include icon-theme($foundation-icon-theme);
+}
+
+::ng-deep input {
+  color: #717171;
+  background-color: transparent;
+}
+
+///////////////////danger-theme/////////////////////////
+
+$danger-primary: #fd3550;
+$danger-primary-dark: darken($danger-primary, 8%);
+
+// this is the container's theme
+$danger-theme: (
+  container-border-bottom: 1px solid $danger-primary,
+);
+
+// this is the tag's theme
+$danger-tag-theme: (
+  background: $danger-primary,
+  background-focused: $danger-primary-dark,
+  background-active: $danger-primary-dark,
+  background-hover: $danger-primary-dark,
+  color: #fff,
+  color-hover: #fff,
+  line-height: 30px,
+  font-weight: 390,
+  border-radius: 30px,
+);
+
+// this is the delete icon's theme
+$danger-icon-theme: (
+  fill: #fff,
+  fill-focus: #eee,
+  transition: all 0.35s,
+);
+
+// apply theme to the container
+::ng-deep tag-input .ng2-tag-input.danger-theme {
+  @include tag-input-theme($danger-theme);
+}
+::ng-deep tag-input .ng2-tag-input.ng2-tag-input--focused.danger-theme {
+  border-bottom: 2px solid #fd3550;
+}
+
+// apply theme to the tags
+::ng-deep tag-input .ng2-tag-input.danger-theme tag {
+  @include tag-theme($danger-tag-theme);
+}
+
+// apply theme to the delete icon
+::ng-deep tag-input .ng2-tag-input.danger-theme tag delete-icon {
+  @include icon-theme($danger-icon-theme);
+}
+
+///////////////////success-theme/////////////////////////
+
+$success-primary: #15ca20;
+$success-primary-dark: darken($success-primary, 8%);
+
+// this is the container's theme
+$success-theme: (
+  container-border-bottom: 1px solid $success-primary,
+);
+
+// this is the tag's theme
+$success-tag-theme: (
+  background: $success-primary,
+  background-focused: $success-primary-dark,
+  background-active: $success-primary-dark,
+  background-hover: $success-primary-dark,
+  color: #fff,
+  color-hover: #fff,
+  line-height: 30px,
+  font-weight: 390,
+  border-radius: 30px,
+);
+
+// this is the delete icon's theme
+$success-icon-theme: (
+  fill: #fff,
+  fill-focus: #eee,
+  transition: all 0.35s,
+);
+
+// apply theme to the container
+::ng-deep tag-input .ng2-tag-input.success-theme {
+  @include tag-input-theme($success-theme);
+}
+::ng-deep tag-input .ng2-tag-input.ng2-tag-input--focused.success-theme {
+  border-bottom: 2px solid #15ca20;
+}
+
+// apply theme to the tags
+::ng-deep tag-input .ng2-tag-input.success-theme tag {
+  @include tag-theme($success-tag-theme);
+}
+
+// apply theme to the delete icon
+::ng-deep tag-input .ng2-tag-input.success-theme tag delete-icon {
+  @include icon-theme($success-icon-theme);
+}
+
+///////////////////Warning-theme/////////////////////////
+
+$warning-primary: #ffb818;
+$warning-primary-dark: darken($warning-primary, 8%);
+
+// this is the container's theme
+$warning-theme: (
+  container-border-bottom: 1px solid $warning-primary,
+);
+
+// this is the tag's theme
+$warning-tag-theme: (
+  background: $warning-primary,
+  background-focused: $warning-primary-dark,
+  background-active: $warning-primary-dark,
+  background-hover: $warning-primary-dark,
+  color: #fff,
+  color-hover: #fff,
+  line-height: 30px,
+  font-weight: 390,
+  border-radius: 30px,
+);
+
+// this is the delete icon's theme
+$warning-icon-theme: (
+  fill: #fff,
+  fill-focus: #eee,
+  transition: all 0.35s,
+);
+
+// apply theme to the container
+::ng-deep tag-input .ng2-tag-input.warning-theme {
+  @include tag-input-theme($warning-theme);
+}
+::ng-deep tag-input .ng2-tag-input.ng2-tag-input--focused.warning-theme {
+  border-bottom: 2px solid #ffb818;
+}
+
+// apply theme to the tags
+::ng-deep tag-input .ng2-tag-input.warning-theme tag {
+  @include tag-theme($warning-tag-theme);
+}
+
+// apply theme to the delete icon
+::ng-deep tag-input .ng2-tag-input.warning-theme tag delete-icon {
+  @include icon-theme($warning-icon-theme);
+}
+
+///////////////////info-theme/////////////////////////
+
+$info-primary: #14b6ff;
+$info-primary-dark: darken($info-primary, 8%);
+
+// this is the container's theme
+$info-theme: (
+  container-border-bottom: 1px solid $info-primary,
+);
+
+// this is the tag's theme
+$info-tag-theme: (
+  background: $info-primary,
+  background-focused: $info-primary-dark,
+  background-active: $info-primary-dark,
+  background-hover: $info-primary-dark,
+  color: #fff,
+  color-hover: #fff,
+  line-height: 30px,
+  font-weight: 390,
+  border-radius: 30px,
+);
+
+// this is the delete icon's theme
+$info-icon-theme: (
+  fill: #fff,
+  fill-focus: #eee,
+  transition: all 0.35s,
+);
+
+// apply theme to the container
+::ng-deep tag-input .ng2-tag-input.info-theme {
+  @include tag-input-theme($info-theme);
+}
+::ng-deep tag-input .ng2-tag-input.ng2-tag-input--focused.info-theme {
+  border-bottom: 2px solid #14b6ff;
+}
+
+// apply theme to the tags
+::ng-deep tag-input .ng2-tag-input.info-theme tag {
+  @include tag-theme($info-tag-theme);
+}
+
+// apply theme to the delete icon
+::ng-deep tag-input .ng2-tag-input.info-theme tag delete-icon {
+  @include icon-theme($info-icon-theme);
+}
+
+///////////////////inverse-Warning-theme/////////////////////////
+
+$inverse-Warning-theme: rgba(255, 136, 0, 0.18);
+$inverse-Warning-theme-dark: darken($inverse-Warning-theme, 8%);
+
+// this is the container's theme
+$warning2-theme: (
+  container-border-bottom: 1px solid $inverse-Warning-theme,
+);
+
+// this is the tag's theme
+$inverse-Warning-tag-theme: (
+  background: $inverse-Warning-theme,
+  background-focused: $inverse-Warning-theme-dark,
+  background-active: $inverse-Warning-theme-dark,
+  background-hover: $inverse-Warning-theme-dark,
+  color: #ff8800,
+  color-hover: #ff8800,
+  line-height: 30px,
+  font-weight: 390,
+  border-radius: 30px,
+);
+
+// this is the delete icon's theme
+$inverse-Warning-icon-theme: (
+  fill: #ff8800,
+  fill-focus: #ff8800,
+  transition: all 0.35s,
+);
+
+// apply theme to the container
+::ng-deep tag-input .ng2-tag-input.inverse-Warning-theme {
+  @include tag-input-theme($warning2-theme);
+}
+::ng-deep tag-input .ng2-tag-input.ng2-tag-input--focused.inverse-Warning-theme {
+  border-bottom: 2px solid #ffb818;
+}
+
+// apply theme to the tags
+::ng-deep tag-input .ng2-tag-input.inverse-Warning-theme tag {
+  @include tag-theme($inverse-Warning-tag-theme);
+}
+
+// apply theme to the delete icon
+::ng-deep tag-input .ng2-tag-input.inverse-Warning-theme tag delete-icon {
+  @include icon-theme($inverse-Warning-icon-theme);
+}
+
+///////////////////inverse-info-theme/////////////////////////
+
+$inverse-info-theme: rgba(20, 182, 255, 0.18);
+$inverse-info-theme-dark: darken($inverse-info-theme, 8%);
+
+// this is the container's theme
+$info2-theme: (
+  container-border-bottom: 1px solid $inverse-info-theme,
+);
+
+// this is the tag's theme
+$inverse-info-tag-theme: (
+  background: $inverse-info-theme,
+  background-focused: $inverse-info-theme-dark,
+  background-active: $inverse-info-theme-dark,
+  background-hover: $inverse-info-theme-dark,
+  color: #14b6ff,
+  color-hover: #14b6ff,
+  line-height: 30px,
+  font-weight: 390,
+  border-radius: 30px,
+);
+
+// this is the delete icon's theme
+$inverse-info-icon-theme: (
+  fill: #14b6ff,
+  fill-focus: #14b6ff,
+  transition: all 0.35s,
+);
+
+// apply theme to the container
+::ng-deep tag-input .ng2-tag-input.inverse-info-theme {
+  @include tag-input-theme($info2-theme);
+}
+::ng-deep tag-input .ng2-tag-input.ng2-tag-input--focused.inverse-info-theme {
+  border-bottom: 2px solid #14b6ff;
+}
+
+// apply theme to the tags
+::ng-deep tag-input .ng2-tag-input.inverse-info-theme tag {
+  @include tag-theme($inverse-info-tag-theme);
+}
+
+// apply theme to the delete icon
+::ng-deep tag-input .ng2-tag-input.inverse-info-theme tag delete-icon {
+  @include icon-theme($inverse-info-icon-theme);
+}

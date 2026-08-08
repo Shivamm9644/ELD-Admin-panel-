@@ -1,0 +1,219 @@
+<!-- Breadcrumb-->
+<div class="row pt-2 pb-2">
+	<div class="col-sm-9">
+		<h4 class="page-title">Tag Input</h4>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="javaScript:;">Bulona</a>
+			</li>
+			<li class="breadcrumb-item"><a href="javaScript:;">UI Elements</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Tag Input</li>
+		</ol>
+	</div>
+	<div class="col-sm-3">
+		<div ngbDropdown class="btn-group float-sm-right">
+			<button type="button" class="btn btn-outline-danger"><i class="fa fa-cog mr-1"></i> Setting</button>
+			<button type="button" class="btn btn-danger" id="dropdownBasic5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic5"> 
+        		<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumb-->
+<div class="row text-left">
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Simple Input with two items</div>
+			<div class="card-body">
+				<div>
+					<tag-input [(ngModel)]="items" [theme]="'foundation-theme'" (onSelect)="onSelect($event)" [modelAsStrings]="true"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xl-6 col-lg-6 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Simple Input with not removable items</div>
+			<div class="card-body">
+				<div>
+					<tag-input [(ngModel)]="items" [theme]="'danger-theme'" (onSelect)="onSelect($event)" [modelAsStrings]="true"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-6 col-lg-6 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Simple Input with editable items</div>
+			<div class="card-body">
+				<div>
+					<tag-input [(ngModel)]="items" [theme]="'success-theme'" (onSelect)="onSelect($event)" [modelAsStrings]="true"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xl-6 col-lg-6 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Simple Input with not removable items</div>
+			<div class="card-body">
+				<div>
+					<tag-input [(ngModel)]="items" [theme]="'warning-theme'" (onSelect)="onSelect($event)" [modelAsStrings]="true"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-6 col-lg-6 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Simple Input with editable items</div>
+			<div class="card-body">
+				<div>
+					<tag-input [(ngModel)]="items" [theme]="'info-theme'" (onSelect)="onSelect($event)" [modelAsStrings]="true"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xl-6 col-lg-6 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Simple Input with not removable items</div>
+			<div class="card-body">
+				<div>
+					<tag-input [(ngModel)]="items" [theme]="'inverse-Warning-theme'" (onSelect)="onSelect($event)" [modelAsStrings]="true"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-6 col-lg-6 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Simple Input with editable items</div>
+			<div class="card-body">
+				<div>
+					<tag-input [(ngModel)]="items" [theme]="'inverse-info-theme'" (onSelect)="onSelect($event)" [modelAsStrings]="true"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xl-6 col-lg-6 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Simple Input with not removable items</div>
+			<div class="card-body">
+				<div>
+					<tag-input [ngModel]="items1" [removable]="false"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-6 col-lg-6 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Simple Input with editable items</div>
+			<div class="card-body">
+				<div>
+					<tag-input [(ngModel)]="items2" [editable]="true" (onTagEdited)="onTagEdited($event)"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row text-left">
+	<div class="col-xl-4 col-lg-4 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">An input which requires all tags to start with '@' and end with '$'</div>
+			<div class="card-body">
+				<div>
+					<tag-input [ngModel]="['@item']" [errorMessages]="errorMessages" [validators]="validators"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-4 col-lg-4 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">An input which will transform the value of all added tags prepending '@' to the tag</div>
+			<div class="card-body">
+				<div>
+					<tag-input [ngModel]="['@item']" [onAdding]="transform"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-4 col-lg-4 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Tags accepting only items from an autocomplete</div>
+			<div class="card-body">
+				<div>
+					<tag-input [ngModel]="['@item']" [onlyFromAutocomplete]="true">
+						<tag-input-dropdown [showDropdownIfEmpty]="true" [focusFirstElement]="true" [displayBy]="'value'" [identifyBy]="'id'" [autocompleteItems]="autocompleteItemsAsObjects">
+							<ng-template let-item="item" let-index="index">({{ index }}) {{ item.id }}: {{ item.value }}</ng-template>
+						</tag-input-dropdown>
+					</tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row text-left">
+	<div class="col-xl-6 col-lg-6 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">An input which allows adding items by pressing the key "space" of your keyboard</div>
+			<div class="card-body">
+				<div>
+					<tag-input [ngModel]="['@item']" [inputClass]="'myinput'" [inputId]="'myinputId'" [separatorKeyCodes]="[32, 188]"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-6 col-lg-6 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Tags with Bootstrap theme</div>
+			<div class="card-body">
+				<div>
+					<tag-input [theme]="'bootstrap'" [ngModel]="['@item']" name="items"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row text-left">
+	<div class="col-xl-4 col-lg-4 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Disabled tag input</div>
+			<div class="card-body">
+				<div>Disable:
+					<input type="checkbox" [(ngModel)]="disabled" />
+					<tag-input [ngModel]="items3" [disabled]="disabled"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-4 col-lg-4 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Drag and drop</div>
+			<div class="card-body">
+				<div>
+					<tag-input [(ngModel)]="dragAndDropExample" [modelAsStrings]="true" [dragZone]="'zone1'" [editable]="true"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-4 col-lg-4 col-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Confirm adding and removing tags with Observables</div>
+			<div class="card-body">
+				<div>
+					<tag-input [ngModel]="['item1']" [dragZone]="'zone1'" [modelAsStrings]="true" [onRemoving]="onRemoving" [onAdding]="onAdding"></tag-input>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

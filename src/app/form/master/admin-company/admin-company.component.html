@@ -1,0 +1,139 @@
+<div class="row" >
+    <div class="col-lg-12 px-2">
+        <form action="#">
+            <div class="card p-3 mb-2">
+                <div class="d-flex justify-content-between  mb-2">
+                    <span class="card-title h5 ">Company Details</span>
+                    <span class="d-flex">
+                        <div class="d-flex">
+                            <button class="btn btn-outline-dark btn-sm mx-3"  (click)="EditCompanyDetails()" ><small>Edit</small><i class="zmdi zmdi-edit ml-2"></i></button>
+                            <button class="btn btn-outline-dark btn-sm" (click)="RefreshPage()"><small>Refresh</small><i class="zmdi zmdi-refresh ml-2"></i></button>
+                        </div>
+                    </span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th colspan="2">General Information</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="bg-light">Company ID</td>
+                                <td><span id="companyId"> </span></td>
+                            </tr>
+                            <tr>
+                                <td class="bg-light">Company Name</td>
+                                <td><span id="companyName"> </span></td>
+                            </tr>
+                            <tr>
+                                <td class="bg-light">DOT Number</td>
+                                <td><span id="dotNo"> </span></td>
+                            </tr>
+                            <tr>
+                                <td class="bg-light">Company Time Zone</td>
+                                <td><span id="companyTimeZone"> </span></td>
+                            </tr>
+                            <tr>
+                                <td class="bg-light">Company Address</td>
+                                <td><span id="companyAddress"> </span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Carrier Settings</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="bg-light">Compliance Mode</td>
+                                <td><span id="viewComplianceMode"> </span></td>
+                            </tr>
+                            <tr>
+                                <td class="bg-light">Vehicle Motion Threshold</td>
+                                <td><span id="viewVehicleMotionThreshold"> </span></td>
+                            </tr>
+                            <tr>
+                                <td class="bg-light">Cycle Rule</td>
+                                <td><span id="viewCycleRule"> </span></td>
+                            </tr>
+                            <tr>
+                                <td class="bg-light">Cargo Type</td>
+                                <td><span id="viewCargoType"> </span></td>
+                            </tr>
+                            <tr>
+                                <td class="bg-light">Restart</td>
+                                <td><span id="viewRestart"> </span></td>
+                            </tr>
+                            <tr>
+                                <td class="bg-light">Rest Break</td>
+                                <td><span id="viewRestBreak"> </span></td>
+                            </tr>
+                            <tr>
+                                <td class="bg-light">Short-Haul Exception</td>
+                                <td><span id="viewShortHaulException"> </span></td>
+                            </tr>
+                            <tr>
+                                <td class="bg-light">Personal Conveyance</td>
+                                <td><span id="viewPersonalConveyance"> </span></td>
+                            </tr>
+                            <tr>
+                                <td class="bg-light">Yard Moves</td>
+                                <td><span id="viewYardMoves"> </span></td>
+                            </tr>
+                            <tr>
+                                <td class="bg-light">Exempt Driver</td>
+                                <td><span id="viewExemptDriver"> </span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="2">Terminal 1</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="bg-light">Terminal Address</th>
+                                <td><span id="terminalAddress"> </span></td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light">Time Zone</th>
+                                <td><span id="terminalTimezone"> </span></td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light">24 Hour Period Staring Time</th>
+                                <td><span id="terminalStartTime"> </span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="2">Integrations</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="bg-light">Project 44</th>
+                                <td><span id="viewProject44"> </span></td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light">MacroPoint</th>
+                                <td><span id="viewMacroPoint"> </span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pre_lodding" *ngIf="isLoading">
+                        <img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+ </div>
+ 

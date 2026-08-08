@@ -1,0 +1,212 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<form action="#"> 
+				<div class="card-body">
+					<div class="d-flex justify-content-between">
+						<h6 class="card-title h5">DVIRs</h6>
+						<div class="d-flex">
+							<button class="btn btn-outline-dark btn-sm mx-3" data-toggle="modal" data-target="#downloadlog_modal"><small>Download</small></button>
+							<button class="btn btn-outline-dark btn-sm" (click)="RefreshPage()"><small>Refresh</small><i class="zmdi zmdi-refresh ml-2"></i></button>
+						</div>
+					</div>
+					
+					<div class="d-flex my-2">
+
+						<ng-select [items]="driverDataArr"
+							bindLabel="employeeName"
+							bindValue="id"
+							placeholder="Select Driver"
+							appendTo="body"
+							class="col-2 p-0 mx-2"
+							name="employeeName"
+							(change)="ShowDvirLogReport($event.employeeName)"
+							[(ngModel)]="dvirForm.employeeId"> 
+						</ng-select>
+
+						<div class="form-group">
+							<input type="date" id="fromDate" name="fromDate" (change)="ShowDvirLogReport($event.id)" class="form-control form-control-sm">
+						</div>
+						<div class="form-group mx-3">
+							<input type="date" id="toDate" name="toDate" (change)="ShowDvirLogReport($event.id)" class="form-control form-control-sm">
+						</div> 
+
+						<ng-select [items]="vcDataArr"
+							bindLabel="vehicleConditionName"
+							bindValue="id"
+							placeholder="Select Vehicle Condition"
+							appendTo="body"
+							class="col-2 p-0 mx-0"
+							name="vehicleConditionName"
+							(change)="FilterDVIRData($event.vehicleConditionName)"
+							[(ngModel)]="dvirForm.vehicleConditionId"> 
+						</ng-select>
+
+						<!-- <ng-select [items]="vehicleDataArr"
+							bindLabel="vehicleNo"
+							bindValue="id"
+							placeholder="All vehicles"
+							class="col-2 p-0"
+							appendTo="body"
+							name="vehicleNo"
+							[(ngModel)]="dvirForm.truckNo"> 
+						</ng-select> -->
+
+						<!-- <ng-select placeholder="All Statuses" class="mx-2"></ng-select>
+						<ng-select placeholder="Date (desc.)"></ng-select> -->
+					</div> 
+
+				<!-- <div class="row ml-1"> 
+					<div class="col-md-3">
+						<div class="form-group">
+							<label for="employeeName" class="control-label">Driver Name</label>
+							<ng-select [items]="driverDataArr"
+							bindLabel="employeeName"
+							bindValue="id"
+							placeholder="Select Driver"
+							appendTo="body"
+							name="employeeName"
+							(change)="ShowDvirLogReport($event.employeeName)"
+							[(ngModel)]="dvirForm.employeeId"> 
+						</ng-select>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label class="control-label">From Date</label>
+							<input type="datetime-local" id="fromDate" name="fromDate" class="form-control">
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label class="control-label">To Date</label>
+							<input type="datetime-local" id="toDate" name="toDate" class="form-control">
+						</div>
+					</div>
+					<div style="margin-top: 30px;"  class="col-md-2">
+						<button type="button" class="btn btn-outline-info" (click)="ShowDvirLogReport('')" >Submit</button>
+					</div>
+				</div> -->
+                        
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+							<thead>
+								<!-- <tr>
+									<th>S.No</th>
+									<th>Driver</th>
+									<th>Vehicle Defects</th>
+									<th>Trailer Defects</th>
+									<th>Notes</th>
+									<th>Vehicle Condition</th>
+                                    <th>Time</th>
+								</tr> -->
+								<tr>
+									<th>S.No</th>
+									<th>Time</th>
+									<th>Vehicle</th>
+									<th>Driver</th>
+									<th>Defects</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+							<!-- <tr *ngFor="let dvir of rowData; let i = index">
+								<th style="text-align: center;" scope="row">{{i+1}}</th>
+								<td>{{dvir.driverName}}</td>
+                                <td>{{dvir.truckDefect}}</td>
+                                <td>{{dvir.trailerDefect}}</td>
+								<td>{{dvir.notes}}</td>
+                                <td>{{dvir.vehicleCondition}}</td>
+                                <td>{{dvir.dateTime}}</td> 
+							</tr> -->
+							<tr *ngFor="let dvir of filtered; let i = index" style="cursor: pointer;" (click)="ShowDefectDetail(dvir.driverId,dvir.dateTime,dvir.timestamp);">
+								<th style="text-align: center;" scope="row">{{i+1}}</th>
+								<td>{{dvir.dateTime}} {{dvir.timezoneName}}</td> 
+								<td>{{dvir.vehicleNo}} </td>
+								<td>{{dvir.driverName}}</td>
+                                <td *ngIf="dvir.truckDefect=='None' || dvir.truckDefect==''">{{dvir.truckDefect}}</td>
+								<td *ngIf="dvir.truckDefect!='None' && dvir.truckDefect!=''" style="color: red;">{{dvir.truckDefect}}</td>
+								<td *ngIf="dvir.vehicleCondition=='Vehicle Condition Satisfactory'">{{dvir.vehicleCondition}}</td>
+								<td *ngIf="dvir.vehicleCondition!='Vehicle Condition Satisfactory'" style="color: red;">{{dvir.vehicleCondition}}</td>
+							</tr>
+							</tbody>
+						</table>
+						<div class="pre_lodding" *ngIf="isLoading">
+							<img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+						</div>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+
+
+<div id="downloadlog_modal" class="modal fade hide" role="dialog">
+    <form action="#" #driverLogDownloadForm="ngForm" >
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Download DVIR</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+
+					<div class="row col-lg-12" style="margin-top: 2px;">
+						<div class="col-md-4" style="margin-top: 2px;">
+							<label class="control-label"> Start Date </label>
+						</div>
+						<div class="col-md-8">
+							<input type="date" id="downloadLogStartDate" name="downloadLogStartDate" class="form-control" [(ngModel)]="dvirForm.downloadLogStartDate" required #downloadLogStartDate="ngModel" >
+						</div>
+						<div *ngIf="!downloadLogStartDate?.valid && (downloadLogStartDate?.dirty || downloadLogStartDate?.touched)" class="error">
+							<div *ngIf="downloadLogStartDate.errors.required">
+								Start Date is required
+							</div>
+						</div>
+					</div>
+
+					<div class="row col-lg-12" style="margin-top: 2px;">
+						<div class="col-md-4" style="margin-top: 2px;">
+							<label class="control-label"> End Date </label>
+						</div>
+						<div class="col-md-8">
+							<input type="date" id="downloadLogEndDate" name="downloadLogEndDate" class="form-control" [(ngModel)]="dvirForm.downloadLogEndDate" required #downloadLogEndDate="ngModel" >
+						</div>
+						<div *ngIf="!downloadLogEndDate?.valid && (downloadLogEndDate?.dirty || downloadLogEndDate?.touched)" class="error">
+							<div *ngIf="downloadLogEndDate.errors.required">
+								End Date is required
+							</div>
+						</div>
+					</div>
+					
+					<div class="row col-lg-12">
+						<div class="col-md-4">
+							<label for="newLogEmployeeName" class="control-label">Driver Name<i class="validation_required">*</i></label>
+						</div>
+						<div class="col-md-8">
+							<ng-select [items]="driverDataArr"
+							bindLabel="employeeName"
+							bindValue="id"
+							placeholder="Select Driver"
+							appendTo="body"
+							name="newLogEmployeeName"
+							required #newLogEmployeeId="ngModel"
+							[(ngModel)]="dvirForm.newLogEmployeeId"> 
+							</ng-select>
+							<div *ngIf="!newLogEmployeeId?.valid && (newLogEmployeeId?.dirty || newLogEmployeeId?.touched)" class="error">
+								<div *ngIf="newLogEmployeeId.errors.required">
+									Driver Name is required
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success" (click)="DownloadDVIRReport()" [disabled]="!driverLogDownloadForm.valid" data-dismiss="modal">Download</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

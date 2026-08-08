@@ -1,0 +1,23 @@
+input[type=date]:invalid+span:after {
+    content:"Start Date";
+    position:absolute;
+    left:0;
+    top:0;
+  }
+  
+  input[type=date]:focus:invalid+span:after {
+    display:none;
+  }
+  
+  input:not(:focus):invalid {
+    color:transparent;
+  }
+  
+  label.wrapper {
+      position:relative;
+  }
+
+//   textarea {
+//     height: 200px;
+//     width: 300px;
+// }

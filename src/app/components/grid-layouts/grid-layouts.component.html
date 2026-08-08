@@ -1,0 +1,183 @@
+<!-- Breadcrumb-->
+<div class="row pt-2 pb-2">
+	<div class="col-sm-9">
+		<h4 class="page-title">Grid Layout</h4>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="javaScript:;">Bulona</a>
+			</li>
+			<li class="breadcrumb-item"><a href="javaScript:;">Componenets</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Grid Layout</li>
+		</ol>
+	</div>
+	<div class="col-sm-3">
+		<div ngbDropdown class="btn-group float-sm-right">
+			<button type="button" class="btn btn-outline-danger"><i class="fa fa-cog mr-1"></i> Setting</button>
+			<button type="button" class="btn btn-danger" id="dropdownBasic5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic5"> 
+        		<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumb-->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Grid Options</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered notranslate">
+						<tbody>
+							<tr>
+								<th style="width:20%;">&nbsp;</th>
+								<th style="width:17%;">Extra small (&lt;576px)</th>
+								<th style="width:16%;">Small (&gt;=576px)</th>
+								<th style="width:16%;">Medium (&gt;=768px)</th>
+								<th style="width:16%;">Large (&gt;=992px)</th>
+								<th style="width:16%;">Extra Large (&gt;=1200px)</th>
+							</tr>
+							<tr>
+								<td><strong>Class prefix</strong>
+								</td>
+								<td><code class="w3-codespan">.col-</code>
+								</td>
+								<td><code class="w3-codespan">.col-sm-</code>
+								</td>
+								<td><code class="w3-codespan">.col-md-</code>
+								</td>
+								<td><code class="w3-codespan">.col-lg-</code>
+								</td>
+								<td><code class="w3-codespan">.col-xl-</code>
+								</td>
+							</tr>
+							<tr>
+								<td><strong>Grid behaviour</strong>
+								</td>
+								<td>Horizontal at all times</td>
+								<td>Collapsed to start, horizontal above breakpoints</td>
+								<td>Collapsed to start, horizontal above breakpoints</td>
+								<td>Collapsed to start, horizontal above breakpoints</td>
+								<td>Collapsed to start, horizontal above breakpoints</td>
+							</tr>
+							<tr>
+								<td><strong>Container width</strong>
+								</td>
+								<td>None (auto)</td>
+								<td>540px</td>
+								<td>720px</td>
+								<td>960px</td>
+								<td>1140px</td>
+							</tr>
+							<tr>
+								<td><strong>Suitable for</strong>
+								</td>
+								<td>Portrait phones</td>
+								<td>Landscape phones</td>
+								<td>Tablets</td>
+								<td>Laptops</td>
+								<td>Laptops and Desktops</td>
+							</tr>
+							<tr>
+								<td><strong># of columns</strong>
+								</td>
+								<td>12</td>
+								<td>12</td>
+								<td>12</td>
+								<td>12</td>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td><strong>Gutter width</strong>
+								</td>
+								<td>30px (15px on each side of a column)</td>
+								<td>30px (15px on each side of a column)</td>
+								<td>30px (15px on each side of a column)</td>
+								<td>30px (15px on each side of a column)</td>
+								<td>30px (15px on each side of a column)</td>
+							</tr>
+							<tr>
+								<td><strong>Nestable</strong>
+								</td>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>Yes</td>
+							</tr>
+							<tr>
+								<td><strong>Offsets</strong>
+								</td>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>Yes</td>
+							</tr>
+							<tr>
+								<td><strong>Column ordering</strong>
+								</td>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>Yes</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Grid Example</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="grid">
+						<tbody>
+							<tr>
+								<td>col-lg-1</td>
+								<td>col-lg-1</td>
+								<td>col-lg-1</td>
+								<td>col-lg-1</td>
+								<td>col-lg-1</td>
+								<td>col-lg-1</td>
+								<td>col-lg-1</td>
+								<td>col-lg-1</td>
+								<td>col-lg-1</td>
+								<td>col-lg-1</td>
+								<td>col-lg-1</td>
+								<td>col-lg-1</td>
+							</tr>
+							<tr>
+								<td colspan="4">&nbsp;col-lg-4</td>
+								<td colspan="4">&nbsp;col-lg-4</td>
+								<td colspan="4">&nbsp;col-lg-4</td>
+							</tr>
+							<tr>
+								<td colspan="4">col-lg-4</td>
+								<td colspan="8">col-lg-8</td>
+							</tr>
+							<tr>
+								<td colspan="6">col-lg-6</td>
+								<td colspan="6">col-lg-6</td>
+							</tr>
+							<tr>
+								<td colspan="12">col-lg-12</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,38 @@
+.validation_required{
+    color: red;
+    margin-left: 5px;
+    font-weight: bolder;
+}
+
+.modal-dialog { margin-left: 230px; }
+.mainInput {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #474747;
+    color: rgba(0, 0, 0, 0.4);
+    border-radius: 0%;
+    background: transparent;
+    font-size: 16px;
+   // padding-bottom: 1.25rem;
+    outline: none;
+  }
+  .mainInput::placeholder {
+    text-overflow: ellipsis !important;
+    color: rgba(0, 0, 0, 0.4);
+}
+input:focus{
+    box-shadow: none  !important;
+    border-color: none  !important;
+}
+
+input[type=checkbox] {
+    width: 15px;
+    height: 15px;
+}
+
+.td_company_btn{
+    width: 130px;
+    font-size: small;
+    font-weight: 600;
+    border: 1px solid transparent !important;
+}

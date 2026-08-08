@@ -1,0 +1,115 @@
+/* Dropdown Menu */
+
+.dropdown-menu {
+  border: 0px solid rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 5px 15px rgba(57, 98, 254, 0.02),
+    0 3px 6px rgba(117, 108, 254, 0.12) !important;
+  box-shadow: 0 5px 15px rgba(57, 98, 254, 0.02),
+    0 3px 6px rgba(117, 108, 254, 0.12) !important;
+  font-size: 15px;
+  background-color: #fff;
+  color: #353434;
+}
+
+.topbar-nav .navbar .dropdown-menu::after {
+  content: "";
+  width: 13px;
+  height: 13px;
+  background: #fff;
+  position: absolute;
+  top: -7px;
+  right: 20px;
+  z-index: -1;
+  transform: rotate(45deg);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.dropdown-menu ul {
+  margin-top: 0px;
+}
+
+.dropdown-divider {
+  margin: 0;
+  border-top: 1px solid rgba(66, 59, 116, 0.15);
+}
+
+.dropdown-item {
+  padding: 0.7rem 1.5rem;
+  color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    padding: 0.7rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+  }
+
+  &.active,
+  &:active {
+    color: #505050;
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}
+
+.dropdown-toggle-nocaret:after {
+  display: none;
+}
+
+.dropdown-lg {
+  position: relative;
+
+  .dropdown-menu {
+    width: 320px;
+    padding: 0;
+
+    .list-group-flush {
+      &:first-child .list-group-item:first-child {
+        border-top: 0;
+        border-top-left-radius: 0.25em;
+        border-top-right-radius: 0.25em;
+      }
+
+      &:last-child .list-group-item:last-child {
+        border-bottom: 0;
+        border-bottom-left-radius: 0.25em;
+        border-bottom-right-radius: 0.25em;
+      }
+    }
+
+    .list-group-item:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+      transition: all 0.2s ease;
+    }
+
+    .media {
+      .avatar img {
+        width: 55px;
+        height: 55px;
+        border-radius: 4%;
+        border: 2px solid #ffffff;
+        -webkit-box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
+        -ms-box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
+      }
+
+      .media-body {
+        .msg-title {
+          font-size: 14px;
+          color: rgba(0, 0, 0, 0.84);
+          margin-bottom: 0px;
+        }
+
+        .msg-info {
+          font-size: 13px;
+          color: #6b6b6b;
+          margin-bottom: 0;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}

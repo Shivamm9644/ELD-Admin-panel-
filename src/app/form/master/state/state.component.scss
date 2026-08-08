@@ -1,0 +1,20 @@
+.validation_required{
+    color: red;
+    margin-left: 5px;
+    font-weight: bolder;
+}
+
+ /* Change font size for the selected value */
+ ::ng-deep ng-select .ng-select-container {
+    font-size: 14px; /* Adjust this value as needed */
+  }
+  
+  /* Change font size for the options in the dropdown */
+  ::ng-deep ng-select .ng-option {
+    font-size: 12px; /* Adjust this value as needed */
+  }
+  
+  /* Change font size for the search box in the dropdown */
+  ::ng-deep ng-select .ng-select-search input {
+    font-size: 12px; /* Adjust this value as needed */
+  }

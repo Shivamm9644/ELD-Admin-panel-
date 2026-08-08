@@ -1,0 +1,16 @@
+// .ng-select.ng-select-single .ng-select-container{
+//     height:38px;
+// }
+
+// .ng-select .ng-select-container {
+//     min-height: 40px;
+// }
+  
+// .ng-select.ng-select-single .ng-select-container {
+// height: 40px;
+// }
+
+::ng-deep .ng-select .ng-select-container , ::ng-deep .ng-select.ng-select-single .ng-select-container{
+    min-height: 38px;
+    //font-size: 0.8em;
+  }

@@ -1,0 +1,330 @@
+<!-- Breadcrumb-->
+<div class="row pt-2 pb-2">
+	<div class="col-sm-9">
+		<h4 class="page-title">Form Input</h4>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="javaScript:;">Bulona</a>
+			</li>
+			<li class="breadcrumb-item"><a href="javaScript:;">Forms</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Form Input</li>
+		</ol>
+	</div>
+	<div class="col-sm-3">
+		<div ngbDropdown class="btn-group float-sm-right">
+			<button type="button" class="btn btn-outline-danger"><i class="fa fa-cog mr-1"></i> Setting</button>
+			<button type="button" class="btn btn-danger" id="dropdownBasic5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic5"> 
+        		<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumb-->
+<div class="card">
+	<div class="card-header text-uppercase">Input Group Addons</div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<div class="input-group-prepend"> <span class="input-group-text">@</span>
+					</div>
+					<input type="text" class="form-control" placeholder="Left Input Addon">
+				</div>
+			</div>
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Right Input Addon">
+					<div class="input-group-append"> <span class="input-group-text">@example.com</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end row-->
+		<div class="row mt-4">
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<div class="input-group-prepend"> <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
+					</div>
+					<input type="text" class="form-control" placeholder="Left Addon with icon">
+				</div>
+			</div>
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Right Addon with icon">
+					<div class="input-group-append"> <span class="input-group-text"><i class="fa fa-user-o"></i></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end row-->
+		<div class="row mt-4">
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<div class="input-group-prepend"> <span class="input-group-text">$</span>
+					</div>
+					<input type="text" class="form-control" placeholder="Both side input addons">
+					<div class="input-group-append"> <span class="input-group-text">.00</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<div class="input-group-prepend"> <span class="input-group-text"><i class="fa fa-phone"></i></span>
+					</div>
+					<input type="text" class="form-control" placeholder="Both side addons with icons" />
+					<div class="input-group-append"> <span class="input-group-text"><i class="fa fa-search"></i></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end row-->
+		<div class="row mt-4">
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<div class="input-group-prepend"> <span class="input-group-text"><i class="fa fa-spinner fa-spin"></i></span>
+					</div>
+					<input type="text" class="form-control" placeholder="Left Spinner addon" />
+				</div>
+			</div>
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Right Spinner addon" />
+					<div class="input-group-append"> <span class="input-group-text"><i class="fa fa-refresh fa-spin"></i></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end row-->
+		<div class="row mt-4">
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<input type="checkbox" />
+						</div>
+					</div>
+					<input type="text" class="form-control" placeholder="Addon with checkbox" />
+				</div>
+			</div>
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<input type="radio" />
+						</div>
+					</div>
+					<input type="text" class="form-control" placeholder="Addon with radio" />
+				</div>
+			</div>
+		</div>
+		<!--end row-->
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Input Addon with different sizes</div>
+			<div class="card-body">
+				<div class="input-group input-group-sm mb-3">
+					<div class="input-group-prepend"> <span class="input-group-text">Small</span>
+					</div>
+					<input type="text" class="form-control" placeholder="Small Input Addon">
+				</div>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend"> <span class="input-group-text">Default</span>
+					</div>
+					<input type="text" class="form-control" placeholder="Default Input Addon">
+				</div>
+				<div class="input-group input-group-lg">
+					<div class="input-group-prepend"> <span class="input-group-text">Large</span>
+					</div>
+					<input type="text" class="form-control" placeholder="Large Input Addon">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="card-header text-uppercase">Multiple inputs gruops & add-ons</div>
+			<div class="card-body">
+				<div class="input-group mb-3">
+					<div class="input-group-prepend"> <span class="input-group-text">First and last name</span>
+					</div>
+					<input type="text" class="form-control">
+					<input type="text" class="form-control">
+				</div>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend"> <span class="input-group-text">$</span>
+						<span class="input-group-text">0.00</span>
+					</div>
+					<input type="text" class="form-control">
+				</div>
+				<div class="input-group mb-3">
+					<input type="text" class="form-control">
+					<div class="input-group-append"> <span class="input-group-text">$</span>
+						<span class="input-group-text">0.00</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<div class="card">
+	<div class="card-header text-uppercase">Input Group With Buttons</div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<button class="btn btn-primary" type="button">Search</button>
+					</div>
+					<input type="text" class="form-control" placeholder="Left side button">
+				</div>
+			</div>
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Right side button">
+					<div class="input-group-append">
+						<button class="btn btn-primary" type="button">Go</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end row-->
+		<div class="row mt-4">
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<button class="btn btn-primary" type="button">Submit</button>
+					</div>
+					<input type="text" class="form-control" placeholder="Both side button">
+					<div class="input-group-append">
+						<button class="btn btn-primary" type="button">Reset</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<button class="btn btn-primary" type="button"><i class="fa fa-facebook"></i>
+						</button>
+					</div>
+					<input type="text" class="form-control" placeholder="Both side icon button">
+					<div class="input-group-append">
+						<button class="btn btn-primary" type="button"><i class="fa fa-twitter"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end row-->
+		<div class="row mt-4">
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<div ngbDropdown class="input-group-prepend">
+						<button class="btn btn-primary" type="button" id="dropdownBasic6" ngbDropdownToggle>Dropdown</button>
+						<div ngbDropdownMenu aria-labelledby="dropdownBasic6"> 
+							<a href="#" ngbDropdownItem>Action</a>
+							<a href="#" ngbDropdownItem>Another action</a>
+							<a href="#" ngbDropdownItem>Something else here</a>
+							<div role="separator" class="dropdown-divider"></div> 
+							<a href="#" ngbDropdownItem>Separated link</a>
+						</div>
+					</div>
+					<input type="text" class="form-control" placeholder="Left side dropdown">
+				</div>
+			</div>
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Right side dropdown">
+					<div ngbDropdown class="input-group-append">
+						<button class="btn btn-primary" type="button" id="dropdownBasic7" ngbDropdownToggle>Dropdown</button>
+						<div ngbDropdownMenu aria-labelledby="dropdownBasic7"> 
+							<a href="#" ngbDropdownItem>Action</a>
+							<a href="#" ngbDropdownItem>Another action</a>
+							<a href="#" ngbDropdownItem>Something else here</a>
+							<div role="separator" class="dropdown-divider"></div> 
+							<a href="#" ngbDropdownItem>Separated link</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end row-->
+		<div class="row mt-4">
+			<div class="col-12 col-lg-12 col-xl-12">
+				<div class="input-group">
+					<div ngbDropdown class="input-group-append">
+						<button class="btn btn-primary" type="button" id="dropdownBasic8" ngbDropdownToggle>Dropdown</button>
+						<div ngbDropdownMenu aria-labelledby="dropdownBasic8"> 
+							<a href="#" ngbDropdownItem>Action</a>
+							<a href="#" ngbDropdownItem>Another action</a>
+							<a href="#" ngbDropdownItem>Something else here</a>
+							<div role="separator" class="dropdown-divider"></div> 
+							<a href="#" ngbDropdownItem>Separated link</a>
+						</div>
+					</div>
+					<input type="text" class="form-control" placeholder="Both side dropdown">
+					<div ngbDropdown class="input-group-prepend">
+						<button class="btn btn-primary" type="button" id="dropdownBasic9" ngbDropdownToggle>Dropdown</button>
+						<div ngbDropdownMenu aria-labelledby="dropdownBasic9"> 
+							<a href="#" ngbDropdownItem>Action</a>
+							<a href="#" ngbDropdownItem>Another action</a>
+							<a href="#" ngbDropdownItem>Something else here</a>
+							<div role="separator" class="dropdown-divider"></div> 
+							<a href="#" ngbDropdownItem>Separated link</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end row-->
+		<div class="row mt-4">
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<div ngbDropdown class="input-group-prepend">
+						<button type="button" class="btn btn-primary">Action</button>
+						<button class="btn btn-primary" type="button" id="dropdownBasic10" ngbDropdownToggle> <span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<div ngbDropdownMenu aria-labelledby="dropdownBasic10"> 
+							<a href="#" ngbDropdownItem>Action</a>
+							<a href="#" ngbDropdownItem>Another action</a>
+							<a href="#" ngbDropdownItem>Something else here</a>
+							<div role="separator" class="dropdown-divider"></div> 
+							<a href="#" ngbDropdownItem>Separated link</a>
+						</div>
+					</div>
+					<input type="text" class="form-control" placeholder="segmented dropdown">
+				</div>
+			</div>
+			<div class="col-12 col-lg-6 col-xl-6">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="segmented dropdown">
+					<div ngbDropdown class="input-group-prepend">
+						<button type="button" class="btn btn-primary">Action</button>
+						<button class="btn btn-primary" type="button" id="dropdownBasic11" ngbDropdownToggle> <span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<div ngbDropdownMenu aria-labelledby="dropdownBasic11"> 
+							<a href="#" ngbDropdownItem>Action</a>
+							<a href="#" ngbDropdownItem>Another action</a>
+							<a href="#" ngbDropdownItem>Something else here</a>
+							<div role="separator" class="dropdown-divider"></div> 
+							<a href="#" ngbDropdownItem>Separated link</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end row-->
+	</div>
+</div>

@@ -1,0 +1,13 @@
+<div id="wrapper" [ngClass]="{'nav-collapsed' : getSideBarState()}">
+	<app-sidebar></app-sidebar>
+	<app-navbar></app-navbar>
+	<div class="clearfix"></div>
+	<div class="content-wrapper">
+		<div class="container-fluid">
+			<router-outlet></router-outlet>
+			<div class="overlay" (click)="toggleSidebar()" [ngClass]="{'show' : getSideBarState()}"></div>
+		</div>
+	</div>
+	<app-footer></app-footer>
+	<app-color-switcher></app-color-switcher>
+</div>

@@ -1,0 +1,175 @@
+<!--Start topbar header-->
+<header class="topbar-nav"> 
+	<nav id="header-setting" class="navbar navbar-expand fixed-top" 
+		style="
+		padding: 0px 25px;
+		z-index: 999;
+		height: 60px;
+		background:  linear-gradient(45deg,#094152 , #96d7eb);
+		/* background: linear-gradient(45deg, #0451a4, #04356d); */
+		-webkit-box-shadow: 0 5px 15px rgba(57, 98, 254, 0.02), 0 3px 6px rgba(117, 108, 254, 0.12);
+		box-shadow: 0 5px 15px rgba(57, 98, 254, 0.02), 0 3px 6px rgba(117, 108, 254, 0.12);">
+
+		<div class="toggle-menu toggleBtn" (click)="toggleSidebar()"> <i class="zmdi zmdi-menu"></i></div>
+		<div class="search-bar flex-grow-1">
+			<!-- <div class="input-group">
+				<div class="input-group-prepend search-arrow-back">
+					<button class="btn btn-search-back" type="button"><i class="zmdi zmdi-long-arrow-left"></i>
+					</button>
+				</div>
+				<input type="text" class="form-control" placeholder="search">
+				<div class="input-group-append">
+					<button class="btn btn-search" type="button"><i class="zmdi zmdi-search"></i>
+					</button>
+				</div>
+			</div> -->
+			<!-- <span style="color: #fff;" id="clientNameMiddle">{{clientName}}</span> -->
+			
+			<div class="container-fluid d-flex justify-content-center">
+				<span class="navbar-text text-white" id="clientNameMiddle">
+					{{clientName}}
+				</span>
+			</div>
+
+		</div>
+		<ul class="navbar-nav align-items-center right-nav-link ml-auto">
+			<!-- <li class="nav-item dropdown search-btn-mobile">
+				<a class="nav-link position-relative" href="javascript:;"> <i class="zmdi zmdi-search align-middle"></i>
+				</a>
+			</li> -->
+			<!-- <li ngbDropdown class="nav-item dropdown-lg">
+				<a class="nav-link dropdown-toggle-nocaret position-relative" href="javascript:;" id="dropdownBasic1" ngbDropdownToggle> <i class="zmdi zmdi-comment-outline align-middle"></i><span class="bg-danger text-white badge-up">12</span>
+				</a>
+				<div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-right">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item d-flex justify-content-between align-items-center">New Messages <a href="javascript:;" class="extra-small-font">Clear All</a>
+						</li>
+						<li class="list-group-item">
+							<a href="javaScript:;">
+								<div class="media">
+									<div class="avatar">
+										<img class="align-self-start mr-3" src="assets/images/avatars/avatar-5.png" alt="user avatar">
+									</div>
+									<div class="media-body">
+										<h6 class="mt-0 msg-title">Jhon Deo</h6>
+										<p class="msg-info">Lorem ipsum dolor sit amet...</p> <small>Today, 4:10 PM</small>
+									</div>
+								</div>
+							</a>
+						</li>
+						<li class="list-group-item">
+							<a href="javaScript:;">
+								<div class="media">
+									<div class="avatar">
+										<img class="align-self-start mr-3" src="assets/images/avatars/avatar-6.png" alt="user avatar">
+									</div>
+									<div class="media-body">
+										<h6 class="mt-0 msg-title">Sara Jen</h6>
+										<p class="msg-info">Lorem ipsum dolor sit amet...</p> <small>Yesterday, 8:30 AM</small>
+									</div>
+								</div>
+							</a>
+						</li>
+						<li class="list-group-item">
+							<a href="javaScript:;">
+								<div class="media">
+									<div class="avatar">
+										<img class="align-self-start mr-3" src="assets/images/avatars/avatar-7.png" alt="user avatar">
+									</div>
+									<div class="media-body">
+										<h6 class="mt-0 msg-title">Dannish Josh</h6>
+										<p class="msg-info">Lorem ipsum dolor sit amet...</p> <small>5/11/2018, 2:50 PM</small>
+									</div>
+								</div>
+							</a>
+						</li>
+						<li class="list-group-item">
+							<a href="javaScript:;">
+								<div class="media">
+									<div class="avatar">
+										<img class="align-self-start mr-3" src="assets/images/avatars/avatar-8.png" alt="user avatar">
+									</div>
+									<div class="media-body">
+										<h6 class="mt-0 msg-title">Katrina Mccoy</h6>
+										<p class="msg-info">Lorem ipsum dolor sit amet.</p> <small>1/11/2018, 2:50 PM</small>
+									</div>
+								</div>
+							</a>
+						</li>
+						<li class="list-group-item text-center"><a href="javaScript:;">See All Messages</a>
+						</li>
+					</ul>
+				</div>
+			</li> -->
+			<li ngbDropdown class="nav-item dropdown-lg">
+				<a class="nav-link dropdown-toggle-nocaret position-relative" href="javascript:;" id="dropdownBasic2" ngbDropdownToggle> <i class="zmdi zmdi-notifications-active align-middle text-white"></i><span class="bg-danger text-white badge-up">{{notificationCount}}</span>
+				</a>
+				<div ngbDropdownMenu aria-labelledby="dropdownBasic2" class="dropdown-menu-right notification_section">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item d-flex justify-content-between align-items-center">Alert Notifications <a (click)="ReadAllNotifications()" style="cursor: pointer; text-decoration: none;" class="extra-small-font">Clear All</a>
+						</li>
+						<li class="list-group-item position-relative" *ngFor="let alert of alertRowData; let i = index">
+							<a style="text-decoration: none;" class="d-block pr-4">
+								<div class="media">
+								<i class="zmdi zmdi-alert-polygon fa-2x mr-3 text-danger"></i>
+								<div class="media-body">
+									<h6 class="mt-0 msg-title">{{alert.vehicleNo}} - ({{alert.driverName}})</h6>
+									<small style="font-size: 11px;">{{alert.startUtcDateTime | date:'dd-MM-yyyy HH:mm:ss':'UTC'}} || {{alert.message}}</small><br>
+									<p class="msg-info" style="font-size: 10px;">
+									<span style="white-space: normal;">{{alert.placeAddress}}</span>
+									</p>
+								</div>
+								</div>
+							</a>
+
+							<button (click)="ReadAlert(alert)"
+								class="btn btn-sm btn-light text-danger position-absolute"
+								style="top: 4px; right: 4px; line-height: 0.5; font-size: 24px !important;">&times;
+							</button>
+						</li>
+						<!-- <li class="list-group-item text-center"><a style="cursor: pointer; text-decoration: none;">See All Notifications</a></li> -->
+					</ul>
+				</div>
+			</li>
+			<!-- <li ngbDropdown class="nav-item language"> <a class="nav-link dropdown-toggle-nocaret position-relative" href="javascript:;" id="dropdownBasic3" ngbDropdownToggle><i class="flag-icon flag-icon-gb align-middle"></i></a>
+				<ul ngbDropdownMenu aria-labelledby="dropdownBasic3" class="dropdown-menu-right">
+					<li ngbDropdownItem><i class="flag-icon flag-icon-gb mr-3"></i>English</li>
+					<li ngbDropdownItem><i class="flag-icon flag-icon-fr mr-3"></i>French</li>
+					<li ngbDropdownItem><i class="flag-icon flag-icon-cn mr-3"></i>Chinese</li>
+					<li ngbDropdownItem><i class="flag-icon flag-icon-de mr-3"></i>German</li>
+				</ul>
+			</li> -->
+			<!-- <span style="color: #fff;" id="clientName"> {{fullName}} ({{clientName}})</span> -->
+			<span style="color: #fff; float: right;" id="clientName"> {{fullName}}</span>
+			<li ngbDropdown class="nav-item">
+				<a class="nav-link dropdown-toggle-nocaret position-relative" href="javascript:;" id="dropdownBasic4" ngbDropdownToggle> <span class="user-profile"><img src="assets/images/avatars/avatar-13.png" class="img-circle" alt="user avatar"></span>
+				</a>
+				<ul ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-right">
+					<li ngbDropdownItem class="user-details">
+						<a href="javaScript:;" style="text-decoration: none;">
+							<div class="media">
+								<div class="avatar">
+									<img class="align-self-start mr-3" src="assets/images/avatars/avatar-13.png" alt="user avatar">
+								</div>
+								<div class="media-body">
+									<h6 class="mt-2 user-title" >{{fullName}}</h6>
+									<p class="user-subtitle" >{{email}}</p>
+								</div>
+							</div>
+						</a>
+					</li>
+					<!-- <li class="dropdown-divider"></li>
+					<li ngbDropdownItem><i class="zmdi zmdi-comments mr-3"></i>Inbox</li>
+					<li class="dropdown-divider"></li>
+					<li ngbDropdownItem><i class="zmdi zmdi zmdi-account mr-3"></i>Account</li>
+					<li class="dropdown-divider"></li> -->
+					<!-- <li ngbDropdownItem><i class="zmdi zmdi-account mr-3"></i>{{firstName}}</li> -->
+					<li *ngIf="clientName!='' && clientName!=null" ngbDropdownItem><i class="zmdi zmdi-calendar-note mr-3"></i><span id="clientNameProfile">{{clientName}}</span></li>
+					<!-- <a [routerLink]="['/pages/client-login']" style="text-decoration: none;" ><li ngbDropdownItem><i class="zmdi zmdi-edit mr-3"></i >Client Selection</li></a> -->
+					<li class="dropdown-divider"></li>
+					<a [routerLink]="['/auth/signin']" (click)="Logout()" style="text-decoration: none;"><li ngbDropdownItem><i class="zmdi zmdi-power mr-3"></i>Logout</li></a>				</ul>
+			</li>
+		</ul>
+	</nav>
+</header>
+<!--End topbar header-->

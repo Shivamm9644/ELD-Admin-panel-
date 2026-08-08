@@ -1,0 +1,498 @@
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<form action="#"> 
+				<div class="card-body">
+					<div class="float-sm-left mb-3 mt-3"><h4>Manage Vehicles</h4></div>
+					<div class="btn-group float-sm-right mb-3 mt-3">
+						<button type="button" data-toggle="modal" data-target="#vehicle_modal" (click)="ClearForm()" class="btn btn-outline-success btn-sm">
+							Add Vehicle &nbsp;<i class="zmdi zmdi-plus mr-1"></i>
+						</button>
+						<button class="btn btn-outline-dark btn-sm mx-3" (click)="RefreshPage()">Refresh <i class="zmdi zmdi-refresh" ></i></button>
+					</div>
+					<div class="table-responsive">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-hover">
+							<thead>
+								<!-- <tr>
+									<th>S.No</th>
+									<th>Vehicle Number</th>
+									<th>Vehicle Type</th>     
+									<th>Device</th>
+									<th>Client</th>
+									<th>Registration Date</th>
+									<th>Pollution Expiry Date</th>
+                                    <th>Fitness Expiry Date</th>
+								</tr> -->
+								<tr>
+									<th>S.No</th>
+									<th>Name</th>
+									<th>License Plate</th>     
+									<th>Make/Model</th>
+									<th>Eld</th>
+									<th>Groups</th>
+									<th>Status</th>
+                                  
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <tr *ngFor="let vehicle of rowData; let i = index" style="cursor: pointer;" data-toggle="modal" data-target="#vehicle_modal" (click)="EditVehicle(vehicle.vehicleId);">
+									<th style="text-align: center;" scope="row">{{i+1}}</th>
+									<td><a style="color: dodgerblue; cursor: pointer;" data-toggle="modal" data-target="#vehicle_modal" (click)="EditVehicle(vehicle.vehicleId)">{{vehicle.vehicleNo}}</a></td>
+									<td>{{vehicle.vehicleNo}}</td>
+									<td>{{vehicle.vehicleTypeId}}</td>     
+									<td>{{vehicle.deviceId}}</td>
+									<td>{{vehicle.clientId}}</td>
+									<td>{{vehicle.registartionDate | date:'dd-MM-yyyy'}}</td>
+									<td>{{vehicle.pollutionExpiryDate| date:'dd-MM-yyyy'}}</td>
+									<td>{{vehicle.fitnessExpiryDate| date:'dd-MM-yyyy'}}</td>
+								</tr> -->
+								<tr *ngFor="let vehicle of rowData; let i = index" style="cursor: pointer;" data-toggle="modal" data-target="#vehicle_modal" (click)="EditVehicle(vehicle.vehicleId);">
+									<th style="text-align: center;" scope="row">{{i+1}}</th>
+									<td>{{vehicle.vehicleNo}}</td>
+									<td>{{vehicle.licensePlate}}</td>     
+									<td>{{vehicle.make}}</td>
+									<!-- <td>{{vehicle.serialNo}} ({{vehicle.macAddress}})</td> -->
+									<td style=" width:120px; white-space: normal;">
+										{{ vehicle.serialNo || '' }}{{ vehicle.macAddress ? ' (' + vehicle.macAddress + ')' : '' }}
+									</td>
+									<td></td>
+									<td>{{vehicle.status}}</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="pre_lodding" *ngIf="isLoading">
+							<img src="../../../../assets/images/loading.gif" alt="" srcset="" class="m-auto img-fluid" width="150">
+						</div>
+					</div>
+				</div>
+		   </form>
+		</div>
+	</div>
+</div>
+<div id="vehicle_modal" class="modal fade hide" role="dialog">
+    <form action="#" #masterVehicleForm="ngForm" >
+		<div class="modal-dialog" >
+			<div class="modal-content" style="width: 1100px;">
+				<div class="modal-header">
+					<h6 class="modal-title">Add Vehicle</h6>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<h5>Settings</h5>
+
+						<div class="row col-lg-12 " style="margin-top: 10px;">
+							<div class="col-md-3" style="margin-top: 10px;">
+								<small for="control-label"> Vehicle Unit#<i class="validation_required">*</i></small>
+							</div>
+							<div class="col-md-9">
+								<input type="text" id="vehicleNo" name="vehicleNo" maxlength="10"  required #vehicleNo="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="vehicleForm.vehicleNo" placeholder="Vehicle Unit#">
+								<div *ngIf="!vehicleNo?.valid && (vehicleNo?.dirty || vehicleNo?.touched)" class="error">
+									<div *ngIf="vehicleNo.errors.required">
+										<small class="validation_required" style="font-size: xx-small;">Value should be at least 1 and up to 10 letters/numbers </small>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row col-lg-12 " style="margin-top: 10px;">
+							<div class="col-md-3 " style="margin-top: 10px;">
+								<small for="control-label"> Make/Model<i class="validation_required">*</i></small>
+							</div>
+							<div class="col-md-4">
+								<input type="text" id="make" name="make"  maxlength="50" required #make="ngModel"  class="form-control form-control-sm mainInput" [(ngModel)]="vehicleForm.make" placeholder="Make">
+								<div *ngIf="!make?.valid && (make?.dirty || make?.touched)" class="error">
+									<div *ngIf="make.errors.required">
+										<small class="validation_required" style="font-size: xx-small;">Value should be at least 1 and up to 50 characters </small>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<input type="text" id="model" name="model" maxlength="50" required #model="ngModel" class="form-control form-control-sm mainInput" [(ngModel)]="vehicleForm.model" placeholder="Model">
+								<div *ngIf="!model?.valid && (model?.dirty || model?.touched)" class="error">
+									<div *ngIf="model.errors.required">
+										<small class="validation_required" style="font-size: xx-small;">Value should be at least 1 and up to 50 characters </small>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row col-lg-12 " style="margin-top: 10px;">
+							<div class="col-md-3" style="margin-top: 10px;">
+								<small for="control-label">Year<i class="validation_required">*</i></small>
+							</div>
+							<div class="col-md-9">
+								<input type="number" id="manufacturingYear" name="manufacturingYear"  required #manufacturingYear="ngModel"  class="form-control form-control-sm mainInput" [(ngModel)]="vehicleForm.manufacturingYear" placeholder="Year">
+									<div *ngIf="!manufacturingYear?.valid && (manufacturingYear?.dirty || manufacturingYear?.touched)" class="error">
+										<div *ngIf="manufacturingYear.errors.required">
+											<small class="validation_required" style="font-size: xx-small;">Year is required. </small>
+										</div>
+									</div>
+							</div>
+						</div>
+
+						<div class="row col-lg-12 " style="margin-top: 10px;">
+							<div class="col-md-3" style="margin-top: 10px;">
+								<small for="control-label">VIN<i class="validation_required">*</i></small>
+							</div>
+							<div class="col-md-9">
+								<input  type="text" id="vin" name="vin"  minlength="17" maxlength="17" (input)="inputValidator($event)" required #vin="ngModel"  class="form-control form-control-sm mainInput" [(ngModel)]="vehicleForm.vin" placeholder="VIN">
+								<div *ngIf="!vin?.valid && (vin?.dirty || vin?.touched)" class="error">
+									<div *ngIf="vin.errors.required">
+										<small class="validation_required" style="font-size: xx-small;">Value should contains 17 characters only numbers and uppercase letters and does not contain the characters "I", "O", or "Q"</small>
+									</div>
+								</div>
+
+								<small *ngIf="isEditMode && !isViewMode" style="font-size: xx-small;">You may not modify the VIN on existing vehicle. To change the VIN you can create a new vehicle with that VIN and deactivate the current vehicle. Please contact technical support if you have questions or concerns. </small>
+
+								<small *ngIf="!isEditMode && !isViewMode" class="validation_required" style="font-size: xx-small;">Please make sure your VIN was entered correctly. Once the vehicle record is created its VIN cannot be changed. </small>
+							</div>
+						</div>
+
+
+						<div class="row col-lg-12 " style="margin-top: 10px;">
+							<div class="col-md-3" style="margin-top: 10px;">
+								<small for="fuelTypeName" class="control-label ">Fuel <i class="validation_required">*</i></small>
+							</div>
+							<div class="col-md-9">
+								<ng-select [items]="fuelTypeNameDataArr"
+									bindLabel="fuelTypeName"
+									bindValue="id"
+									class="mainInput"
+									placeholder="Select fuel"
+									appendTo="body"
+									name="fuelTypeName"
+									required #fuelTypeName="ngModel"
+									[(ngModel)]="vehicleForm.fuelTypeId"> 
+								</ng-select>
+								<div *ngIf="!fuelTypeName?.valid && (fuelTypeName?.dirty || fuelTypeName?.touched)" class="error">
+									<div *ngIf="fuelTypeName.errors.required">
+										<small class="validation_required" style="font-size: xx-small;">Fuel is required. </small>
+									</div>
+								</div>							
+							</div>
+						</div>
+
+
+						<div class="row col-lg-12 " style="margin-top: 10px;">
+							<div class="col-md-3 " style="margin-top: 10px;">
+								<small for="control-label"> ELD Connection Interface <i class="validation_required">*</i></small>
+							</div>
+							<div class="col-md-9">
+								<ng-select [items]="eldConnectionInterfaceDataArr"
+									bindLabel="eldConnectionInterfaceName"
+									bindValue="id"
+									class="mainInput"
+									placeholder="Choose"
+									appendTo="body"
+									name="eldConnectionInterfaceName"
+									required #eldConnectionInterfaceId="ngModel"
+									[(ngModel)]="vehicleForm.eldConnectionInterfaceId"> 
+								</ng-select>
+								<div *ngIf="!eldConnectionInterfaceId?.valid && (eldConnectionInterfaceId?.dirty || eldConnectionInterfaceId?.touched)" class="error">
+									<div *ngIf="eldConnectionInterfaceId.errors.required">
+										<small class="validation_required" style="font-size: xx-small;"> </small>
+									</div>
+								</div>	
+							</div>
+						</div>
+
+
+						<div class="row col-lg-12 " style="margin-top: 10px;">
+							<div class="col-md-3" style="margin-top: 10px;">
+								<small for="plate" class="control-label ">Plate</small>
+							</div>
+							<div class="col-md-3">
+								<ng-select [items]="countryDataArr"
+									bindLabel="countryName"
+									bindValue="id"
+									placeholder="Select  Country"
+									appendTo="body"
+									class="mainInput"
+									name="countryName"
+									(change)="getState($event.id)"
+									[(ngModel)]="vehicleForm.countryId"> 
+								</ng-select>						
+							</div>
+							<div class="col-md-3">
+								<ng-select [items]="stateDataArr"
+									bindLabel="stateName"
+									bindValue="id"
+									placeholder="Select  State"
+									appendTo="body"
+									class="mainInput"
+									name="stateName"
+									[(ngModel)]="vehicleForm.stateId"> 
+								</ng-select>
+							</div>
+							<div class="col-md-3">
+								<input type="text" id="licensePlate" name="licensePlate"  class="form-control form-control-sm mainInput" [(ngModel)]="vehicleForm.licensePlate" placeholder="Plate">
+							</div>
+						</div>
+
+						<div class="row col-lg-12 " style="margin-top: 10px;">
+							<div class="col-md-3" >
+								<small for="control-label">Status</small>
+							</div>
+							<div class="col-md-9">
+								<input type="checkbox" (change)="CheckStatus()" id="status" name="status" [(ngModel)]="vehicleForm.status" >
+								<span id="statusSection" style="margin-left: 10px;"></span>
+							</div>
+						</div>
+						
+
+						<!-- <div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<small class="control-label">Vehicle Number<i class="validation_required">*</i></small>
+									<input type="text" id="vehicleNo" name="vehicleNo"  required #vehicleNo="ngModel" class="form-control form-control-sm" [(ngModel)]="vehicleForm.vehicleNo" placeholder="Vehicle Number">
+								</div>
+								<div *ngIf="!vehicleNo?.valid && (vehicleNo?.dirty || vehicleNo?.touched)" class="error">
+									<div *ngIf="vehicleNo.errors.required">
+										Vehicle Number is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<small for="vehicleTypeName" class="control-label">Vehicle Type <i class="validation_required">*</i></small>
+									<ng-select [items]="vehicleTypeNameDataArr"
+                                        bindLabel="vehicleTypeName"
+                                        bindValue="id"
+                                        placeholder="Select  vehicleTypeName"
+                                        appendTo="body"
+                                        name="vehicleTypeName"
+										required #vehicleTypeId="ngModel"
+                                        [(ngModel)]="vehicleForm.vehicleTypeId"> 
+                                    </ng-select>
+									<div *ngIf="!vehicleTypeId?.valid && (vehicleTypeId?.dirty || vehicleTypeId?.touched)" class="error">
+										<div *ngIf="vehicleTypeId.errors.required">
+											Vehicle Type is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<small class="control-label">VIN<i class="validation_required">*</i></small>
+									<input type="text" id="vin" name="vin" required #vin="ngModel"  class="form-control form-control-sm" [(ngModel)]="vehicleForm.vin" placeholder="VIN">
+								</div>
+								<div *ngIf="!vin?.valid && (vin?.dirty || vin?.touched)" class="error">
+									<div *ngIf="vin.errors.required">
+										VIN is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<small class="control-label">License Plate<i class="validation_required">*</i></small>
+									<input type="text" id="licensePlate" name="licensePlate" required #licensePlate="ngModel"  class="form-control form-control-sm" [(ngModel)]="vehicleForm.licensePlate" placeholder="License Plate">
+								</div>
+								<div *ngIf="!licensePlate?.valid && (licensePlate?.dirty || licensePlate?.touched)" class="error">
+									<div *ngIf="licensePlate.errors.required">
+										License Plate is required
+									</div>
+								</div>
+							</div>
+						
+							<div class="col-md-4">
+								<div class="form-group">
+									<small for="countryName" class="control-label"> Country <i class="validation_required"></i></small>
+									<ng-select [items]="countryDataArr"
+                                        bindLabel="countryName"
+                                        bindValue="id"
+                                        placeholder="Select  Country"
+                                        appendTo="body"
+                                        name="countryName"
+                                        [(ngModel)]="vehicleForm.countryId"> 
+                                    </ng-select>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<small for="stateName" class="control-label">State <i class="validation_required"></i></small>
+									<ng-select [items]="stateDataArr"
+                                        bindLabel="stateName"
+                                        bindValue="id"
+                                        placeholder="Select  State"
+                                        appendTo="body"
+                                        name="stateName"
+                                        [(ngModel)]="vehicleForm.stateId"> 
+                                    </ng-select>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<small class="control-label">Make<i class="validation_required">*</i></small>
+									<input type="text" id="make" name="make" required #make="ngModel"  class="form-control form-control-sm" [(ngModel)]="vehicleForm.make" placeholder="Make">
+								</div>
+								<div *ngIf="!make?.valid && (make?.dirty || make?.touched)" class="error">
+									<div *ngIf="make.errors.required">
+										Make is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<small class="control-label">Manufacturing Year<i class="validation_required">*</i></small>
+									<input type="text" id="manufacturingYear" name="manufacturingYear"  required #manufacturingYear="ngModel"  class="form-control form-control-sm" [(ngModel)]="vehicleForm.manufacturingYear" placeholder="Manufacturing Year">
+								</div>
+								<div *ngIf="!manufacturingYear?.valid && (manufacturingYear?.dirty || manufacturingYear?.touched)" class="error">
+									<div *ngIf="manufacturingYear.errors.required">
+										Manufacturing Year is required
+									</div>
+								</div>
+							</div>
+						
+							<div class="col-md-4">
+								<div class="form-group">
+									<small for="deviceName" class="control-label">Device <i class="validation_required"></i></small>
+									<ng-select [items]="deviceDataArr"
+                                        bindLabel="deviceName"
+                                        bindValue="id"
+                                        placeholder="Select Device"
+                                        appendTo="body"
+                                        name="deviceName"
+                                        [(ngModel)]="vehicleForm.deviceId"> 
+                                    </ng-select>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<small for="userName" class="control-label">User<i class="validation_required">*</i></small>
+									<ng-select [items]="userDataArr"
+                                        bindLabel="userName"
+                                        bindValue="id"
+                                        placeholder="Select User"
+                                        appendTo="body"
+                                        name="userName"
+										required #userId="ngModel"
+                                        [(ngModel)]="vehicleForm.userId"> 
+                                    </ng-select>
+									<div *ngIf="!userId?.valid && (userId?.dirty || userId?.touched)" class="error">
+										<div *ngIf="userId.errors.required">
+											User is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<small for="clientName" class="control-label">Client<i class="validation_required">*</i></small>
+									<ng-select 
+										[items]="clientDataArr"
+										bindLabel="clientName"
+										bindValue="id"
+										placeholder="Select Client"
+										appendTo="body"
+										name="clientName"
+										required #clientId="ngModel"
+										[(ngModel)]="vehicleForm.clientId"> 
+                                    </ng-select>
+									<div *ngIf="!clientId?.valid && (clientId?.dirty || clientId?.touched)" class="error">
+										<div *ngIf="clientId.errors.required">
+											Client is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<small class="control-label ">Registration Date<i class="validation_required"></i></small>
+									<input type="date" id="registartionDate" name="registartionDate" [(ngModel)]="vehicleForm.registartionDate"  class="form-control form-control-sm" placeholder="">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<small class="control-label">Pollution Expiry Date<i class="validation_required"></i></small>
+									<input type="date" id="pollutionExpiryDate" name="pollutionExpiryDate" [(ngModel)]="vehicleForm.pollutionExpiryDate"  class="form-control form-control-sm" placeholder="">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<small class="control-label">Fitness Expiry Date<i class="validation_required"></i></small>
+									<input type="date" id="fitnessExpiryDate" name="fitnessExpiryDate" [(ngModel)]="vehicleForm.fitnessExpiryDate" class="form-control form-control-sm" placeholder="">
+								</div>
+							</div>
+						
+							<div class="col-md-4">
+								<div class="form-group">
+									<small class="control-label">Insurrance Expiry Date<i class="validation_required"></i></small>
+									<input type="date" id="insuranceExpiryDate" name="insuranceExpiryDate" [(ngModel)]="vehicleForm.insuranceExpiryDate"  class="form-control form-control-sm" placeholder="">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<small for="fuelTypeName" class="control-label">Fuel Type <i class="validation_required"></i></small>
+									<ng-select [items]="fuelTypeNameDataArr"
+                                        bindLabel="fuelTypeName"
+                                        bindValue="id"
+                                        placeholder="Select  fuelTypeName"
+                                        appendTo="body"
+                                        name="fuelTypeName"
+                                        [(ngModel)]="vehicleForm.fuelTypeId"> 
+                                    </ng-select>
+								</div>
+							</div>
+							
+							<div class="col-md-4">
+								<div class="form-group">
+									<small class="control-label ">Billing Date<i class="validation_required">*</i></small>
+									<input type="date" id="billingDate" name="billingDate"  required #billingDate="ngModel"  class="form-control form-control-sm" [(ngModel)]="vehicleForm.billingDate" placeholder="">
+								</div>
+								<div *ngIf="!billingDate?.valid && (billingDate?.dirty || billingDate?.touched)" class="error">
+									<div *ngIf="billingDate.errors.required">
+										Billing Date is required
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<small for="paymentStatusName" class="control-label">Payment Status <i class="validation_required">*</i></small>
+									<ng-select [items]="paymentStatusNameDataArr"
+                                        bindLabel="paymentStatusName"
+                                        bindValue="id"
+                                        placeholder="Select paymentStatusName"
+                                        appendTo="body"
+                                        name="paymentStatusName"
+										required #paymentStatusId="ngModel"
+                                        [(ngModel)]="vehicleForm.paymentStatusId"> 
+                                    </ng-select>
+									<div *ngIf="!paymentStatusId?.valid && (paymentStatusId?.dirty || paymentStatusId?.touched)" class="error">
+										<div *ngIf="paymentStatusId.errors.required">
+											Payment Status is required
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-md-4">
+								<div class="form-group">
+									<small class="control-label ">Service Date<i class="validation_required">*</i></small>
+									<input type="date" id="serviceDate" name="serviceDate" required #serviceDate="ngModel"  class="form-control form-control-sm" [(ngModel)]="vehicleForm.serviceDate" placeholder="">
+								</div>
+								<div *ngIf="!serviceDate?.valid && (serviceDate?.dirty || serviceDate?.touched)" class="error">
+									<div *ngIf="serviceDate.errors.required">
+										Service Date is required
+									</div>
+								</div>
+							</div>
+						</div> -->
+
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="reset" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!masterVehicleForm.valid" data-dismiss="modal" (click)="SaveVehicle()">Save</button>
+					<button type="submit" class="btn btn-primary" *ngIf="isEditMode && !isViewMode" [disabled]="!masterVehicleForm.valid" (click)="UpdateVehicle()">Update</button>
+					<button type="button" class="btn btn-danger" *ngIf="isEditMode && !isViewMode"  data-dismiss="modal" (click)="DeleteVehicle()">Delete</button>
+					<!-- <button type="submit" class="btn btn-primary" *ngIf="!isEditMode && !isViewMode" [disabled]="!masterVehicleForm.valid" data-dismiss="modal" (click)="SaveVehicle()">Save</button>
+					<button type="submit" class="btn btn-primary" *ngIf="isEditMode && !isViewMode" [disabled]="!masterVehicleForm.valid"  (click)="UpdateVehicle()">Update</button>
+					<button type="button" class="btn btn-danger" *ngIf="isEditMode && !isViewMode"  data-dismiss="modal" (click)="DeleteVehicle()">Delete</button> -->
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

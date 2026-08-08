@@ -1,0 +1,173 @@
+<!-- Breadcrumb-->
+<div class="row pt-2 pb-2">
+	<div class="col-sm-9">
+		<h4 class="page-title">Sparkline Charts</h4>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="javaScript:;">Bulona</a>
+			</li>
+			<li class="breadcrumb-item"><a href="javaScript:;">Charts</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Sparkline Charts</li>
+		</ol>
+	</div>
+	<div class="col-sm-3">
+		<div ngbDropdown class="btn-group float-sm-right">
+			<button type="button" class="btn btn-outline-danger"><i class="fa fa-cog mr-1"></i> Setting</button>
+			<button type="button" class="btn btn-danger" id="dropdownBasic5" ngbDropdownToggle> <span class="caret"></span>
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic5">
+        		<a href="javaScript:;" ngbDropdownItem>Action</a>
+				<a href="javaScript:;" ngbDropdownItem>Another action</a>
+				<a href="javaScript:;" ngbDropdownItem>Something else here</a>
+				<div class="dropdown-divider"></div> 
+				<a href="javaScript:;" ngbDropdownItem>Separated link</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Breadcrumb-->
+<h6 class="mb-0 text-uppercase">Apex Sparkline Charts</h6>
+<hr>
+<div class="card-deck flex-column flex-lg-row">
+	<div class="card">
+		<div class="card-body">
+			<div id="spark1"></div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body">
+			<div id="spark2"></div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body">
+			<div id="spark3"></div>
+		</div>
+	</div>
+</div>
+<div class="card-deck flex-column flex-lg-row">
+	<div class="card">
+		<div class="card-body">
+			<h4 class="mb-0">$85,246</h4>
+			<p>Sales</p>
+			<div id="chart1"></div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body">
+			<h4 class="mb-0">$97,826</h4>
+			<p>Expenses</p>
+			<div id="chart2"></div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body">
+			<h4 class="mb-0">$64,976</h4>
+			<p>Profits</p>
+			<div id="chart3"></div>
+		</div>
+	</div>
+</div>
+<div class="card-deck flex-column flex-lg-row">
+	<div class="card">
+		<div class="card-body">
+			<h4 class="mb-0">$95,345</h4>
+			<p>Sales</p>
+			<div id="chart4"></div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body">
+			<h4 class="mb-0">$68,846</h4>
+			<p>Expenses</p>
+			<div id="chart5"></div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body">
+			<h4 class="mb-0">$54,376</h4>
+			<p>Profits</p>
+			<div id="chart6"></div>
+		</div>
+	</div>
+</div>
+<h6 class="mb-0 text-uppercase">Jquery Sparkline Charts</h6>
+<hr>
+<div class="row">
+	<div class="col-12 col-lg-6 col-xl-6">
+		<div class="card">
+			<div class="card-body">
+				<div class="media">
+					<div class="align-self-center" id="sparklinechart1"></div>
+					<div class="media-body text-right"> <span>New Posts</span>
+						<h4>12050</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-6 col-xl-6">
+		<div class="card">
+			<div class="card-body">
+				<div class="media">
+					<div class="align-self-center" id="sparklinechart2"></div>
+					<div class="media-body text-right"> <span>Comments</span>
+						<h4>43250</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-6 col-xl-6">
+		<div class="card">
+			<div class="card-body">
+				<div class="media">
+					<div class="align-self-center" id="sparklinechart3"></div>
+					<div class="media-body text-right"> <span>Total Likes</span>
+						<h4>55126</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-6 col-xl-6">
+		<div class="card">
+			<div class="card-body">
+				<div class="media">
+					<div class="align-self-center" id="sparklinechart4"></div>
+					<div class="media-body text-right"> <span>Total Views</span>
+						<h4>2550</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
+<div class="row">
+	<div class="col-12 col-lg-12 col-xl-4">
+		<div class="card">
+			<div class="card-header text-uppercase">Pie charts</div>
+			<div class="card-body">
+				<div id="sparklinechart5" class="text-center"></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-12 col-xl-4">
+		<div class="card">
+			<div class="card-header text-uppercase">Pie charts</div>
+			<div class="card-body">
+				<div id="sparklinechart6" class="text-center"></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-12 col-xl-4">
+		<div class="card">
+			<div class="card-header text-uppercase">Bar Chart</div>
+			<div class="card-body">
+				<div id="sparklinechart7" class="text-center"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Row-->
