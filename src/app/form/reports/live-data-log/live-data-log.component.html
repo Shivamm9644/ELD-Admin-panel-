@@ -32,7 +32,7 @@
                                 </div>
                                 <li class="list-group-item p-1" style="cursor: pointer;" *ngFor="let liveData of liveRowData; let i = index" (click)="HighLightDevice(liveData.VehicleId)">
                                     <span class="vehicle_menu_list">{{liveData.VehicleName}} - {{liveData.DriverName}}</span><br>
-                                    <span style="color:gray; font-size: 12px;">{{liveData.DateTime | date: 'MMM d, HH:mm a':'UTC'}}</span>
+                                    <span style="color:gray; font-size: 12px;">{{liveData.DateTime | date: 'MM/dd/yyyy HH:mm a':'UTC'}}</span>
                                     <!-- <span class="float-right">Moving</span> -->
                                 </li>
                             </ul>

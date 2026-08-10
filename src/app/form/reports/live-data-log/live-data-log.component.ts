@@ -253,11 +253,13 @@ export class LiveDataLogComponent implements OnInit {
     let closer1 = document.getElementById('popup-closer');
 
 
-    closer1.onclick = function () {
-      overlay1.setPosition(undefined);
-      closer1.blur();
-      return false;
-    };
+    if (closer1) {
+      closer1.onclick = function () {
+        overlay1.setPosition(undefined);
+        closer1.blur();
+        return false;
+      };
+    }
 
     let overlay1 = new Overlay({
       element: container1,
@@ -831,7 +833,7 @@ export class LiveDataLogComponent implements OnInit {
           // console.log(" >>> "+value["deviceId"]);
           mapcenter = transform([parseFloat(value['Longitude']), parseFloat(value['Lattitude'])], 'EPSG:4326', 'EPSG:3857');
           let idlePoints = false;
-          let sDateTime = this.datePipe.transform(Number(value["utcDateTime"]), 'dd-MM-yyyy HH:mm:ss','UTC');
+          let sDateTime = this.datePipe.transform(Number(value["utcDateTime"]), 'MM/dd/yyyy HH:mm:ss','UTC');
           if(bFirst)
           {
             if(value['Odometer']>0){
@@ -1259,7 +1261,7 @@ export class LiveDataLogComponent implements OnInit {
 
     
     // let lDatetime=new Date(Number(dateTime)).toLocaleDateString("en-us");
-    let sDateTime = this.datePipe.transform(Number(dateTime), 'dd-MM-yyyy HH:mm:ss',"UTC");
+    let sDateTime = this.datePipe.transform(Number(dateTime), 'MM/dd/yyyy HH:mm:ss',"UTC");
 
     let iconFeature = new Feature({
       type:"device_position",

@@ -187,7 +187,7 @@
                         <strong>Violations:</strong>
                         <p class="m-1 p-1 voilation_section " *ngFor="let voilation of voilationRowData; let i = index">
                             <span>
-                                {{voilation.logType}} | {{voilation.dateTime | date:'MMM d HH:mm:ss':'UTC'}}
+                                {{voilation.logType}} | {{voilation.dateTime | date:'MM/dd/yyyy HH:mm:ss':'UTC'}}
                             </span>
                         </p>
                     </div>
@@ -221,7 +221,7 @@
                             <tr *ngFor="let graphStatus of rowData; let i = index">
                                 <td class="hide-print" *ngIf="graphStatus.statusId!=0">{{graphStatus.statusId}}</td>
                                 <td *ngIf="graphStatus.statusId==0">-</td>
-                                <td>{{graphStatus.dateTime | date:'yyyy-MM-dd HH:mm:ss a':'UTC'}}</td>
+                                <td>{{graphStatus.dateTime | date:'MM/dd/yyyy HH:mm:ss a':'UTC'}}</td>
                                 <!-- <td class="text-center">
                                     <span class='badge badge-primary py-1 px-2' *ngIf="graphStatus.status=='OnDuty'">{{graphStatus.status}}</span>
                                     <span class='badge badge-danger py-1 px-2' *ngIf="graphStatus.status=='Voilation'">{{graphStatus.status}}</span>

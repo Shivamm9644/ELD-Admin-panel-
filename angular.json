@@ -36,7 +36,7 @@
               "ng2-validation",
               "date-fns"
             ],
-            "outputPath": "dist/gbt-eld",
+            "outputPath": "dist/allstarelogs",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

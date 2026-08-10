@@ -53,10 +53,10 @@
 								<td>{{llData.firstName}} {{llData.lastName}} </td>
 								<td>{{llData.email}} </td>
 								<td>{{llData.mobileNo}} </td>
-								<td>{{llData.loginDateTime | date:'yyyy-MM-dd HH:mm:ss'}} </td>
+								<td>{{llData.loginDateTime | date:'MM/dd/yyyy HH:mm:ss'}} </td>
                                 <td>
                                     <span *ngIf="llData.logoutDateTime==0"></span>
-                                    <span *ngIf="llData.logoutDateTime!=0">{{llData.logoutDateTime | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                                    <span *ngIf="llData.logoutDateTime!=0">{{llData.logoutDateTime | date:'MM/dd/yyyy HH:mm:ss'}} </span>
                                 </td>
 							</tr>
 							</tbody>

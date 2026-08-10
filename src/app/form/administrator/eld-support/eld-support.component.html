@@ -56,7 +56,7 @@
 							<td>{{otaLog.driverName}}</td>
 							<td>{{otaLog.vehicleNo}}</td>
 							<td>{{otaLog.companyName}}</td>
-							<td>{{otaLog.utcDateTime | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+							<td>{{otaLog.utcDateTime | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                             <td>{{otaLog.message}}</td>
                             <td><a style="color: dodgerblue; cursor: pointer;" data-toggle="modal" data-target="#eld_support_modal" (click)="ShowELDSupport(otaLog)">{{otaLog.status}}</a></td>
 						</tr>

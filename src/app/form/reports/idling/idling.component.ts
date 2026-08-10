@@ -81,36 +81,65 @@ export class IdlingComponent implements OnInit {
 
   async GenerateIdleReport(){
     try{
-      // alert(this.selectedFormat);
       let vehiceId = this.vehicleId;
-      let fromDate = $("#fromDate").val();
-      let toDate = $("#toDate").val();
-      let sanitizedFrom = fromDate.replace(/-/g, "_");
-      let sanitizedTo = toDate.replace(/-/g, "_");
+      let fromDate: any = $("#fromDate").val();
+      let toDate: any = $("#toDate").val();
+      if (!fromDate || !toDate) {
+        Swal.fire('Warning', 'Please select valid From Date and To Date.', 'warning');
+        return;
+      }
+      let sanitizedFrom = String(fromDate).replace(/-/g, "_");
+      let sanitizedTo = String(toDate).replace(/-/g, "_");
       let extension = this.selectedFormat === 'csv' ? 'csv' : 'pdf';
       let fileName = sanitizedFrom + "_" + sanitizedTo + "_" + this.vehicleId + "." + extension;
       const idleReq = {
         'vehicleId': vehiceId,
-        'fromDate':this.datePipe.transform(fromDate+" 00:00:00","yyyy-MM-dd HH:mm:ss"),
-        'toDate':this.datePipe.transform(toDate+" 23:59:59","yyyy-MM-dd HH:mm:ss"),
-        'clientId':Number(localStorage.getItem("clientId")),
-        'reportType':this.selectedFormat,
-			};
-			const data: any = await this.request.post('/dispatch/view_idling_report/',idleReq);
-      // console.log(data.result);
-      this.downloadFile(data.result).subscribe((blob: Blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = fileName;
-        a.click();
-        window.URL.revokeObjectURL(url);
-      });
-    }catch(error){}
+        'fromDate': this.datePipe.transform(fromDate + " 00:00:00", "yyyy-MM-dd HH:mm:ss"),
+        'toDate': this.datePipe.transform(toDate + " 23:59:59", "yyyy-MM-dd HH:mm:ss"),
+        'clientId': Number(localStorage.getItem("clientId")),
+        'reportType': this.selectedFormat,
+      };
+
+      const data: any = await this.request.post('/dispatch/view_idling_report/', idleReq);
+      if (!data || data.status === 'FAIL' || !data.result) {
+        Swal.fire({
+          title: 'Report Not Available',
+          text: data?.message || 'No idling data found for the selected criteria.',
+          type: 'warning',
+          confirmButtonText: 'OK'
+        });
+        return;
+      }
+
+      let downloadUrl = data.result;
+      if (typeof downloadUrl === 'string' && downloadUrl.startsWith('http://')) {
+        downloadUrl = downloadUrl.replace('http://', 'https://');
+      }
+
+      this.downloadFile(downloadUrl).subscribe(
+        (blob: Blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = fileName;
+          a.click();
+          window.URL.revokeObjectURL(url);
+        },
+        (error) => {
+          console.error('Error downloading file:', error);
+          Swal.fire('Error', 'Failed to download report file.', 'error');
+        }
+      );
+    } catch(error) {
+      console.error('Error generating idling report:', error);
+    }
 
   }
 
-  downloadFile(url:string) {
+  downloadFile(url: string) {
+    if (!url) {
+      throw new Error('Download URL cannot be empty.');
+    }
     return this.http.get(url, { responseType: 'blob' });
   }
 

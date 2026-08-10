@@ -1015,11 +1015,13 @@ export class WorkingDetailComponent implements OnInit {
         this.closer1 = document.getElementById('popup-closer');
     
     
-        this.closer1.onclick = function () {
-          // this.overlay1.setPosition(undefined);
-          // this.closer1.blur();
-          return false;
-        };
+        if (this.closer1) {
+          this.closer1.onclick = function () {
+            // this.overlay1.setPosition(undefined);
+            // this.closer1.blur();
+            return false;
+          };
+        }
     
         this.overlay1 = new Overlay({
           element: this.container1,
@@ -1304,7 +1306,7 @@ export class WorkingDetailComponent implements OnInit {
     
         
         // let lDatetime=new Date(Number(dateTime)).toLocaleDateString("en-us");
-        let sDateTime = this.datePipe.transform(Number(dateTime), 'dd-MM-yyyy HH:mm:ss');
+        let sDateTime = this.datePipe.transform(Number(dateTime), 'MM/dd/yyyy HH:mm:ss');
     
         let iconFeature = new Feature({
           type:"device_position",

@@ -43,9 +43,9 @@
 									<td>{{vehicle.vehicleTypeId}}</td>     
 									<td>{{vehicle.deviceId}}</td>
 									<td>{{vehicle.clientId}}</td>
-									<td>{{vehicle.registartionDate | date:'dd-MM-yyyy'}}</td>
-									<td>{{vehicle.pollutionExpiryDate| date:'dd-MM-yyyy'}}</td>
-									<td>{{vehicle.fitnessExpiryDate| date:'dd-MM-yyyy'}}</td>
+									<td>{{vehicle.registartionDate | date:'MM/dd/yyyy'}}</td>
+									<td>{{vehicle.pollutionExpiryDate| date:'MM/dd/yyyy'}}</td>
+									<td>{{vehicle.fitnessExpiryDate| date:'MM/dd/yyyy'}}</td>
 								</tr> -->
 								<tr *ngFor="let vehicle of rowData; let i = index" style="cursor: pointer;" data-toggle="modal" data-target="#vehicle_modal" (click)="EditVehicle(vehicle.vehicleId);">
 									<th style="text-align: center;" scope="row">{{i+1}}</th>

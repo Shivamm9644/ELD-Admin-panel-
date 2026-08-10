@@ -9,28 +9,39 @@
                         <button class="btn btn-outline-dark btn-sm"><small>Refresh</small><i class="zmdi zmdi-refresh ml-2"></i></button>
                     </div>
                 </div>
-                <div class="d-flex my-2">
-                    <div class="form-group">
+                <div class="d-flex my-2 align-items-center flex-wrap">
+                    <div class="form-group mb-1">
                         <input type="date" class="form-control form-control-sm" id="fromDate" (change)="ShowUnidentifiedEventsReport(0,'')" aria-describedby="" placeholder="From Date">
                     </div>
-                    <div class="form-group mx-3">
+                    <div class="form-group mx-2 mb-1">
                         <input type="date" class="form-control form-control-sm" id="toDate" (change)="ShowUnidentifiedEventsReport(0,'')" aria-describedby="" placeholder="To Date">
                     </div> 
                     <ng-select [items]="vehicleDataArr"
-                        bindLabel="vehicleNo"
+                        bindLabel="label"
                         bindValue="id"
-                        placeholder="All vehicles"
-                        (change)="ShowUnidentifiedEventsReport($event.id,'')"
+                        placeholder="All vehicles / MAC Address"
+                        [searchFn]="customVehicleSearch"
+                        (change)="ShowUnidentifiedEventsReport($event ? $event.id : 0,'')"
                         appendTo="body"
                         name="vehicleNo"
-                        [(ngModel)]="ueForm.truckNo"> 
+                        [(ngModel)]="ueForm.truckNo"
+                        style="min-width: 220px;"> 
+                        <ng-template ng-option-tmp let-item="item">
+                            <div class="d-flex flex-column">
+                                <strong>{{item.vehicleNo}}</strong>
+                                <small class="text-muted" *ngIf="item.macAddress">MAC: {{item.macAddress}}</small>
+                            </div>
+                        </ng-template>
                     </ng-select>
-                    <ng-select [items]="logStatusDataArr" bindLabel="logStatus" bindValue="id" class="mx-2"
+                    <ng-select [items]="logStatusDataArr" bindLabel="logStatus" bindValue="id" class="mx-2 mb-1"
                         placeholder="Select Status" appendTo="body" name="logStatus"
-                        (change)="ShowUnidentifiedEventsReport(0,$event.id)"
-                        [(ngModel)]="ueForm.logStatus">
+                        (change)="ShowUnidentifiedEventsReport(0, $event ? $event.id : '')"
+                        [(ngModel)]="ueForm.logStatus"
+                        style="min-width: 140px;">
                     </ng-select>
-
+                    <div class="form-group mb-1" style="min-width: 180px;">
+                        <input type="text" class="form-control form-control-sm" name="macAddress" [(ngModel)]="ueForm.macAddress" (keyup.enter)="ShowUnidentifiedEventsReport(0,'')" (change)="ShowUnidentifiedEventsReport(0,'')" placeholder="Search MAC Address">
+                    </div>
                 </div> 
                  <div class="table-responsive">
                     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
@@ -38,6 +49,7 @@
                             <tr>
                                 <th>Date Time</th>
                                 <th>Vehicle</th>
+                                <th>MAC Address</th>
                                 <th>Driver</th>
                                 <th>Event</th>
                                 <th>Status</th>
@@ -54,8 +66,9 @@
                         </thead>
                          <tbody>
                             <tr *ngFor="let event of rowData; let i = index">
-                                <td>{{event.lDateTime | date:'dd-MM-yyyy HH:mm:ss':'UTC'}}</td>
-                                <td>{{event.truckNo}}</td>
+                                <td>{{event.lDateTime | date:'MM/dd/yyyy HH:mm:ss':'UTC'}}</td>
+                                <td>{{getVehicleDisplay(event)}}</td>
+                                <td>{{getMacAddressDisplay(event)}}</td>
                                 <td>{{event.driverName}}</td>
                                 <td>{{event.status}}</td>
                                 <td>Unidentified</td>

@@ -11,7 +11,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const publicEndpoints = [
       '/auth/',
       '/master/',
-      '/dispacth/',
+      '/dispatch/',
       '/service/'
     ];
     // const isPublic = req.url.includes('/auth/login_web') || req.url.includes('/register');

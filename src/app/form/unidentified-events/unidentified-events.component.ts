@@ -102,31 +102,45 @@ export class UnidentifiedEventsComponent implements OnInit {
     try {
       this.isLoading = true;
       let from = this.datePipe.transform($("#fromDate").val(), 'yyyy-MM-dd');
-	    let to = this.datePipe.transform($("#toDate").val(), 'yyyy-MM-dd');
-      vehicleId = Number(this.ueForm.truckNo);
+      let to = this.datePipe.transform($("#toDate").val(), 'yyyy-MM-dd');
+      vehicleId = Number(this.ueForm.truckNo) || 0;
+      let selectedVehicle = this.vehicleDataArr ? this.vehicleDataArr.find(v => v.id === vehicleId) : null;
+      let macAddress = this.ueForm.macAddress || (selectedVehicle ? selectedVehicle.macAddress : '');
+
       const unidentifiedEvent= {
         'vehicleId' : vehicleId,
         'fromDate' : this.datePipe.transform(new Date(from+" 00:00:00"), 'yyyy-MM-dd HH:mm:ss'),
         'toDate' : this.datePipe.transform(new Date(to+" 23:59:59"), 'yyyy-MM-dd HH:mm:ss'),
         'clientId' : Number(localStorage.getItem("clientId")),
-	  };
+        'macAddress' : macAddress || '',
+      };
     //   console.log(unidentifiedEvent);
-	  const data: any = await this.request.post('/dispatch/view_unidentified_events/',unidentifiedEvent);
-	  this.unidentifiedEventDEtails=[];
+      const data: any = await this.request.post('/dispatch/view_unidentified_events/',unidentifiedEvent);
+      this.unidentifiedEventDEtails=[];
       for (let objKey of Object.keys(data)) {
         let dataObj = data[objKey];
         if(objKey=="result"){
           for (let objKey1 of Object.keys(dataObj)) {
-            this.unidentifiedEventDEtails.push(dataObj[objKey1]);
+            let item = dataObj[objKey1];
+            item.macAddress = this.getMacAddressDisplay(item);
+            this.unidentifiedEventDEtails.push(item);
           } 
         }				
       }
       status = this.ueForm.logStatus;
+      let filtered = this.unidentifiedEventDEtails;
       if(status!="" && status!=undefined){
-        this.rowData = this.unidentifiedEventDEtails.filter(item => item.status === status);
-      }else{
-        this.rowData = this.unidentifiedEventDEtails;
+        filtered = filtered.filter(item => item.status === status);
       }
+      if(this.ueForm.macAddress && this.ueForm.macAddress.trim() !== ''){
+        const macSearch = this.ueForm.macAddress.trim().toLowerCase();
+        filtered = filtered.filter(item => 
+          (item.macAddress && item.macAddress.toLowerCase().includes(macSearch)) ||
+          (item.truckNo && item.truckNo.toLowerCase().includes(macSearch)) ||
+          (item.vehicleId && String(item.vehicleId).includes(macSearch))
+        );
+      }
+      this.rowData = filtered;
 
       this.rowData.sort((a, b) => {
         const dateA = new Date(a.dateTime).getTime();
@@ -327,10 +341,14 @@ export class UnidentifiedEventsComponent implements OnInit {
 				let dataObj = vehicleData[objKey];
 				if(objKey=="result"){
 				for (let objKey1 of Object.keys(dataObj)) {
-					// this.designationDataObj.push(dataObj[objKey1]);
+					let vNo = dataObj[objKey1].vehicleNo || '';
+					let mac = dataObj[objKey1].macAddress || '';
+					let label = vNo + (mac ? ' (' + mac + ')' : '');
 					let arr = {
-						id:dataObj[objKey1].vehicleId,
-						vehicleNo:dataObj[objKey1].vehicleNo,
+						id: dataObj[objKey1].vehicleId,
+						vehicleNo: vNo,
+						macAddress: mac,
+						label: label
 					};
 					this.vehicleDataObj.push(arr);
 				}
@@ -339,6 +357,62 @@ export class UnidentifiedEventsComponent implements OnInit {
 			this.vehicleDataArr = this.vehicleDataObj;
 		} catch (error) {}
 	}
+
+  customVehicleSearch(term: string, item: any) {
+    if (!term) return true;
+    term = term.toLowerCase().trim();
+    const vNoMatches = item.vehicleNo && item.vehicleNo.toLowerCase().includes(term);
+    const macMatches = item.macAddress && item.macAddress.toLowerCase().includes(term);
+    const labelMatches = item.label && item.label.toLowerCase().includes(term);
+    return vNoMatches || macMatches || labelMatches;
+  }
+
+  getVehicleDisplay(event: any): string {
+    if (!event) return '-';
+    if (event.truckNo && event.truckNo !== '0' && String(event.truckNo).trim() !== '') {
+      return event.truckNo;
+    }
+    if (event.vehicleId && Number(event.vehicleId) > 0) {
+      const v = this.vehicleDataArr ? this.vehicleDataArr.find(x => x.id === Number(event.vehicleId)) : null;
+      if (v && v.vehicleNo) {
+        return v.vehicleNo;
+      }
+      return 'Vehicle #' + event.vehicleId;
+    }
+    if (event.macAddress && String(event.macAddress).trim() !== '') {
+      const v = this.vehicleDataArr ? this.vehicleDataArr.find(x => x.macAddress && x.macAddress.toLowerCase() === String(event.macAddress).toLowerCase()) : null;
+      if (v && v.vehicleNo) {
+        return v.vehicleNo;
+      }
+    }
+    return '-';
+  }
+
+  getMacAddressDisplay(event: any): string {
+    if (!event) return 'N/A';
+    if (event.macAddress && String(event.macAddress).trim() !== '' && String(event.macAddress) !== 'null' && String(event.macAddress) !== 'undefined') {
+      return event.macAddress;
+    }
+    if (event.mac_address && String(event.mac_address).trim() !== '' && String(event.mac_address) !== 'null' && String(event.mac_address) !== 'undefined') {
+      return event.mac_address;
+    }
+    if (event.mac && String(event.mac).trim() !== '' && String(event.mac) !== 'null' && String(event.mac) !== 'undefined') {
+      return event.mac;
+    }
+    if (event.vehicleId && Number(event.vehicleId) > 0) {
+      const v = this.vehicleDataArr ? this.vehicleDataArr.find(x => Number(x.id) === Number(event.vehicleId)) : null;
+      if (v && v.macAddress) {
+        return v.macAddress;
+      }
+    }
+    if (event.truckNo && String(event.truckNo).trim() !== '') {
+      const v = this.vehicleDataArr ? this.vehicleDataArr.find(x => x.vehicleNo && String(x.vehicleNo).trim().toLowerCase() === String(event.truckNo).trim().toLowerCase()) : null;
+      if (v && v.macAddress) {
+        return v.macAddress;
+      }
+    }
+    return 'N/A';
+  }
 
 	ngAfterViewInit(): void {
 		this.dtTrigger.next();

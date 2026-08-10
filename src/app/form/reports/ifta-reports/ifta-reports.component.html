@@ -60,9 +60,9 @@
                         [checked]="selectedValues.includes(iftaData)"
                     >
                 </td>
-                <td>{{iftaData.currentTimestamp | date:'MMM dd, HH:mm a':'UTC'}}</td>
-                <td>{{iftaData.fromDate | date:'yyyy-MM-dd'}}</td>
-                <td>{{iftaData.toDate | date:'yyyy-MM-dd'}}</td>
+                <td>{{iftaData.currentTimestamp | date:'MM/dd/yyyy HH:mm a':'UTC'}}</td>
+                <td>{{iftaData.fromDate | date:'MM/dd/yyyy'}}</td>
+                <td>{{iftaData.toDate | date:'MM/dd/yyyy'}}</td>
                 <td>{{iftaData.vehicleNo}}</td>
                 <td>Ready</td>
                 <td>

@@ -46,12 +46,12 @@
 								<td>{{company.street}} </td>
 								<td>{{company.city}} </td>
 								<td *ngIf="company.subscriptionEndTime==0"></td>
-								<td *ngIf="company.subscriptionEndTime!=0">{{company.subscriptionEndTime | date:'d MMM yyyy'}} </td>
+								<td *ngIf="company.subscriptionEndTime!=0">{{company.subscriptionEndTime | date:'MM/dd/yyyy'}} </td>
 								<td *ngIf="company.graceTime==0"></td>
 								<td *ngIf="company.graceTime!=0">
-									<!-- {{company.graceTime | date:'d MMM yyyy'}}  -->
+									<!-- {{company.graceTime | date:'MM/dd/yyyy'}}  -->
 									 <a *ngIf="userTypeId==1" style="cursor: pointer; color: dodgerblue; text-align: center;" data-toggle="modal" data-target="#grace_modal" (click)="CompanyGraceDate(company)">
-										{{company.graceTime | date:'d MMM yyyy'}}
+										{{company.graceTime | date:'MM/dd/yyyy'}}
 									</a>
 								</td>
 								<!-- <td>{{company.timeZone}} </td> -->

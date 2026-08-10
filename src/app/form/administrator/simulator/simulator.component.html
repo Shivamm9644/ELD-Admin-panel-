@@ -73,13 +73,13 @@
 								<!-- <td><a style="color: dodgerblue; cursor: pointer;" data-toggle="modal" data-target="#trailer_modal" (click)="EditTrailer(trailer.tailerId)">{{trailer.trailerName}}</a></td> -->
 								<td> <a style="color: dodgerblue; cursor: pointer;" title="View Details" (click)="viewBySimulatorOnDL(simulator.driverId,simulator.firstName)">{{simulator.title[0]}} {{simulator.firstName[0]}} {{simulator.lastName[0]}}</a> </td>
 								<!-- <td>{{simulator.title[0]}} {{simulator.firstName[0]}} {{simulator.lastName[0]}}</td> -->
-                                <td>{{simulator.lDateTime | date:'dd-MM-yyyy HH:mm:ss' :'UTC'}}</td>
-								<td>{{simulator.lDateTime | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                <td>{{simulator.lDateTime | date:'MM/dd/yyyy HH:mm:ss' :'UTC'}}</td>
+								<td>{{simulator.lDateTime | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                                 <td>{{simulator.status}}</td>
                                 <td>{{simulator.isSend}}</td>
-                                <!-- <td>{{simulator.sendDateTime | date:'dd-MM-yyyy HH:mm:ss'}}</td> -->
+                                <!-- <td>{{simulator.sendDateTime | date:'MM/dd/yyyy HH:mm:ss'}}</td> -->
 								<td *ngIf="simulator.sendDateTime==0">DATA NOT SEND</td>
-                                <td *ngIf="simulator.sendDateTime!=0">{{simulator.sendDateTime | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                <td *ngIf="simulator.sendDateTime!=0">{{simulator.sendDateTime | date:'MM/dd/yyyy HH:mm:ss'}}</td>
 								<td>
 									<a *ngIf="simulator.sendDateTime==0" (click)="DeleteSimulator(simulator._id)" style="color: red; margin-left: 7px;">
 										<i class="fa fa-trash fa-lg" aria-hidden="true"></i>

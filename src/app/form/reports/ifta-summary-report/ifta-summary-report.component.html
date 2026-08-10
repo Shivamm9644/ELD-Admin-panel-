@@ -47,7 +47,7 @@
 								
 							   <tr *ngFor="let data of rowData; let i = index">
 								<th style="text-align: center;" scope="row">{{i+1}}</th>
-								<td>{{data.fromDate | date:'MMMM d, y':'UTC'}} </td>
+								<td>{{data.fromDate | date:'MM/dd/yyyy':'UTC'}} </td>
 								<td>{{data.fromStateName}} </td>
 								<td>{{data.firstOdometer}} </td>
 								<td>{{data.lastOdometer}} </td>
