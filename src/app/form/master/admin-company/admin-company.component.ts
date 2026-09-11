@@ -35,7 +35,9 @@ export class AdminCompanyComponent implements OnInit {
     private datePipe : DatePipe
   ) { }
 
+  ROLE_ID = 0;
   ngOnInit(): void {
+    this.ROLE_ID = Number(localStorage.getItem("userTypeId"));
     globalCompanyId=0;
     this.ViewCompany();
   }

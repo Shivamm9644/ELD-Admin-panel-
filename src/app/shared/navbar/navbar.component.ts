@@ -215,6 +215,9 @@ export class NavbarComponent implements OnInit{
                 }
               }
         }catch(error){ }
+        finally {
+            localStorage.clear();
+        }
     }
 
     ngOnDestroy(): void {

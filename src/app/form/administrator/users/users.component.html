@@ -9,7 +9,7 @@
 						<!-- <button type="button" *ngIf="!authService.isUserType3()" data-toggle="modal" (click)="ClearForm()" data-target="#user_modal" class="btn btn-outline-success btn-sm">
 							<i class="zmdi zmdi-plus mr-1"></i>Add User
 						</button> -->
-						<button type="button" *ngIf="sessionUserTypeId==1" data-toggle="modal" (click)="ClearForm()" data-target="#user_modal" class="btn btn-outline-success btn-sm">
+						<button type="button" *ngIf="sessionUserTypeId==1 || sessionUserTypeId==2" data-toggle="modal" (click)="ClearForm()" data-target="#user_modal" class="btn btn-outline-success btn-sm">
 							<i class="zmdi zmdi-plus mr-1"></i>Add User
 						</button>
 						<button class="btn btn-outline-dark btn-sm mx-3" (click)="RefreshPage()">Refresh <i class="zmdi zmdi-refresh" ></i></button>

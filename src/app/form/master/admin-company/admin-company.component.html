@@ -6,7 +6,7 @@
                     <span class="card-title h5 ">Company Details</span>
                     <span class="d-flex">
                         <div class="d-flex">
-                            <button class="btn btn-outline-dark btn-sm mx-3"  (click)="EditCompanyDetails()" ><small>Edit</small><i class="zmdi zmdi-edit ml-2"></i></button>
+                            <button *ngIf="ROLE_ID != 3" class="btn btn-outline-dark btn-sm mx-3"  (click)="EditCompanyDetails()" ><small>Edit</small><i class="zmdi zmdi-edit ml-2"></i></button>
                             <button class="btn btn-outline-dark btn-sm" (click)="RefreshPage()"><small>Refresh</small><i class="zmdi zmdi-refresh ml-2"></i></button>
                         </div>
                     </span>

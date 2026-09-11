@@ -92,8 +92,18 @@ export class SigninComponent implements OnInit {
           this.errorMessage = auth.message;
           this.router.navigate(['/auth/signin']);
         }else if (auth.status=="SUCCESS") {
-          // console.log(auth.status);
-          localStorage.setItem('auth_token', JSON.stringify(auth.token));
+          let jwt: string = '';
+          if (typeof auth.token === 'string') {
+            jwt = auth.token;
+          } else if (auth.token && typeof auth.token === 'object') {
+            jwt = auth.token.token || auth.token.jwt || auth.token.accessToken || JSON.stringify(auth.token);
+          } else if (auth.result && typeof auth.result === 'object') {
+            jwt = auth.result.token || auth.result.jwt || '';
+          }
+          jwt = (jwt || '').replace(/^"+|"+$/g, '').replace(/^'+|'+$/g, '').trim();
+          if (jwt && jwt !== 'null' && jwt !== 'undefined') {
+            localStorage.setItem('auth_token', jwt);
+          }
           for (let objKey of Object.keys(auth.result)) {
             // console.log(auth.result[objKey].loginDateTime);
 

@@ -116,12 +116,19 @@ export class SidebarComponent implements OnInit {
                             });
 
                         } else {
+                            let currentSubmenu = Object.assign({}, dataObj[key1]);
+                            
+                            // Hide Portal Users if userTypeId is 3 (Support Personnel)
+                            if (userTypeId === 3 && currentSubmenu.title === "Manage") {
+                                currentSubmenu.submenu = currentSubmenu.submenu.filter((item: any) => item.title !== "Portal Users");
+                            }
+
                             if (this.sessionAllowTracking == "false" && this.menuItems[key].title == "ELD") {
-                                if (dataObj[key1].title != "Vehicles") {
-                                    this.eldReportSection.push(dataObj[key1]);
+                                if (currentSubmenu.title != "Vehicles") {
+                                    this.eldReportSection.push(currentSubmenu);
                                 }
                             } else {
-                                this.eldReportSection.push(dataObj[key1]);
+                                this.eldReportSection.push(currentSubmenu);
                             }
                         }
                     }

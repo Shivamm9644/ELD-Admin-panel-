@@ -121,7 +121,16 @@ export class AutoLoginComponent implements OnInit {
     globalClientId = Number(user.clientId);
     globalClientName = user.clientName;
 
-    localStorage.setItem('auth_token', JSON.stringify(token));
+    let jwt: string = '';
+    if (typeof token === 'string') {
+      jwt = token;
+    } else if (token && typeof token === 'object') {
+      jwt = token.token || token.jwt || token.accessToken || JSON.stringify(token);
+    }
+    jwt = (jwt || '').replace(/^"+|"+$/g, '').replace(/^'+|'+$/g, '').trim();
+    if (jwt && jwt !== 'null' && jwt !== 'undefined') {
+      localStorage.setItem('auth_token', jwt);
+    }
     localStorage.setItem('fullName', globalFullName);
     localStorage.setItem('employeeId', globalEmployeeId.toString());
     localStorage.setItem('email', globalEmail);

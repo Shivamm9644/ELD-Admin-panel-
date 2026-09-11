@@ -53,6 +53,20 @@ noData(Highcharts);
 })
 export class LogDriverComponent implements OnInit {
 
+  statusFilter: string = 'All';
+
+  get filteredRowData() {
+    if (!this.rowData) return [];
+    if (this.statusFilter === 'All') {
+      return this.rowData;
+    } else if (this.statusFilter === 'Active') {
+      return this.rowData.filter(item => item.isInactive !== 1);
+    } else if (this.statusFilter === 'Inactive') {
+      return this.rowData.filter(item => item.isInactive === 1);
+    }
+    return this.rowData;
+  }
+
   @ViewChild("lineChart", { static: false }) lineChart: any;
 
   parseLocalDate(dateInput: any): Date {
@@ -252,7 +266,7 @@ export class LogDriverComponent implements OnInit {
     this.logOriginDataArr = this.logOriginDetails;
 
     this.userTypeId = Number(localStorage.getItem("userTypeId"));
-    if (this.userTypeId == 2) {
+    if (this.userTypeId == 2 || this.userTypeId == 3) {
       setTimeout(() => this.hideRestrictedElements(), 100);
       // this.hideRestrictedElements();
 

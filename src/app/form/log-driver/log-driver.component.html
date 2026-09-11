@@ -17,7 +17,7 @@
                      </div>
 
                      <span class="d-flex hide-print">
-                         <button class="btn btn-outline-dark btn-sm mr-3 restricted-access" (click)="PrintPage('PrintWholePage')" >Print <i class="zmdi zmdi-print"></i></button>
+                         <button *ngIf="userTypeId != 3" class="btn btn-outline-dark btn-sm mr-3 restricted-access" (click)="PrintPage('PrintWholePage')" >Print <i class="zmdi zmdi-print"></i></button>
                          
                          <button class="btn btn-outline-dark btn-sm mr-1" (click)="PlusMinusDays('minus')"><i class="zmdi zmdi-caret-left-circle" ></i></button>
                          <button class="btn btn-outline-dark btn-sm" id="nextDateButton" (click)="PlusMinusDays('plus')"><i class="zmdi zmdi-caret-right-circle"></i></button>
@@ -39,8 +39,8 @@
                     <div class="table_head_on_print">
                         <span >General</span>
                         <!-- <span id="imageUrl"></span> -->
-                        <span *ngIf="isEditing==true && isReportGenerated==0" style="cursor: pointer;" (click)="ShowCertifiedLog()" data-toggle="modal" data-target="#certified_log_modal" class="float-right fa fa-pencil fa-lg mt-1 text-center no-print restricted-access"></span>
-                        <span *ngIf="isEditing==true && isReportGenerated==0" style="cursor: pointer;" (click)="DownloadImage()" class="float-right fa fa-download fa-lg mt-1 mr-4 text-center no-print restricted-access"></span>
+                        <span *ngIf="isEditing==true && isReportGenerated==0 && userTypeId != 3" style="cursor: pointer;" (click)="ShowCertifiedLog()" data-toggle="modal" data-target="#certified_log_modal" class="float-right fa fa-pencil fa-lg mt-1 text-center no-print restricted-access"></span>
+                        <span *ngIf="isEditing==true && isReportGenerated==0 && userTypeId != 3" style="cursor: pointer;" (click)="DownloadImage()" class="float-right fa fa-download fa-lg mt-1 mr-4 text-center no-print restricted-access"></span>
 
                     </div>
                     <table class="table table-bordered " id="generalPrint">
@@ -158,8 +158,8 @@
                     <h6 class="card-title h5">Log</h6>
                     <div class="table_head_on_print" *ngIf="isEditing==true && isReportGenerated==0">
                         <span >Log Events</span>
-                        <span style="cursor: pointer;" title="Show bulk assign controls" (click)="ShowBulkAssign()" class="restricted-access float-right fa fa-list fa-lg mt-1 text-center no-print "></span>&nbsp;&nbsp;
-                        <span style="cursor: pointer; margin-right: 20px;" data-toggle="modal" data-target="#add_driver_log_modal" title="Add Suggested Event" class="restricted-access float-right fa fa-plus fa-lg mt-1 text-center no-print"></span>
+                        <span *ngIf="userTypeId != 3" style="cursor: pointer;" title="Show bulk assign controls" (click)="ShowBulkAssign()" class="restricted-access float-right fa fa-list fa-lg mt-1 text-center no-print "></span>&nbsp;&nbsp;
+                        <span *ngIf="userTypeId == 1" style="cursor: pointer; margin-right: 20px;" data-toggle="modal" data-target="#add_driver_log_modal" title="Add Suggested Event" class="restricted-access float-right fa fa-plus fa-lg mt-1 text-center no-print"></span>
                     </div>
 
                     <!-- <div class="col-lg-12 graphSection" *ngIf="isGraphShow">
@@ -198,14 +198,21 @@
                                     <th class="hide-print">ID</th>
                                    <th>Time (PT)</th>
                                    <th>Event</th>
-                                   <th>Status</th>
+                                   <th>
+                                        Status
+                                        <select class="form-control form-control-sm mt-1" [(ngModel)]="statusFilter" [ngModelOptions]="{standalone: true}">
+                                            <option value="All">All</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>
+                                   </th>
                                    <!-- <th>Location</th> -->
                                    <th>Current Location</th>
                                    <th>Origin</th>
                                    <th>Odometer (mi)</th>
                                    <th>Engine Hours</th>
                                    <th>Notes</th>
-                                   <th class="restricted-access no-print">Manage</th>
+                                   <th *ngIf="userTypeId != 3" class="restricted-access no-print">Manage</th>
                                    <th class="no-print" *ngIf="isBulkAssignVisible">
                                         <input 
                                             type="checkbox" 
@@ -218,7 +225,7 @@
                                </tr>
                            </thead>
                            <tbody>
-                            <tr *ngFor="let graphStatus of rowData; let i = index">
+                            <tr *ngFor="let graphStatus of filteredRowData; let i = index">
                                 <td class="hide-print" *ngIf="graphStatus.statusId!=0">{{graphStatus.statusId}}</td>
                                 <td *ngIf="graphStatus.statusId==0">-</td>
                                 <td>{{graphStatus.dateTime | date:'MM/dd/yyyy HH:mm:ss a':'UTC'}}</td>
@@ -245,7 +252,12 @@
                                     </span>
                                 </td>
                                 
-                                <td>{{graphStatus.employeeStatus}}</td>
+                                <td>
+    <span *ngIf="graphStatus.isInactive === 0" class="badge badge-success">Active Log</span>
+    <span *ngIf="graphStatus.isInactive === 1" class="badge badge-danger">Inactive</span>
+    <span *ngIf="graphStatus.isInactive === 2" class="badge badge-info">Active Edited</span>
+    <span *ngIf="graphStatus.isInactive == null" class="badge badge-primary">{{graphStatus.employeeStatus}}</span>
+</td>
                                 <!-- <td>{{graphStatus.lattitude}},{{graphStatus.longitude}}</td> -->
                                 <td style="white-space: normal;">{{graphStatus.customLocation}}</td>
                                 <td>{{graphStatus.origin}}</td>
@@ -269,7 +281,7 @@
                                 <td>{{graphStatus.engineHour}}</td>
                                 
                                 <td>{{graphStatus.note}}</td>
-                                <td class="restricted-access no-print" *ngIf="isReportGenerated==0 && isEditing==true && graphStatus.isPreviousLog==0">
+                                <td class="restricted-access no-print" *ngIf="isReportGenerated==0 && isEditing==true && graphStatus.isPreviousLog==0 && userTypeId != 3">
                                     <a style="color: dodgerblue; cursor: pointer;" (click)="LogDataShow(graphStatus)" data-toggle="modal" data-target="#driver_log_modal" ><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
                                     <!-- <span *ngIf="graphStatus.isLogDelete==1">
                                         <a style="color: red; cursor: pointer; margin-left: 10px;" (click)="DisableLog(graphStatus)" ><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
@@ -290,17 +302,18 @@
                                         </a>
                                     </span>
                                 </td>
-                                <td class="restricted-access no-print" *ngIf="isReportGenerated==0 && isEditing==true && graphStatus.isPreviousLog!=0">
+                                <td class="restricted-access no-print" *ngIf="isReportGenerated==0 && isEditing==true && graphStatus.isPreviousLog!=0 && userTypeId != 3">
+                                <td class="restricted-access no-print" *ngIf="userTypeId != 3 && isReportGenerated==0 && isEditing==true && graphStatus.isPreviousLog!=0">
                                     <!-- <a style="color: dodgerblue; cursor: pointer;" (click)="LogDataShow(graphStatus)" data-toggle="modal" data-target="#driver_log_modal" ><i class="fa fa-pencil fa-lg" aria-hidden="true"></i>                                    </a> -->
                                 </td>
                                 <!-- <td class="no-print" *ngIf="isReportGenerated==0 && isEditing==true && graphStatus.origin!='Driver'">
 
                                 </td> -->
-                                <td class="restricted-access no-print" *ngIf="isReportGenerated==1 && isEditing==true">
+                                <td class="restricted-access no-print" *ngIf="userTypeId != 3 && isReportGenerated==1 && isEditing==true">
                                 </td>
-                                <td  class="restricted-access no-print"*ngIf="isEditing==false">
+                                <td  class="restricted-access no-print"*ngIf="userTypeId != 3 && isEditing==false">
                                 </td>
-                                
+
                                 <!-- <td></td> -->
                                 <td class="no-print" *ngIf="isBulkAssignVisible && graphStatus.isPreviousLog==0">
                                     <input 
@@ -313,9 +326,9 @@
                                     >
                                 </td>
                                 <td class="no-print" *ngIf="isBulkAssignVisible && graphStatus.isPreviousLog!=0">
-                                    
+
                                 </td>
-                                
+
                             </tr>
                            </tbody>
                        </table>
@@ -359,7 +372,7 @@
                     <h6 class="card-title h5 mb-2">Signature </h6>
                     <div class="d-flex justify-content-between">
                         <p><small>I hereby certify that my data entries and my record of duty status for this 24-hour period are true and correct.</small></p>
-                       
+
                         <!-- <span *ngIf="isSignatureCertified"> -->
                             <img id="ViewDriverSign" src="assets/images/default_sign.jpg" class="ViewDriverSign" alt="photo" width="150" height="150">
                         <!-- </span> -->

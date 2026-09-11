@@ -21,7 +21,8 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('auth_token');
+    const token = localStorage.getItem('auth_token');
+    return !!(token && token !== 'null' && token !== 'undefined' && token.trim() !== '' && token !== '""');
   }
 
   getUserTypeId(): number {
@@ -31,5 +32,8 @@ export class AuthService {
   isUserType3(): boolean {
     return this.getUserTypeId() === 3;
   }
-  
+  logout(): void {
+    localStorage.removeItem('auth_token');
+    localStorage.clear();
+  }
 }

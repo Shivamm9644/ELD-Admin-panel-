@@ -53,9 +53,11 @@ export class Signin2Component implements OnInit {
           localStorage.setItem('employeeId', globalEmployeeId);
           localStorage.setItem('email', globalEmail);
 
-          // console.log(auth);
-          // alert(auth.result.status);
-          // localStorage.setItem('token', JSON.stringify(auth.token));
+          if (auth.token) {
+            const rawToken = typeof auth.token === 'string' ? auth.token : (auth.token?.token || auth.token?.jwt || auth.token);
+            const cleanToken = (typeof rawToken === 'string' ? rawToken : JSON.stringify(rawToken)).replace(/^"(.*)"$/, '$1');
+            localStorage.setItem('auth_token', cleanToken);
+          }
           this.router.navigate(['/form/dispatch']);
           this.isError = false;
         }else{

@@ -213,22 +213,20 @@ RefreshPage(){
 				let dataObj = clientData[objKey];
 				if(objKey=="result"){
 					for (let objKey1 of Object.keys(dataObj)) {
-						// this.designationDataObj.push(dataObj[objKey1]);
-						// if(Number(localStorage.getItem("userTypeId"))>1){
-							if(dataObj[objKey1].userTypeId>1){
-								arr = {
-									id:dataObj[objKey1].userTypeId,
-									userTypeName:dataObj[objKey1].userTypeName,
-								};
-							}
-						// }else{
-						// 	arr = {
-						// 		id:dataObj[objKey1].userTypeId,
-						// 		userTypeName:dataObj[objKey1].userTypeName,
-						// 	};
-						// }
-						
-						this.userTypeDataObj.push(arr);
+						let currentRoleId = dataObj[objKey1].userTypeId;
+						let allowAdd = false;
+						if (this.sessionUserTypeId == 1 && currentRoleId > 1) {
+							allowAdd = true;
+						} else if (this.sessionUserTypeId == 2 && currentRoleId == 3) {
+							allowAdd = true;
+						}
+
+						if (allowAdd) {
+							this.userTypeDataObj.push({
+								id: currentRoleId,
+								userTypeName: dataObj[objKey1].userTypeName,
+							});
+						}
 					}
 				}
 			}
