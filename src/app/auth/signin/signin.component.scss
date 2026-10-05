@@ -6,12 +6,23 @@
 .password-container {
     position: relative;
     width: 100%;
-  }
-  
-  .password-container input {
+}
+
+.password-container .form-control-position {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-60%);
+    z-index: 2;
+    color: #6c757d;
+    pointer-events: none;
+}
+
+.password-container input {
     width: 100%;
-    padding-right: 40px; /* Space for the eye button */
-  }
+    padding-left: 35px;
+    padding-right: 45px;
+}
   
   .eye-button {
     position: absolute;

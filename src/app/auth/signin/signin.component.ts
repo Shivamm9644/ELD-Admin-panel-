@@ -5,6 +5,7 @@ import { AuthService } from '../../../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RequestService } from 'src/services/request.service';
+import { environment } from 'src/environments/environment';
 
 export var globalFullName: any = "";
 export var globalEmployeeId: any = 0;
@@ -22,6 +23,8 @@ declare var $: any;
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
+  logoPath = environment.logoPath || 'assets/images/logo-icon.png';
+  companyName = environment.companyName || 'Indus Technology';
   @ViewChild('f') signin: NgForm;
 
   constructor(

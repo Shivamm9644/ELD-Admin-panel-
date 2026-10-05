@@ -37,7 +37,7 @@
 								<th style="text-align: center;" scope="row">{{i+1}}</th>
 								<td *ngIf="userTypeId!=1">{{company.clientName}} </td>
 								<td *ngIf="userTypeId==1">
-									<a style="cursor: pointer; color: dodgerblue; text-align: center;" data-toggle="modal" data-target="#company_modal" (click)="EditCompany(company)">
+									<a style="cursor: pointer; color: #000000 !important; text-align: center; font-weight: 500; text-decoration: none !important;" data-toggle="modal" data-target="#company_modal" (click)="EditCompany(company)">
 										{{company.clientName}} 
 									</a>
 								</td>
@@ -50,7 +50,7 @@
 								<td *ngIf="company.graceTime==0"></td>
 								<td *ngIf="company.graceTime!=0">
 									<!-- {{company.graceTime | date:'MM/dd/yyyy'}}  -->
-									 <a *ngIf="userTypeId==1" style="cursor: pointer; color: dodgerblue; text-align: center;" data-toggle="modal" data-target="#grace_modal" (click)="CompanyGraceDate(company)">
+									 <a *ngIf="userTypeId==1" style="cursor: pointer; color: #000000 !important; text-align: center; font-weight: 500; text-decoration: none !important;" data-toggle="modal" data-target="#grace_modal" (click)="CompanyGraceDate(company)">
 										{{company.graceTime | date:'MM/dd/yyyy'}}
 									</a>
 								</td>

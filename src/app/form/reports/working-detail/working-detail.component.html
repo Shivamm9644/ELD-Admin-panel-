@@ -227,13 +227,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                           <tr *ngFor="let dlog of logDataArr; let i = index" style="cursor: pointer;" (click)="ShowEmployeeDetails(dlog.driverId,dlog.dateTime);">
+                           <tr *ngFor="let dlog of logDataArr; let i = index" class="custom-table-row" (click)="ShowEmployeeDetails(dlog.driverId,dlog.dateTime);">
                                 <td>{{dlog.dateTime | date:'MM/dd/yyyy'}}</td>
                                 <td>{{dlog.workingHour}}</td>
                                 <td *ngIf="dlog.voilation==false"> </td>
                                 <td *ngIf="dlog.voilation==true" style="color:red;">Violation(s)</td>
-                                <td *ngIf="dlog.certified==true" style="color:green;">Certified</td>
-                                <td *ngIf="dlog.certified==false" style="color:red;">Uncertified</td>
+                                <td *ngIf="dlog.certified==true"><span style="background-color: #d1fae5; color: #065f46; font-size: 12px; font-weight: 600; font-family: 'Inter', sans-serif; padding: 3px 10px; border-radius: 12px; border: 1px solid #34d399; display: inline-block;">Certified</span></td>
+                                <td *ngIf="dlog.certified==false"><span style="background-color: #f3f4f6; color: #4b5563; font-size: 12px; font-weight: 500; font-family: 'Inter', sans-serif; padding: 3px 10px; border-radius: 12px; border: 1px solid #d1d5db; display: inline-block;">Uncertified</span></td>
                            </tr>
                         </tbody>
                     </table>

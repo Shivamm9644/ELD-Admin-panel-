@@ -30,9 +30,26 @@ input[type=checkbox] {
     height: 15px;
 }
 
-.td_company_btn{
+.td_company_btn {
     width: 130px;
     font-size: small;
     font-weight: 600;
     border: 1px solid transparent !important;
+    cursor: pointer;
+    transition: all 0.25s ease !important;
+    letter-spacing: 0.3px;
+}
+
+badge-primary.td_company_btn,
+.badge.badge-primary.td_company_btn {
+    background: linear-gradient(135deg, #0f766e, #0ea5e9) !important;
+    color: #fff !important;
+    box-shadow: 0 3px 8px rgba(14, 165, 233, 0.35);
+    border-radius: 6px !important;
+}
+
+.badge.badge-primary.td_company_btn:hover {
+    background: linear-gradient(135deg, #0ea5e9, #0f766e) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(14, 165, 233, 0.45);
 }

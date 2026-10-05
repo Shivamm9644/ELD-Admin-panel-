@@ -45,11 +45,12 @@ export class DriversComponent implements OnInit {
 	this.userTypeId = Number(localStorage.getItem('userTypeId'));
 	// alert(this.userTypeId);
 	$("#statusSection").text("(Active)");
-	if(localStorage.getItem("exemptDriver")=="false"){
-		$("#exempt").attr('disabled','disabled');
-	}else{
-		$("#exempt").removeAttr('disabled');
-	}
+	// if(localStorage.getItem("exemptDriver")=="false"){
+	// 	$("#exempt").attr('disabled','disabled');
+	// }else{
+	// 	$("#exempt").removeAttr('disabled');
+	// }
+	$("#exempt").removeAttr('disabled');
 	// alert(localStorage.getItem("shortHaulException"));
 	// if(localStorage.getItem("shortHaulException")=="false"){
 	// 	$("#shortHaulException").attr('disabled','disabled');

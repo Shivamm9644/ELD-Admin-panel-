@@ -557,6 +557,9 @@ RefreshPage(){
 		}else{
 		eldFeature="false";
 		}
+		if (Number(this.userForm.userTypeId) === 3) {
+			eldFeature="false";
+		}
 
 		if ($('#dispatchFeature').is(":checked"))
 		{
@@ -591,9 +594,9 @@ RefreshPage(){
 			"timezone":this.userForm.timezone,
 			"status":status,
 			"webAccess":webAccess,
-			"mobileAccess":"false",
-			"eldFeature":"false",
-			"dispatchFeature":"false"
+			"mobileAccess":mobileAccess,
+			"eldFeature":eldFeature,
+			"dispatchFeature":dispatchFeature
 		};
 		 console.log(User);
 		const save: any = await this.request.post('/master/add_user',User);
@@ -827,6 +830,9 @@ async UpdateUser(){
 		}else{
 		eldFeature="false";
 		}
+		if (Number(this.userForm.userTypeId) === 3) {
+			eldFeature="false";
+		}
 
 		if ($('#dispatchFeature').is(":checked"))
 		{
@@ -858,9 +864,9 @@ async UpdateUser(){
 		"timezone":this.userForm.timezone,
 		"status":status,
 		"webAccess":webAccess,
-		"mobileAccess":"false",
-		"eldFeature":"false",
-		"dispatchFeature":"false"
+		"mobileAccess":mobileAccess,
+		"eldFeature":eldFeature,
+		"dispatchFeature":dispatchFeature
 		};
 		// console.log(User);
 		const save: any = await this.request.post('/master/update_user',User);

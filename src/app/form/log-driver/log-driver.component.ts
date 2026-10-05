@@ -1336,7 +1336,7 @@ export class LogDriverComponent implements OnInit {
       const originalContents = document.body.innerHTML;
 
       document.body.innerHTML = printContents;
-      document.title = "GBT Eld";
+      document.title = "Indus Technology";
 
       // Delay window.print() slightly to ensure DOM is ready
       setTimeout(() => {
